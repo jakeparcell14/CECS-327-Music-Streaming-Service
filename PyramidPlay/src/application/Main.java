@@ -10,7 +10,10 @@ import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
@@ -18,14 +21,14 @@ import javafx.scene.layout.BorderPane;
 public class Main extends Application 
 {
 	@Override
-	public void start(Stage primaryStage) 
+	public void start(Stage primaryStage)
 	{
 		try 
 		{
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
+			Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
+			primaryStage.setTitle("Pyramid Play");
+			primaryStage.setScene(new Scene(root, 600, 400));
+			primaryStage.setResizable(false);
 			primaryStage.show();
 		} 
 		catch(Exception e) 
