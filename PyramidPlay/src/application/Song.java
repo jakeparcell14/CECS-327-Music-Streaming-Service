@@ -124,7 +124,7 @@ public class Song implements Serializable, Comparable<Song>
 
 	@Override
 	/**
-	 * compares songs to each other based on song title
+	 * Compares songs to each other based on song title
 	 */
 	public int compareTo(Song s) 
 	{

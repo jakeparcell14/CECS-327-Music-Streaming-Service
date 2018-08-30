@@ -8,10 +8,11 @@ import java.util.ArrayList;
  * @author Jacob Parcell
  *
  */
-public class Playlist implements Serializable
+public class Playlist implements Serializable, Comparable<Playlist>
 {
 	private String name;
 	private ArrayList<Song> songs;
+	private Date dateCreated;
 	
 	/**
 	 * Default Constructor
@@ -20,6 +21,7 @@ public class Playlist implements Serializable
 	{
 		name = "";
 		songs = new ArrayList<Song>();
+		dateCreated = new Date();
 	}
 	
 	/**
@@ -29,16 +31,18 @@ public class Playlist implements Serializable
 	{
 		name = n;
 		songs = new ArrayList<Song>();
+		dateCreated = new Date();
 	}
 	
 	/**
 	 * Constructor for Playlist to initialize song list with given values
 	 * @param s		given list of songs
 	 */
-	public Playlist(String n, ArrayList<Song> s)
+	public Playlist(String n, ArrayList<Song> s, String d)
 	{
 		name = n;
 		songs = new ArrayList<Song>(s);
+		dateCreated = new Date(d);
 	}
 	
 	/**
@@ -69,12 +73,30 @@ public class Playlist implements Serializable
 	}
 	
 	/**
-	 * Sets songs to given arraylist of songs
+	 * Sets songs to given list of songs
 	 * @param s		given list of songs
 	 */
 	public void setSongs(ArrayList<Song> s)
 	{
 		songs = s;
+	}
+	
+	/**
+	 * Retrieves the date the playlist was created
+	 * @return		date created
+	 */
+	public Date getDateCreated()
+	{
+		return dateCreated;
+	}
+	
+	/**
+	 * Sets date using a given date object
+	 * @param d		given date
+	 */
+	public void setDate(Date d)
+	{
+		dateCreated = d;
 	}
 	
 	/**
@@ -111,5 +133,11 @@ public class Playlist implements Serializable
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public int compareTo(Playlist d) 
+	{
+		return this.getDateCreated().compareTo(d.getDateCreated());
 	}
 }
