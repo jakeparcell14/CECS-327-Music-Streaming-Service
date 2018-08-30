@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 /**
  * This class stores user information
  * @author Jacob Parcell
@@ -8,6 +10,8 @@ package application;
 public class User 
 {
 	private String username, password, email;
+	
+	private ArrayList<Playlist> playlists;
 	
 	/**
 	 * Default constructor for User

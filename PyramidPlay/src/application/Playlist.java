@@ -9,13 +9,24 @@ import java.util.ArrayList;
  */
 public class Playlist 
 {
+	private String name;
 	private ArrayList<Song> songs;
 	
 	/**
-	 * Default constructor
+	 * Default Constructor
 	 */
 	public Playlist()
 	{
+		name = "";
+		songs = new ArrayList<Song>();
+	}
+	
+	/**
+	 * Constructor for Playlist to initialize name of playlist but no songs
+	 */
+	public Playlist(String n)
+	{
+		name = n;
 		songs = new ArrayList<Song>();
 	}
 	
@@ -23,9 +34,28 @@ public class Playlist
 	 * Constructor for Playlist to initialize song list with given values
 	 * @param s		given list of songs
 	 */
-	public Playlist(ArrayList<Song> s)
+	public Playlist(String n, ArrayList<Song> s)
 	{
+		name = n;
 		songs = new ArrayList<Song>(s);
+	}
+	
+	/**
+	 * Retrieves name of playlist
+	 * @return		name of playlist
+	 */
+	public String getPlaylistName()
+	{
+		return name;
+	}
+	
+	/**
+	 * Sets name of playlist to given value
+	 * @param n		given name of playlist
+	 */
+	public void setPlaylistName(String n)
+	{
+		name = n;
 	}
 	
 	/**
@@ -35,6 +65,15 @@ public class Playlist
 	public ArrayList<Song> getSongs()
 	{
 		return songs;
+	}
+	
+	/**
+	 * Sets songs to given arraylist of songs
+	 * @param s		given list of songs
+	 */
+	public void setSongs(ArrayList<Song> s)
+	{
+		songs = s;
 	}
 	
 	/**
