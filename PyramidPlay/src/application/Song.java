@@ -1,11 +1,13 @@
 package application;
 
+import java.io.Serializable;
+
 /**
  * This class holds information to identify a song
  * @author Jacob Parcell
  *
  */
-public class Song 
+public class Song implements Serializable
 {
 	private String title, artist, album, fileSource;
 	

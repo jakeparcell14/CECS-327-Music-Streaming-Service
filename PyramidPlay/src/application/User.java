@@ -1,5 +1,6 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * @author Jacob Parcell
  *
  */
-public class User 
+public class User implements Serializable
 {
 	private String username, password, email;
 	
