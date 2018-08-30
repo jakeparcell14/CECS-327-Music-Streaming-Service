@@ -7,7 +7,7 @@ package application;
  */
 public class User 
 {
-	String username, password, email;
+	private String username, password, email;
 	
 	/**
 	 * Default constructor for User

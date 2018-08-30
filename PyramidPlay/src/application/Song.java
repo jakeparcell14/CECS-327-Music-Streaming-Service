@@ -1,8 +1,13 @@
 package application;
 
+/**
+ * This class holds information to identify a song
+ * @author Jacob Parcell
+ *
+ */
 public class Song 
 {
-	String title, artist, album, fileSource;
+	private String title, artist, album, fileSource;
 	
 	/**
 	 * Default constructor for Song
