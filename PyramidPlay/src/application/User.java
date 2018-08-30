@@ -14,6 +14,8 @@ public class User implements Serializable, Comparable<User>
 	
 	private ArrayList<Playlist> playlists;
 	
+	private Playlist savedSongs; //TODO implement
+	
 	/**
 	 * Default constructor for User
 	 */
@@ -22,6 +24,8 @@ public class User implements Serializable, Comparable<User>
 		username = "";
 		password = "";
 		email = "";
+		playlists = new ArrayList<Playlist>();
+		savedSongs = new Playlist("saved", null, null);
 	}
 	
 	/**
@@ -35,6 +39,8 @@ public class User implements Serializable, Comparable<User>
 		username = u;
 		password = p;
 		email = e;
+		playlists = new ArrayList<Playlist>();
+		savedSongs = new Playlist("saved", null, null);
 	}
 	
 	/**
@@ -107,6 +113,33 @@ public class User implements Serializable, Comparable<User>
 	public void setPlaylists(ArrayList<Playlist> p)
 	{
 		playlists = p;
+	}
+	
+	/**
+	 * Retrieves saved songs
+	 * @return		saved songs
+	 */
+	public Playlist getSavedSongs()
+	{
+		return savedSongs;
+	}
+	
+	/**
+	 * Sets playlist of saved songs
+	 * @param s		given playlist
+	 */
+	public void setSavedSongs(Playlist p)
+	{
+		savedSongs = p;
+	}
+	
+	/**
+	 * Adds a song to the savedSongs playlist
+	 * @param s		song to be saved
+	 */
+	public void saveSong(Song s)
+	{
+		savedSongs.addSong(s);
 	}
 	
 	/**

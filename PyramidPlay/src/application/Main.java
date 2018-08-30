@@ -50,7 +50,7 @@ public class Main extends Application
 		}
 
 		launch(args);
-		
+
 		//saves data to file
 		writeToFile(f, data);
 	}
