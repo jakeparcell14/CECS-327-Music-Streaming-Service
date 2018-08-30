@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Jacob Parcell
  *
  */
-public class Song implements Serializable
+public class Song implements Serializable, Comparable<Song>
 {
 	private String title, artist, album, fileSource;
 	
@@ -120,5 +120,14 @@ public class Song implements Serializable
 	public void setFileSource(String fs)
 	{
 		fileSource = fs;
+	}
+
+	@Override
+	/**
+	 * compares songs to each other based on song title
+	 */
+	public int compareTo(Song s) 
+	{
+		return this.getTitle().compareTo(s.getTitle());
 	}
 }

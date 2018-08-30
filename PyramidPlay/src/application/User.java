@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Jacob Parcell
  *
  */
-public class User implements Serializable
+public class User implements Serializable, Comparable<User>
 {
 	private String username, password, email;
 	
@@ -144,5 +144,11 @@ public class User implements Serializable
 	public boolean removePlaylist(String playlistName)
 	{
 		return playlists.remove(this.contains(playlistName));
+	}
+
+	@Override
+	public int compareTo(User u) 
+	{
+		return this.getUsername().compareTo(u.getUsername());
 	}
 }
