@@ -89,4 +89,59 @@ public class User
 	{
 		email = e;
 	}
+	
+	/**
+	 * Retrieves playlists
+	 * @return		list of playlists
+	 */
+	public ArrayList<Playlist> getPlaylists()
+	{
+		return playlists;
+	}
+	
+	/**
+	 * Sets list of playlists
+	 * @param p		given list of playlists
+	 */
+	public void setPlaylists(ArrayList<Playlist> p)
+	{
+		playlists = p;
+	}
+	
+	/**
+	 * Adds playlist to user list
+	 * @param p		given playlist
+	 */
+	public void addPlaylist(Playlist p)
+	{
+		playlists.add(p);
+	}
+	
+	/**
+	 * Checks for playlist with given playlist name
+	 * @param playlistName		given playlist name
+	 * @return					playlist with given name, null if playlist with the given name does not exist 
+	 */
+	public Playlist contains(String playlistName)
+	{
+		for(Playlist p : playlists)
+		{
+			if(p.getPlaylistName().equals(playlistName))
+			{
+				return p;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * removes playlist with given name
+	 * @param playlistName		playlist name to be removed
+	 * @return					true if song is removed, false if song does not exist
+	 */
+	public boolean removePlaylist(String playlistName)
+	{
+		return playlists.remove(this.contains(playlistName));
+	}
 }
