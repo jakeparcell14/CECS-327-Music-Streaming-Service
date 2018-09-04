@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -47,7 +48,7 @@ public class LoginController implements Initializable
 	}
 	
 	@FXML
-	public void registerButtonClick(ActionEvent event) throws IOException
+	public void OnRegisterClicked(MouseEvent event) throws IOException
 	{
 		System.out.println("Register Button Clicked!");
 	}

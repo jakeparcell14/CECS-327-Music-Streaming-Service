@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
       <BorderPane fx:id="RegisterPane" layoutX="187.0" layoutY="96.0" prefHeight="160.0" prefWidth="226.0">
          <center>
@@ -27,7 +27,7 @@
       </BorderPane>
       <BorderPane fx:id="ButtonPane" layoutX="187.0" layoutY="256.0" prefHeight="79.0" prefWidth="226.0">
          <center>
-            <Button mnemonicParsing="false" text="Register" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onMouseClicked="#OnRegisterClicked" text="Register" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </children>
