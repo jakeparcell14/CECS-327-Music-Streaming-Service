@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 
 public class SongViewController {
@@ -31,6 +32,12 @@ public class SongViewController {
 
 	@FXML
 	private Label totalTime;
+	
+	@FXML
+	private ToggleButton mySongsButton;
+	
+	@FXML
+	private ToggleButton myPlaylistsButton;
 	
 	/**
 	 * Current song.

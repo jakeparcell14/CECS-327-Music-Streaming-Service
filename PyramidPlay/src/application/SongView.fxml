@@ -4,17 +4,25 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
    <children>
-      <ListView layoutY="54.0" prefHeight="346.0" prefWidth="200.0" />
-      <Button layoutX="218.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPreviousClicked" text="Previous" />
-      <Button fx:id="_playButton" layoutX="350.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPlayPauseClicked" text="Play" />
-      <Button layoutX="493.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnNextClicked" text="Next" />
-      <Slider fx:id="_slider" layoutX="218.0" layoutY="315.0" prefHeight="14.0" prefWidth="320.0" />
-      <Label fx:id="currentTime" alignment="CENTER_RIGHT" layoutX="328.0" layoutY="329.0" text="0:00:00" />
-      <Label fx:id="totalTime" layoutX="379.0" layoutY="329.0" text="0:00:00" />
-      <Label layoutX="370.0" layoutY="329.0" text="/" />
+      <ListView layoutY="90.0" prefHeight="310.0" prefWidth="324.0" />
+      <Button layoutX="367.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPreviousClicked" text="Previous" />
+      <Button fx:id="_playButton" layoutX="447.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPlayPauseClicked" text="Play" />
+      <Button layoutX="517.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnNextClicked" text="Next" />
+      <Slider fx:id="_slider" layoutX="366.0" layoutY="314.0" prefHeight="14.0" prefWidth="200.0" />
+      <Label fx:id="currentTime" alignment="CENTER_RIGHT" layoutX="419.0" layoutY="329.0" text="0:00:00" />
+      <Label fx:id="totalTime" layoutX="474.0" layoutY="329.0" text="0:00:00" />
+      <Label layoutX="463.0" layoutY="329.0" text="/" />
+      <Pane layoutY="59.0" prefHeight="30.0" prefWidth="324.0">
+         <children>
+            <ToggleButton fx:id="mySongsButton" layoutY="1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="162.0" text="My Songs" />
+            <ToggleButton fx:id="myPlaylistsButton" layoutX="162.0" layoutY="1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="162.0" text="My Playlists" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
