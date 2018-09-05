@@ -1,9 +1,13 @@
 package application;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javax.sound.sampled.AudioInputStream;
@@ -13,15 +17,23 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.control.TextField;
+
 
 public class SongViewController implements Initializable{
 	@FXML
@@ -41,6 +53,15 @@ public class SongViewController implements Initializable{
 	
 	@FXML
 	private ToggleButton myPlaylistsButton;
+	
+	@FXML
+	private TextField AllSongsSearchBar;
+	
+	@FXML
+	private ListView<String> AllSongsListView;
+	
+	@FXML
+	private Pane SearchBarPane;
 	
 	/**
 	 * Current song.
@@ -113,12 +134,19 @@ public class SongViewController implements Initializable{
 	
 	@FXML
 	public void OnMySongsClicked (MouseEvent event) {
+		//ensure mySongs button cannot be deselected
 		mySongsButton.setSelected(true);
 	}
 	
 	@FXML
 	public void OnMyPlaylistsClicked (MouseEvent event) {
+		//ensure myPlaylists button cannot be deselected
 		myPlaylistsButton.setSelected(true);
+	}
+	
+	@FXML
+	public void OnSearchBarClicked (MouseEvent event) {
+		AllSongsListView.setVisible(true);
 	}
 	
 	
@@ -180,7 +208,15 @@ public class SongViewController implements Initializable{
 		myPlaylistsButton.setToggleGroup(menuToggleGroup);
 		
 		mySongsButton.setSelected(true);
-
+				
+		//test code for listview. TODO add song info to listview
+		ArrayList<String> s = new ArrayList<String>(Arrays.asList("This", "is", "where", "our", "songs", "will", "go"));
+		ObservableList<String> songs = FXCollections.observableArrayList(s);
+		AllSongsListView.setItems(songs);
+		
+		//make listview automatically invisible until the search bar is selected
+		AllSongsListView.setVisible(false);
+		
 		
 	}
 }
