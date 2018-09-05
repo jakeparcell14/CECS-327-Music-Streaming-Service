@@ -2,7 +2,9 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.time.Duration;
+import java.util.ResourceBundle;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -13,14 +15,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
-public class SongViewController {
+public class SongViewController implements Initializable{
 	@FXML
 	private Button _playButton;
 
@@ -108,6 +111,17 @@ public class SongViewController {
 		System.out.println("Clicked previous button.");
 	}
 	
+	@FXML
+	public void OnMySongsClicked (MouseEvent event) {
+		mySongsButton.setSelected(true);
+	}
+	
+	@FXML
+	public void OnMyPlaylistsClicked (MouseEvent event) {
+		myPlaylistsButton.setSelected(true);
+	}
+	
+	
 	/**
 	 * Plays the currently hardcoded song.
 	 * @param time Time in microseconds at which the song should start
@@ -156,5 +170,17 @@ public class SongViewController {
 		//convert to seconds
 		long s = microseconds/1000000;
 		return String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60));
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		ToggleGroup menuToggleGroup = new ToggleGroup();
+		
+		mySongsButton.setToggleGroup(menuToggleGroup);
+		myPlaylistsButton.setToggleGroup(menuToggleGroup);
+		
+		mySongsButton.setSelected(true);
+
+		
 	}
 }
