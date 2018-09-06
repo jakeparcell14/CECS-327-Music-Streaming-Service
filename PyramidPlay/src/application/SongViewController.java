@@ -53,6 +53,9 @@ public class SongViewController implements Initializable{
 	
 	@FXML
 	private TextField AllSongsSearchBar;
+	
+	@FXML
+	private ListView UserLibraryList;
 
 	@FXML
 	private Pane SearchBarPane;
@@ -71,6 +74,9 @@ public class SongViewController implements Initializable{
 	 * Current slider position.
 	 */
 	public double _sliderPosition;
+	
+	@FXML
+	private TextField searchbar;
 
 	/**
 	 * Terrible name, but thread that watches the current time of the song.
@@ -191,6 +197,16 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
+	}
+	
+	@FXML
+	public void search() {
+		String query=searchbar.getText();
+		System.out.println(query);
+		ObservableList<String> list =FXCollections.observableArrayList("Mark","Tom","John","Jack");
+		//searchResults.setItems(list);
+		UserLibraryList.getItems().addAll(query);
+		
 	}
 
 

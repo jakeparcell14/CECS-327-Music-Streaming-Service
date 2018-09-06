@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="SongViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#OnSongViewClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
+<AnchorPane fx:id="SongViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#OnSongViewClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
    <children>
-      <ListView fx:id="UserLibraryList" layoutY="90.0" onMouseClicked="#OnLibraryListClicked" prefHeight="310.0" prefWidth="324.0" />
+      <ListView fx:id="UserLibraryList" layoutY="115.0" onMouseClicked="#OnLibraryListClicked" prefHeight="285.0" prefWidth="324.0" />
       <Button layoutX="367.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPreviousClicked" text="Previous" />
       <Button fx:id="_playButton" layoutX="447.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPlayPauseClicked" text="Play" />
       <Button layoutX="517.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnNextClicked" text="Next" />
@@ -40,5 +40,6 @@
          </children>
       </Pane>
       <TextField fx:id="AllSongsSearchBar" layoutX="175.0" layoutY="6.0" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
+      <TextField fx:id="searchbar" layoutY="89.0" onKeyReleased="#search" prefHeight="26.0" prefWidth="324.0" />
    </children>
 </AnchorPane>
