@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Jacob Parcell
  *
  */
-public class Date implements Serializable, Comparable<Date>
+public class Date implements Comparable<Date>
 {
 
 	private int year;

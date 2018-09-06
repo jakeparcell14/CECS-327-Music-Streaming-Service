@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author Jacob Parcell
  *
  */
-public class Song implements Serializable, Comparable<Song>
+public class Song implements Comparable<Song>
 {
 	private String title, artist, album, fileSource;
 	

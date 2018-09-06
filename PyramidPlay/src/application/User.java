@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Jacob Parcell
  *
  */
-public class User implements Serializable, Comparable<User>
+public class User implements Comparable<User>
 {
 	private String username, password, email;
 	
