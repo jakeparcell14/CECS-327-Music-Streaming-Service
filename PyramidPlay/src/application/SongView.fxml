@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
+<AnchorPane fx:id="SongViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#OnSongViewClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
    <children>
-      <ListView layoutY="90.0" prefHeight="310.0" prefWidth="324.0" />
+      <ListView fx:id="UserLibraryList" layoutY="90.0" onMouseClicked="#OnLibraryListClicked" prefHeight="310.0" prefWidth="324.0" />
       <Button layoutX="367.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPreviousClicked" text="Previous" />
       <Button fx:id="_playButton" layoutX="447.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPlayPauseClicked" text="Play" />
       <Button layoutX="517.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnNextClicked" text="Next" />
-      <Slider fx:id="_slider" layoutX="366.0" layoutY="314.0" prefHeight="14.0" prefWidth="200.0" />
+      <Slider fx:id="_slider" layoutX="366.0" layoutY="314.0" onMouseClicked="#OnSliderClicked" prefHeight="14.0" prefWidth="200.0" />
       <Label fx:id="currentTime" alignment="CENTER_RIGHT" layoutX="419.0" layoutY="329.0" text="0:00:00" />
       <Label fx:id="totalTime" layoutX="474.0" layoutY="329.0" text="0:00:00" />
       <Label layoutX="463.0" layoutY="329.0" text="/" />
@@ -27,18 +27,18 @@
             <ToggleButton fx:id="myPlaylistsButton" layoutX="162.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#OnMyPlaylistsClicked" prefHeight="30.0" prefWidth="162.0" text="My Playlists" />
          </children>
       </Pane>
-      <Pane fx:id="SearchBarPane" layoutX="175.0" prefHeight="294.0" prefWidth="250.0">
+      <Pane fx:id="SearchBarPane" layoutX="175.0" layoutY="31.0" prefHeight="263.0" prefWidth="250.0">
          <children>
-            <TextField fx:id="AllSongsSearchBar" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
-            <BorderPane fx:id="SearchResultsPane" layoutY="25.0" prefHeight="269.0" prefWidth="250.0">
+            <BorderPane fx:id="SearchResultsPane" prefHeight="294.0" prefWidth="250.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <center>
-                  <ListView fx:id="AllSongsListView" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                  <ListView fx:id="AllSongsListView" prefHeight="306.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </children>
       </Pane>
+      <TextField fx:id="AllSongsSearchBar" layoutX="175.0" layoutY="6.0" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
    </children>
 </AnchorPane>
