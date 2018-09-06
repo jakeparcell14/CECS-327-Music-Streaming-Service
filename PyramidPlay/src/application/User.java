@@ -6,11 +6,13 @@ import java.util.ArrayList;
 /**
  * This class stores user information
  * @author Jacob Parcell
+ * 
+ * TODO update javadocs
  *
  */
 public class User implements Comparable<User>
 {
-	private String username, password, email;
+	private String firstName, lastName, username, password;
 	
 	private ArrayList<Playlist> playlists;
 	
@@ -21,9 +23,10 @@ public class User implements Comparable<User>
 	 */
 	public User()
 	{
+		firstName = "";
+		lastName = "";
 		username = "";
 		password = "";
-		email = "";
 		playlists = new ArrayList<Playlist>();
 		savedSongs = new Playlist("saved", null, null);
 	}
@@ -32,13 +35,13 @@ public class User implements Comparable<User>
 	 * Constructor for User
 	 * @param u		given username
 	 * @param p		given password
-	 * @param e		given email
 	 */
-	public User(String u, String p, String e)
+	public User(String fn, String ln, String u, String p)
 	{
+		firstName = fn;
+		lastName = ln;
 		username = u;
 		password = p;
-		email = e;
 		playlists = new ArrayList<Playlist>();
 		savedSongs = new Playlist("saved", null, null);
 	}
@@ -83,18 +86,36 @@ public class User implements Comparable<User>
 	 * Retrieves email
 	 * @return	email
 	 */
-	public String getEmail()
+	public String getlastName()
 	{
-		return email;
+		return lastName;
 	}
 	
 	/**
 	 * Sets the email to a given value
 	 * @param e		given email
 	 */
-	public void setEmail(String e)
+	public void setlastName(String ln)
 	{
-		email = e;
+		lastName = ln;
+	}
+	
+	/**
+	 * Retrieves email
+	 * @return	email
+	 */
+	public String getFirstName()
+	{
+		return firstName;
+	}
+	
+	/**
+	 * Sets the email to a given value
+	 * @param e		given email
+	 */
+	public void setFirstName(String fn)
+	{
+		firstName = fn;
 	}
 	
 	/**
