@@ -21,6 +21,7 @@
       <Label fx:id="currentTime" alignment="CENTER_RIGHT" layoutX="419.0" layoutY="329.0" text="0:00:00" />
       <Label fx:id="totalTime" layoutX="474.0" layoutY="329.0" text="0:00:00" />
       <Label layoutX="463.0" layoutY="329.0" text="/" />
+      <TextField fx:id="searchbar" layoutY="89.0" onKeyReleased="#search" prefHeight="26.0" prefWidth="324.0" />
       <Pane fx:id="ToggleListViewPane" layoutY="59.0" prefHeight="30.0" prefWidth="324.0">
          <children>
             <ToggleButton fx:id="mySongsButton" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#OnMySongsClicked" prefHeight="30.0" prefWidth="162.0" text="My Songs" />
@@ -40,6 +41,5 @@
          </children>
       </Pane>
       <TextField fx:id="AllSongsSearchBar" layoutX="175.0" layoutY="6.0" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
-      <TextField fx:id="searchbar" layoutY="89.0" onKeyReleased="#search" prefHeight="26.0" prefWidth="324.0" />
    </children>
 </AnchorPane>
