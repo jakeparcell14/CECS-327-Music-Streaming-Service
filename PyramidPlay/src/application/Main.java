@@ -25,7 +25,7 @@ public class Main extends Application
 	{
 		try 
 		{
-			Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("SongView.fxml"));
 			primaryStage.setTitle("Pyramid Play");
 			primaryStage.setScene(new Scene(root, 600, 400));
 			primaryStage.setResizable(false);
