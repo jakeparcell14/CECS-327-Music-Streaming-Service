@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * TODO update javadocs
  *
  */
-public class User implements Comparable<User>
+public class User implements Comparable<User>, Serializable
 {
 	private String firstName, lastName, username, password;
 	
