@@ -35,6 +35,7 @@ public class SongViewController implements Initializable{
 
 	@FXML
 	private Slider _slider;
+	
 
 	@FXML
 	private Label currentTime;
@@ -193,10 +194,42 @@ public class SongViewController implements Initializable{
 	@FXML
 	public void OnSliderClicked(MouseEvent event)
 	{
-		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
-		this.resetSearchText();
+		/* if it was not dragged but simple clicked to a new position,
+		 * make sure to stop the song.
+		 */
+		if (_currentSong !=null &&_currentSong.isActive()) {
+			_currentSong.stop();	
+			
+		}
+		_currentTime = (long)_slider.getValue();
+
+		//play the song from this new position
+		if (_playButton.getText().equals("Pause")) {
+			playSong(_currentTime);
+		} else {
+			currentTime.setText((getTime(_currentTime)));
+		}
+		
+	}
+	
+	@FXML
+	public void OnSliderDragDetected(MouseEvent event) {
+		//if a drag is detected, stop the song.
+		if (_currentSong !=null &&_currentSong.isActive()) {
+			_currentSong.stop();		
+		}
+		
+		/* the dropping of a drag will result in a click on the slider, 
+		 * so that event handler will deal with playing the song from 
+		 * the new position.
+		 * 
+		 * Total hack, I know.
+		 */
+	}
+	
+	@FXML 
+	public void OnSliderDragDropped(MouseEvent event) {
+		System.out.println("dropped");
 	}
 	
 	@FXML
@@ -288,4 +321,5 @@ public class SongViewController implements Initializable{
 			AllSongsSearchBar.setPromptText("search all songs");
 		}
 	}
+	
 }
