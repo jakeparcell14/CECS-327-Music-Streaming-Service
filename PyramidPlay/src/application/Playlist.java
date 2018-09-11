@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author Jacob Parcell
  *
  */
-public class Playlist implements Comparable<Playlist>
+public class Playlist implements Comparable<Playlist>, Serializable
 {
 	private String name;
 	private ArrayList<Song> songs;

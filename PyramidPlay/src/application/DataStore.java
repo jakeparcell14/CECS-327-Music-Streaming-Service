@@ -3,7 +3,7 @@ package application;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DataStore
+public class DataStore implements Serializable
 {
 	ArrayList<User> users;
 	ArrayList<Song> songs;
