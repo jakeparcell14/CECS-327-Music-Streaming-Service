@@ -189,6 +189,9 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
+		
+		String check = (String) UserLibraryList.getSelectionModel().getSelectedItem();
+		System.out.println(check);
 	}
 	
 	@FXML
@@ -245,7 +248,7 @@ public class SongViewController implements Initializable{
 		 * *****************************************
 		 * JSONParser parser = new JSONParser();
 		 * try{
-		 * 	Object obj =parser.parse(new FileReader("text.json"));
+		 * 	Object obj =parser.parse(new FileReader("songDB.json"));
 		 * 	JSONObject jsonObject = (JSONObject) obj;
 		 * 	JSONArray cells = (JSONArray) jsonObject.get("cells");
 		 * 	Iterator<JSONObject> iterator = cells.iterator();
@@ -290,10 +293,12 @@ public class SongViewController implements Initializable{
 		 
 		 * 
 		 */
-		System.out.println(query);
-		ObservableList<String> list =FXCollections.observableArrayList("Mark","Tom","John","Jack");
+		//System.out.println(query);
+		//ObservableList<String> list =FXCollections.observableArrayList("Mark","Tom","John","Jack");
 		//searchResults.setItems(list);
 		UserLibraryList.getItems().addAll(query);
+		//String check = (String) UserLibraryList.getSelectionModel().getSelectedItem();
+		//System.out.println(check);
 		
 	}
 
