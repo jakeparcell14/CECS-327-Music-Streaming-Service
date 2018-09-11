@@ -202,6 +202,60 @@ public class SongViewController implements Initializable{
 	@FXML
 	public void search() {
 		String query=searchbar.getText();
+		/**
+		 * Hypothetical json search
+		 * package jsontoxml;
+		 * import java.io.*;
+		 * import org.json.simple.parser.JSONParser;
+		 * import org.json.simple.*;
+		 * import java.util.*;
+		 * *****************************************
+		 * JSONParser parser = new JSONParser();
+		 * try{
+		 * 	Object obj =parser.parse(new FileReader("text.json"));
+		 * 	JSONObject jsonObject = (JSONObject) obj;
+		 * 	JSONArray cells = (JSONArray) jsonObject.get("cells");
+		 * 	Iterator<JSONObject> iterator = cells.iterator();
+		 * 	while(iterator.hasNext()){
+		 * 		//determines whether or not the song should be added to the list
+		 * 		boolean addToResults = false;
+		 *		JSONobject current=iterator.next();
+		 *	
+		 * 		//check if song has title, if yes, check if the query
+		 *		//is in the title
+		 *		if(current.get("title") != null){
+		 *			if(query.indexOf(current.get("title")) != -1){
+		 *				addToResults = true;
+		 *			}
+		 * 		}
+		 * 
+		 * 		//check if song has an artist, if yes, check if the query
+		 * 		//is in the artist	
+		 * 		if(current.get("artist") != null){
+		 *			if(query.indexOf(current.get("artist")) != -1){
+		 *				addToResults = true;
+		 *			}
+		 * 		}
+		 * 
+		 * 		//check if song has album, if yes, check if the query
+		 * 		//is in the album
+		 * 		if(current.get("album") != null){
+		 *			if(query.indexOf(current.get("album")) != -1){
+		 *				addToResults = true;
+		 *			}
+		 * 		}
+		 * 		//add song to list if it is found in the query
+		 * 		if(addToResults==true)
+		 * 		{
+		 * 			//add to list
+		 * 		}
+		 * } catch (Exception e) {
+		 * 	e.printStackTrace();
+		 * }
+		 * 
+		 
+		 * 
+		 */
 		System.out.println(query);
 		ObservableList<String> list =FXCollections.observableArrayList("Mark","Tom","John","Jack");
 		//searchResults.setItems(list);
