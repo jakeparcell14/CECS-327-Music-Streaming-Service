@@ -281,6 +281,7 @@ public class SongViewController implements Initializable{
 		 * 		if(addToResults==true)
 		 * 		{
 		 * 			//add to list
+		 * 			UserLibaryList.getItems().addAll(current.get("title")+" "+current.get("artist");
 		 * 		}
 		 * } catch (Exception e) {
 		 * 	e.printStackTrace();
