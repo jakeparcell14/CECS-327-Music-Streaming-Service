@@ -23,12 +23,12 @@ public class User implements Comparable<User>, Serializable
 	 */
 	public User()
 	{
-		firstName = "";
+/*		firstName = "";
 		lastName = "";
 		username = "";
 		password = "";
 		playlists = new ArrayList<Playlist>();
-		savedSongs = new Playlist("saved", null, null);
+		savedSongs = new Playlist("saved", null, null);*/
 	}
 	
 	/**
