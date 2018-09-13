@@ -1,43 +1,45 @@
 package application;
 
-import java.awt.Button;
-import java.awt.Label;
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public class LoginController implements Initializable
 {
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane RootPane;
 	
 	@FXML
-	private BorderPane registerPane;
+	private Pane SignInPane;
 	
 	@FXML
-	private TextField usernameTextField;
+	private Pane RegisterPane;
 	
 	@FXML
-	private PasswordField passwordTextField;
+	private TextField UsernameTextField;
 	
 	@FXML
-	private Label registerAccountLabel;
+	private PasswordField PasswordTextField;
 	
 	@FXML
-	private BorderPane buttonPane;
+	private Button RegisterButton;
 	
 	@FXML
-	private Button registerButton;
+	private Button SignInOrRegisterButton;
+	
+	@FXML
+	private Button RegisterOrCancelButton;
 	
 	
 	@Override
@@ -51,5 +53,17 @@ public class LoginController implements Initializable
 	public void OnRegisterClicked(MouseEvent event) throws IOException
 	{
 		System.out.println("Register Button Clicked!");
+	}
+	
+	@FXML
+	public void OnSignInOrRegisterClicked(MouseEvent event)
+	{
+		
+	}
+	
+	@FXML
+	public void OnRegisterOrCancelClicked(MouseEvent event)
+	{
+		
 	}
 }
