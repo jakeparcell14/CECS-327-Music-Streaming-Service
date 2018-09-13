@@ -5,30 +5,68 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
-      <BorderPane fx:id="RegisterPane" layoutX="187.0" layoutY="96.0" prefHeight="160.0" prefWidth="226.0">
-         <center>
-            <TextField fx:id="UserNameTextField" BorderPane.alignment="CENTER" />
-         </center>
-         <bottom>
-            <PasswordField fx:id="PasswordTextField" BorderPane.alignment="CENTER" />
-         </bottom>
-         <top>
-            <Label fx:id="RegisterAccountLabel" alignment="CENTER" prefHeight="31.0" prefWidth="159.0" text="Register Account" textAlignment="CENTER" BorderPane.alignment="CENTER">
+      <Pane fx:id="SignInPane" layoutX="200.0" layoutY="94.0" prefHeight="178.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="UsernameTextField" layoutY="96.0" prefHeight="25.0" prefWidth="200.0" />
+            <PasswordField fx:id="PasswordTextField" layoutY="147.0" prefHeight="25.0" prefWidth="200.0" />
+            <Label fx:id="SignInLabel" alignment="CENTER" layoutY="14.0" prefHeight="31.0" prefWidth="200.0" text="Sign In" textAlignment="CENTER">
                <font>
-                  <Font size="18.0" />
+                  <Font size="35.0" />
                </font>
             </Label>
-         </top>
-      </BorderPane>
-      <BorderPane fx:id="ButtonPane" layoutX="187.0" layoutY="256.0" prefHeight="79.0" prefWidth="226.0">
-         <center>
-            <Button mnemonicParsing="false" onMouseClicked="#OnRegisterClicked" text="Register" BorderPane.alignment="CENTER" />
-         </center>
-      </BorderPane>
+            <Label fx:id="UsernameLabel" alignment="CENTER" layoutY="77.0" prefWidth="200.0" text="Username">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+            <Label fx:id="PasswordLabel" alignment="CENTER" layoutY="128.0" prefHeight="19.0" prefWidth="200.0" text="Password">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+         </children>
+      </Pane>
+      <Pane fx:id="RegisterPane" layoutX="200.0" layoutY="44.0" prefHeight="333.0" prefWidth="200.0" visible="false">
+         <children>
+            <Label fx:id="RegisterAccountLabel" alignment="CENTER" layoutY="-1.0" prefHeight="38.0" prefWidth="200.0" text="Register Account" textAlignment="CENTER">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <TextField fx:id="AddFirstNameTextField" layoutY="62.0" prefWidth="200.0" />
+            <TextField fx:id="AddLastNameTextField" layoutY="113.0" prefWidth="200.0" />
+            <TextField fx:id="AddUsernameTextField" layoutY="163.0" prefWidth="200.0" />
+            <TextField fx:id="AddPasswordTextField" layoutY="213.0" prefWidth="200.0" />
+            <Label fx:id="AddFirstNameLabel" alignment="CENTER" layoutY="45.0" prefWidth="200.0" text="First Name">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="AddLastNameLabel" alignment="CENTER" layoutY="96.0" prefWidth="200.0" text="Last Name">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="AddUsernameLabel" alignment="CENTER" layoutY="146.0" prefWidth="200.0" text="Username">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="AddPasswordLabel" alignment="CENTER" layoutY="194.0" prefWidth="200.0" text="Password">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="LoginButtonPane" layoutX="200.0" layoutY="292.0" prefHeight="86.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="SignInOrRegisterButton" layoutY="7.0" mnemonicParsing="false" onAction="#OnSignInOrRegisterClicked" prefHeight="31.0" prefWidth="200.0" text="Sign In" />
+            <Button fx:id="RegisterOrCancelButton" layoutY="51.0" mnemonicParsing="false" onAction="#OnRegisterOrCancelClicked" prefHeight="31.0" prefWidth="200.0" text="Create an Account" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

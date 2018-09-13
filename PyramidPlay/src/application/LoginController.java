@@ -1,43 +1,63 @@
 package application;
 
-import java.awt.Button;
-import java.awt.Label;
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class LoginController implements Initializable
 {
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane RootPane;
 	
 	@FXML
-	private BorderPane registerPane;
+	private Pane SignInPane;
 	
 	@FXML
-	private TextField usernameTextField;
+	private Pane RegisterPane;
 	
 	@FXML
-	private PasswordField passwordTextField;
+	private TextField UsernameTextField;
 	
 	@FXML
-	private Label registerAccountLabel;
+	private PasswordField PasswordTextField;
 	
 	@FXML
-	private BorderPane buttonPane;
+	private Button RegisterButton;
 	
 	@FXML
-	private Button registerButton;
+	private Button SignInOrRegisterButton;
+	
+	@FXML
+	private Button RegisterOrCancelButton;
+	
+	@FXML
+	private TextField AddFirstNameTextField;
+	
+	@FXML
+	private TextField AddLastNameTextField;
+	
+	@FXML
+	private TextField AddUsernameTextField;
+	
+	@FXML
+	private TextField AddPasswordTextField;
 	
 	
 	@Override
@@ -48,8 +68,64 @@ public class LoginController implements Initializable
 	}
 	
 	@FXML
-	public void OnRegisterClicked(MouseEvent event) throws IOException
+	public void OnSignInOrRegisterClicked(ActionEvent event)
 	{
-		System.out.println("Register Button Clicked!");
+		if( SignInOrRegisterButton.getText().equals("Sign In"))
+		{
+			System.out.println("Sign In Pressed");
+		}
+		else
+		{
+			System.out.println("Register Account Pressed");
+		}
+	}
+	
+	@FXML
+	public void OnRegisterOrCancelClicked(ActionEvent event)
+	{
+		if( SignInOrRegisterButton.getText().equals("Sign In"))
+		{
+			SignInOrRegisterButton.setText("Register Account");
+			RegisterOrCancelButton.setText("Cancel");
+			
+			this.clearSignInText();
+			
+			//hide Sign In Panel
+			SignInPane.setVisible(false);
+			SignInPane.setMouseTransparent(true);
+			
+			//show Register Panel
+			RegisterPane.setVisible(true);
+			RegisterPane.setMouseTransparent(false);
+		}
+		else
+		{
+			SignInOrRegisterButton.setText("Sign In");
+			RegisterOrCancelButton.setText("Create an Account");
+			
+			this.clearRegisterText();
+			
+			//show Sign In Panel
+			SignInPane.setVisible(true);
+			SignInPane.setMouseTransparent(false);
+			
+			//hide Register Panel
+			RegisterPane.setVisible(false);
+			RegisterPane.setMouseTransparent(true);
+		}
+	}
+	
+	public void clearSignInText()
+	{
+		UsernameTextField.setText("");
+		PasswordTextField.setText("");
+	}
+	
+	public void clearRegisterText()
+	{
+		AddFirstNameTextField.setText("");
+		AddLastNameTextField.setText("");
+		AddUsernameTextField.setText("");
+		AddPasswordTextField.setText("");
 	}
 }

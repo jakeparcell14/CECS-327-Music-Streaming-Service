@@ -16,10 +16,10 @@ public class Song implements Comparable<Song>, Serializable
 	 */
 	public Song()
 	{
-		title = "";
+/*		title = "";
 		artist = "";
 		album = "";
-		fileSource = "";
+		fileSource = "";*/
 	}
 	
 	/**

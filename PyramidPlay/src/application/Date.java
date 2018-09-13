@@ -19,9 +19,9 @@ public class Date implements Comparable<Date>
 	 */
 	public Date()
 	{
-		day = 1;
+/*		day = 1;
 		month = 1;
-		year = 1995;
+		year = 1995;*/
 	}
 
 	/**
