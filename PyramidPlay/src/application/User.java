@@ -28,7 +28,7 @@ public class User implements Comparable<User>, Serializable
 		username = "";
 		password = "";
 		playlists = new ArrayList<Playlist>();
-		savedSongs = new Playlist("saved", null, null);
+		savedSongs = new Playlist("saved");
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class User implements Comparable<User>, Serializable
 		username = u;
 		password = p;
 		playlists = new ArrayList<Playlist>();
-		savedSongs = new Playlist("saved", null, null);
+		savedSongs = new Playlist("saved");
 	}
 	
 	/**

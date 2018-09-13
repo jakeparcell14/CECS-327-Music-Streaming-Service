@@ -45,6 +45,13 @@ public class Playlist implements Comparable<Playlist>, Serializable
 		dateCreated = new Date(d);
 	}
 	
+	public Playlist(String n, ArrayList<Song> s, Date d)
+	{
+		name = n;
+		songs = new ArrayList<Song>(s);
+		dateCreated = d;
+	}
+	
 	/**
 	 * Retrieves name of playlist
 	 * @return		name of playlist
@@ -70,6 +77,15 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	public ArrayList<Song> getSongs()
 	{
 		return songs;
+	}
+	
+	/**
+	 * 
+	 * @return number of songs in playlist
+	 */
+	public int getLength()
+	{
+		return songs.size();
 	}
 	
 	/**
