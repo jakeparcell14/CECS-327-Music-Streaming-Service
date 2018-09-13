@@ -313,7 +313,7 @@ public class SongViewController implements Initializable{
 			_currentSong = AudioSystem.getClip();
 			//open file and stream
 			//this is currently hardcoded in at the moment, only wanted to get this working
-			File f = new File("RickAstley.wav");
+			File f = new File("OnlyALad.wav");
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(f.toURI().toURL());
 
 			_currentSong.open(inputStream);
