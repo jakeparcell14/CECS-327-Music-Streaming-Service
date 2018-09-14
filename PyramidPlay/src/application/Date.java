@@ -19,7 +19,7 @@ public class Date implements Comparable<Date>
 	 */
 	public Date()
 	{
-/*		day = 1;
+		/*		day = 1;
 		month = 1;
 		year = 1995;*/
 	}
@@ -43,9 +43,18 @@ public class Date implements Comparable<Date>
 	 */
 	public Date(String d)
 	{
-		month = Integer.parseInt(d.substring(0,2));
-		day = Integer.parseInt(d.substring(3, 5));
-		year = Integer.parseInt(d.substring(6));
+		if(d == null)
+		{
+			day = 1;
+			month = 1;
+			year = 1995;
+		}
+		else
+		{
+			month = Integer.parseInt(d.substring(0,2));
+			day = Integer.parseInt(d.substring(3, 5));
+			year = Integer.parseInt(d.substring(6));
+		}
 	}
 
 	/**
