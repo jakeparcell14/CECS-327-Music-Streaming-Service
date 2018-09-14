@@ -13,17 +13,17 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	private String name;
 	private ArrayList<Song> songs;
 	private Date dateCreated;
-
+	
 	/**
 	 * Default Constructor
 	 */
 	public Playlist()
 	{
-		/*		name = "";
+/*		name = "";
 		songs = new ArrayList<Song>();
 		dateCreated = new Date();*/
 	}
-
+	
 	/**
 	 * Constructor for Playlist to initialize name of playlist but no songs
 	 */
@@ -33,7 +33,7 @@ public class Playlist implements Comparable<Playlist>, Serializable
 		songs = new ArrayList<Song>();
 		dateCreated = new Date();
 	}
-
+	
 	/**
 	 * Constructor for Playlist to initialize song list with given values
 	 * @param s		given list of songs
@@ -41,19 +41,17 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	public Playlist(String n, ArrayList<Song> s, String d)
 	{
 		name = n;
-
-		if(s == null)
-		{
-			songs = new ArrayList<Song>();
-		}
-		else
-		{
-			songs = new ArrayList<Song>(s);
-		}
-		
+		songs = new ArrayList<Song>(s);
 		dateCreated = new Date(d);
 	}
-
+	
+	public Playlist(String n, ArrayList<Song> s, Date d)
+	{
+		name = n;
+		songs = new ArrayList<Song>(s);
+		dateCreated = d;
+	}
+	
 	/**
 	 * Retrieves name of playlist
 	 * @return		name of playlist
@@ -62,7 +60,7 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		return name;
 	}
-
+	
 	/**
 	 * Sets name of playlist to given value
 	 * @param n		given name of playlist
@@ -71,7 +69,7 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		name = n;
 	}
-
+	
 	/**
 	 * Retrieve songs list
 	 * @return	list of songs
@@ -80,7 +78,16 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		return songs;
 	}
-
+	
+	/**
+	 * 
+	 * @return number of songs in playlist
+	 */
+	public int getLength()
+	{
+		return songs.size();
+	}
+	
 	/**
 	 * Sets songs to given list of songs
 	 * @param s		given list of songs
@@ -89,7 +96,7 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		songs = s;
 	}
-
+	
 	/**
 	 * Retrieves the date the playlist was created
 	 * @return		date created
@@ -98,7 +105,7 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		return dateCreated;
 	}
-
+	
 	/**
 	 * Sets date using a given date object
 	 * @param d		given date
@@ -107,7 +114,7 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		dateCreated = d;
 	}
-
+	
 	/**
 	 * Adds song to list
 	 * @param s		given song
@@ -116,7 +123,7 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		songs.add(s);
 	}
-
+	
 	/**
 	 * Removes song from list
 	 * @param title		title of song to remove
@@ -126,7 +133,7 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		return songs.remove(this.contains(title));
 	}
-
+	
 	/**
 	 * Checks if a song with a given title exists
 	 * @param title		given title of song
