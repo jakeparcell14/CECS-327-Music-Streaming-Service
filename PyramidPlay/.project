@@ -20,4 +20,11 @@
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>September_EarthWindFire.wav</name>
+			<type>1</type>
+			<location>C:/Users/Matthew/Desktop/CECS-327-Music-Streaming-Service/PyramidPlay/September_EarthWindFire.wav</location>
+		</link>
+	</linkedResources>
 </projectDescription>

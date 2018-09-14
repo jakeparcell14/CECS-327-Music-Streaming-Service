@@ -60,6 +60,16 @@ public class SongViewController implements Initializable{
 
 	@FXML
 	private Pane SearchBarPane;
+	
+	/**
+	 * Current playlist selected.
+	 */
+	private Playlist currentPlaylist;
+	
+	/**
+	 * 
+	 */
+	private int playlistNum;
 
 	/**
 	 * Current song.
@@ -103,9 +113,12 @@ public class SongViewController implements Initializable{
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
+				System.out.println("Test");
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("Thread ended.");
 	};
 
 
@@ -119,6 +132,7 @@ public class SongViewController implements Initializable{
 			_playButton.setText("Play");
 			_currentTime = _currentSong.getMicrosecondPosition();
 			_currentSong.stop();
+			_currentSong.close();
 		}
 		
 		// make search results invisible
@@ -127,9 +141,27 @@ public class SongViewController implements Initializable{
 	}
 
 	@FXML
+	/**
+	 * Stops the current song and plays the next song in the playlist
+	 * @param event - the previous button is clicked
+	 */
 	public void OnNextClicked (MouseEvent event) {
 		System.out.println("Clicked next button.");
+//		_currentTime = 0;
+//		currentTime.setText((getTime(_currentTime)));
+		_currentSong.stop();
+		_currentSong.close();
 		
+		//updates current song index then plays
+		playlistNum++;
+		if(playlistNum == currentPlaylist.getLength()) {
+			playlistNum = 0;
+		}
+		
+		if(_playButton.getText().equals("Pause")) {
+			playSong(_currentTime);
+		}
+	
 		// make search results invisible
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
@@ -137,8 +169,27 @@ public class SongViewController implements Initializable{
 	}
 
 	@FXML
+	/**
+	 * Stops the current song and plays the previous song in the playlist
+	 * @param event - the previous button is clicked
+	 */
 	public void OnPreviousClicked (MouseEvent event) {
 		System.out.println("Clicked previous button.");
+		_currentSong.stop();
+		_currentSong.close();
+		
+		//resets time and updates slider info
+		_currentTime = 0;
+		currentTime.setText((getTime(_currentTime)));
+		
+		//updates current song index then plays
+		if(playlistNum > 0) {
+			playlistNum--;
+		}
+		
+		if(_playButton.getText().equals("Pause")) {
+			playSong(_currentTime);
+		}
 		
 		// make search results invisible
 		SearchBarPane.setVisible(false);
@@ -308,12 +359,13 @@ public class SongViewController implements Initializable{
 	 * @param time Time in microseconds at which the song should start
 	 */
 	public void playSong(long time) {
+		File f;
 		try {
 			//initialize clip
 			_currentSong = AudioSystem.getClip();
 			//open file and stream
-			//this is currently hardcoded in at the moment, only wanted to get this working
-			File f = new File("RickAstley.wav");
+			//grabs song from current playlist
+			f = new File((currentPlaylist.getSongs()).get(playlistNum).getFileSource());
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(f.toURI().toURL());
 
 			_currentSong.open(inputStream);
@@ -339,7 +391,7 @@ public class SongViewController implements Initializable{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	/***
@@ -361,6 +413,14 @@ public class SongViewController implements Initializable{
 		myPlaylistsButton.setToggleGroup(menuToggleGroup);
 
 		mySongsButton.setSelected(true);
+		
+		//hardcoding a playlist for testing
+		playlistNum = 0;
+		Song rickroll = new Song("Never Gonna Give You Up", "RickAstley.wav");
+		Song september = new Song("September", "September_EarthWindFire.wav");
+		currentPlaylist = new Playlist("Saved Songs"); //let's assume the song player starts with the user's saved songs library
+		currentPlaylist.addSong(rickroll);
+		currentPlaylist.addSong(september);
 
 		//test code for listview. TODO add song info to listview
 		ArrayList<String> s = new ArrayList<String>(Arrays.asList("This", "is", "where", "our", "songs", "will", "go"));
