@@ -25,7 +25,7 @@ public class UserRepository {
 			out.close();
 	
 	}
-	
+		
 	private static ArrayList<User> getUsers() throws IOException {
 		Gson gson = new Gson();
 		ArrayList<User> users = new ArrayList<User>();

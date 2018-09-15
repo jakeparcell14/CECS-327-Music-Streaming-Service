@@ -288,7 +288,45 @@ public class SongViewController implements Initializable{
 	
 	@FXML
 	public void search() {
-		String query=searchbar.getText();
+		try {
+			UserLibraryList.getItems().clear();
+			String query=searchbar.getText();
+			User user=UserRepository.getUser("amyer");
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			for (int i = 0; i<playlists.size(); i++) {
+				if(playlists.get(i).getPlaylistName()!=null) {
+					if(playlists.get(i).getPlaylistName().toLowerCase().contains(query)) {
+						UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
+					}
+				}
+			}
+			/**
+			Playlist savedSongsPlaylist=user.getSavedSongs();
+			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
+			for(int i=0; i<savedSongs.size();i++) {
+				if(savedSongs.get(i).getTitle()!=null) {
+					if(savedSongs.get(i).getTitle().toLowerCase().contains(query)) {
+						UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+					}
+				}
+				else if(savedSongs.get(i).getAlbum()!=null) {
+					if(savedSongs.get(i).getAlbum().toLowerCase().contains(query)) {
+						UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+					}
+				}
+				else if(savedSongs.get(i).getArtist()!=null) {
+					if(savedSongs.get(i).getArtist().toLowerCase().contains(query)) {
+						UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+					}
+				}
+			}
+			**/
+			String check = (String) UserLibraryList.getSelectionModel().getSelectedItem();
+			System.out.println(check);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			}
 		/**
 		 * Hypothetical json search
 		 * package jsontoxml;
@@ -347,7 +385,7 @@ public class SongViewController implements Initializable{
 		//System.out.println(query);
 		//ObservableList<String> list =FXCollections.observableArrayList("Mark","Tom","John","Jack");
 		//searchResults.setItems(list);
-		UserLibraryList.getItems().addAll(query);
+		//UserLibraryList.getItems().addAll(query);
 		//String check = (String) UserLibraryList.getSelectionModel().getSelectedItem();
 		//System.out.println(check);
 		
