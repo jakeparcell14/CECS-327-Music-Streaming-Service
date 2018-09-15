@@ -18,7 +18,6 @@ public class UserRepository {
 		FileWriter out = null;
 		Gson gson = new Gson();
 		out = new FileWriter("users.json", true);
-			
 		out.write(gson.toJson(user)+"\n");
 			
 		if (out != null)
@@ -69,4 +68,5 @@ public class UserRepository {
 		}
 		return null;
 	}
+	
 }

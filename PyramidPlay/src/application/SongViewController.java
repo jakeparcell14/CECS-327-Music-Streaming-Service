@@ -113,13 +113,16 @@ public class SongViewController implements Initializable{
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				System.out.println("Test");
 				e.printStackTrace();
 			}
 		}
 		
-		System.out.println("Thread ended.");
-	};
+		if (_currentSong.getMicrosecondLength() == _currentSong.getMicrosecondPosition()) {
+			Platform.runLater(() -> {
+				OnNextClicked(null);
+			});
+		}
+};
 
 
 	// Event Listener on Button[#_playButton].onMouseClicked
@@ -146,9 +149,8 @@ public class SongViewController implements Initializable{
 	 * @param event - the previous button is clicked
 	 */
 	public void OnNextClicked (MouseEvent event) {
-		System.out.println("Clicked next button.");
-//		_currentTime = 0;
-//		currentTime.setText((getTime(_currentTime)));
+		_currentTime = 0;
+		currentTime.setText((getTime(_currentTime)));
 		_currentSong.stop();
 		_currentSong.close();
 		
@@ -174,7 +176,6 @@ public class SongViewController implements Initializable{
 	 * @param event - the previous button is clicked
 	 */
 	public void OnPreviousClicked (MouseEvent event) {
-		System.out.println("Clicked previous button.");
 		_currentSong.stop();
 		_currentSong.close();
 		
