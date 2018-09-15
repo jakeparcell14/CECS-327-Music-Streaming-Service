@@ -51,6 +51,11 @@ public class UserRepository {
 		return getUsers().contains(new User(null, null, username, password));
 	}
 	
+	public static boolean userExists(String username) throws IOException
+	{
+		return getUsers().contains(new User(null, null, username, null));
+	}
+	
 	/**
 	 * Gets a specific user.
 	 * @param username Username of user to fetch.
