@@ -174,6 +174,33 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
 	}
+	public void playSelectedSong () {
+		_currentTime = 0;
+		currentTime.setText((getTime(_currentTime)));
+		if(_currentSong!=null) {
+			_currentSong.stop();
+			_currentSong.close();
+		}
+		
+		
+		//updates current song index then plays
+		playlistNum++;
+		if(playlistNum == currentPlaylist.getLength()) {
+			playlistNum = 0;
+		}
+		
+		playSong(_currentTime);
+		if(_playButton.getText().equals("Play")) {
+			_playButton.setText("Pause");
+		}
+		
+		
+	
+		// make search results invisible
+		SearchBarPane.setVisible(false);
+		SearchBarPane.setMouseTransparent(true);
+		this.resetSearchText();
+	}
 
 	@FXML
 	/**
@@ -297,7 +324,7 @@ public class SongViewController implements Initializable{
 						if(savedSongs.get(i).getTitle().toLowerCase().contains(check.toLowerCase())) {
 							currentPlaylist=mySongs;
 							playlistNum=i-1;
-							OnNextClicked(null);
+							playSelectedSong();
 							break;
 						}
 					}
@@ -305,7 +332,7 @@ public class SongViewController implements Initializable{
 						if(savedSongs.get(i).getAlbum().toLowerCase().contains(check.toLowerCase())) {
 							currentPlaylist=mySongs;
 							playlistNum=i-1;
-							OnNextClicked(null);
+							playSelectedSong();
 							break;
 						}
 					}
@@ -313,7 +340,7 @@ public class SongViewController implements Initializable{
 						if(savedSongs.get(i).getArtist().toLowerCase().contains(check.toLowerCase())) {
 							currentPlaylist=mySongs;
 							playlistNum=i-1;
-							OnNextClicked(null);
+							playSelectedSong();
 							break;
 						}
 					}
@@ -327,7 +354,7 @@ public class SongViewController implements Initializable{
 						if(playlists.get(i).getPlaylistName().toLowerCase().equals(check.toLowerCase())) {
 							currentPlaylist=playlists.get(i);
 							playlistNum=-1;
-							OnNextClicked(null);
+							playSelectedSong();
 							break;
 						}
 					}
