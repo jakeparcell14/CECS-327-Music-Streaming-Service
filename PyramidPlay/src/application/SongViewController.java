@@ -400,7 +400,7 @@ public class SongViewController implements Initializable{
 				cm.getItems().add(mi1);
 				MenuItem mi2 = new MenuItem("Menu 2");
 				cm.getItems().add(mi2);
-				cm.show(UserLibraryList, event.getScreenX(), event.getScreenY());
+				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 			}	
 		}
 	}
