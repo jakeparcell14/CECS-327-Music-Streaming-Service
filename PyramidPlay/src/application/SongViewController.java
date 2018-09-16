@@ -98,7 +98,6 @@ public class SongViewController implements Initializable{
 	Runnable theTask = () -> {
 		while (_currentSong.isActive()) {
 			long s = _currentSong.getMicrosecondPosition();	
-
 			/**
 			 * This places the code within it into the UI thread's execution queue.
 			 * Allows us to access UI thread elements from a different thread.
@@ -109,20 +108,27 @@ public class SongViewController implements Initializable{
 				_slider.setValue(s);
 				currentTime.setText(getTime(s));
 			});
-
+			
+			/*if we are within a second of the end of the song, move to the next one 
+			 * by simulating a "next song" click.
+			 */
+			if (s > _currentSong.getMicrosecondLength() - 1000000) {
+				Platform.runLater(() -> {
+					OnNextClicked(null);
+					
+				});
+			}
+			
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				System.out.println("Test");
 				e.printStackTrace();
 			}
 			if(_currentSong.getMicrosecondLength()==_currentSong.getMicrosecondPosition()) {
 				OnNextClicked(null);
 			}
 		}
-		
-		System.out.println("Thread ended.");
 	};
 
 
@@ -150,14 +156,13 @@ public class SongViewController implements Initializable{
 	 * @param event - the previous button is clicked
 	 */
 	public void OnNextClicked (MouseEvent event) {
-		System.out.println("Clicked next button.");
+
 		_currentTime = 0;
 		currentTime.setText((getTime(_currentTime)));
 		if(_currentSong!=null) {
 			_currentSong.stop();
 			_currentSong.close();
 		}
-		
 		
 		//updates current song index then plays
 		playlistNum++;
@@ -208,7 +213,6 @@ public class SongViewController implements Initializable{
 	 * @param event - the previous button is clicked
 	 */
 	public void OnPreviousClicked (MouseEvent event) {
-		System.out.println("Clicked previous button.");
 		_currentSong.stop();
 		_currentSong.close();
 		
@@ -378,6 +382,7 @@ public class SongViewController implements Initializable{
 		 */
 		if (_currentSong !=null &&_currentSong.isActive()) {
 			_currentSong.stop();	
+			_currentSong.close();
 			
 		}
 		_currentTime = (long)_slider.getValue();
@@ -396,6 +401,7 @@ public class SongViewController implements Initializable{
 		//if a drag is detected, stop the song.
 		if (_currentSong !=null &&_currentSong.isActive()) {
 			_currentSong.stop();		
+			_currentSong.close();
 		}
 		
 		/* the dropping of a drag will result in a click on the slider, 

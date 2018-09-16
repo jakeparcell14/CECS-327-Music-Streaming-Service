@@ -34,35 +34,40 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="RegisterPane" layoutX="200.0" layoutY="44.0" prefHeight="333.0" prefWidth="200.0" visible="false">
+      <Pane fx:id="RegisterPane" layoutX="200.0" layoutY="18.0" prefHeight="333.0" prefWidth="200.0" visible="false">
          <children>
             <Label fx:id="RegisterAccountLabel" alignment="CENTER" layoutY="-1.0" prefHeight="38.0" prefWidth="200.0" text="Register Account" textAlignment="CENTER">
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-            <TextField fx:id="AddFirstNameTextField" layoutY="62.0" prefWidth="200.0" />
-            <TextField fx:id="AddLastNameTextField" layoutY="113.0" prefWidth="200.0" />
-            <TextField fx:id="AddUsernameTextField" layoutY="163.0" prefWidth="200.0" />
-            <TextField fx:id="AddPasswordTextField" layoutY="213.0" prefWidth="200.0" />
-            <Label fx:id="AddFirstNameLabel" alignment="CENTER" layoutY="45.0" prefWidth="200.0" text="First Name">
+            <Label fx:id="AddFirstNameLabel" alignment="CENTER" layoutY="39.0" prefWidth="200.0" text="First Name">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="AddLastNameLabel" alignment="CENTER" layoutY="96.0" prefWidth="200.0" text="Last Name">
+            <TextField fx:id="AddFirstNameTextField" layoutY="56.0" prefWidth="200.0" />
+            <Label fx:id="AddLastNameLabel" alignment="CENTER" layoutY="90.0" prefWidth="200.0" text="Last Name">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="AddUsernameLabel" alignment="CENTER" layoutY="146.0" prefWidth="200.0" text="Username">
+            <TextField fx:id="AddLastNameTextField" layoutY="107.0" prefWidth="200.0" />
+            <Label fx:id="AddUsernameLabel" alignment="CENTER" layoutY="140.0" prefWidth="200.0" text="Username">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label fx:id="AddPasswordLabel" alignment="CENTER" layoutY="194.0" prefWidth="200.0" text="Password">
+            <TextField fx:id="AddUsernameTextField" layoutY="157.0" prefWidth="200.0" />
+            <Label fx:id="AddPasswordLabel" alignment="CENTER" layoutY="188.0" prefWidth="200.0" text="Password">
                <font>
                   <Font size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="AddPasswordTextField" layoutY="207.0" prefWidth="200.0" />
+            <Label fx:id="UsernameUnavailableLabel" alignment="CENTER" layoutY="243.0" prefWidth="200.0" text="${'username unavailable.\nplease try a different username'}" textAlignment="CENTER" textFill="RED" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
                </font>
             </Label>
          </children>
