@@ -16,22 +16,14 @@ public class User implements Comparable<User>, Serializable
 	
 	private ArrayList<Playlist> playlists;
 	
-	private Playlist savedSongs; //TODO implement
+	private Playlist savedSongs;
 	
 	/**
 	 * Default constructor for User
 	 */
 	public User()
 	{
-/*		firstName = "";
-		lastName = "";
-		username = "";
-		password = "";
-		playlists = new ArrayList<Playlist>();
-<<<<<<< HEAD
-		savedSongs = new Playlist("saved");
-=======
-		savedSongs = new Playlist("saved", null, null);*/
+
 	}
 	
 	/**
@@ -217,11 +209,15 @@ public class User implements Comparable<User>, Serializable
 	@Override
 	public boolean equals(Object u)
 	{
-		if(this.getUsername().equals(((User) u).getUsername()) && this.getPassword().equals(((User) u).getPassword()))
+		if(this.getPassword() == null || ((User) u).getPassword() == null)
 		{
-			return true;
+			// a user does not have a password so just compare the usernames
+			return this.getUsername().equals(((User) u).getUsername());
 		}
-		
-		return false;
+		else
+		{
+			// both users have passwords so compare by username and password
+			return this.getUsername().equals(((User) u).getUsername()) && this.getPassword().equals(((User) u).getPassword());
+		}
 	}
 }

@@ -58,15 +58,18 @@ public class LoginController implements Initializable
 
 	@FXML
 	private TextField AddPasswordTextField;
-	
+
 	@FXML
 	private Label InvalidSignInLabel;
+	
+	@FXML
+	private Label UsernameUnavailableLabel;
 
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
-		
+
 	}
 
 	@FXML
@@ -84,9 +87,9 @@ public class LoginController implements Initializable
 				{
 					// switch to Song View screen on successful login
 					Parent x = FXMLLoader.load(getClass().getResource("SongView.fxml"));
-		            Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
-		            s.setResizable(false);
-		            s.setScene(new Scene(x));
+					Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
+					s.setResizable(false);
+					s.setScene(new Scene(x));
 				}
 				else
 				{
@@ -102,7 +105,33 @@ public class LoginController implements Initializable
 		else
 		{
 			//user is attempting to register a new account
-			System.out.println("Register Account Pressed");
+
+			try 
+			{
+				if(UserRepository.userExists(AddUsernameTextField.getText()))
+				{
+					//username already exists and is not available
+					UsernameUnavailableLabel.setVisible(true);
+				}
+				else
+				{
+					//username is available and ready to be added to the repository
+					User newUser = new User(AddFirstNameTextField.getText(), AddLastNameTextField.getText(), AddUsernameTextField.getText(), AddPasswordTextField.getText());
+					
+					//add user to the user repository
+					UserRepository.AddUser(newUser);
+					
+					// switch to Song View screen on successful registration
+					Parent x = FXMLLoader.load(getClass().getResource("SongView.fxml"));
+					Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
+					s.setResizable(false);
+					s.setScene(new Scene(x));
+				}
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -120,7 +149,7 @@ public class LoginController implements Initializable
 			//hide Sign In Panel
 			SignInPane.setVisible(false);
 			SignInPane.setMouseTransparent(true);
-			
+
 			//reset error label
 			InvalidSignInLabel.setVisible(false);
 
@@ -135,6 +164,9 @@ public class LoginController implements Initializable
 			RegisterOrCancelButton.setText("Create an Account");
 
 			this.clearRegisterText();
+			
+			//reset error label
+			UsernameUnavailableLabel.setVisible(false);
 
 			//show Sign In Panel
 			SignInPane.setVisible(true);

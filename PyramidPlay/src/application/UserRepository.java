@@ -18,7 +18,6 @@ public class UserRepository {
 		FileWriter out = null;
 		Gson gson = new Gson();
 		out = new FileWriter("users.json", true);
-			
 		out.write(gson.toJson(user)+"\n");
 			
 		if (out != null)
@@ -51,6 +50,11 @@ public class UserRepository {
 		return getUsers().contains(new User(null, null, username, password));
 	}
 	
+	public static boolean userExists(String username) throws IOException
+	{
+		return getUsers().contains(new User(null, null, username, null));
+	}
+	
 	/**
 	 * Gets a specific user.
 	 * @param username Username of user to fetch.
@@ -63,5 +67,25 @@ public class UserRepository {
 				return users.get(i);
 		}
 		return null;
+	}
+	
+	public static void UpdateUser(User user) throws IOException {
+		ArrayList<User> users = getUsers();
+		User temp = getUser(user.getUsername());
+		users.remove(temp);
+		users.add(user);
+		UpdateUsers(users);
+	}
+	
+	private static void UpdateUsers(ArrayList<User> users) throws IOException {
+		FileWriter out = null;
+		Gson gson = new Gson();
+		out = new FileWriter("users.json");
+		for (int i = 0; i<users.size(); i++) {
+			out.write(gson.toJson(users.get(i))+"\n");
+		}
+			
+		if (out != null)
+			out.close();
 	}
 }
