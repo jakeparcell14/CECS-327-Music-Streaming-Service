@@ -93,6 +93,7 @@ public class SongViewController implements Initializable{
 	 * Terrible name, but thread that watches the current time of the song.
 	 */
 	public Thread _thread;
+	ToggleGroup menuToggleGroup;
 
 	Runnable theTask = () -> {
 		while (_currentSong.isActive()) {
@@ -124,6 +125,9 @@ public class SongViewController implements Initializable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			if(_currentSong.getMicrosecondLength()==_currentSong.getMicrosecondPosition()) {
+				OnNextClicked(null);
+			}
 		}
 	};
 
@@ -152,10 +156,13 @@ public class SongViewController implements Initializable{
 	 * @param event - the previous button is clicked
 	 */
 	public void OnNextClicked (MouseEvent event) {
+
 		_currentTime = 0;
 		currentTime.setText((getTime(_currentTime)));
-		_currentSong.stop();
-		_currentSong.close();
+		if(_currentSong!=null) {
+			_currentSong.stop();
+			_currentSong.close();
+		}
 		
 		//updates current song index then plays
 		playlistNum++;
@@ -210,6 +217,25 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
+		searchbar.setText("");
+		searchbar.setPromptText("search my songs");
+		UserLibraryList.getItems().clear();
+		User user;
+		try {
+			user = UserRepository.getUser("amyer");
+			Playlist mySongs=user.getSavedSongs();
+			ArrayList<Song> savedSongs=mySongs.getSongs();
+			
+			for(int i=0; i<savedSongs.size();i++) {
+				if(savedSongs.get(i).getTitle()!=null) {
+					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@FXML
@@ -221,6 +247,23 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
+		searchbar.setText("");
+		searchbar.setPromptText("search my playlists");
+		UserLibraryList.getItems().clear();
+		User user;
+		try {
+			user = UserRepository.getUser("amyer");
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			for (int i = 0; i<playlists.size(); i++) {
+				if(playlists.get(i).getPlaylistName()!=null) {
+					UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
+						break;
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -246,7 +289,62 @@ public class SongViewController implements Initializable{
 		this.resetSearchText();
 		
 		String check = (String) UserLibraryList.getSelectionModel().getSelectedItem();
-		System.out.println(check);
+		
+		User user;
+		try {
+			user = UserRepository.getUser("amyer");
+			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'")) {
+				Playlist mySongs=user.getSavedSongs();
+				ArrayList<Song> savedSongs=mySongs.getSongs();
+				for(int i=0; i<savedSongs.size();i++) {
+					if(savedSongs.get(i).getTitle()!=null) {
+						if(savedSongs.get(i).getTitle().toLowerCase().contains(check.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							OnNextClicked(null);
+							break;
+						}
+					}
+					else if(savedSongs.get(i).getAlbum()!=null) {
+						if(savedSongs.get(i).getAlbum().toLowerCase().contains(check.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							OnNextClicked(null);
+							break;
+						}
+					}
+					else if(savedSongs.get(i).getArtist()!=null) {
+						if(savedSongs.get(i).getArtist().toLowerCase().contains(check.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							OnNextClicked(null);
+							break;
+						}
+					}
+				}
+				
+			}
+			else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")){
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				for (int i = 0; i<playlists.size(); i++) {
+					if(playlists.get(i).getPlaylistName()!=null) {
+						if(playlists.get(i).getPlaylistName().toLowerCase().equals(check.toLowerCase())) {
+							currentPlaylist=playlists.get(i);
+							playlistNum=-1;
+							OnNextClicked(null);
+							break;
+						}
+					}
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		//System.out.println(check);
+		
 	}
 	
 	@FXML
@@ -298,103 +396,45 @@ public class SongViewController implements Initializable{
 			UserLibraryList.getItems().clear();
 			String query=searchbar.getText();
 			User user=UserRepository.getUser("amyer");
-			ArrayList<Playlist> playlists=user.getPlaylists();
-			for (int i = 0; i<playlists.size(); i++) {
-				if(playlists.get(i).getPlaylistName()!=null) {
-					if(playlists.get(i).getPlaylistName().toLowerCase().contains(query)) {
-						UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
+			
+			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'"))
+			{
+				Playlist savedSongsPlaylist=user.getSavedSongs();
+				ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
+				for(int i=0; i<savedSongs.size();i++) {
+					if(savedSongs.get(i).getTitle()!=null) {
+						if(savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+							UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+						}
+					}
+					else if(savedSongs.get(i).getAlbum()!=null) {
+						if(savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+							UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+						}
+					}
+					else if(savedSongs.get(i).getArtist()!=null) {
+						if(savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+							UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+						}
 					}
 				}
 			}
-			/**
-			Playlist savedSongsPlaylist=user.getSavedSongs();
-			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
-			for(int i=0; i<savedSongs.size();i++) {
-				if(savedSongs.get(i).getTitle()!=null) {
-					if(savedSongs.get(i).getTitle().toLowerCase().contains(query)) {
-						UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
-					}
-				}
-				else if(savedSongs.get(i).getAlbum()!=null) {
-					if(savedSongs.get(i).getAlbum().toLowerCase().contains(query)) {
-						UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
-					}
-				}
-				else if(savedSongs.get(i).getArtist()!=null) {
-					if(savedSongs.get(i).getArtist().toLowerCase().contains(query)) {
-						UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+			else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")) {
+				//System.out.println(menuToggleGroup.getSelectedToggle());
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				for (int i = 0; i<playlists.size(); i++) {
+					if(playlists.get(i).getPlaylistName()!=null) {
+						if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
+							UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
+						}
 					}
 				}
 			}
-			**/
-			String check = (String) UserLibraryList.getSelectionModel().getSelectedItem();
-			System.out.println(check);
+			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			}
-		/**
-		 * Hypothetical json search
-		 * package jsontoxml;
-		 * import java.io.*;
-		 * import org.json.simple.parser.JSONParser;
-		 * import org.json.simple.*;
-		 * import java.util.*;
-		 * *****************************************
-		 * JSONParser parser = new JSONParser();
-		 * try{
-		 * 	Object obj =parser.parse(new FileReader("songDB.json"));
-		 * 	JSONObject jsonObject = (JSONObject) obj;
-		 * 	JSONArray cells = (JSONArray) jsonObject.get("cells");
-		 * 	Iterator<JSONObject> iterator = cells.iterator();
-		 * 	while(iterator.hasNext()){
-		 * 		//determines whether or not the song should be added to the list
-		 * 		boolean addToResults = false;
-		 *		JSONobject current=iterator.next();
-		 *	
-		 * 		//check if song has title, if yes, check if the query
-		 *		//is in the title
-		 *		if(current.get("title") != null){
-		 *			if(query.indexOf(current.get("title")) != -1){
-		 *				addToResults = true;
-		 *			}
-		 * 		}
-		 * 
-		 * 		//check if song has an artist, if yes, check if the query
-		 * 		//is in the artist	
-		 * 		if(current.get("artist") != null){
-		 *			if(query.indexOf(current.get("artist")) != -1){
-		 *				addToResults = true;
-		 *			}
-		 * 		}
-		 * 
-		 * 		//check if song has album, if yes, check if the query
-		 * 		//is in the album
-		 * 		if(current.get("album") != null){
-		 *			if(query.indexOf(current.get("album")) != -1){
-		 *				addToResults = true;
-		 *			}
-		 * 		}
-		 * 		//add song to list if it is found in the query
-		 * 		if(addToResults==true)
-		 * 		{
-		 * 			//add to list
-		 * 			UserLibaryList.getItems().addAll(current.get("title")+" "+current.get("artist");
-		 * 		}
-		 * } catch (Exception e) {
-		 * 	e.printStackTrace();
-		 * }
-		 * 
-		 
-		 * 
-		 */
-		//System.out.println(query);
-		//ObservableList<String> list =FXCollections.observableArrayList("Mark","Tom","John","Jack");
-		//searchResults.setItems(list);
-		//UserLibraryList.getItems().addAll(query);
-		//String check = (String) UserLibraryList.getSelectionModel().getSelectedItem();
-		//System.out.println(check);
-		
+			}		
 	}
 
 
@@ -451,12 +491,29 @@ public class SongViewController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		ToggleGroup menuToggleGroup = new ToggleGroup();
+		menuToggleGroup = new ToggleGroup();
 
 		mySongsButton.setToggleGroup(menuToggleGroup);
 		myPlaylistsButton.setToggleGroup(menuToggleGroup);
 
 		mySongsButton.setSelected(true);
+		searchbar.setPromptText("search my songs");
+		
+		User user;
+		try {
+			user = UserRepository.getUser("amyer");
+			Playlist mySongs=user.getSavedSongs();
+			ArrayList<Song> savedSongs=mySongs.getSongs();
+			
+			for(int i=0; i<savedSongs.size();i++) {
+				if(savedSongs.get(i).getTitle()!=null) {
+					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//hardcoding a playlist for testing
 		playlistNum = 0;
