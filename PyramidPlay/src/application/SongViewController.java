@@ -125,9 +125,6 @@ public class SongViewController implements Initializable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(_currentSong.getMicrosecondLength()==_currentSong.getMicrosecondPosition()) {
-				OnNextClicked(null);
-			}
 		}
 	};
 
