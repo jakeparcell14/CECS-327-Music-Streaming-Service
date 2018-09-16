@@ -49,6 +49,9 @@ public class SongViewController implements Initializable{
 
 	@FXML
 	private ToggleButton myPlaylistsButton;
+	
+	@FXML
+	private ToggleButton currentPlaylistButton;
 
 	@FXML
 	private ListView<String> AllSongsListView;
@@ -293,6 +296,13 @@ public class SongViewController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML 
+	public void OnCurrentPlaylistClicked(MouseEvent event) {
+		ArrayList<Song> songs = currentPlaylist.getSongs();
+		UserLibraryList.getItems().clear();
+		UserLibraryList.getItems().addAll(songs);
 	}
 
 	@FXML
@@ -540,6 +550,7 @@ public class SongViewController implements Initializable{
 
 		mySongsButton.setToggleGroup(menuToggleGroup);
 		myPlaylistsButton.setToggleGroup(menuToggleGroup);
+		currentPlaylistButton.setToggleGroup(menuToggleGroup);
 
 		mySongsButton.setSelected(true);
 		searchbar.setPromptText("search my songs");
