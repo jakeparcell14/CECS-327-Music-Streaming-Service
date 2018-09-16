@@ -153,8 +153,11 @@ public class SongViewController implements Initializable{
 		System.out.println("Clicked next button.");
 		_currentTime = 0;
 		currentTime.setText((getTime(_currentTime)));
-		_currentSong.stop();
-		_currentSong.close();
+		if(_currentSong!=null) {
+			_currentSong.stop();
+			_currentSong.close();
+		}
+		
 		
 		//updates current song index then plays
 		playlistNum++;
@@ -210,6 +213,25 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
+		searchbar.setText("");
+		searchbar.setPromptText("search my songs");
+		UserLibraryList.getItems().clear();
+		User user;
+		try {
+			user = UserRepository.getUser("amyer");
+			Playlist mySongs=user.getSavedSongs();
+			ArrayList<Song> savedSongs=mySongs.getSongs();
+			
+			for(int i=0; i<savedSongs.size();i++) {
+				if(savedSongs.get(i).getTitle()!=null) {
+					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@FXML
@@ -221,6 +243,23 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
+		searchbar.setText("");
+		searchbar.setPromptText("search my playlists");
+		UserLibraryList.getItems().clear();
+		User user;
+		try {
+			user = UserRepository.getUser("amyer");
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			for (int i = 0; i<playlists.size(); i++) {
+				if(playlists.get(i).getPlaylistName()!=null) {
+					UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
+						break;
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -251,6 +290,34 @@ public class SongViewController implements Initializable{
 		try {
 			user = UserRepository.getUser("amyer");
 			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'")) {
+				Playlist mySongs=user.getSavedSongs();
+				ArrayList<Song> savedSongs=mySongs.getSongs();
+				for(int i=0; i<savedSongs.size();i++) {
+					if(savedSongs.get(i).getTitle()!=null) {
+						if(savedSongs.get(i).getTitle().toLowerCase().contains(check.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							OnNextClicked(null);
+							break;
+						}
+					}
+					else if(savedSongs.get(i).getAlbum()!=null) {
+						if(savedSongs.get(i).getAlbum().toLowerCase().contains(check.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							OnNextClicked(null);
+							break;
+						}
+					}
+					else if(savedSongs.get(i).getArtist()!=null) {
+						if(savedSongs.get(i).getArtist().toLowerCase().contains(check.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							OnNextClicked(null);
+							break;
+						}
+					}
+				}
 				
 			}
 			else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")){
@@ -258,22 +325,9 @@ public class SongViewController implements Initializable{
 				for (int i = 0; i<playlists.size(); i++) {
 					if(playlists.get(i).getPlaylistName()!=null) {
 						if(playlists.get(i).getPlaylistName().toLowerCase().equals(check.toLowerCase())) {
-							System.out.println(check);
 							currentPlaylist=playlists.get(i);
-							
-							/**
-							 * _currentSong.stop();
-		_currentSong.close();
-		
-		//updates current song index then plays
-		if(playlistNum == currentPlaylist.getLength()) {
-			playlistNum = 0;
-		}
-		
-		if(_playButton.getText().equals("Pause")) {
-			playSong(_currentTime);
-		}
-							 */
+							playlistNum=-1;
+							OnNextClicked(null);
 							break;
 						}
 					}
@@ -333,39 +387,38 @@ public class SongViewController implements Initializable{
 	@FXML
 	public void search() {
 		try {
+			UserLibraryList.getItems().clear();
+			String query=searchbar.getText();
+			User user=UserRepository.getUser("amyer");
+			
 			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'"))
-				{
-				/**
+			{
 				Playlist savedSongsPlaylist=user.getSavedSongs();
 				ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
 				for(int i=0; i<savedSongs.size();i++) {
 					if(savedSongs.get(i).getTitle()!=null) {
-						if(savedSongs.get(i).getTitle().toLowerCase().contains(query)) {
+						if(savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
 							UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
 						}
 					}
 					else if(savedSongs.get(i).getAlbum()!=null) {
-						if(savedSongs.get(i).getAlbum().toLowerCase().contains(query)) {
+						if(savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
 							UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
 						}
 					}
 					else if(savedSongs.get(i).getArtist()!=null) {
-						if(savedSongs.get(i).getArtist().toLowerCase().contains(query)) {
+						if(savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
 							UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
 						}
 					}
 				}
-				**/
-				}
+			}
 			else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")) {
 				//System.out.println(menuToggleGroup.getSelectedToggle());
-				UserLibraryList.getItems().clear();
-				String query=searchbar.getText();
-				User user=UserRepository.getUser("amyer");
 				ArrayList<Playlist> playlists=user.getPlaylists();
 				for (int i = 0; i<playlists.size(); i++) {
 					if(playlists.get(i).getPlaylistName()!=null) {
-						if(playlists.get(i).getPlaylistName().toLowerCase().contains(query)) {
+						if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
 							UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
 						}
 					}
@@ -438,6 +491,23 @@ public class SongViewController implements Initializable{
 		myPlaylistsButton.setToggleGroup(menuToggleGroup);
 
 		mySongsButton.setSelected(true);
+		searchbar.setPromptText("search my songs");
+		
+		User user;
+		try {
+			user = UserRepository.getUser("amyer");
+			Playlist mySongs=user.getSavedSongs();
+			ArrayList<Song> savedSongs=mySongs.getSongs();
+			
+			for(int i=0; i<savedSongs.size();i++) {
+				if(savedSongs.get(i).getTitle()!=null) {
+					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//hardcoding a playlist for testing
 		playlistNum = 0;
