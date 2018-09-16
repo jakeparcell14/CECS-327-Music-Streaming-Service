@@ -130,4 +130,9 @@ public class Song implements Comparable<Song>, Serializable
 	{
 		return this.getTitle().compareTo(s.getTitle());
 	}
+	
+	@Override	
+	public String toString() {
+		return title;
+	}
 }
