@@ -25,6 +25,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -244,8 +245,10 @@ public class SongViewController implements Initializable{
 		searchbar.setText("");
 		searchbar.setPromptText("search my songs");
 		UserLibraryList.getItems().clear();
+		// display initialize the listview with all the my songs of the user
 		User user;
 		try {
+			//user is hard coded
 			user = UserRepository.getUser("amyer");
 			Playlist mySongs=user.getSavedSongs();
 			ArrayList<Song> savedSongs=mySongs.getSongs();
@@ -274,8 +277,10 @@ public class SongViewController implements Initializable{
 		searchbar.setText("");
 		searchbar.setPromptText("search my playlists");
 		UserLibraryList.getItems().clear();
+		// initalized listview with all the playlists the user has
 		User user;
 		try {
+			//user is hardcoded
 			user = UserRepository.getUser("amyer");
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			for (int i = 0; i<playlists.size(); i++) {
@@ -311,60 +316,76 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
-		
-		String check = (String) UserLibraryList.getSelectionModel().getSelectedItem();
-		
-		User user;
-		try {
-			user = UserRepository.getUser("amyer");
-			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'")) {
-				Playlist mySongs=user.getSavedSongs();
-				ArrayList<Song> savedSongs=mySongs.getSongs();
-				for(int i=0; i<savedSongs.size();i++) {
-					if(savedSongs.get(i).getTitle()!=null) {
-						if(savedSongs.get(i).getTitle().toLowerCase().contains(check.toLowerCase())) {
-							currentPlaylist=mySongs;
-							playlistNum=i-1;
-							playSelectedSong();
-							break;
+		//item on the list view that the user selects
+		String sel = (String) UserLibraryList.getSelectionModel().getSelectedItem();
+		//user left clicks on library list
+		if(event.getButton() == MouseButton.PRIMARY) {
+			User user;
+			try {
+				//user hard coded
+				user = UserRepository.getUser("amyer");
+				//if the saved songs button is selected, find the selected song to play
+				if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'")) {
+					Playlist mySongs=user.getSavedSongs();
+					ArrayList<Song> savedSongs=mySongs.getSongs();
+					for(int i=0; i<savedSongs.size();i++) {
+						if(savedSongs.get(i).getTitle()!=null) {
+							//check if the selected list item is equal to the current song
+							if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
+								currentPlaylist=mySongs;
+								playlistNum=i-1;
+								playSelectedSong();
+								break;
+							}
 						}
-					}
-					else if(savedSongs.get(i).getAlbum()!=null) {
-						if(savedSongs.get(i).getAlbum().toLowerCase().contains(check.toLowerCase())) {
-							currentPlaylist=mySongs;
-							playlistNum=i-1;
-							playSelectedSong();
-							break;
+						/**
+						else if(savedSongs.get(i).getAlbum()!=null) {
+							if(savedSongs.get(i).getAlbum().toLowerCase().contains(sel.toLowerCase())) {
+								currentPlaylist=mySongs;
+								playlistNum=i-1;
+								playSelectedSong();
+								break;
+							}
 						}
+						else if(savedSongs.get(i).getArtist()!=null) {
+							if(savedSongs.get(i).getArtist().toLowerCase().contains(sel.toLowerCase())) {
+								currentPlaylist=mySongs;
+								playlistNum=i-1;
+								playSelectedSong();
+								break;
+							}
+							
+						}
+						**/
 					}
-					else if(savedSongs.get(i).getArtist()!=null) {
-						if(savedSongs.get(i).getArtist().toLowerCase().contains(check.toLowerCase())) {
-							currentPlaylist=mySongs;
-							playlistNum=i-1;
-							playSelectedSong();
-							break;
+					
+				}
+				else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")){
+					ArrayList<Playlist> playlists=user.getPlaylists();
+					for (int i = 0; i<playlists.size(); i++) {
+						if(playlists.get(i).getPlaylistName()!=null) {
+							if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
+								currentPlaylist=playlists.get(i);
+								playlistNum=-1;
+								playSelectedSong();
+								break;
+							}
 						}
 					}
 				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//user right clicks library list
+		else if(event.getButton() == MouseButton.SECONDARY) {
+			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'")) {
 				
 			}
-			else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")){
-				ArrayList<Playlist> playlists=user.getPlaylists();
-				for (int i = 0; i<playlists.size(); i++) {
-					if(playlists.get(i).getPlaylistName()!=null) {
-						if(playlists.get(i).getPlaylistName().toLowerCase().equals(check.toLowerCase())) {
-							currentPlaylist=playlists.get(i);
-							playlistNum=-1;
-							playSelectedSong();
-							break;
-						}
-					}
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
+
 		
 		
 		//System.out.println(check);
