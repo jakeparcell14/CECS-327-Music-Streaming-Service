@@ -19,8 +19,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
@@ -330,7 +332,7 @@ public class SongViewController implements Initializable{
 					ArrayList<Song> savedSongs=mySongs.getSongs();
 					for(int i=0; i<savedSongs.size();i++) {
 						if(savedSongs.get(i).getTitle()!=null) {
-							//check if the selected list item is equal to the current song
+							//check if the selected list item is equal to the current songs title
 							if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
 								currentPlaylist=mySongs;
 								playlistNum=i-1;
@@ -360,10 +362,12 @@ public class SongViewController implements Initializable{
 					}
 					
 				}
+				//myplaylists are selected
 				else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")){
 					ArrayList<Playlist> playlists=user.getPlaylists();
 					for (int i = 0; i<playlists.size(); i++) {
 						if(playlists.get(i).getPlaylistName()!=null) {
+							//check to see if the selected item matches the playlist title
 							if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
 								currentPlaylist=playlists.get(i);
 								playlistNum=-1;
@@ -381,15 +385,14 @@ public class SongViewController implements Initializable{
 		//user right clicks library list
 		else if(event.getButton() == MouseButton.SECONDARY) {
 			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'")) {
-				
-			}
-			
+				ContextMenu cm = new ContextMenu();
+				MenuItem mi1 = new MenuItem("Menu 1");
+				cm.getItems().add(mi1);
+				MenuItem mi2 = new MenuItem("Menu 2");
+				cm.getItems().add(mi2);
+				cm.show(UserLibraryList, event.getScreenX(), event.getScreenY());
+			}	
 		}
-
-		
-		
-		//System.out.println(check);
-		
 	}
 	
 	@FXML
@@ -439,24 +442,28 @@ public class SongViewController implements Initializable{
 	public void search() {
 		try {
 			UserLibraryList.getItems().clear();
+			//user inputted text
 			String query=searchbar.getText();
 			User user=UserRepository.getUser("amyer");
-			
+			//my songs are selected
 			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'"))
 			{
 				Playlist savedSongsPlaylist=user.getSavedSongs();
 				ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
 				for(int i=0; i<savedSongs.size();i++) {
+					//checks if query matches the title of the current song
 					if(savedSongs.get(i).getTitle()!=null) {
 						if(savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
 							UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
 						}
 					}
+					//checks if query matches the album of the current song
 					else if(savedSongs.get(i).getAlbum()!=null) {
 						if(savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
 							UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
 						}
 					}
+					//checks if query matches the artist of the current song
 					else if(savedSongs.get(i).getArtist()!=null) {
 						if(savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
 							UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
@@ -464,19 +471,19 @@ public class SongViewController implements Initializable{
 					}
 				}
 			}
+			//my playlists are selected
 			else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")) {
 				//System.out.println(menuToggleGroup.getSelectedToggle());
 				ArrayList<Playlist> playlists=user.getPlaylists();
 				for (int i = 0; i<playlists.size(); i++) {
 					if(playlists.get(i).getPlaylistName()!=null) {
+						//check if query matches the playlist title
 						if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
 							UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
 						}
 					}
 				}
 			}
-			
-			
 		}catch (Exception e) {
 			e.printStackTrace();
 			}		
