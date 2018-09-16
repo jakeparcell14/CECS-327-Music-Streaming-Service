@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
@@ -396,11 +397,23 @@ public class SongViewController implements Initializable{
 		else if(event.getButton() == MouseButton.SECONDARY) {
 			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'")) {
 				ContextMenu cm = new ContextMenu();
-				MenuItem mi1 = new MenuItem("Menu 1");
-				cm.getItems().add(mi1);
-				MenuItem mi2 = new MenuItem("Menu 2");
-				cm.getItems().add(mi2);
-				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+				Menu parentMenu = new Menu("Add To Playlist");
+				
+				User user;
+				try {
+					//user hard coded
+					user = UserRepository.getUser("amyer");
+					ArrayList<Playlist> playlists=user.getPlaylists();
+					ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
+					for (int i = 0; i<playlists.size(); i++) {
+						parentMenu.getItems().add(new MenuItem(playlists.get(i).getPlaylistName()));
+					}
+					cm.getItems().add(parentMenu);
+					cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+				}catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}	
 		}
 	}
