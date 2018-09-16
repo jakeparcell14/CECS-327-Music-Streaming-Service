@@ -337,7 +337,7 @@ public class SongViewController implements Initializable{
 				//user hard coded
 				user = UserRepository.getUser("amyer");
 				//if the saved songs button is selected, find the selected song to play
-				if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'")) {
+				if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
 					Playlist mySongs=user.getSavedSongs();
 					ArrayList<Song> savedSongs=mySongs.getSongs();
 					for(int i=0; i<savedSongs.size();i++) {
@@ -373,7 +373,7 @@ public class SongViewController implements Initializable{
 					
 				}
 				//myplaylists are selected
-				else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")){
+				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)){
 					ArrayList<Playlist> playlists=user.getPlaylists();
 					for (int i = 0; i<playlists.size(); i++) {
 						if(playlists.get(i).getPlaylistName()!=null) {
@@ -382,6 +382,8 @@ public class SongViewController implements Initializable{
 								currentPlaylist=playlists.get(i);
 								playlistNum=-1;
 								playSelectedSong();
+								currentPlaylistButton.setSelected(true);
+								OnCurrentPlaylistClicked(null);
 								break;
 							}
 						}
@@ -394,7 +396,7 @@ public class SongViewController implements Initializable{
 		}
 		//user right clicks library list
 		else if(event.getButton() == MouseButton.SECONDARY) {
-			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'")) {
+			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
 				ContextMenu cm = new ContextMenu();
 				MenuItem mi1 = new MenuItem("Menu 1");
 				cm.getItems().add(mi1);
@@ -456,7 +458,7 @@ public class SongViewController implements Initializable{
 			String query=searchbar.getText();
 			User user=UserRepository.getUser("amyer");
 			//my songs are selected
-			if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=mySongsButton, styleClass=toggle-button]'My Songs'"))
+			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton))
 			{
 				Playlist savedSongsPlaylist=user.getSavedSongs();
 				ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
@@ -482,7 +484,7 @@ public class SongViewController implements Initializable{
 				}
 			}
 			//my playlists are selected
-			else if(menuToggleGroup.getSelectedToggle().toString().equals("ToggleButton[id=myPlaylistsButton, styleClass=toggle-button]'My Playlists'")) {
+			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
 				//System.out.println(menuToggleGroup.getSelectedToggle());
 				ArrayList<Playlist> playlists=user.getPlaylists();
 				for (int i = 0; i<playlists.size(); i++) {
