@@ -69,5 +69,23 @@ public class UserRepository {
 		return null;
 	}
 	
+	public static void UpdateUser(User user) throws IOException {
+		ArrayList<User> users = getUsers();
+		User temp = getUser(user.getUsername());
+		users.remove(temp);
+		users.add(user);
+		UpdateUsers(users);
+	}
 	
+	private static void UpdateUsers(ArrayList<User> users) throws IOException {
+		FileWriter out = null;
+		Gson gson = new Gson();
+		out = new FileWriter("users.json");
+		for (int i = 0; i<users.size(); i++) {
+			out.write(gson.toJson(users.get(i))+"\n");
+		}
+			
+		if (out != null)
+			out.close();
+	}
 }
