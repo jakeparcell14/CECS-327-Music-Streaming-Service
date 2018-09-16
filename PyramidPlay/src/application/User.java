@@ -208,4 +208,20 @@ public class User implements Comparable<User>, Serializable
 	{
 		return this.getUsername().compareTo(u.getUsername());
 	}
+	
+	/**
+	 * This overrides the equals method of the User class so that it tests equality by username and password
+	 * @param u		user to be compared
+	 * @return		true if username and password are equal, else false
+	 */
+	@Override
+	public boolean equals(Object u)
+	{
+		if(this.getUsername().equals(((User) u).getUsername()) && this.getPassword().equals(((User) u).getPassword()))
+		{
+			return true;
+		}
+		
+		return false;
+	}
 }

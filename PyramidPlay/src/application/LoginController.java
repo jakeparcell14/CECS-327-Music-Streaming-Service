@@ -58,6 +58,9 @@ public class LoginController implements Initializable
 
 	@FXML
 	private TextField AddPasswordTextField;
+	
+	@FXML
+	private Label InvalidSignInLabel;
 
 
 	@Override
@@ -71,8 +74,7 @@ public class LoginController implements Initializable
 	{
 		if( SignInOrRegisterButton.getText().equals("Sign In"))
 		{
-			System.out.println("Sign In Pressed");
-
+			//user is attempting to sign in
 			String u = UsernameTextField.getText();
 			String p = PasswordTextField.getText();
 
@@ -80,12 +82,15 @@ public class LoginController implements Initializable
 			{
 				if(UserRepository.IsUsernameAndPasswordCorrect(u, p))
 				{
+					// switch to Song View screen on successful login
 					Parent x = FXMLLoader.load(getClass().getResource("SongView.fxml"));
-					x.setStyle("-fx-background-color: #a50000");
-		            Scene y = new Scene(x);
-		            Stage w = (Stage)((Node)event.getSource()).getScene().getWindow();
-		            w.setResizable(false);
-		            w.setScene(y);
+		            Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
+		            s.setResizable(false);
+		            s.setScene(new Scene(x));
+				}
+				else
+				{
+					InvalidSignInLabel.setVisible(true);
 				}
 			} 
 			catch (IOException e) 
@@ -96,6 +101,7 @@ public class LoginController implements Initializable
 		}
 		else
 		{
+			//user is attempting to register a new account
 			System.out.println("Register Account Pressed");
 		}
 	}
@@ -105,6 +111,7 @@ public class LoginController implements Initializable
 	{
 		if( SignInOrRegisterButton.getText().equals("Sign In"))
 		{
+			// Transition to Register page from Sign In page
 			SignInOrRegisterButton.setText("Register Account");
 			RegisterOrCancelButton.setText("Cancel");
 
@@ -113,6 +120,9 @@ public class LoginController implements Initializable
 			//hide Sign In Panel
 			SignInPane.setVisible(false);
 			SignInPane.setMouseTransparent(true);
+			
+			//reset error label
+			InvalidSignInLabel.setVisible(false);
 
 			//show Register Panel
 			RegisterPane.setVisible(true);
@@ -120,6 +130,7 @@ public class LoginController implements Initializable
 		}
 		else
 		{
+			// Transition to Sign In page from Register page
 			SignInOrRegisterButton.setText("Sign In");
 			RegisterOrCancelButton.setText("Create an Account");
 
