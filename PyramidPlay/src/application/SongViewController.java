@@ -70,7 +70,7 @@ public class SongViewController implements Initializable{
 	private ToggleButton currentPlaylistButton;
 
 	@FXML
-	private ListView<String> AllSongsListView;
+	private ListView AllSongsListView;
 
 	@FXML
 	private TextField AllSongsSearchBar;
@@ -415,53 +415,53 @@ public class SongViewController implements Initializable{
 					ContextMenu cm = new ContextMenu();
 					Menu parentMenu = new Menu("Add To Playlist");
 
-			
-					
-						//user hard coded
-						
-						ArrayList<Playlist> playlists=user.getPlaylists();
-						ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
-						for (int i = 0; i<playlists.size(); i++) {
-							MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
-							temp.setOnAction(new EventHandler<ActionEvent>() {
 
-								@Override
-								public void handle(ActionEvent event) {
-									String playlistName=temp.getText();
-									Playlist mySongs=user.getSavedSongs();
-									ArrayList<Song> savedSongs=mySongs.getSongs();
-									for(int k=0;k<playlists.size();k++)
-									{
-										if(playlists.get(k).getPlaylistName().equals(playlistName)) {
-											for(int j=0; j<savedSongs.size();j++) {
-												if(savedSongs.get(j).getTitle()!=null) {
-													//check if the selected list item is equal to the current songs title
-													if(savedSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
-														Playlist tp = playlists.get(k);
-														tp.addSong(savedSongs.get(j));
-														playlists.set(k, tp);
-														try {
-															user.setPlaylists(playlists);
-															UserRepository.UpdateUser(user);
-															currentPlaylist=playlists.get(k);
-														} catch (IOException e) {
-															// TODO Auto-generated catch block
-															e.printStackTrace();
-														}
-														break;
+
+					//user hard coded
+
+					ArrayList<Playlist> playlists=user.getPlaylists();
+					ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
+					for (int i = 0; i<playlists.size(); i++) {
+						MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
+						temp.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								String playlistName=temp.getText();
+								Playlist mySongs=user.getSavedSongs();
+								ArrayList<Song> savedSongs=mySongs.getSongs();
+								for(int k=0;k<playlists.size();k++)
+								{
+									if(playlists.get(k).getPlaylistName().equals(playlistName)) {
+										for(int j=0; j<savedSongs.size();j++) {
+											if(savedSongs.get(j).getTitle()!=null) {
+												//check if the selected list item is equal to the current songs title
+												if(savedSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
+													Playlist tp = playlists.get(k);
+													tp.addSong(savedSongs.get(j));
+													playlists.set(k, tp);
+													try {
+														user.setPlaylists(playlists);
+														UserRepository.UpdateUser(user);
+														currentPlaylist=playlists.get(k);
+													} catch (IOException e) {
+														// TODO Auto-generated catch block
+														e.printStackTrace();
 													}
+													break;
 												}
 											}
 										}
 									}
 								}
-							});
-							//childMenu.add(temp);
+							}
+						});
+						//childMenu.add(temp);
 
-							parentMenu.getItems().add(temp);
-						}
-						cm.getItems().add(parentMenu);
-						cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+						parentMenu.getItems().add(temp);
+					}
+					cm.getItems().add(parentMenu);
+					cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 				}
 				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 					ContextMenu cm = new ContextMenu();
@@ -601,6 +601,46 @@ public class SongViewController implements Initializable{
 	}
 
 	@FXML
+	public void searchAllSongs()
+	{
+		try
+		{
+			AllSongsListView.getItems().clear();
+
+			//user inputed text
+			String query = AllSongsSearchBar.getText();
+
+			ArrayList<Song> allSongs = UserRepository.getAllSongs();
+			
+			for(int i=0; i<allSongs.size();i++) {
+				//checks if query matches the title of the current song
+				if(allSongs.get(i).getTitle()!=null) {
+					if(allSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+						AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
+					}
+				}
+				//checks if query matches the album of the current song
+				else if(allSongs.get(i).getAlbum()!=null) {
+					if(allSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+						AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
+					}
+				}
+				//checks if query matches the artist of the current song
+				else if(allSongs.get(i).getArtist()!=null) {
+					if(allSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+						AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
+					}
+				}
+			}
+
+		}
+		catch(Exception e)
+		{
+
+		}
+	}
+
+	@FXML
 	public void search() {
 		try {
 			UserLibraryList.getItems().clear();
@@ -721,11 +761,6 @@ public class SongViewController implements Initializable{
 		currentPlaylist = new Playlist("Saved Songs"); //let's assume the song player starts with the user's saved songs library
 		currentPlaylist.addSong(rickroll);
 		currentPlaylist.addSong(september);
-
-		//test code for listview. TODO add song info to listview
-		ArrayList<String> s = new ArrayList<String>(Arrays.asList("This", "is", "where", "our", "songs", "will", "go"));
-		ObservableList<String> songs = FXCollections.observableArrayList(s);
-		AllSongsListView.setItems(songs);
 
 		//make listview automatically invisible until the search bar is selected
 		SearchBarPane.setVisible(false);

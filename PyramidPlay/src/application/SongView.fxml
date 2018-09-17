@@ -41,6 +41,6 @@
             </BorderPane>
          </children>
       </Pane>
-      <TextField fx:id="AllSongsSearchBar" layoutX="175.0" layoutY="6.0" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
+      <TextField fx:id="AllSongsSearchBar" layoutX="175.0" layoutY="6.0" onKeyReleased="#searchAllSongs" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
    </children>
 </AnchorPane>
