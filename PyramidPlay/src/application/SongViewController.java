@@ -398,6 +398,7 @@ public class SongViewController implements Initializable{
 							//check to see if the selected item matches the playlist title
 							if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
 								currentPlaylist=playlists.get(i);
+								System.out.println(playlists.get(i).getSongs().size());
 								playlistNum=0;
 								playSelectedSong();
 								currentPlaylistButton.setSelected(true);
@@ -414,10 +415,10 @@ public class SongViewController implements Initializable{
 					ContextMenu cm = new ContextMenu();
 					Menu parentMenu = new Menu("Add To Playlist");
 
-					User user;
-					try {
+			
+					
 						//user hard coded
-						user = UserRepository.getUser("amyer");
+						
 						ArrayList<Playlist> playlists=user.getPlaylists();
 						ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
 						for (int i = 0; i<playlists.size(); i++) {
@@ -439,16 +440,13 @@ public class SongViewController implements Initializable{
 														Playlist tp = playlists.get(k);
 														tp.addSong(savedSongs.get(j));
 														playlists.set(k, tp);
-														ArrayList<Song> random = playlists.get(k).getSongs();
 														try {
+															user.setPlaylists(playlists);
 															UserRepository.UpdateUser(user);
 															currentPlaylist=playlists.get(k);
 														} catch (IOException e) {
 															// TODO Auto-generated catch block
 															e.printStackTrace();
-														}
-														for(int f=0;f<random.size();f++) {
-															System.out.println(random.get(f).getTitle());
 														}
 														break;
 													}
@@ -464,10 +462,6 @@ public class SongViewController implements Initializable{
 						}
 						cm.getItems().add(parentMenu);
 						cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
-					}catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 				}
 				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 					ContextMenu cm = new ContextMenu();
