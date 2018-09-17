@@ -21,6 +21,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -422,15 +424,14 @@ public class SongViewController implements Initializable{
 			else if(event.getButton() == MouseButton.SECONDARY) {
 				ContextMenu cm = new ContextMenu();
 				Menu parentMenu = new Menu("Add To Playlist");
+				Playlist mySongs=user.getSavedSongs();
  				//user hard coded
  				ArrayList<Playlist> playlists=user.getPlaylists();
-				
 				if(!playlists.contains(mySongs))
 				{
 					//saved playlist hasnt been added to list yet
 					playlists.add(mySongs);
 				}
-				
 				ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
 				for (int i = 0; i<playlists.size(); i++) {
 					MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
@@ -477,6 +478,7 @@ public class SongViewController implements Initializable{
 					//childMenu.add(temp);
  					parentMenu.getItems().add(temp);
 				}
+				System.out.println("check");
 				cm.getItems().add(parentMenu);
 				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
  			}
@@ -582,7 +584,7 @@ public class SongViewController implements Initializable{
 													try {
 														user.setPlaylists(playlists);
 														UserRepository.UpdateUser(user);
-														currentPlaylist=playlists.get(k);
+														//currentPlaylist=playlists.get(k);
 													} catch (IOException e) {
 														// TODO Auto-generated catch block
 														e.printStackTrace();
@@ -643,16 +645,25 @@ public class SongViewController implements Initializable{
 						public void handle(ActionEvent event) {
 							try {
 								ArrayList<Playlist> playlists=user.getPlaylists();
-								for(int n=0;n<playlists.size();n++) {
-									if(sel.equals(playlists.get(n).getPlaylistName())) {
-										if(playlists.get(n).equals(currentPlaylist)) {
-											currentPlaylist=user.getSavedSongs();
+								if(!sel.equals("My Playlist")){
+									for(int n=0;n<playlists.size();n++) {
+										if(sel.equals(playlists.get(n).getPlaylistName())) {
+											if(playlists.get(n).equals(currentPlaylist)) {
+												currentPlaylist=user.getSavedSongs();
+											}
+											playlists.remove(n);
+											user.setPlaylists(playlists);
+											UserRepository.UpdateUser(user);
+											OnMyPlaylistsClicked(null);
 										}
-										playlists.remove(n);
-										user.setPlaylists(playlists);
-										UserRepository.UpdateUser(user);
-										OnMyPlaylistsClicked(null);
 									}
+								}
+								else {
+									Alert alert = new Alert(AlertType.ERROR);
+									alert.setTitle("Error");
+									alert.setHeaderText("Cannot delete My Playlist");
+									alert.setContentText("Please try a different option");
+									alert.showAndWait();
 								}
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
@@ -672,6 +683,21 @@ public class SongViewController implements Initializable{
 								Optional<String> result = dialog.showAndWait();
 								ArrayList<Playlist> playlists=user.getPlaylists();
 								boolean tryAgain=true;
+								/**while(true) {
+									int count=0;
+									if(result.isPresent()) {
+										for(int i=0;i<playlists.size();i++) {
+											if(playlists.get(i).getPlaylistName().equals(result.get())) {
+												count++;
+											}
+										}
+									}
+									else
+									{
+										break;
+									}
+									break;
+								}**/
 								while(tryAgain) {
 									int count=0;
 									if(result.isPresent()) {
