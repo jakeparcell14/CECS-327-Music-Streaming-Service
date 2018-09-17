@@ -82,7 +82,7 @@ public class SongViewController implements Initializable{
 	private ToggleButton currentPlaylistButton;
 
 	@FXML
-	private ListView<String> AllSongsListView;
+	private ListView AllSongsListView;
 
 	@FXML
 	private TextField AllSongsSearchBar;
@@ -420,6 +420,7 @@ public class SongViewController implements Initializable{
 							//check to see if the selected item matches the playlist title
 							if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
 								currentPlaylist=playlists.get(i);
+								System.out.println(playlists.get(i).getSongs().size());
 								playlistNum=0;
 								playSelectedSong();
 								currentPlaylistButton.setSelected(true);
@@ -456,16 +457,13 @@ public class SongViewController implements Initializable{
 													Playlist tp = playlists.get(k);
 													tp.addSong(savedSongs.get(j));
 													playlists.set(k, tp);
-													ArrayList<Song> random = playlists.get(k).getSongs();
 													try {
+														user.setPlaylists(playlists);
 														UserRepository.UpdateUser(user);
 														currentPlaylist=playlists.get(k);
 													} catch (IOException e) {
 														// TODO Auto-generated catch block
 														e.printStackTrace();
-													}
-													for(int f=0;f<random.size();f++) {
-														System.out.println(random.get(f).getTitle());
 													}
 													break;
 												}
@@ -557,7 +555,6 @@ public class SongViewController implements Initializable{
 									user.setPlaylists(playlists);
 									UserRepository.UpdateUser(user);
 									OnMyPlaylistsClicked(null);
-									System.out.println("Your name: " + result.get());
 								}
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
@@ -619,6 +616,46 @@ public class SongViewController implements Initializable{
 	@FXML 
 	public void OnSliderDragDropped(MouseEvent event) {
 		System.out.println("dropped");
+	}
+
+	@FXML
+	public void searchAllSongs()
+	{
+		try
+		{
+			AllSongsListView.getItems().clear();
+
+			//user inputed text
+			String query = AllSongsSearchBar.getText();
+
+			ArrayList<Song> allSongs = UserRepository.getAllSongs();
+			
+			for(int i=0; i<allSongs.size();i++) {
+				//checks if query matches the title of the current song
+				if(allSongs.get(i).getTitle()!=null) {
+					if(allSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+						AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
+					}
+				}
+				//checks if query matches the album of the current song
+				else if(allSongs.get(i).getAlbum()!=null) {
+					if(allSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+						AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
+					}
+				}
+				//checks if query matches the artist of the current song
+				else if(allSongs.get(i).getArtist()!=null) {
+					if(allSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+						AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
+					}
+				}
+			}
+
+		}
+		catch(Exception e)
+		{
+
+		}
 	}
 
 	@FXML

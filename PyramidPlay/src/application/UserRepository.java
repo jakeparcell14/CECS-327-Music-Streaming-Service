@@ -39,6 +39,20 @@ public class UserRepository {
 		return users;
 	}
 	
+	private static ArrayList<Song> getSongs() throws IOException {
+		Gson gson = new Gson();
+		ArrayList<Song> songs = new ArrayList<Song>();
+		File file = new File("songs.json");
+		Scanner scanner = new Scanner(file);
+			
+		while(scanner.hasNextLine()) {
+			songs.add(gson.fromJson(scanner.nextLine(), Song.class));
+		}
+		scanner.close();
+
+		return songs;
+	}
+	
 	/**
 	 * Checks if a username/password combination is correct.
 	 * @param username Username of user.
@@ -67,6 +81,11 @@ public class UserRepository {
 				return users.get(i);
 		}
 		return null;
+	}
+	
+	public static ArrayList<Song> getAllSongs() throws IOException
+	{
+		return getSongs();
 	}
 	
 	public static void UpdateUser(User user) throws IOException {
