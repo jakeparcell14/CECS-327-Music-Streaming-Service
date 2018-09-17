@@ -680,10 +680,9 @@ public class SongViewController implements Initializable{
 							dialog.setContentText("Enter Playlist Name:");
 
 							try {
-								Optional<String> result = dialog.showAndWait();
 								ArrayList<Playlist> playlists=user.getPlaylists();
-								boolean tryAgain=true;
-								/**while(true) {
+								while(true) {
+									Optional<String> result = dialog.showAndWait();
 									int count=0;
 									if(result.isPresent()) {
 										for(int i=0;i<playlists.size();i++) {
@@ -691,23 +690,21 @@ public class SongViewController implements Initializable{
 												count++;
 											}
 										}
-									}
-									else
-									{
-										break;
-									}
-									break;
-								}**/
-								while(tryAgain) {
-									int count=0;
-									if(result.isPresent()) {
-										for(int i=0;i<playlists.size();i++) {
-											if(playlists.get(i).getPlaylistName().equals(result.get())) {
-												count++;
-											}
+										if(count!=0) {
+											Alert alert = new Alert(AlertType.ERROR);
+											alert.setTitle("Error adding playlist");
+											alert.setHeaderText("There is already a playlist with that name");
+											alert.setContentText("Please try a different name");
+											alert.showAndWait();
 										}
-										if(count==0 && result.get().trim().length() > 0) {
-											tryAgain=false;
+										else if(result.get().trim().length() == 0) {
+											Alert alert = new Alert(AlertType.ERROR);
+											alert.setTitle("Error adding playlist");
+											alert.setHeaderText("Enter Characters that are not blank space");
+											alert.setContentText("Please try a different name");
+											alert.showAndWait();
+										}
+										else{
 											playlists.add(new Playlist(result.get()));
 											user.setPlaylists(playlists);
 											UserRepository.UpdateUser(user);
@@ -715,14 +712,11 @@ public class SongViewController implements Initializable{
 											break;
 										}
 									}
-									else {
+									else
+									{
 										break;
 									}
-									result = dialog.showAndWait();
 								}
-									
-								
-								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
