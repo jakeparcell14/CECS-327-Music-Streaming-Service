@@ -470,9 +470,7 @@ public class SongViewController implements Initializable{
 
 						@Override
 						public void handle(ActionEvent event) {
-							User user;
 							try {
-								user = UserRepository.getUser("amyer");
 								ArrayList<Playlist> playlists=user.getPlaylists();
 								for(int n=0;n<playlists.size();n++) {
 									if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
@@ -539,7 +537,6 @@ public class SongViewController implements Initializable{
 									user.setPlaylists(playlists);
 									UserRepository.UpdateUser(user);
 									OnMyPlaylistsClicked(null);
-									System.out.println("Your name: " + result.get());
 								}
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
@@ -609,7 +606,6 @@ public class SongViewController implements Initializable{
 			UserLibraryList.getItems().clear();
 			//user inputted text
 			String query=searchbar.getText();
-			User user=UserRepository.getUser("amyer");
 			//my songs are selected
 			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton))
 			{
