@@ -136,11 +136,19 @@ public class LoginController implements Initializable
 					//add user to the user repository
 					UserRepository.AddUser(newUser);
 					
-					// switch to Song View screen on successful registration
-					Parent x = FXMLLoader.load(getClass().getResource("SongView.fxml"));
-					Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
-					s.setResizable(false);
-					s.setScene(new Scene(x));
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("SongView.fxml"));
+					Parent songViewParent = loader.load();
+			
+					Scene songViewScene = new Scene(songViewParent);
+			
+					//access the SongViewController and call initUser() to pass user information
+					SongViewController controller = loader.getController();
+					controller.initUser(newUser);
+					
+					Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+					window.setResizable(false);
+					window.setScene(songViewScene);
 				}
 			}
 			catch(IOException e)

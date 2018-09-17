@@ -38,6 +38,7 @@ public class User implements Comparable<User>, Serializable
 		username = u;
 		password = p;
 		playlists = new ArrayList<Playlist>();
+		playlists.add(new Playlist("My Playlist"));
 		savedSongs = new Playlist("saved");
 	}
 	
