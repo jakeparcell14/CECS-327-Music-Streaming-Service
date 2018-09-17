@@ -425,7 +425,6 @@ public class SongViewController implements Initializable{
 											if(savedSongs.get(j).getTitle()!=null) {
 												//check if the selected list item is equal to the current songs title
 												if(savedSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
-													System.out.println("it works!");
 													currentPlaylist=mySongs;
 													Playlist tp = playlists.get(k);
 													tp.addSong(savedSongs.get(j));
@@ -437,18 +436,12 @@ public class SongViewController implements Initializable{
 														// TODO Auto-generated catch block
 														e.printStackTrace();
 													}
-													for(int f=0;f<random.size();f++) {
-														System.out.println(random.get(f).getTitle());
-													}
 													break;
 												}
 											}
 										}
 									}
-
 								}
-								
-				            	
 				            }
 				        });
 						//childMenu.add(temp);
@@ -461,7 +454,39 @@ public class SongViewController implements Initializable{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}	
+			}
+			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+				ContextMenu cm = new ContextMenu();
+				MenuItem remove = new MenuItem("Remove Song");
+				remove.setOnAction(new EventHandler<ActionEvent>() {
+					 
+		            @Override
+		            public void handle(ActionEvent event) {
+		            	User user;
+						try {
+							user = UserRepository.getUser("amyer");
+							ArrayList<Playlist> playlists=user.getPlaylists();
+							for(int n=0;n<playlists.size();n++) {
+								if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
+									Playlist tempo=playlists.get(n);
+									tempo.removeSong(sel);
+									playlists.set(n, tempo);
+									currentPlaylist=playlists.get(n);
+									UserRepository.UpdateUser(user);
+					            	OnCurrentPlaylistClicked(null);
+					            	break;
+								}
+								
+							}
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		            }
+				});
+				cm.getItems().add(remove);
+				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+			}
 		}
 	}
 	
