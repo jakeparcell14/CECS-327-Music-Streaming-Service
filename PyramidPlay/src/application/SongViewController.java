@@ -590,7 +590,7 @@ public class SongViewController implements Initializable{
 													break;
 												}
 											}
-											break;
+											
 										}
 									}
 								}
