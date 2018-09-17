@@ -40,7 +40,15 @@ public class SongViewController implements Initializable{
 	@FXML
 	private Slider _slider;
 	
-	private User currentUser;
+	/**
+	 * The current user logged into the application.
+	 */
+	private User user;
+	
+	/**
+	 * The user's personal library of songs.
+	 */
+	private Playlist mySongs;
 
 	@FXML
 	private Label currentTime;
@@ -75,7 +83,7 @@ public class SongViewController implements Initializable{
 	private Playlist currentPlaylist;
 	
 	/**
-	 * 
+	 * Index of current song selected in the playlist.
 	 */
 	private int playlistNum;
 
@@ -142,20 +150,32 @@ public class SongViewController implements Initializable{
 	 * @param user - user that is grabbed from the login screen controller
 	 */
 	public void initUser(User user) {
-		currentUser = user;
-		Playlist mySongs=currentUser.getSavedSongs();
+		this.user = user;
+		mySongs= user.getSavedSongs();
 		if (mySongs != null) {
-			ArrayList<Song> savedSongs=mySongs.getSongs();
-			
-			for(int i=0; i<savedSongs.size();i++) {
-				if(savedSongs.get(i).getTitle()!=null) {
-					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
-				}
+			displaySongs(mySongs);
+		}
+	}
+	
+	public void displaySongs(Playlist pl) {
+		ArrayList<Song> savedSongs=pl.getSongs();
+		
+		for(int i=0; i<savedSongs.size();i++) {
+			if(savedSongs.get(i).getTitle()!=null) {
+				UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
 			}
 		}
 	}
-
-
+	
+	public void displayPlaylists(ArrayList<Playlist> playlists) {
+		for (int i = 0; i<playlists.size(); i++) {
+			if(playlists.get(i).getPlaylistName()!=null) {
+				UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
+					break;
+			}
+		}
+	}
+	
 	// Event Listener on Button[#_playButton].onMouseClicked
 	@FXML
 	public void OnPlayPauseClicked(MouseEvent event) {
@@ -203,6 +223,7 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
 	}
+	
 	public void playSelectedSong () {
 		_currentTime = 0;
 		currentTime.setText((getTime(_currentTime)));
@@ -272,21 +293,8 @@ public class SongViewController implements Initializable{
 		searchbar.setPromptText("search my songs");
 		UserLibraryList.getItems().clear();
 		// display initialize the listview with all the my songs of the user
-		User user;
-		try {
-			//user is hard coded
-			user = UserRepository.getUser("amyer");
-			Playlist mySongs=user.getSavedSongs();
-			ArrayList<Song> savedSongs=mySongs.getSongs();
-			
-			for(int i=0; i<savedSongs.size();i++) {
-				if(savedSongs.get(i).getTitle()!=null) {
-					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (mySongs != null) {
+			displaySongs(mySongs);
 		}
 		
 	}
@@ -304,20 +312,8 @@ public class SongViewController implements Initializable{
 		searchbar.setPromptText("search my playlists");
 		UserLibraryList.getItems().clear();
 		// initalized listview with all the playlists the user has
-		User user;
-		try {
-			//user is hardcoded
-			user = UserRepository.getUser("amyer");
-			ArrayList<Playlist> playlists=user.getPlaylists();
-			for (int i = 0; i<playlists.size(); i++) {
-				if(playlists.get(i).getPlaylistName()!=null) {
-					UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
-						break;
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (user.getPlaylists() != null) {
+			displayPlaylists(user.getPlaylists());
 		}
 	}
 	
@@ -350,7 +346,7 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
 		//item on the list view that the user selects
-		String sel = (String) UserLibraryList.getSelectionModel().getSelectedItem();
+		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
 		//user left clicks on library list
 		if(event.getButton() == MouseButton.PRIMARY) {
 			User user;
