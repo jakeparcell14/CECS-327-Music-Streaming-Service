@@ -36,7 +36,7 @@
                   <Insets />
                </opaqueInsets>
                <center>
-                  <ListView fx:id="AllSongsListView" prefHeight="306.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
+                  <ListView fx:id="AllSongsListView" prefHeight="306.0" onMouseClicked="#OnAllSongsListClicked" prefWidth="250.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </children>

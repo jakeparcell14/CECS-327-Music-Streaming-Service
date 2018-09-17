@@ -34,6 +34,13 @@ public class Playlist implements Comparable<Playlist>, Serializable
 		dateCreated = new Date();
 	}
 	
+	public Playlist(String n, ArrayList<Song> s)
+	{
+		name = n;
+		songs = s;
+		dateCreated = new Date();
+	}
+	
 	/**
 	 * Constructor for Playlist to initialize song list with given values
 	 * @param s		given list of songs
@@ -43,13 +50,6 @@ public class Playlist implements Comparable<Playlist>, Serializable
 		name = n;
 		songs = new ArrayList<Song>(s);
 		dateCreated = new Date(d);
-	}
-	
-	public Playlist(String n, ArrayList<Song> s, Date d)
-	{
-		name = n;
-		songs = new ArrayList<Song>(s);
-		dateCreated = d;
 	}
 	
 	/**
