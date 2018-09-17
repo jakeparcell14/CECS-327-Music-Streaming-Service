@@ -130,4 +130,20 @@ public class Song implements Comparable<Song>, Serializable
 	{
 		return this.getTitle().compareTo(s.getTitle());
 	}
+	
+	@Override	
+	public String toString() {
+		return title;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Song) {
+			Song song = (Song) o;
+			return song.getAlbum().equals(album) &&
+					song.getArtist().equals(artist) &&
+					song.getTitle().equals(title);
+		}
+		return false;
+	}
 }
