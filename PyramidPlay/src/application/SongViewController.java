@@ -16,6 +16,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -330,7 +332,7 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
 		//item on the list view that the user selects
-		String sel = (String) UserLibraryList.getSelectionModel().getSelectedItem();
+		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
 		//user left clicks on library list
 		if(event.getButton() == MouseButton.PRIMARY) {
 			User user;
@@ -408,7 +410,50 @@ public class SongViewController implements Initializable{
 					ArrayList<Playlist> playlists=user.getPlaylists();
 					ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
 					for (int i = 0; i<playlists.size(); i++) {
-						parentMenu.getItems().add(new MenuItem(playlists.get(i).getPlaylistName()));
+						MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
+						temp.setOnAction(new EventHandler<ActionEvent>() {
+							 
+				            @Override
+				            public void handle(ActionEvent event) {
+				            	String playlistName=temp.getText();
+				            	Playlist mySongs=user.getSavedSongs();
+								ArrayList<Song> savedSongs=mySongs.getSongs();
+								for(int k=0;k<playlists.size();k++)
+								{
+									if(playlists.get(k).getPlaylistName().equals(playlistName)) {
+										for(int j=0; j<savedSongs.size();j++) {
+											if(savedSongs.get(j).getTitle()!=null) {
+												//check if the selected list item is equal to the current songs title
+												if(savedSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
+													System.out.println("it works!");
+													currentPlaylist=mySongs;
+													Playlist tp = playlists.get(k);
+													tp.addSong(savedSongs.get(j));
+													playlists.set(k, tp);
+													ArrayList<Song> random = playlists.get(k).getSongs();
+													try {
+														UserRepository.UpdateUser(user);
+													} catch (IOException e) {
+														// TODO Auto-generated catch block
+														e.printStackTrace();
+													}
+													for(int f=0;f<random.size();f++) {
+														System.out.println(random.get(f).getTitle());
+													}
+													break;
+												}
+											}
+										}
+									}
+
+								}
+								
+				            	
+				            }
+				        });
+						//childMenu.add(temp);
+						
+						parentMenu.getItems().add(temp);
 					}
 					cm.getItems().add(parentMenu);
 					cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
