@@ -424,14 +424,8 @@ public class SongViewController implements Initializable{
 			else if(event.getButton() == MouseButton.SECONDARY) {
 				ContextMenu cm = new ContextMenu();
 				Menu parentMenu = new Menu("Add To Playlist");
-				Playlist mySongs=user.getSavedSongs();
  				//user hard coded
  				ArrayList<Playlist> playlists=user.getPlaylists();
-				if(!playlists.contains(mySongs))
-				{
-					//saved playlist hasnt been added to list yet
-					playlists.add(mySongs);
-				}
 				ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
 				for (int i = 0; i<playlists.size(); i++) {
 					MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
@@ -790,23 +784,17 @@ public class SongViewController implements Initializable{
 			String query = AllSongsSearchBar.getText();
 
 			for(int i=0; i<allSongs.size();i++) {
-				//checks if query matches the title of the current song
-				if(allSongs.get(i).getTitle()!=null) {
-					if(allSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-						AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
-					}
+				//checks if query matches the title of the current song				
+				if(allSongs.get(i).getTitle()!=null && allSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+					AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
 				}
 				//checks if query matches the album of the current song
-				else if(allSongs.get(i).getAlbum()!=null) {
-					if(allSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-						AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
-					}
+				else if(allSongs.get(i).getAlbum()!=null && allSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+					AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
 				}
 				//checks if query matches the artist of the current song
-				else if(allSongs.get(i).getArtist()!=null) {
-					if(allSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
-						AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
-					}
+				else if(allSongs.get(i).getArtist()!=null && allSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+					AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
 				}
 			}
 
