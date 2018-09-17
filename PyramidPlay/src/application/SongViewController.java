@@ -36,6 +36,7 @@ public class SongViewController implements Initializable{
 	@FXML
 	private Slider _slider;
 	
+	private User currentUser;
 
 	@FXML
 	private Label currentTime;
@@ -127,6 +128,25 @@ public class SongViewController implements Initializable{
 			}
 		}
 	};
+	
+	/**
+	 * A method to be called by LoginController to pass user information from
+	 * the login screen to song viewer
+	 * @param user - user that is grabbed from the login screen controller
+	 */
+	public void initUser(User user) {
+		currentUser = user;
+		Playlist mySongs=currentUser.getSavedSongs();
+		if (mySongs != null) {
+			ArrayList<Song> savedSongs=mySongs.getSongs();
+			
+			for(int i=0; i<savedSongs.size();i++) {
+				if(savedSongs.get(i).getTitle()!=null) {
+					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+				}
+			}
+		}
+	}
 
 
 	// Event Listener on Button[#_playButton].onMouseClicked
@@ -512,7 +532,7 @@ public class SongViewController implements Initializable{
 		long s = microseconds/1000000;
 		return String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60));
 	}
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		menuToggleGroup = new ToggleGroup();
@@ -523,21 +543,6 @@ public class SongViewController implements Initializable{
 		mySongsButton.setSelected(true);
 		searchbar.setPromptText("search my songs");
 		
-		User user;
-		try {
-			user = UserRepository.getUser("amyer");
-			Playlist mySongs=user.getSavedSongs();
-			ArrayList<Song> savedSongs=mySongs.getSongs();
-			
-			for(int i=0; i<savedSongs.size();i++) {
-				if(savedSongs.get(i).getTitle()!=null) {
-					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		//hardcoding a playlist for testing
 		playlistNum = 0;
