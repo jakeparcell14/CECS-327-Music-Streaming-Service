@@ -64,6 +64,8 @@ public class LoginController implements Initializable
 	
 	@FXML
 	private Label UsernameUnavailableLabel;
+	
+	private User verifiedUser;
 
 
 	@Override
@@ -71,10 +73,11 @@ public class LoginController implements Initializable
 	{
 
 	}
-
+	
 	@FXML
 	public void OnSignInOrRegisterClicked(ActionEvent event)
 	{
+		//attempts to sign in the user with the given username and password
 		if( SignInOrRegisterButton.getText().equals("Sign In"))
 		{
 			//user is attempting to sign in
@@ -85,11 +88,21 @@ public class LoginController implements Initializable
 			{
 				if(UserRepository.IsUsernameAndPasswordCorrect(u, p))
 				{
-					// switch to Song View screen on successful login
-					Parent x = FXMLLoader.load(getClass().getResource("SongView.fxml"));
-					Stage s = (Stage)((Node)event.getSource()).getScene().getWindow();
-					s.setResizable(false);
-					s.setScene(new Scene(x));
+					//switch to Song View screen on successful login
+					verifiedUser = UserRepository.getUser(u);
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("SongView.fxml"));
+					Parent songViewParent = loader.load();
+			
+					Scene songViewScene = new Scene(songViewParent);
+			
+					//access the SongViewController and call initUser() to pass user information
+					SongViewController controller = loader.getController();
+					controller.initUser(verifiedUser);
+					
+					Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+					window.setResizable(false);
+					window.setScene(songViewScene);
 				}
 				else
 				{

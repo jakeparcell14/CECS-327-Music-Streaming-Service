@@ -42,6 +42,15 @@ public class SongViewController implements Initializable{
 	@FXML
 	private Slider _slider;
 	
+	/**
+	 * The current user logged into the application.
+	 */
+	private User user;
+	
+	/**
+	 * The user's personal library of songs.
+	 */
+	private Playlist mySongs;
 
 	@FXML
 	private Label currentTime;
@@ -76,7 +85,7 @@ public class SongViewController implements Initializable{
 	private Playlist currentPlaylist;
 	
 	/**
-	 * 
+	 * Index of current song selected in the playlist.
 	 */
 	private int playlistNum;
 
@@ -136,8 +145,39 @@ public class SongViewController implements Initializable{
 			}
 		}
 	};
-
-
+	
+	/**
+	 * A method to be called by LoginController to pass user information from
+	 * the login screen to song viewer
+	 * @param user - user that is grabbed from the login screen controller
+	 */
+	public void initUser(User user) {
+		this.user = user;
+		mySongs= user.getSavedSongs();
+		if (mySongs != null) {
+			displaySongs(mySongs);
+		}
+	}
+	
+	public void displaySongs(Playlist pl) {
+		ArrayList<Song> savedSongs=pl.getSongs();
+		
+		for(int i=0; i<savedSongs.size();i++) {
+			if(savedSongs.get(i).getTitle()!=null) {
+				UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+			}
+		}
+	}
+	
+	public void displayPlaylists(ArrayList<Playlist> playlists) {
+		for (int i = 0; i<playlists.size(); i++) {
+			if(playlists.get(i).getPlaylistName()!=null) {
+				UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
+					break;
+			}
+		}
+	}
+	
 	// Event Listener on Button[#_playButton].onMouseClicked
 	@FXML
 	public void OnPlayPauseClicked(MouseEvent event) {
@@ -185,6 +225,7 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
 	}
+	
 	public void playSelectedSong () {
 		_currentTime = 0;
 		currentTime.setText((getTime(_currentTime)));
@@ -254,21 +295,8 @@ public class SongViewController implements Initializable{
 		searchbar.setPromptText("search my songs");
 		UserLibraryList.getItems().clear();
 		// display initialize the listview with all the my songs of the user
-		User user;
-		try {
-			//user is hard coded
-			user = UserRepository.getUser("amyer");
-			Playlist mySongs=user.getSavedSongs();
-			ArrayList<Song> savedSongs=mySongs.getSongs();
-			
-			for(int i=0; i<savedSongs.size();i++) {
-				if(savedSongs.get(i).getTitle()!=null) {
-					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (mySongs != null) {
+			displaySongs(mySongs);
 		}
 		
 	}
@@ -286,20 +314,8 @@ public class SongViewController implements Initializable{
 		searchbar.setPromptText("search my playlists");
 		UserLibraryList.getItems().clear();
 		// initalized listview with all the playlists the user has
-		User user;
-		try {
-			//user is hardcoded
-			user = UserRepository.getUser("amyer");
-			ArrayList<Playlist> playlists=user.getPlaylists();
-			for (int i = 0; i<playlists.size(); i++) {
-				if(playlists.get(i).getPlaylistName()!=null) {
-					UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
-						break;
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (user.getPlaylists() != null) {
+			displayPlaylists(user.getPlaylists());
 		}
 	}
 	
@@ -335,66 +351,58 @@ public class SongViewController implements Initializable{
 		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
 		//user left clicks on library list
 		if(event.getButton() == MouseButton.PRIMARY) {
-			User user;
-			try {
-				//user hard coded
-				user = UserRepository.getUser("amyer");
-				//if the saved songs button is selected, find the selected song to play
-				if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
-					Playlist mySongs=user.getSavedSongs();
-					ArrayList<Song> savedSongs=mySongs.getSongs();
-					for(int i=0; i<savedSongs.size();i++) {
-						if(savedSongs.get(i).getTitle()!=null) {
-							//check if the selected list item is equal to the current songs title
-							if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
-								currentPlaylist=mySongs;
-								playlistNum=i-1;
-								playSelectedSong();
-								break;
-							}
+			//if the saved songs button is selected, find the selected song to play
+			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
+				Playlist mySongs=user.getSavedSongs();
+				ArrayList<Song> savedSongs=mySongs.getSongs();
+				for(int i=0; i<savedSongs.size();i++) {
+					if(savedSongs.get(i).getTitle()!=null) {
+						//check if the selected list item is equal to the current songs title
+						if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							playSelectedSong();
+							break;
 						}
-						/**
-						else if(savedSongs.get(i).getAlbum()!=null) {
-							if(savedSongs.get(i).getAlbum().toLowerCase().contains(sel.toLowerCase())) {
-								currentPlaylist=mySongs;
-								playlistNum=i-1;
-								playSelectedSong();
-								break;
-							}
-						}
-						else if(savedSongs.get(i).getArtist()!=null) {
-							if(savedSongs.get(i).getArtist().toLowerCase().contains(sel.toLowerCase())) {
-								currentPlaylist=mySongs;
-								playlistNum=i-1;
-								playSelectedSong();
-								break;
-							}
-							
-						}
-						**/
 					}
-					
+					/**
+					else if(savedSongs.get(i).getAlbum()!=null) {
+						if(savedSongs.get(i).getAlbum().toLowerCase().contains(sel.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							playSelectedSong();
+							break;
+						}
+					}
+					else if(savedSongs.get(i).getArtist()!=null) {
+						if(savedSongs.get(i).getArtist().toLowerCase().contains(sel.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							playSelectedSong();
+							break;
+						}
+						
+					}
+					**/
 				}
-				//myplaylists are selected
-				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)){
-					ArrayList<Playlist> playlists=user.getPlaylists();
-					for (int i = 0; i<playlists.size(); i++) {
-						if(playlists.get(i).getPlaylistName()!=null) {
-							//check to see if the selected item matches the playlist title
-							if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
-								currentPlaylist=playlists.get(i);
-								playlistNum=-1;
-								playSelectedSong();
-								currentPlaylistButton.setSelected(true);
-								OnCurrentPlaylistClicked(null);
-								break;
-							}
+				
+			}
+			//my playlists are selected
+			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)){
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				for (int i = 0; i<playlists.size(); i++) {
+					if(playlists.get(i).getPlaylistName()!=null) {
+						//check to see if the selected item matches the playlist title
+						if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
+							currentPlaylist=playlists.get(i);
+							playlistNum=-1;
+							playSelectedSong();
+							currentPlaylistButton.setSelected(true);
+							OnCurrentPlaylistClicked(null);
+							break;
 						}
 					}
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 		//user right clicks library list
@@ -665,7 +673,7 @@ public class SongViewController implements Initializable{
 		long s = microseconds/1000000;
 		return String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60));
 	}
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		menuToggleGroup = new ToggleGroup();
@@ -677,21 +685,6 @@ public class SongViewController implements Initializable{
 		mySongsButton.setSelected(true);
 		searchbar.setPromptText("search my songs");
 		
-		User user;
-		try {
-			user = UserRepository.getUser("amyer");
-			Playlist mySongs=user.getSavedSongs();
-			ArrayList<Song> savedSongs=mySongs.getSongs();
-			
-			for(int i=0; i<savedSongs.size();i++) {
-				if(savedSongs.get(i).getTitle()!=null) {
-					UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		//hardcoding a playlist for testing
 		playlistNum = 0;
