@@ -59,7 +59,13 @@ public class SongViewController implements Initializable{
 	 */
 	@FXML
 	private Label currentSongName;
+	
+	@FXML
+	private Label currentSongArtist;
 
+	@FXML
+	private Label currentSongAlbum;
+	
 	@FXML
 	private Label currentTime;
 
@@ -185,6 +191,15 @@ public class SongViewController implements Initializable{
 		}
 	}
 
+	/**
+	 * updates the labels of the song viewer
+	 * @param song - song currently playing
+	 */
+	public void updateSongLabels(Song song) {
+		currentSongName.setText(song.getTitle());
+		currentSongArtist.setText(song.getArtist());
+	}
+	
 	// Event Listener on Button[#_playButton].onMouseClicked
 	@FXML
 	public void OnPlayPauseClicked(MouseEvent event) {
@@ -223,7 +238,7 @@ public class SongViewController implements Initializable{
 			playlistNum = 0;
 		}
 		
-		currentSongName.setText(currentPlaylist.getSongs().get(playlistNum).getTitle());
+		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
 		if(_playButton.getText().equals("Pause")) {
 			playSong(_currentTime);
 		}
@@ -248,13 +263,12 @@ public class SongViewController implements Initializable{
 		if(playlistNum == currentPlaylist.getLength()) {
 			playlistNum = 0;
 		}
-
+		
+		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
 		playSong(_currentTime);
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
 		}
-
-
 
 		// make search results invisible
 		SearchBarPane.setVisible(false);
@@ -280,7 +294,7 @@ public class SongViewController implements Initializable{
 			playlistNum--;
 		}
 		
-		currentSongName.setText(currentPlaylist.getSongs().get(playlistNum).getTitle());
+		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
 		if(_playButton.getText().equals("Pause")) {
 			playSong(_currentTime);
 		}
@@ -658,7 +672,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void playSong(long time) {
 		File f;
-		currentSongName.setText(currentPlaylist.getSongs().get(playlistNum).getTitle());
+		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
 		try {
 			//initialize clip
 			_currentSong = AudioSystem.getClip();

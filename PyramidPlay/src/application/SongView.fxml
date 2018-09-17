@@ -42,6 +42,7 @@
          </children>
       </Pane>
       <TextField fx:id="AllSongsSearchBar" layoutX="175.0" layoutY="6.0" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
-      <Label fx:id="currentSongName" layoutX="435.0" layoutY="285.0" text="Song Name" />
+      <Label fx:id="currentSongName" alignment="CENTER" contentDisplay="CENTER" layoutX="432.0" layoutY="276.0" text="Song Name" textAlignment="CENTER" />
+      <Label fx:id="currentSongArtist" alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="294.0" text="Artist" textAlignment="CENTER" />
    </children>
 </AnchorPane>
