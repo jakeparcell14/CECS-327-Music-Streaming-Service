@@ -490,8 +490,32 @@ public class SongViewController implements Initializable{
 				cm.getItems().add(remove);
 				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 			}
-			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
-				
+			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
+				ContextMenu cm = new ContextMenu();
+				MenuItem createP = new MenuItem("Create New Playlist");
+				MenuItem removeP = new MenuItem("Remove Playlist");
+				removeP.setOnAction(new EventHandler<ActionEvent>() {
+					 
+		            @Override
+		            public void handle(ActionEvent event) {
+		            	User user;
+						try {
+							user = UserRepository.getUser("amyer");
+							ArrayList<Playlist> playlists=user.getPlaylists();
+			            	for(int n=0;n<playlists.size();n++) {
+								if(sel.equals(playlists.get(n).getPlaylistName())) {
+									System.out.println("it Works!");
+								}
+							}
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+		            }
+	            });
+				cm.getItems().add(removeP);
+				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 			}
 		}
 	}
