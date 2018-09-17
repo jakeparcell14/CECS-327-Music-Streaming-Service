@@ -26,7 +26,7 @@
          <children>
             <ToggleButton fx:id="mySongsButton" layoutX="108.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#OnMySongsClicked" prefHeight="30.0" prefWidth="108.0" text="My Songs" />
             <ToggleButton fx:id="myPlaylistsButton" layoutX="216.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#OnMyPlaylistsClicked" prefHeight="30.0" prefWidth="108.0" text="My Playlists" />
-            <ToggleButton fx:id="currentPlaylistButton" layoutY="1.0" mnemonicParsing="false" prefHeight="30.0" onMouseClicked = "#OnCurrentPlaylistClicked" prefWidth="108.0" text="Current Playlist" />
+            <ToggleButton fx:id="currentPlaylistButton" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#OnCurrentPlaylistClicked" prefHeight="30.0" prefWidth="108.0" text="Current Playlist" />
          </children>
       </Pane>
       <Pane fx:id="SearchBarPane" layoutX="175.0" layoutY="31.0" prefHeight="263.0" prefWidth="250.0">
@@ -42,5 +42,6 @@
          </children>
       </Pane>
       <TextField fx:id="AllSongsSearchBar" layoutX="175.0" layoutY="6.0" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
+      <Label fx:id="currentSongName" layoutX="435.0" layoutY="285.0" text="Song Name" />
    </children>
 </AnchorPane>
