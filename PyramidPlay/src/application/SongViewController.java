@@ -508,7 +508,6 @@ public class SongViewController implements Initializable{
 										if(playlists.get(n).equals(currentPlaylist)) {
 											currentPlaylist=user.getSavedSongs();
 										}
-										System.out.println("check");
 										playlists.remove(n);
 										user.setPlaylists(playlists);
 										UserRepository.UpdateUser(user);
@@ -531,13 +530,33 @@ public class SongViewController implements Initializable{
 
 							try {
 								Optional<String> result = dialog.showAndWait();
-								if (result.isPresent()){
-									ArrayList<Playlist> playlists=user.getPlaylists();
-									playlists.add(new Playlist(result.get()));
-									user.setPlaylists(playlists);
-									UserRepository.UpdateUser(user);
-									OnMyPlaylistsClicked(null);
+								ArrayList<Playlist> playlists=user.getPlaylists();
+								boolean tryAgain=true;
+								while(tryAgain) {
+									int count=0;
+									if(result.isPresent()) {
+										for(int i=0;i<playlists.size();i++) {
+											if(playlists.get(i).getPlaylistName().equals(result.get())) {
+												count++;
+											}
+										}
+										if(count==0 && result.get().trim().length() > 0) {
+											tryAgain=false;
+											playlists.add(new Playlist(result.get()));
+											user.setPlaylists(playlists);
+											UserRepository.UpdateUser(user);
+											OnMyPlaylistsClicked(null);
+											break;
+										}
+									}
+									else {
+										break;
+									}
+									result = dialog.showAndWait();
 								}
+									
+								
+								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
