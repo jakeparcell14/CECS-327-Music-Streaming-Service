@@ -433,16 +433,19 @@ public class SongViewController implements Initializable{
 											if(savedSongs.get(j).getTitle()!=null) {
 												//check if the selected list item is equal to the current songs title
 												if(savedSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
-													currentPlaylist=mySongs;
 													Playlist tp = playlists.get(k);
 													tp.addSong(savedSongs.get(j));
 													playlists.set(k, tp);
 													ArrayList<Song> random = playlists.get(k).getSongs();
 													try {
 														UserRepository.UpdateUser(user);
+														currentPlaylist=playlists.get(k);
 													} catch (IOException e) {
 														// TODO Auto-generated catch block
 														e.printStackTrace();
+													}
+													for(int f=0;f<random.size();f++) {
+														System.out.println(random.get(f).getTitle());
 													}
 													break;
 												}
@@ -494,6 +497,9 @@ public class SongViewController implements Initializable{
 				});
 				cm.getItems().add(remove);
 				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+			}
+			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+				
 			}
 		}
 	}
