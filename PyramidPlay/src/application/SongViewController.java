@@ -451,12 +451,12 @@ public class SongViewController implements Initializable{
 												try {
 													user.setPlaylists(playlists);
 													UserRepository.UpdateUser(user);
-													currentPlaylist=playlists.get(k);
+													//currentPlaylist=playlists.get(k);
 													
 													//update song list
-													ArrayList<Song> songs = currentPlaylist.getSongs();
-													UserLibraryList.getItems().clear();
-													UserLibraryList.getItems().addAll(songs);
+													//ArrayList<Song> songs = currentPlaylist.getSongs();
+													//UserLibraryList.getItems().clear();
+													//UserLibraryList.getItems().addAll(songs);
 													
 													// make search results invisible
 													SearchBarPane.setVisible(false);
