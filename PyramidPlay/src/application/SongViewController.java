@@ -478,7 +478,6 @@ public class SongViewController implements Initializable{
 					//childMenu.add(temp);
  					parentMenu.getItems().add(temp);
 				}
-				System.out.println("check");
 				cm.getItems().add(parentMenu);
 				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
  			}
@@ -514,37 +513,17 @@ public class SongViewController implements Initializable{
 								break;
 							}
 						}
-						/**
-						else if(savedSongs.get(i).getAlbum()!=null) {
-							if(savedSongs.get(i).getAlbum().toLowerCase().contains(sel.toLowerCase())) {
-								currentPlaylist=mySongs;
-								playlistNum=i-1;
-								playSelectedSong();
-								break;
-							}
-						}
-						else if(savedSongs.get(i).getArtist()!=null) {
-							if(savedSongs.get(i).getArtist().toLowerCase().contains(sel.toLowerCase())) {
-								currentPlaylist=mySongs;
-								playlistNum=i-1;
-								playSelectedSong();
-								break;
-							}
-
-						}
-						 **/
 					}
 
 				}
 				//my playlists are selected
 				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)){
-					ArrayList<Playlist> playlists=user.getPlaylists();
+					ArrayList<Playlist> playlists = user.getPlaylists();
 					for (int i = 0; i<playlists.size(); i++) {
 						if(playlists.get(i).getPlaylistName()!=null) {
 							//check to see if the selected item matches the playlist title
 							if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
 								currentPlaylist=playlists.get(i);
-								System.out.println(playlists.get(i).getSongs().size());
 								playlistNum=0;
 								playSelectedSong();
 								currentPlaylistButton.setSelected(true);
@@ -553,6 +532,17 @@ public class SongViewController implements Initializable{
 							}
 						}
 					}
+				}
+				else if (((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+					ArrayList<Song> songs = currentPlaylist.getSongs();
+					for (int i = 0; i< songs.size(); i++) {
+						if (songs.get(i).getTitle().equals(sel)) {
+							playlistNum = i -1;
+							playSelectedSong();
+							break;
+						}
+					}
+					
 				}
 			}
 			//user right clicks library list
