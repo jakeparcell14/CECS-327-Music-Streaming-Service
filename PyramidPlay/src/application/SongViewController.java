@@ -43,12 +43,12 @@ public class SongViewController implements Initializable{
 
 	@FXML
 	private Slider _slider;
-	
+
 	/**
 	 * The current user logged into the application.
 	 */
 	private User user;
-	
+
 	/**
 	 * The user's personal library of songs.
 	 */
@@ -65,27 +65,27 @@ public class SongViewController implements Initializable{
 
 	@FXML
 	private ToggleButton myPlaylistsButton;
-	
+
 	@FXML
 	private ToggleButton currentPlaylistButton;
 
 	@FXML
 	private ListView<String> AllSongsListView;
-	
+
 	@FXML
 	private TextField AllSongsSearchBar;
-	
+
 	@FXML
 	private ListView UserLibraryList;
 
 	@FXML
 	private Pane SearchBarPane;
-	
+
 	/**
 	 * Current playlist selected.
 	 */
 	private Playlist currentPlaylist;
-	
+
 	/**
 	 * Index of current song selected in the playlist.
 	 */
@@ -105,7 +105,7 @@ public class SongViewController implements Initializable{
 	 * Current slider position.
 	 */
 	public double _sliderPosition;
-	
+
 	@FXML
 	private TextField searchbar;
 
@@ -128,17 +128,17 @@ public class SongViewController implements Initializable{
 				_slider.setValue(s);
 				currentTime.setText(getTime(s));
 			});
-			
+
 			/*if we are within a second of the end of the song, move to the next one 
 			 * by simulating a "next song" click.
 			 */
 			if (s > _currentSong.getMicrosecondLength() - 1000000) {
 				Platform.runLater(() -> {
 					OnNextClicked(null);
-					
+
 				});
 			}
-			
+
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -147,7 +147,7 @@ public class SongViewController implements Initializable{
 			}
 		}
 	};
-	
+
 	/**
 	 * A method to be called by LoginController to pass user information from
 	 * the login screen to song viewer
@@ -160,17 +160,17 @@ public class SongViewController implements Initializable{
 			displaySongs(mySongs);
 		}
 	}
-	
+
 	public void displaySongs(Playlist pl) {
 		ArrayList<Song> savedSongs=pl.getSongs();
-		
+
 		for(int i=0; i<savedSongs.size();i++) {
 			if(savedSongs.get(i).getTitle()!=null) {
 				UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
 			}
 		}
 	}
-	
+
 	public void displayPlaylists(ArrayList<Playlist> playlists) {
 		for (int i = 0; i<playlists.size(); i++) {
 			if(playlists.get(i).getPlaylistName()!=null) {
@@ -178,7 +178,7 @@ public class SongViewController implements Initializable{
 			}
 		}
 	}
-	
+
 	// Event Listener on Button[#_playButton].onMouseClicked
 	@FXML
 	public void OnPlayPauseClicked(MouseEvent event) {
@@ -191,7 +191,7 @@ public class SongViewController implements Initializable{
 			_currentSong.stop();
 			_currentSong.close();
 		}
-		
+
 		// make search results invisible
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
@@ -210,23 +210,23 @@ public class SongViewController implements Initializable{
 			_currentSong.stop();
 			_currentSong.close();
 		}
-		
+
 		//updates current song index then plays
 		playlistNum++;
 		if(playlistNum == currentPlaylist.getLength()) {
 			playlistNum = 0;
 		}
-		
+
 		if(_playButton.getText().equals("Pause")) {
 			playSong(_currentTime);
 		}
-	
+
 		// make search results invisible
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
 	}
-	
+
 	public void playSelectedSong () {
 		_currentTime = 0;
 		currentTime.setText((getTime(_currentTime)));
@@ -234,21 +234,21 @@ public class SongViewController implements Initializable{
 			_currentSong.stop();
 			_currentSong.close();
 		}
-		
-		
+
+
 		//updates current song index then plays
 		playlistNum++;
 		if(playlistNum == currentPlaylist.getLength()) {
 			playlistNum = 0;
 		}
-		
+
 		playSong(_currentTime);
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
 		}
-		
-		
-	
+
+
+
 		// make search results invisible
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
@@ -263,20 +263,20 @@ public class SongViewController implements Initializable{
 	public void OnPreviousClicked (MouseEvent event) {
 		_currentSong.stop();
 		_currentSong.close();
-		
+
 		//resets time and updates slider info
 		_currentTime = 0;
 		currentTime.setText((getTime(_currentTime)));
-		
+
 		//updates current song index then plays
 		if(playlistNum > 0) {
 			playlistNum--;
 		}
-		
+
 		if(_playButton.getText().equals("Pause")) {
 			playSong(_currentTime);
 		}
-		
+
 		// make search results invisible
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
@@ -287,7 +287,7 @@ public class SongViewController implements Initializable{
 	public void OnMySongsClicked (MouseEvent event) {
 		//ensure mySongs button cannot be deselected
 		mySongsButton.setSelected(true);
-		
+
 		// make search results invisible
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
@@ -299,14 +299,14 @@ public class SongViewController implements Initializable{
 		if (mySongs != null) {
 			displaySongs(mySongs);
 		}
-		
+
 	}
 
 	@FXML
 	public void OnMyPlaylistsClicked (MouseEvent event) {
 		//ensure myPlaylists button cannot be deselected
 		myPlaylistsButton.setSelected(true);
-				
+
 		// make search results invisible
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
@@ -319,7 +319,7 @@ public class SongViewController implements Initializable{
 			displayPlaylists(user.getPlaylists());
 		}
 	}
-	
+
 	@FXML 
 	public void OnCurrentPlaylistClicked(MouseEvent event) {
 		ArrayList<Song> songs = currentPlaylist.getSongs();
@@ -341,7 +341,7 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
 	}
-	
+
 	@FXML
 	public void OnLibraryListClicked(MouseEvent event) {
 		// make search results invisible
@@ -349,217 +349,223 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
 		//item on the list view that the user selects
-		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
-		//user left clicks on library list
-		if(event.getButton() == MouseButton.PRIMARY) {
-			//if the saved songs button is selected, find the selected song to play
-			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
-				Playlist mySongs=user.getSavedSongs();
-				ArrayList<Song> savedSongs=mySongs.getSongs();
-				for(int i=0; i<savedSongs.size();i++) {
-					if(savedSongs.get(i).getTitle()!=null) {
-						//check if the selected list item is equal to the current songs title
-						if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
-							currentPlaylist=mySongs;
-							playlistNum=i-1;
-							playSelectedSong();
-							break;
+
+		try {
+			String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
+			//user left clicks on library list
+			if(event.getButton() == MouseButton.PRIMARY) {
+				//if the saved songs button is selected, find the selected song to play
+				if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
+					Playlist mySongs=user.getSavedSongs();
+					ArrayList<Song> savedSongs=mySongs.getSongs();
+					for(int i=0; i<savedSongs.size();i++) {
+						if(savedSongs.get(i).getTitle()!=null) {
+							//check if the selected list item is equal to the current songs title
+							if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
+								currentPlaylist=mySongs;
+								playlistNum=i-1;
+								playSelectedSong();
+								break;
+							}
 						}
-					}
-					/**
-					else if(savedSongs.get(i).getAlbum()!=null) {
-						if(savedSongs.get(i).getAlbum().toLowerCase().contains(sel.toLowerCase())) {
-							currentPlaylist=mySongs;
-							playlistNum=i-1;
-							playSelectedSong();
-							break;
+						/**
+						else if(savedSongs.get(i).getAlbum()!=null) {
+							if(savedSongs.get(i).getAlbum().toLowerCase().contains(sel.toLowerCase())) {
+								currentPlaylist=mySongs;
+								playlistNum=i-1;
+								playSelectedSong();
+								break;
+							}
 						}
-					}
-					else if(savedSongs.get(i).getArtist()!=null) {
-						if(savedSongs.get(i).getArtist().toLowerCase().contains(sel.toLowerCase())) {
-							currentPlaylist=mySongs;
-							playlistNum=i-1;
-							playSelectedSong();
-							break;
+						else if(savedSongs.get(i).getArtist()!=null) {
+							if(savedSongs.get(i).getArtist().toLowerCase().contains(sel.toLowerCase())) {
+								currentPlaylist=mySongs;
+								playlistNum=i-1;
+								playSelectedSong();
+								break;
+							}
+
 						}
-						
+						 **/
 					}
-					**/
+
 				}
-				
-			}
-			//my playlists are selected
-			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)){
-				ArrayList<Playlist> playlists=user.getPlaylists();
-				for (int i = 0; i<playlists.size(); i++) {
-					if(playlists.get(i).getPlaylistName()!=null) {
-						//check to see if the selected item matches the playlist title
-						if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
-							currentPlaylist=playlists.get(i);
-							playlistNum=0;
-							playSelectedSong();
-							currentPlaylistButton.setSelected(true);
-							OnCurrentPlaylistClicked(null);
-							break;
-						}
-					}
-				}
-			}
-		}
-		//user right clicks library list
-		else if(event.getButton() == MouseButton.SECONDARY) {
-			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
-				ContextMenu cm = new ContextMenu();
-				Menu parentMenu = new Menu("Add To Playlist");
-				
-				User user;
-				try {
-					//user hard coded
-					user = UserRepository.getUser("amyer");
+				//my playlists are selected
+				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)){
 					ArrayList<Playlist> playlists=user.getPlaylists();
-					ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
 					for (int i = 0; i<playlists.size(); i++) {
-						MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
-						temp.setOnAction(new EventHandler<ActionEvent>() {
-							 
-				            @Override
-				            public void handle(ActionEvent event) {
-				            	String playlistName=temp.getText();
-				            	Playlist mySongs=user.getSavedSongs();
-								ArrayList<Song> savedSongs=mySongs.getSongs();
-								for(int k=0;k<playlists.size();k++)
-								{
-									if(playlists.get(k).getPlaylistName().equals(playlistName)) {
-										for(int j=0; j<savedSongs.size();j++) {
-											if(savedSongs.get(j).getTitle()!=null) {
-												//check if the selected list item is equal to the current songs title
-												if(savedSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
-													Playlist tp = playlists.get(k);
-													tp.addSong(savedSongs.get(j));
-													playlists.set(k, tp);
-													ArrayList<Song> random = playlists.get(k).getSongs();
-													try {
-														UserRepository.UpdateUser(user);
-														currentPlaylist=playlists.get(k);
-													} catch (IOException e) {
-														// TODO Auto-generated catch block
-														e.printStackTrace();
+						if(playlists.get(i).getPlaylistName()!=null) {
+							//check to see if the selected item matches the playlist title
+							if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
+								currentPlaylist=playlists.get(i);
+								playlistNum=0;
+								playSelectedSong();
+								currentPlaylistButton.setSelected(true);
+								OnCurrentPlaylistClicked(null);
+								break;
+							}
+						}
+					}
+				}
+			}
+			//user right clicks library list
+			else if(event.getButton() == MouseButton.SECONDARY) {
+				if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
+					ContextMenu cm = new ContextMenu();
+					Menu parentMenu = new Menu("Add To Playlist");
+
+					User user;
+					try {
+						//user hard coded
+						user = UserRepository.getUser("amyer");
+						ArrayList<Playlist> playlists=user.getPlaylists();
+						ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
+						for (int i = 0; i<playlists.size(); i++) {
+							MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
+							temp.setOnAction(new EventHandler<ActionEvent>() {
+
+								@Override
+								public void handle(ActionEvent event) {
+									String playlistName=temp.getText();
+									Playlist mySongs=user.getSavedSongs();
+									ArrayList<Song> savedSongs=mySongs.getSongs();
+									for(int k=0;k<playlists.size();k++)
+									{
+										if(playlists.get(k).getPlaylistName().equals(playlistName)) {
+											for(int j=0; j<savedSongs.size();j++) {
+												if(savedSongs.get(j).getTitle()!=null) {
+													//check if the selected list item is equal to the current songs title
+													if(savedSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
+														Playlist tp = playlists.get(k);
+														tp.addSong(savedSongs.get(j));
+														playlists.set(k, tp);
+														ArrayList<Song> random = playlists.get(k).getSongs();
+														try {
+															UserRepository.UpdateUser(user);
+															currentPlaylist=playlists.get(k);
+														} catch (IOException e) {
+															// TODO Auto-generated catch block
+															e.printStackTrace();
+														}
+														for(int f=0;f<random.size();f++) {
+															System.out.println(random.get(f).getTitle());
+														}
+														break;
 													}
-													for(int f=0;f<random.size();f++) {
-														System.out.println(random.get(f).getTitle());
-													}
-													break;
 												}
 											}
 										}
 									}
 								}
-				            }
-				        });
-						//childMenu.add(temp);
-						
-						parentMenu.getItems().add(temp);
-					}
-					cm.getItems().add(parentMenu);
-					cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
-				}catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
-				ContextMenu cm = new ContextMenu();
-				MenuItem remove = new MenuItem("Remove Song");
-				remove.setOnAction(new EventHandler<ActionEvent>() {
-					 
-		            @Override
-		            public void handle(ActionEvent event) {
-		            	User user;
-						try {
-							user = UserRepository.getUser("amyer");
-							ArrayList<Playlist> playlists=user.getPlaylists();
-							for(int n=0;n<playlists.size();n++) {
-								if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
-									Playlist tempo=playlists.get(n);
-									tempo.removeSong(sel);
-									playlists.set(n, tempo);
-									currentPlaylist=playlists.get(n);
-									UserRepository.UpdateUser(user);
-					            	OnCurrentPlaylistClicked(null);
-					            	break;
-								}
-								
-							}
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							});
+							//childMenu.add(temp);
+
+							parentMenu.getItems().add(temp);
 						}
-		            }
-				});
-				cm.getItems().add(remove);
-				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
-			}
-			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
-				ContextMenu cm = new ContextMenu();
-				MenuItem createP = new MenuItem("Create New Playlist");
-				MenuItem removeP = new MenuItem("Remove Playlist");
-				removeP.setOnAction(new EventHandler<ActionEvent>() {
-					 
-		            @Override
-		            public void handle(ActionEvent event) {
-						try {
-							ArrayList<Playlist> playlists=user.getPlaylists();
-			            	for(int n=0;n<playlists.size();n++) {
-								if(sel.equals(playlists.get(n).getPlaylistName())) {
-									if(playlists.get(n).equals(currentPlaylist)) {
-										currentPlaylist=user.getSavedSongs();
+						cm.getItems().add(parentMenu);
+						cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+					}catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+					ContextMenu cm = new ContextMenu();
+					MenuItem remove = new MenuItem("Remove Song");
+					remove.setOnAction(new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							User user;
+							try {
+								user = UserRepository.getUser("amyer");
+								ArrayList<Playlist> playlists=user.getPlaylists();
+								for(int n=0;n<playlists.size();n++) {
+									if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
+										Playlist tempo=playlists.get(n);
+										tempo.removeSong(sel);
+										playlists.set(n, tempo);
+										currentPlaylist=playlists.get(n);
+										UserRepository.UpdateUser(user);
+										OnCurrentPlaylistClicked(null);
+										break;
 									}
-									System.out.println("check");
-									playlists.remove(n);
+
+								}
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					});
+					cm.getItems().add(remove);
+					cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+				}
+				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
+					ContextMenu cm = new ContextMenu();
+					MenuItem createP = new MenuItem("Create New Playlist");
+					MenuItem removeP = new MenuItem("Remove Playlist");
+					removeP.setOnAction(new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							try {
+								ArrayList<Playlist> playlists=user.getPlaylists();
+								for(int n=0;n<playlists.size();n++) {
+									if(sel.equals(playlists.get(n).getPlaylistName())) {
+										if(playlists.get(n).equals(currentPlaylist)) {
+											currentPlaylist=user.getSavedSongs();
+										}
+										System.out.println("check");
+										playlists.remove(n);
+										user.setPlaylists(playlists);
+										UserRepository.UpdateUser(user);
+										OnMyPlaylistsClicked(null);
+									}
+								}
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					});
+					createP.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent event) {
+							TextInputDialog dialog = new TextInputDialog("");
+							dialog.setTitle("New Playlist Dialog");
+							dialog.setHeaderText("New Playlist");
+							dialog.setContentText("Enter Playlist Name:");
+
+							try {
+								Optional<String> result = dialog.showAndWait();
+								if (result.isPresent()){
+									ArrayList<Playlist> playlists=user.getPlaylists();
+									playlists.add(new Playlist(result.get()));
 									user.setPlaylists(playlists);
 									UserRepository.UpdateUser(user);
 									OnMyPlaylistsClicked(null);
+									System.out.println("Your name: " + result.get());
 								}
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-		            }
-	            });
-				createP.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-		            public void handle(ActionEvent event) {
-						TextInputDialog dialog = new TextInputDialog("");
-						dialog.setTitle("New Playlist Dialog");
-						dialog.setHeaderText("New Playlist");
-						dialog.setContentText("Enter Playlist Name:");
 
-						try {
-							Optional<String> result = dialog.showAndWait();
-							if (result.isPresent()){
-								ArrayList<Playlist> playlists=user.getPlaylists();
-								playlists.add(new Playlist(result.get()));
-								user.setPlaylists(playlists);
-								UserRepository.UpdateUser(user);
-								OnMyPlaylistsClicked(null);
-								System.out.println("Your name: " + result.get());
 						}
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					}
-					
-				});
-				cm.getItems().add(removeP);
-				cm.getItems().add(createP);
-				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+
+					});
+					cm.getItems().add(removeP);
+					cm.getItems().add(createP);
+					cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+				}
 			}
+		} catch (Exception e) 
+		{
+			//listview item that was clicked is	 blank
 		}
 	}
-	
+
 	@FXML
 	public void OnSliderClicked(MouseEvent event)
 	{
@@ -569,7 +575,7 @@ public class SongViewController implements Initializable{
 		if (_currentSong !=null &&_currentSong.isActive()) {
 			_currentSong.stop();	
 			_currentSong.close();
-			
+
 		}
 		_currentTime = (long)_slider.getValue();
 
@@ -579,9 +585,9 @@ public class SongViewController implements Initializable{
 		} else {
 			currentTime.setText((getTime(_currentTime)));
 		}
-		
+
 	}
-	
+
 	@FXML
 	public void OnSliderDragDetected(MouseEvent event) {
 		//if a drag is detected, stop the song.
@@ -589,7 +595,7 @@ public class SongViewController implements Initializable{
 			_currentSong.stop();		
 			_currentSong.close();
 		}
-		
+
 		/* the dropping of a drag will result in a click on the slider, 
 		 * so that event handler will deal with playing the song from 
 		 * the new position.
@@ -597,12 +603,12 @@ public class SongViewController implements Initializable{
 		 * Total hack, I know.
 		 */
 	}
-	
+
 	@FXML 
 	public void OnSliderDragDropped(MouseEvent event) {
 		System.out.println("dropped");
 	}
-	
+
 	@FXML
 	public void search() {
 		try {
@@ -651,7 +657,7 @@ public class SongViewController implements Initializable{
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
-			}		
+		}		
 	}
 
 
@@ -705,7 +711,7 @@ public class SongViewController implements Initializable{
 		long s = microseconds/1000000;
 		return String.format("%d:%02d:%02d", s/3600, (s%3600)/60, (s%60));
 	}
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		menuToggleGroup = new ToggleGroup();
@@ -716,8 +722,8 @@ public class SongViewController implements Initializable{
 
 		mySongsButton.setSelected(true);
 		searchbar.setPromptText("search my songs");
-		
-		
+
+
 		//hardcoding a playlist for testing
 		playlistNum = 0;
 		Song rickroll = new Song("Never Gonna Give You Up", "RickAstley.wav");
@@ -736,7 +742,7 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setMouseTransparent(true);
 		this.resetSearchText();
 	}
-	
+
 	public void resetSearchText()
 	{
 		// reset prompt text
@@ -745,5 +751,5 @@ public class SongViewController implements Initializable{
 			AllSongsSearchBar.setPromptText("search all songs");
 		}
 	}
-	
+
 }
