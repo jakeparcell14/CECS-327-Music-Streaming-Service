@@ -351,66 +351,58 @@ public class SongViewController implements Initializable{
 		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
 		//user left clicks on library list
 		if(event.getButton() == MouseButton.PRIMARY) {
-			User user;
-			try {
-				//user hard coded
-				user = UserRepository.getUser("amyer");
-				//if the saved songs button is selected, find the selected song to play
-				if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
-					Playlist mySongs=user.getSavedSongs();
-					ArrayList<Song> savedSongs=mySongs.getSongs();
-					for(int i=0; i<savedSongs.size();i++) {
-						if(savedSongs.get(i).getTitle()!=null) {
-							//check if the selected list item is equal to the current songs title
-							if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
-								currentPlaylist=mySongs;
-								playlistNum=i-1;
-								playSelectedSong();
-								break;
-							}
+			//if the saved songs button is selected, find the selected song to play
+			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
+				Playlist mySongs=user.getSavedSongs();
+				ArrayList<Song> savedSongs=mySongs.getSongs();
+				for(int i=0; i<savedSongs.size();i++) {
+					if(savedSongs.get(i).getTitle()!=null) {
+						//check if the selected list item is equal to the current songs title
+						if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							playSelectedSong();
+							break;
 						}
-						/**
-						else if(savedSongs.get(i).getAlbum()!=null) {
-							if(savedSongs.get(i).getAlbum().toLowerCase().contains(sel.toLowerCase())) {
-								currentPlaylist=mySongs;
-								playlistNum=i-1;
-								playSelectedSong();
-								break;
-							}
-						}
-						else if(savedSongs.get(i).getArtist()!=null) {
-							if(savedSongs.get(i).getArtist().toLowerCase().contains(sel.toLowerCase())) {
-								currentPlaylist=mySongs;
-								playlistNum=i-1;
-								playSelectedSong();
-								break;
-							}
-							
-						}
-						**/
 					}
-					
+					/**
+					else if(savedSongs.get(i).getAlbum()!=null) {
+						if(savedSongs.get(i).getAlbum().toLowerCase().contains(sel.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							playSelectedSong();
+							break;
+						}
+					}
+					else if(savedSongs.get(i).getArtist()!=null) {
+						if(savedSongs.get(i).getArtist().toLowerCase().contains(sel.toLowerCase())) {
+							currentPlaylist=mySongs;
+							playlistNum=i-1;
+							playSelectedSong();
+							break;
+						}
+						
+					}
+					**/
 				}
-				//myplaylists are selected
-				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)){
-					ArrayList<Playlist> playlists=user.getPlaylists();
-					for (int i = 0; i<playlists.size(); i++) {
-						if(playlists.get(i).getPlaylistName()!=null) {
-							//check to see if the selected item matches the playlist title
-							if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
-								currentPlaylist=playlists.get(i);
-								playlistNum=-1;
-								playSelectedSong();
-								currentPlaylistButton.setSelected(true);
-								OnCurrentPlaylistClicked(null);
-								break;
-							}
+				
+			}
+			//my playlists are selected
+			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)){
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				for (int i = 0; i<playlists.size(); i++) {
+					if(playlists.get(i).getPlaylistName()!=null) {
+						//check to see if the selected item matches the playlist title
+						if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
+							currentPlaylist=playlists.get(i);
+							playlistNum=-1;
+							playSelectedSong();
+							currentPlaylistButton.setSelected(true);
+							OnCurrentPlaylistClicked(null);
+							break;
 						}
 					}
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 		//user right clicks library list
