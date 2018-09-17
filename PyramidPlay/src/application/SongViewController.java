@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.sound.sampled.AudioInputStream;
@@ -28,6 +29,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseButton;
@@ -173,7 +175,6 @@ public class SongViewController implements Initializable{
 		for (int i = 0; i<playlists.size(); i++) {
 			if(playlists.get(i).getPlaylistName()!=null) {
 				UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
-					break;
 			}
 		}
 	}
@@ -395,7 +396,7 @@ public class SongViewController implements Initializable{
 						//check to see if the selected item matches the playlist title
 						if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
 							currentPlaylist=playlists.get(i);
-							playlistNum=-1;
+							playlistNum=0;
 							playSelectedSong();
 							currentPlaylistButton.setSelected(true);
 							OnCurrentPlaylistClicked(null);
@@ -506,23 +507,54 @@ public class SongViewController implements Initializable{
 					 
 		            @Override
 		            public void handle(ActionEvent event) {
-		            	User user;
 						try {
-							user = UserRepository.getUser("amyer");
 							ArrayList<Playlist> playlists=user.getPlaylists();
 			            	for(int n=0;n<playlists.size();n++) {
 								if(sel.equals(playlists.get(n).getPlaylistName())) {
-									System.out.println("it Works!");
+									if(playlists.get(n).equals(currentPlaylist)) {
+										currentPlaylist=user.getSavedSongs();
+									}
+									System.out.println("check");
+									playlists.remove(n);
+									user.setPlaylists(playlists);
+									UserRepository.UpdateUser(user);
+									OnMyPlaylistsClicked(null);
 								}
 							}
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
 		            }
 	            });
+				createP.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+		            public void handle(ActionEvent event) {
+						TextInputDialog dialog = new TextInputDialog("");
+						dialog.setTitle("New Playlist Dialog");
+						dialog.setHeaderText("New Playlist");
+						dialog.setContentText("Enter Playlist Name:");
+
+						try {
+							Optional<String> result = dialog.showAndWait();
+							if (result.isPresent()){
+								ArrayList<Playlist> playlists=user.getPlaylists();
+								playlists.add(new Playlist(result.get()));
+								user.setPlaylists(playlists);
+								UserRepository.UpdateUser(user);
+								OnMyPlaylistsClicked(null);
+								System.out.println("Your name: " + result.get());
+						}
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+					
+				});
 				cm.getItems().add(removeP);
+				cm.getItems().add(createP);
 				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 			}
 		}
