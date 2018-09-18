@@ -134,7 +134,7 @@ public class SongViewController implements Initializable{
 	public Thread _thread;
 	ToggleGroup menuToggleGroup;
 
-	Runnable theTask = () -> {
+	Runnable UIUpdateThread = () -> {
 		while (_currentSong.isActive()) {
 			long s = _currentSong.getMicrosecondPosition();	
 			/**
@@ -237,28 +237,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void OnNextClicked (MouseEvent event) {
 
-		_currentTime = 0;
-		currentTime.setText((getTime(_currentTime)));
-		if(_currentSong!=null) {
-			_currentSong.stop();
-			_currentSong.close();
-		}
-
-		//updates current song index then plays
-		playlistNum++;
-		if(playlistNum == currentPlaylist.getLength()) {
-			playlistNum = 0;
-		}
-
-		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
-		if(_playButton.getText().equals("Pause")) {
-			playSong(_currentTime);
-		}
-
-		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
-		this.resetSearchText();
+		playSelectedSong();
 	}
 
 	public void playSelectedSong () {
@@ -294,27 +273,15 @@ public class SongViewController implements Initializable{
 	 * @param event - the previous button is clicked
 	 */
 	public void OnPreviousClicked (MouseEvent event) {
-		_currentSong.stop();
-		_currentSong.close();
 
-		//resets time and updates slider info
-		_currentTime = 0;
-		currentTime.setText((getTime(_currentTime)));
 
 		//updates current song index then plays
 		if(playlistNum > 0) {
-			playlistNum--;
+			playlistNum-=2;
+			playSelectedSong();
 		}
 
-		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
-		if(_playButton.getText().equals("Pause")) {
-			playSong(_currentTime);
-		}
-
-		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
-		this.resetSearchText();
+		
 	}
 
 	@FXML
@@ -451,8 +418,7 @@ public class SongViewController implements Initializable{
 													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 														OnCurrentPlaylistClicked(null);
 													}
-													
-													// make search results invisible
+
 													SearchBarPane.setVisible(false);
 													SearchBarPane.setMouseTransparent(true);
 													resetSearchText();
@@ -984,7 +950,7 @@ public class SongViewController implements Initializable{
 
 
 	/**
-	 * Plays the currently hardcoded song.
+	 * Plays the current song at the given time.
 	 * @param time Time in microseconds at which the song should start
 	 */
 	public void playSong(long time) {
@@ -1003,7 +969,7 @@ public class SongViewController implements Initializable{
 			_currentSong.start();
 
 			//start background thread to update UI with song
-			_thread = new Thread(theTask);
+			_thread = new Thread(UIUpdateThread);
 			_thread.setDaemon(true); //allows thread to end on exit
 			_thread.start();
 
