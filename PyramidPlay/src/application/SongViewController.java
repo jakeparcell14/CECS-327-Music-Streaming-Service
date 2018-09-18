@@ -660,17 +660,26 @@ public class SongViewController implements Initializable{
 						public void handle(ActionEvent event) {
 							try {
 								ArrayList<Playlist> playlists=user.getPlaylists();
-								for(int n=0;n<playlists.size();n++) {
-									if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
-										Playlist tempo=playlists.get(n);
-										tempo.removeSong(sel);
-										playlists.set(n, tempo);
-										currentPlaylist=playlists.get(n);
-										UserRepository.UpdateUser(user);
-										OnCurrentPlaylistClicked(null);
-										break;
+								if(currentPlaylist.getPlaylistName().equals("saved"))
+								{
+									Playlist temp=user.getSavedSongs();
+									temp.removeSong(sel);
+									user.setSavedSongs(temp);
+									UserRepository.UpdateUser(user);
+									OnCurrentPlaylistClicked(null);
+								}
+								else {
+									for(int n=0;n<playlists.size();n++) {
+										if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
+											Playlist tempo=playlists.get(n);
+											tempo.removeSong(sel);
+											playlists.set(n, tempo);
+											currentPlaylist=playlists.get(n);
+											UserRepository.UpdateUser(user);
+											OnCurrentPlaylistClicked(null);
+											break;
+										}
 									}
-
 								}
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
