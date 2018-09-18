@@ -209,6 +209,7 @@ public class SongViewController implements Initializable{
 	public void updateSongLabels(Song song) {
 		currentSongName.setText(song.getTitle());
 		currentSongArtist.setText(song.getArtist());
+		currentSongAlbum.setText(song.getAlbum());
 	}
 
 	// Event Listener on Button[#_playButton].onMouseClicked
@@ -589,7 +590,6 @@ public class SongViewController implements Initializable{
 													try {
 														user.setPlaylists(playlists);
 														UserRepository.UpdateUser(user);
-														//currentPlaylist=playlists.get(k);
 													} catch (IOException e) {
 														// TODO Auto-generated catch block
 														e.printStackTrace();
