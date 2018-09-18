@@ -447,6 +447,9 @@ public class SongViewController implements Initializable{
 												try {
 													user.setPlaylists(playlists);
 													UserRepository.UpdateUser(user);
+													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+														OnCurrentPlaylistClicked(null);
+													}
 													//currentPlaylist=playlists.get(k);
 													
 													//update song list
@@ -494,6 +497,12 @@ public class SongViewController implements Initializable{
 										user.setSavedSongs(mySongs);
 										try {
 											UserRepository.UpdateUser(user);
+											if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+												OnCurrentPlaylistClicked(null);
+											}
+											else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
+												OnMySongsClicked(null);
+											}
 										} catch (IOException e) {
 											// TODO Auto-generated catch block
 											e.printStackTrace();
