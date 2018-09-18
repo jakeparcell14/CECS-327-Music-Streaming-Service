@@ -545,7 +545,6 @@ public class SongViewController implements Initializable{
 					ContextMenu cm = new ContextMenu();
 					Menu parentMenu = new Menu("Add To Playlist");
 					ArrayList<Playlist> playlists=user.getPlaylists();
-					ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
 					for (int i = 0; i<playlists.size(); i++) {
 						MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
 						temp.setOnAction(new EventHandler<ActionEvent>() {
@@ -582,8 +581,6 @@ public class SongViewController implements Initializable{
 								}
 							}
 						});
-						//childMenu.add(temp);
-
 						parentMenu.getItems().add(temp);
 					}
 					cm.getItems().add(parentMenu);
@@ -801,6 +798,7 @@ public class SongViewController implements Initializable{
 			UserLibraryList.getItems().clear();
 			//user inputted text
 			String query=searchbar.getText();
+
 			//my songs are selected
 			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton))
 			{
@@ -823,7 +821,6 @@ public class SongViewController implements Initializable{
 			}
 			//my playlists are selected
 			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
-				//System.out.println(menuToggleGroup.getSelectedToggle());
 				ArrayList<Playlist> playlists=user.getPlaylists();
 				for (int i = 0; i<playlists.size(); i++) {
 					if(playlists.get(i).getPlaylistName()!=null) {
@@ -831,6 +828,22 @@ public class SongViewController implements Initializable{
 						if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
 							UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
 						}
+					}
+				}
+			} else if (((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+				ArrayList<Song> songs = currentPlaylist.getSongs();
+				for(int i=0; i<songs.size();i++) {
+					//checks if query matches the title of the current song
+					if(songs.get(i).getTitle()!=null && songs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+						UserLibraryList.getItems().addAll(songs.get(i).getTitle());
+					}
+					//checks if query matches the album of the current song
+					else if(songs.get(i).getAlbum()!=null && songs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+						UserLibraryList.getItems().addAll(songs.get(i).getTitle());
+					}
+					//checks if query matches the artist of the current song
+					else if(songs.get(i).getArtist()!=null && songs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+						UserLibraryList.getItems().addAll(songs.get(i).getTitle());
 					}
 				}
 			}
