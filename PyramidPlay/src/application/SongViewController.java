@@ -481,13 +481,30 @@ public class SongViewController implements Initializable{
 						for(int j=0; j<allSongs.size();j++) {
 							if(allSongs.get(j).getTitle()!=null) {
 								if(allSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
-									mySongs.addSong(allSongs.get(j));
-									user.setSavedSongs(mySongs);
-									try {
-										UserRepository.UpdateUser(user);
-									} catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
+									ArrayList<Song> myActualSongs=mySongs.getSongs();
+									int sameTitle=0;
+									for(int z=0;z<myActualSongs.size();z++) {
+										if(myActualSongs.get(z).getTitle().equals(sel))
+										{
+											sameTitle++;
+										}
+									}
+									if(sameTitle==0) {
+										mySongs.addSong(allSongs.get(j));
+										user.setSavedSongs(mySongs);
+										try {
+											UserRepository.UpdateUser(user);
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+									else {
+										Alert alert = new Alert(AlertType.ERROR);
+										alert.setTitle("Save Song Error");
+										alert.setHeaderText("Song Already in Saved Songs");
+										alert.setContentText("Please try a different option");
+										alert.showAndWait();
 									}
 								}
 							}
