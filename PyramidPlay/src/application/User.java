@@ -40,6 +40,7 @@ public class User implements Comparable<User>, Serializable
 		playlists = new ArrayList<Playlist>();
 		playlists.add(new Playlist("My Playlist"));
 		savedSongs = new Playlist("saved");
+		savedSongs.addSong(new Song("September","Earth, Wind, and Fire","September","September_EarthWindFire.wav"));
 	}
 	
 	/**

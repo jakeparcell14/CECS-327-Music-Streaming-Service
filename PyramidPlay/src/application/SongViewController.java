@@ -636,15 +636,24 @@ public class SongViewController implements Initializable{
 						@Override
 						public void handle(ActionEvent event) {
 							Playlist temp=user.getSavedSongs();
-							temp.removeSong(sel);
-							user.setSavedSongs(temp);
-							try {
-								UserRepository.UpdateUser(user);
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+							if(temp.getSongs().size()==1) {
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Remove Saved Song Error");
+								alert.setHeaderText("Saved Songs Must Have At Least One Song");
+								alert.setContentText("Please try a different option");
+								alert.showAndWait();
 							}
-							OnMySongsClicked(null);
+							else {
+								temp.removeSong(sel);
+								user.setSavedSongs(temp);
+								try {
+									UserRepository.UpdateUser(user);
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								OnMySongsClicked(null);
+							}
 						}
 					});
 					cm.getItems().add(parentMenu);
@@ -663,21 +672,39 @@ public class SongViewController implements Initializable{
 								if(currentPlaylist.getPlaylistName().equals("saved"))
 								{
 									Playlist temp=user.getSavedSongs();
-									temp.removeSong(sel);
-									user.setSavedSongs(temp);
-									UserRepository.UpdateUser(user);
-									OnCurrentPlaylistClicked(null);
+									if(temp.getSongs().size()==1) {
+										Alert alert = new Alert(AlertType.ERROR);
+										alert.setTitle("Remove Saved Song Error");
+										alert.setHeaderText("Saved Songs Must Have At Least One Song");
+										alert.setContentText("Please try a different option");
+										alert.showAndWait();
+									}
+									else {
+										temp.removeSong(sel);
+										user.setSavedSongs(temp);
+										UserRepository.UpdateUser(user);
+										OnCurrentPlaylistClicked(null);
+									}
 								}
 								else {
 									for(int n=0;n<playlists.size();n++) {
 										if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
 											Playlist tempo=playlists.get(n);
-											tempo.removeSong(sel);
-											playlists.set(n, tempo);
-											currentPlaylist=playlists.get(n);
-											UserRepository.UpdateUser(user);
-											OnCurrentPlaylistClicked(null);
-											break;
+											if(tempo.getSongs().size()==1) {
+												Alert alert = new Alert(AlertType.ERROR);
+												alert.setTitle("Remove Playlist Song Error");
+												alert.setHeaderText("Playlist Must Have At Least One Song");
+												alert.setContentText("Please try a different option");
+												alert.showAndWait();
+											}
+											else {
+												tempo.removeSong(sel);
+												playlists.set(n, tempo);
+												currentPlaylist=playlists.get(n);
+												UserRepository.UpdateUser(user);
+												OnCurrentPlaylistClicked(null);
+												break;
+											}
 										}
 									}
 								}
