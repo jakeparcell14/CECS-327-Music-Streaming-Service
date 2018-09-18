@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="SongViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#OnSongViewClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
+<AnchorPane fx:id="SongViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#OnSongViewClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
    <children>
-      <Label fx:id="currentSongName" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="432.0" layoutY="258.0" prefHeight="17.0" prefWidth="151.0" text="Song Name" />
-      <Label fx:id="currentSongArtist" contentDisplay="CENTER" layoutX="432.0" layoutY="275.0" prefHeight="17.0" prefWidth="165.0" text="Artist" />
-      <Label fx:id="currentSongAlbum" layoutX="431.0" layoutY="294.0" prefHeight="17.0" prefWidth="165.0" text="Album" />
+      <Label fx:id="currentSongName" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="258.0" prefHeight="18.0" prefWidth="250.0" text="Song Name" />
+      <Label fx:id="currentSongArtist" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="275.0" prefHeight="17.0" prefWidth="250.0" text="Artist" />
+      <Label fx:id="currentSongAlbum" alignment="CENTER" layoutX="337.0" layoutY="294.0" prefHeight="17.0" prefWidth="250.0" text="Album" />
       <ListView fx:id="UserLibraryList" layoutY="115.0" onMouseClicked="#OnLibraryListClicked" prefHeight="285.0" prefWidth="324.0" />
       <Button layoutX="367.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPreviousClicked" text="Previous" />
       <Button fx:id="_playButton" layoutX="447.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPlayPauseClicked" text="Play" />
