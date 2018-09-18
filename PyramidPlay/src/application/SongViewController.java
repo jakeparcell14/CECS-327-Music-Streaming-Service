@@ -622,7 +622,24 @@ public class SongViewController implements Initializable{
 						});
 						parentMenu.getItems().add(temp);
 					}
+					MenuItem removeSavedSong = new MenuItem("Remove Saved Song");
+					removeSavedSong.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent event) {
+							Playlist temp=user.getSavedSongs();
+							temp.removeSong(sel);
+							user.setSavedSongs(temp);
+							try {
+								UserRepository.UpdateUser(user);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							OnMySongsClicked(null);
+						}
+					});
 					cm.getItems().add(parentMenu);
+					cm.getItems().add(removeSavedSong);
 					cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 				}
 				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
