@@ -472,7 +472,29 @@ public class SongViewController implements Initializable{
 					//childMenu.add(temp);
  					parentMenu.getItems().add(temp);
 				}
+				MenuItem addToSaved = new MenuItem("Add To Saved Songs");
+				addToSaved.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						Playlist mySongs=user.getSavedSongs();
+						for(int j=0; j<allSongs.size();j++) {
+							if(allSongs.get(j).getTitle()!=null) {
+								if(allSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
+									mySongs.addSong(allSongs.get(j));
+									user.setSavedSongs(mySongs);
+									try {
+										UserRepository.UpdateUser(user);
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
+							}
+						}
+					}
+				});
 				cm.getItems().add(parentMenu);
+				cm.getItems().add(addToSaved);
 				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
  			}
 		} catch (Exception e) 
