@@ -43,6 +43,11 @@ public class User implements Comparable<User>, Serializable
 		savedSongs.addSong(new Song("September","Earth, Wind, and Fire","September","September_EarthWindFire.wav"));
 	}
 	
+	
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 	/**
 	 * Retrieves username
 	 * @return	username

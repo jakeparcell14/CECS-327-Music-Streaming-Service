@@ -88,6 +88,7 @@ public class LoginController implements Initializable
 
 			try 
 			{
+
 				if(UserRepository.IsUsernameAndPasswordCorrect(u, p))
 				{
 					//switch to Song View screen on successful login

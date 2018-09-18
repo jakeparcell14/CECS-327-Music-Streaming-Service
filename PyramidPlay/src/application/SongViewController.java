@@ -847,10 +847,6 @@ public class SongViewController implements Initializable{
 		 */
 	}
 
-	@FXML 
-	public void OnSliderDragDropped(MouseEvent event) {
-		System.out.println("dropped");
-	}
 
 	@FXML
 	public void searchAllSongs()

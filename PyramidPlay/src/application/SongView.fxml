@@ -22,7 +22,7 @@
       <Button layoutX="367.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPreviousClicked" text="Previous" />
       <Button fx:id="_playButton" layoutX="447.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPlayPauseClicked" text="Play" />
       <Button layoutX="517.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnNextClicked" text="Next" />
-      <Slider fx:id="_slider" layoutX="366.0" layoutY="314.0" onDragDetected="#OnSliderDragDetected" onDragDone="#OnSliderDragDropped" onDragDropped="#OnSliderDragDropped" onDragEntered="#OnSliderDragDropped" onDragExited="#OnSliderDragDropped" onDragOver="#OnSliderDragDropped" onMouseClicked="#OnSliderClicked" prefHeight="14.0" prefWidth="200.0" />
+      <Slider fx:id="_slider" layoutX="366.0" layoutY="314.0" onDragDetected="#OnSliderDragDetected" onMouseClicked="#OnSliderClicked" prefHeight="14.0" prefWidth="200.0" />
       <Label fx:id="currentTime" alignment="CENTER_RIGHT" layoutX="419.0" layoutY="329.0" text="0:00:00" />
       <Label fx:id="totalTime" layoutX="474.0" layoutY="329.0" text="0:00:00" />
       <Label layoutX="463.0" layoutY="329.0" text="/" />
