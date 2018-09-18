@@ -329,7 +329,10 @@ public class SongViewController implements Initializable{
 			songs = currentPlaylist.getSongs();
 			songs.sort(null);
 		}
-
+		
+		// make search results invisible
+		SearchBarPane.setVisible(false);
+		SearchBarPane.setMouseTransparent(true);
 		UserLibraryList.getItems().clear();
 		UserLibraryList.getItems().addAll(songs);
 		searchbar.setText("");
