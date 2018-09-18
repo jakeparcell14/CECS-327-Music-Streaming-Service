@@ -4,26 +4,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <children>
+      <ImageView fitHeight="424.0" fitWidth="611.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../bg.jpg" />
+         </image>
+      </ImageView>
       <Pane fx:id="SignInPane" layoutX="200.0" layoutY="94.0" prefHeight="205.0" prefWidth="200.0">
          <children>
-            <TextField fx:id="UsernameTextField" layoutY="96.0" prefHeight="25.0" prefWidth="200.0" />
-            <PasswordField fx:id="PasswordTextField" layoutY="147.0" prefHeight="25.0" prefWidth="200.0" />
-            <Label fx:id="SignInLabel" alignment="CENTER" layoutY="14.0" prefHeight="31.0" prefWidth="200.0" text="Sign In" textAlignment="CENTER">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Label>
-            <Label fx:id="UsernameLabel" alignment="CENTER" layoutY="77.0" prefWidth="200.0" text="Username">
+            <TextField fx:id="UsernameTextField" layoutY="96.0" opacity="0.5" prefHeight="25.0" prefWidth="200.0" />
+            <PasswordField fx:id="PasswordTextField" layoutY="147.0" opacity="0.5" prefHeight="25.0" prefWidth="200.0" />
+            <Label fx:id="UsernameLabel" alignment="CENTER" layoutY="77.0" prefWidth="200.0" text="Username" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font></Label>
-            <Label fx:id="PasswordLabel" alignment="CENTER" layoutY="128.0" prefHeight="19.0" prefWidth="200.0" text="Password">
+            <Label fx:id="PasswordLabel" alignment="CENTER" layoutY="128.0" prefHeight="19.0" prefWidth="200.0" text="Password" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font></Label>
@@ -36,35 +38,30 @@
       </Pane>
       <Pane fx:id="RegisterPane" layoutX="200.0" layoutY="18.0" prefHeight="333.0" prefWidth="200.0" visible="false">
          <children>
-            <Label fx:id="RegisterAccountLabel" alignment="CENTER" layoutY="-1.0" prefHeight="38.0" prefWidth="200.0" text="Register Account" textAlignment="CENTER">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Label>
-            <Label fx:id="AddFirstNameLabel" alignment="CENTER" layoutY="39.0" prefWidth="200.0" text="First Name">
+            <Label fx:id="AddFirstNameLabel" alignment="CENTER" layoutY="90.0" prefWidth="200.0" text="First Name">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="AddFirstNameTextField" layoutY="56.0" prefWidth="200.0" />
-            <Label fx:id="AddLastNameLabel" alignment="CENTER" layoutY="90.0" prefWidth="200.0" text="Last Name">
+            <TextField fx:id="AddFirstNameTextField" layoutY="107.0" opacity="0.5" prefWidth="200.0" />
+            <Label fx:id="AddLastNameLabel" alignment="CENTER" layoutY="139.0" prefWidth="200.0" text="Last Name" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="AddLastNameTextField" layoutY="107.0" prefWidth="200.0" />
-            <Label fx:id="AddUsernameLabel" alignment="CENTER" layoutY="140.0" prefWidth="200.0" text="Username">
+            <TextField fx:id="AddLastNameTextField" layoutY="158.0" opacity="0.5" prefWidth="200.0" />
+            <Label fx:id="AddUsernameLabel" alignment="CENTER" layoutY="191.0" prefWidth="200.0" text="Username" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="AddUsernameTextField" layoutY="157.0" prefWidth="200.0" />
-            <Label fx:id="AddPasswordLabel" alignment="CENTER" layoutY="188.0" prefWidth="200.0" text="Password">
+            <TextField fx:id="AddUsernameTextField" layoutY="208.0" opacity="0.5" prefWidth="200.0" />
+            <Label fx:id="AddPasswordLabel" alignment="CENTER" layoutY="239.0" prefWidth="200.0" text="Password" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="AddPasswordTextField" layoutY="207.0" prefWidth="200.0" />
+            <TextField fx:id="AddPasswordTextField" layoutY="258.0" opacity="0.5" prefWidth="200.0" />
             <Label fx:id="UsernameUnavailableLabel" alignment="CENTER" layoutY="243.0" prefWidth="200.0" text="${'username unavailable.\nplease try a different username'}" textAlignment="CENTER" textFill="RED" visible="false">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -72,10 +69,10 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="LoginButtonPane" layoutX="200.0" layoutY="292.0" prefHeight="86.0" prefWidth="200.0">
+      <Pane fx:id="LoginButtonPane" layoutX="200.0" layoutY="313.0" prefHeight="86.0" prefWidth="200.0">
          <children>
-            <Button fx:id="SignInOrRegisterButton" layoutY="7.0" mnemonicParsing="false" onAction="#OnSignInOrRegisterClicked" prefHeight="31.0" prefWidth="200.0" text="Sign In" />
-            <Button fx:id="RegisterOrCancelButton" layoutY="51.0" mnemonicParsing="false" onAction="#OnRegisterOrCancelClicked" prefHeight="31.0" prefWidth="200.0" text="Create an Account" />
+            <Button fx:id="SignInOrRegisterButton" layoutY="7.0" mnemonicParsing="false" onAction="#OnSignInOrRegisterClicked" opacity="0.5" prefHeight="31.0" prefWidth="200.0" text="Sign In" />
+            <Button fx:id="RegisterOrCancelButton" layoutY="51.0" mnemonicParsing="false" onAction="#OnRegisterOrCancelClicked" opacity="0.5" prefHeight="31.0" prefWidth="200.0" text="Create an Account" />
          </children>
       </Pane>
    </children>
