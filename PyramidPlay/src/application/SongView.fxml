@@ -36,14 +36,15 @@
                   <Insets />
                </opaqueInsets>
                <center>
-                  <ListView fx:id="AllSongsListView" prefHeight="306.0" onMouseClicked="#OnAllSongsListClicked" prefWidth="250.0" BorderPane.alignment="CENTER" />
+                  <ListView fx:id="AllSongsListView" onMouseClicked="#OnAllSongsListClicked" prefHeight="306.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </children>
       </Pane>
       <TextField fx:id="AllSongsSearchBar" layoutX="175.0" layoutY="6.0" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
-      <Label fx:id="currentSongName" alignment="CENTER" contentDisplay="CENTER" layoutX="432.0" layoutY="276.0" text="Song Name" textAlignment="CENTER" />
-      <Label fx:id="currentSongArtist" alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="294.0" text="Artist" textAlignment="CENTER" />
+      <Label fx:id="currentSongName" alignment="BASELINE_LEFT" contentDisplay="CENTER" layoutX="432.0" layoutY="258.0" prefHeight="17.0" prefWidth="151.0" text="Song Name" />
+      <Label fx:id="currentSongArtist" contentDisplay="CENTER" layoutX="432.0" layoutY="275.0" prefHeight="17.0" prefWidth="165.0" text="Artist" />
       <TextField fx:id="AllSongsSearchBar" layoutX="175.0" layoutY="6.0" onKeyReleased="#searchAllSongs" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
+      <Label fx:id="currentSongAlbum" layoutX="431.0" layoutY="294.0" prefHeight="17.0" prefWidth="165.0" text="Album" />
    </children>
 </AnchorPane>
