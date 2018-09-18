@@ -132,8 +132,12 @@ public class SongViewController implements Initializable{
 	 * Terrible name, but thread that watches the current time of the song.
 	 */
 	public Thread _thread;
+	
 	ToggleGroup menuToggleGroup;
 
+	/**
+	 * Runnable type that runs in the thread. Updates UI as the song plays.
+	 */
 	Runnable UIUpdateThread = () -> {
 		while (_currentSong.isActive()) {
 			long s = _currentSong.getMicrosecondPosition();	
@@ -236,23 +240,23 @@ public class SongViewController implements Initializable{
 	 * @param event - the previous button is clicked
 	 */
 	public void OnNextClicked (MouseEvent event) {
-
+		//updates current song index then plays
+		playlistNum++;
+		if(playlistNum == currentPlaylist.getLength()) {
+			playlistNum = 0;
+		}
 		playSelectedSong();
 	}
 
+	/***
+	 * Method to play the current song from the beginning.
+	 */
 	public void playSelectedSong () {
 		_currentTime = 0;
 		currentTime.setText((getTime(_currentTime)));
 		if(_currentSong!=null) {
 			_currentSong.stop();
 			_currentSong.close();
-		}
-
-
-		//updates current song index then plays
-		playlistNum++;
-		if(playlistNum == currentPlaylist.getLength()) {
-			playlistNum = 0;
 		}
 
 		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
@@ -277,7 +281,7 @@ public class SongViewController implements Initializable{
 
 		//updates current song index then plays
 		if(playlistNum > 0) {
-			playlistNum-=2;
+			playlistNum--;
 			playSelectedSong();
 		}
 
@@ -379,7 +383,7 @@ public class SongViewController implements Initializable{
 						//check if the selected list item is equal to the current songs title
 						if(allSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
 							currentPlaylist=allSongsPlaylist;
-							playlistNum=i-1;
+							playlistNum=i;
 							playSelectedSong();
 							break;
 						}
@@ -500,7 +504,7 @@ public class SongViewController implements Initializable{
 				//check if the selected list item is equal to the current songs title
 				if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
 					currentPlaylist=mySongs;
-					playlistNum=i-1;
+					playlistNum=i;
 					playSelectedSong();
 					break;
 				}
@@ -533,7 +537,7 @@ public class SongViewController implements Initializable{
 		ArrayList<Song> songs = currentPlaylist.getSongs();
 		for (int i = 0; i< songs.size(); i++) {
 			if (songs.get(i).getTitle().equals(sel)) {
-				playlistNum = i -1;
+				playlistNum = i;
 				playSelectedSong();
 				break;
 			}
@@ -832,6 +836,10 @@ public class SongViewController implements Initializable{
 	}
 
 	@FXML
+	/**
+	 * Event handleer when a drag is detected on the slider
+	 * @param event
+	 */
 	public void OnSliderDragDetected(MouseEvent event) {
 		//if a drag is detected, stop the song.
 		if (_currentSong !=null &&_currentSong.isActive()) {
