@@ -32,7 +32,9 @@ public class UserRepository {
 		Scanner scanner = new Scanner(file);
 			
 		while(scanner.hasNextLine()) {
-			users.add(gson.fromJson(scanner.nextLine(), User.class));
+			User user = gson.fromJson(scanner.nextLine(), User.class);
+			if (user != null)
+				users.add(user);
 		}
 		scanner.close();
 
@@ -46,7 +48,9 @@ public class UserRepository {
 		Scanner scanner = new Scanner(file);
 			
 		while(scanner.hasNextLine()) {
-			songs.add(gson.fromJson(scanner.nextLine(), Song.class));
+			Song song = gson.fromJson(scanner.nextLine(), Song.class);
+			if (song!=null)
+				songs.add(song);
 		}
 		scanner.close();
 
@@ -61,7 +65,7 @@ public class UserRepository {
 	 * @throws IOException
 	 */
 	public static boolean IsUsernameAndPasswordCorrect(String username, String password) throws IOException {
-		return getUsers().contains(new User(null, null, username, password));
+		return getUsers().contains(new User(username, password));
 	}
 	
 	public static boolean userExists(String username) throws IOException

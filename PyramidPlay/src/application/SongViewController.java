@@ -4,19 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -132,9 +127,13 @@ public class SongViewController implements Initializable{
 	 * Terrible name, but thread that watches the current time of the song.
 	 */
 	public Thread _thread;
+	
 	ToggleGroup menuToggleGroup;
 
-	Runnable theTask = () -> {
+	/**
+	 * Runnable type that runs in the thread. Updates UI as the song plays.
+	 */
+	Runnable UIUpdateThread = () -> {
 		while (_currentSong.isActive()) {
 			long s = _currentSong.getMicrosecondPosition();	
 			/**
@@ -236,44 +235,23 @@ public class SongViewController implements Initializable{
 	 * @param event - the previous button is clicked
 	 */
 	public void OnNextClicked (MouseEvent event) {
-
-		_currentTime = 0;
-		currentTime.setText((getTime(_currentTime)));
-		if(_currentSong!=null) {
-			_currentSong.stop();
-			_currentSong.close();
-		}
-
 		//updates current song index then plays
 		playlistNum++;
 		if(playlistNum == currentPlaylist.getLength()) {
 			playlistNum = 0;
 		}
-
-		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
-		if(_playButton.getText().equals("Pause")) {
-			playSong(_currentTime);
-		}
-
-		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
-		this.resetSearchText();
+		playSelectedSong();
 	}
 
+	/***
+	 * Method to play the current song from the beginning.
+	 */
 	public void playSelectedSong () {
 		_currentTime = 0;
 		currentTime.setText((getTime(_currentTime)));
 		if(_currentSong!=null) {
 			_currentSong.stop();
 			_currentSong.close();
-		}
-
-
-		//updates current song index then plays
-		playlistNum++;
-		if(playlistNum == currentPlaylist.getLength()) {
-			playlistNum = 0;
 		}
 
 		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
@@ -294,27 +272,15 @@ public class SongViewController implements Initializable{
 	 * @param event - the previous button is clicked
 	 */
 	public void OnPreviousClicked (MouseEvent event) {
-		_currentSong.stop();
-		_currentSong.close();
 
-		//resets time and updates slider info
-		_currentTime = 0;
-		currentTime.setText((getTime(_currentTime)));
 
 		//updates current song index then plays
 		if(playlistNum > 0) {
 			playlistNum--;
+			playSelectedSong();
 		}
 
-		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
-		if(_playButton.getText().equals("Pause")) {
-			playSong(_currentTime);
-		}
-
-		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
-		this.resetSearchText();
+		
 	}
 
 	@FXML
@@ -412,7 +378,7 @@ public class SongViewController implements Initializable{
 						//check if the selected list item is equal to the current songs title
 						if(allSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
 							currentPlaylist=allSongsPlaylist;
-							playlistNum=i-1;
+							playlistNum=i;
 							playSelectedSong();
 							break;
 						}
@@ -451,8 +417,7 @@ public class SongViewController implements Initializable{
 													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 														OnCurrentPlaylistClicked(null);
 													}
-													
-													// make search results invisible
+
 													SearchBarPane.setVisible(false);
 													SearchBarPane.setMouseTransparent(true);
 													resetSearchText();
@@ -539,7 +504,7 @@ public class SongViewController implements Initializable{
 				//check if the selected list item is equal to the current songs title
 				if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
 					currentPlaylist=mySongs;
-					playlistNum=i-1;
+					playlistNum=i;
 					playSelectedSong();
 					break;
 				}
@@ -583,8 +548,7 @@ public class SongViewController implements Initializable{
 		ArrayList<Song> songs = currentPlaylist.getSongs();
 		for (int i = 0; i< songs.size(); i++) {
 			if (songs.get(i).getTitle().equals(sel)) {
-				//play song
-				playlistNum = i -1;
+				playlistNum = i;
 				playSelectedSong();
 				break;
 			}
@@ -920,6 +884,10 @@ public class SongViewController implements Initializable{
 	}
 
 	@FXML
+	/**
+	 * Event handleer when a drag is detected on the slider
+	 * @param event
+	 */
 	public void OnSliderDragDetected(MouseEvent event) {
 		//if a drag is detected, stop the song.
 		if (_currentSong !=null &&_currentSong.isActive()) {
@@ -935,10 +903,6 @@ public class SongViewController implements Initializable{
 		 */
 	}
 
-	@FXML 
-	public void OnSliderDragDropped(MouseEvent event) {
-		System.out.println("dropped");
-	}
 
 	@FXML
 	public void searchAllSongs()
@@ -1060,7 +1024,7 @@ public class SongViewController implements Initializable{
 
 
 	/**
-	 * Plays the currently hardcoded song.
+	 * Plays the current song at the given time.
 	 * @param time Time in microseconds at which the song should start
 	 */
 	public void playSong(long time) {
@@ -1079,7 +1043,7 @@ public class SongViewController implements Initializable{
 			_currentSong.start();
 
 			//start background thread to update UI with song
-			_thread = new Thread(theTask);
+			_thread = new Thread(UIUpdateThread);
 			_thread.setDaemon(true); //allows thread to end on exit
 			_thread.start();
 
