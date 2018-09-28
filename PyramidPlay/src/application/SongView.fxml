@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
@@ -18,7 +19,7 @@
       <Label fx:id="currentSongName" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="258.0" prefHeight="18.0" prefWidth="250.0" text="Song Name" />
       <Label fx:id="currentSongArtist" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="275.0" prefHeight="17.0" prefWidth="250.0" text="Artist" />
       <Label fx:id="currentSongAlbum" alignment="CENTER" layoutX="337.0" layoutY="294.0" prefHeight="17.0" prefWidth="250.0" text="Album" />
-      <ListView fx:id="UserLibraryList" layoutY="115.0" onMouseClicked="#OnLibraryListClicked" prefHeight="285.0" prefWidth="324.0" />
+      <TableView fx:id="UserLibraryList" layoutY="115.0" onMouseClicked="#OnLibraryListClicked" prefHeight="285.0" prefWidth="324.0" />
       <Button layoutX="367.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPreviousClicked" text="Previous" />
       <Button fx:id="_playButton" layoutX="447.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPlayPauseClicked" text="Play" />
       <Button layoutX="517.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnNextClicked" text="Next" />

@@ -12,6 +12,8 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,10 +27,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -85,7 +90,7 @@ public class SongViewController implements Initializable{
 	private TextField AllSongsSearchBar;
 
 	@FXML
-	private ListView UserLibraryList;
+	private TableView UserLibraryList;
 
 	@FXML
 	private Pane SearchBarPane;
@@ -129,6 +134,13 @@ public class SongViewController implements Initializable{
 	public Thread _thread;
 	
 	ToggleGroup menuToggleGroup;
+	
+	private TableColumn titleColumn;
+	
+	private TableColumn artistColumn;
+
+	private TableColumn albumColumn;
+
 
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
@@ -160,7 +172,6 @@ public class SongViewController implements Initializable{
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -174,21 +185,33 @@ public class SongViewController implements Initializable{
 	public void initUser(User user) {
 		this.user = user;
 		mySongs= user.getSavedSongs();
-		if (mySongs != null) {
+		
+		if(mySongs != null)
+		{
 			displaySongs(mySongs);
 		}
+
 		currentPlaylist = user.getSavedSongs();
 	}
 
 	public void displaySongs(Playlist pl) {
-		ArrayList<Song> savedSongs=pl.getSongs();
+		//TableView experiment
+		
+		//ObservableList<Song> songs = FXCollections.observableArrayList(pl.getSongs());
+		//UserLibraryList.setItems(songs);
+		UserLibraryList.getItems().clear();
+		UserLibraryList.getItems().addAll(pl.getSongs());
+
+		
+		//TODO uncomment when done with tableview experiment
+		/*ArrayList<Song> savedSongs=pl.getSongs();
 		savedSongs.sort(null);
 
 		for(int i=0; i<savedSongs.size();i++) {
 			if(savedSongs.get(i).getTitle()!=null) {
 				UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
 			}
-		}
+		}*/
 	}
 
 	public void displayPlaylists(ArrayList<Playlist> playlists) {
@@ -294,7 +317,6 @@ public class SongViewController implements Initializable{
 		this.resetSearchText();
 		searchbar.setText("");
 		searchbar.setPromptText("search my songs");
-		UserLibraryList.getItems().clear();
 		// display initialize the listview with all the my songs of the user
 		if (mySongs != null) {
 			displaySongs(mySongs);
@@ -499,10 +521,30 @@ public class SongViewController implements Initializable{
 	 * @param event - the left mouse button is clicked
 	 */
 	public void ltMouseClickMySongs(MouseEvent event){
-		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
+		
+		//TableView experiment
+		Song selectedSong = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
 		Playlist mySongs=user.getSavedSongs();
 		ArrayList<Song> savedSongs=mySongs.getSongs();
+		
 		for(int i=0; i<savedSongs.size();i++) {
+			if(savedSongs.get(i).getTitle()!=null) {
+				//check if the selected list item is equal to the current songs title
+				if(savedSongs.get(i).equals(selectedSong)) {
+					currentPlaylist=mySongs;
+					playlistNum=i;
+					playSelectedSong();
+					break;
+				}
+			}
+		}
+		
+		//TODO remove block comment after TableView experiment
+/*		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
+		Playlist mySongs=user.getSavedSongs();
+		ArrayList<Song> savedSongs=mySongs.getSongs();
+  
+  		for(int i=0; i<savedSongs.size();i++) {
 			if(savedSongs.get(i).getTitle()!=null) {
 				//check if the selected list item is equal to the current songs title
 				if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
@@ -512,7 +554,7 @@ public class SongViewController implements Initializable{
 					break;
 				}
 			}
-		}
+		}*/
 	}
 	
 	/**
@@ -1089,6 +1131,22 @@ public class SongViewController implements Initializable{
 		mySongsButton.setSelected(true);
 		searchbar.setPromptText("search my songs");
 
+		//TODO tableview test code
+		
+		// makes sure the columns take up the entire width of the table
+		UserLibraryList.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		
+		TableColumn titleColumn = new TableColumn("Title");
+		titleColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("title"));
+		
+		TableColumn artistColumn = new TableColumn("Artist");
+		artistColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("artist"));
+
+		TableColumn albumColumn = new TableColumn("Album");
+		albumColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
+
+		UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
+		
 		try 
 		{
 			allSongs = UserRepository.getAllSongs();
