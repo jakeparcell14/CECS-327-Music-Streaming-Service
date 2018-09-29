@@ -203,8 +203,13 @@ public class SongViewController implements Initializable{
 	public void displaySongs(Playlist pl) {
 		//TableView experiment
 		
-		//ObservableList<Song> songs = FXCollections.observableArrayList(pl.getSongs());
-		//UserLibraryList.setItems(songs);
+		if(UserLibraryList.getColumns().get(0).equals(playlistNameColumn))
+		{
+			//table is currently displaying playlists
+			UserLibraryList.getColumns().clear();
+			UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
+		}
+
 		UserLibraryList.getItems().clear();
 		UserLibraryList.getItems().addAll(pl.getSongs());
 
