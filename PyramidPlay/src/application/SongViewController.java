@@ -135,11 +135,17 @@ public class SongViewController implements Initializable{
 	
 	ToggleGroup menuToggleGroup;
 	
-	private TableColumn titleColumn;
+	TableColumn titleColumn;
 	
-	private TableColumn artistColumn;
+	TableColumn artistColumn;
 
-	private TableColumn albumColumn;
+	TableColumn albumColumn;
+
+	TableColumn playlistNameColumn;
+
+	TableColumn dateCreatedColumn;
+
+
 
 
 	/**
@@ -215,13 +221,16 @@ public class SongViewController implements Initializable{
 	}
 
 	public void displayPlaylists(ArrayList<Playlist> playlists) {
-		UserLibraryList.getItems().clear();
-		playlists.sort(null);
-		for (int i = 0; i<playlists.size(); i++) {
-			if(playlists.get(i).getPlaylistName()!=null) {
-				UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
-			}
+		
+		if(UserLibraryList.getColumns().get(0).equals(titleColumn))
+		{
+			//table is currently displaying songs
+			UserLibraryList.getColumns().clear();
+			UserLibraryList.getColumns().addAll(playlistNameColumn, dateCreatedColumn);
 		}
+		
+		UserLibraryList.getItems().clear();
+		UserLibraryList.getItems().addAll(playlists);
 	}
 
 	/**
@@ -308,6 +317,12 @@ public class SongViewController implements Initializable{
 
 	@FXML
 	public void OnMySongsClicked (MouseEvent event) {
+		
+		// display the table view with all saved songs of the user
+		if (mySongs != null) {
+			displaySongs(mySongs);
+		}
+		
 		//ensure mySongs button cannot be deselected
 		mySongsButton.setSelected(true);
 
@@ -317,15 +332,15 @@ public class SongViewController implements Initializable{
 		this.resetSearchText();
 		searchbar.setText("");
 		searchbar.setPromptText("search my songs");
-		// display initialize the listview with all the my songs of the user
-		if (mySongs != null) {
-			displaySongs(mySongs);
-		}
-
 	}
 
 	@FXML
 	public void OnMyPlaylistsClicked (MouseEvent event) {
+		// initalized table view with all the playlists the user has
+		if (user.getPlaylists() != null) {
+			displayPlaylists(user.getPlaylists());
+		}
+		
 		//ensure myPlaylists button cannot be deselected
 		myPlaylistsButton.setSelected(true);
 
@@ -335,28 +350,19 @@ public class SongViewController implements Initializable{
 		this.resetSearchText();
 		searchbar.setText("");
 		searchbar.setPromptText("search my playlists");
-		UserLibraryList.getItems().clear();
-		// initalized listview with all the playlists the user has
-		if (user.getPlaylists() != null) {
-			displayPlaylists(user.getPlaylists());
-		}
 	}
 
 	@FXML 
 	public void OnCurrentPlaylistClicked(MouseEvent event) {
-		ArrayList<Song> songs = new ArrayList<Song>();
-
 		if(!currentPlaylist.getSongs().isEmpty())
 		{
-			songs = currentPlaylist.getSongs();
-			songs.sort(null);
+			//display songs from current playlist
+			displaySongs(currentPlaylist);
 		}
 		
 		// make search results invisible
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
-		UserLibraryList.getItems().clear();
-		UserLibraryList.getItems().addAll(songs);
 		searchbar.setText("");
 		searchbar.setPromptText("search " + currentPlaylist.getPlaylistName());
 	}
@@ -990,15 +996,15 @@ public class SongViewController implements Initializable{
 		for(int i=0; i<savedSongs.size();i++) {
 			//checks if query matches the title of the current song
 			if(savedSongs.get(i).getTitle()!=null && savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-				UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+				UserLibraryList.getItems().addAll(savedSongs.get(i));
 			}
 			//checks if query matches the album of the current song
 			else if(savedSongs.get(i).getAlbum()!=null && savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-				UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+				UserLibraryList.getItems().addAll(savedSongs.get(i));
 			}
 			//checks if query matches the artist of the current song
 			else if(savedSongs.get(i).getArtist()!=null && savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
-				UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+				UserLibraryList.getItems().addAll(savedSongs.get(i));
 			}
 		}
 	}
@@ -1136,14 +1142,27 @@ public class SongViewController implements Initializable{
 		// makes sure the columns take up the entire width of the table
 		UserLibraryList.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		
-		TableColumn titleColumn = new TableColumn("Title");
+		// title column for song view
+		titleColumn = new TableColumn("Title");
 		titleColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("title"));
 		
-		TableColumn artistColumn = new TableColumn("Artist");
+		// artist column for song view
+		artistColumn = new TableColumn("Artist");
 		artistColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("artist"));
 
-		TableColumn albumColumn = new TableColumn("Album");
+		// album column for song view
+		albumColumn = new TableColumn("Album");
 		albumColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
+		
+		
+		// name table column for playlist view
+		playlistNameColumn = new TableColumn("Playlist Name");
+		playlistNameColumn.setCellValueFactory(new PropertyValueFactory<Playlist, String>("playlistName"));
+
+		// date created table column for playlist view
+		dateCreatedColumn = new TableColumn("Date Created");
+		dateCreatedColumn.setCellValueFactory(new PropertyValueFactory<Playlist, String>("dateCreated"));
+		
 
 		UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
 		

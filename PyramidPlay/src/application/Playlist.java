@@ -19,9 +19,6 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	 */
 	public Playlist()
 	{
-/*		name = "";
-		songs = new ArrayList<Song>();
-		dateCreated = new Date();*/
 	}
 	
 	/**
