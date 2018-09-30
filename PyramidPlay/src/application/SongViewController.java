@@ -574,7 +574,24 @@ public class SongViewController implements Initializable{
 	 * @param event - the left mouse is clicked
 	 */
 	public void ltMouseClickMyPlaylists(MouseEvent event) {
-		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
+		//TableView experiment
+		Playlist selectedPlaylist = (Playlist) UserLibraryList.getSelectionModel().getSelectedItem();
+		ArrayList<Playlist> playlists=user.getPlaylists();
+		
+		for(int i=0; i<playlists.size();i++) {
+			if(playlists.get(i).getPlaylistName()!=null) {
+				//check if the selected list item is equal to the current playlist
+				if(playlists.get(i).getPlaylistName().equals(selectedPlaylist.getPlaylistName())) {
+					currentPlaylist=selectedPlaylist;
+					playlistNum=0;
+					currentPlaylistButton.setSelected(true);
+					OnCurrentPlaylistClicked(null);
+					break;
+				}
+			}
+		}
+		
+		/*		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
 		ArrayList<Playlist> playlists = user.getPlaylists();
 		for (int i = 0; i<playlists.size(); i++) {
 			if(playlists.get(i).getPlaylistName()!=null) {
@@ -591,7 +608,7 @@ public class SongViewController implements Initializable{
 					break;
 				}
 			}
-		}
+		}*/
 	}
 	
 	/**
