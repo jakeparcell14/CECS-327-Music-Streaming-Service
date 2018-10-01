@@ -134,18 +134,18 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	/**
 	 * Checks if a song with a given title exists
 	 * @param title		given title of song
-	 * @return			Song object with given title, null if Song with given title does not exist
+	 * @return			true if song with that title exists in the playlist, false if not
 	 */
-	public Song contains(String title)
+	public boolean contains(String title)
 	{
 		for(Song s: songs)
 		{
 			if(s.getTitle().equals(title))
 			{
-				return s;
+				return true;
 			}
 		}
-		return null;
+		return false;
 	}
 
 	@Override

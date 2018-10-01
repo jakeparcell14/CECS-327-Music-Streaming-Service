@@ -132,11 +132,11 @@ public class SongViewController implements Initializable{
 	 * Terrible name, but thread that watches the current time of the song.
 	 */
 	public Thread _thread;
-	
+
 	ToggleGroup menuToggleGroup;
-	
+
 	TableColumn titleColumn;
-	
+
 	TableColumn artistColumn;
 
 	TableColumn albumColumn;
@@ -191,7 +191,7 @@ public class SongViewController implements Initializable{
 	public void initUser(User user) {
 		this.user = user;
 		mySongs= user.getSavedSongs();
-		
+
 		if(mySongs != null)
 		{
 			displaySongs(mySongs);
@@ -202,7 +202,7 @@ public class SongViewController implements Initializable{
 
 	public void displaySongs(Playlist pl) {
 		//TableView experiment
-		
+
 		if(UserLibraryList.getColumns().get(0).equals(playlistNameColumn))
 		{
 			//table is currently displaying playlists
@@ -213,7 +213,7 @@ public class SongViewController implements Initializable{
 		UserLibraryList.getItems().clear();
 		UserLibraryList.getItems().addAll(pl.getSongs());
 
-		
+
 		//TODO uncomment when done with tableview experiment
 		/*ArrayList<Song> savedSongs=pl.getSongs();
 		savedSongs.sort(null);
@@ -226,14 +226,14 @@ public class SongViewController implements Initializable{
 	}
 
 	public void displayPlaylists(ArrayList<Playlist> playlists) {
-		
+
 		if(UserLibraryList.getColumns().get(0).equals(titleColumn))
 		{
 			//table is currently displaying songs
 			UserLibraryList.getColumns().clear();
 			UserLibraryList.getColumns().addAll(playlistNameColumn, dateCreatedColumn);
 		}
-		
+
 		UserLibraryList.getItems().clear();
 		UserLibraryList.getItems().addAll(playlists);
 	}
@@ -317,17 +317,17 @@ public class SongViewController implements Initializable{
 			playSelectedSong();
 		}
 
-		
+
 	}
 
 	@FXML
 	public void OnMySongsClicked (MouseEvent event) {
-		
+
 		// display the table view with all saved songs of the user
 		if (mySongs != null) {
 			displaySongs(mySongs);
 		}
-		
+
 		//ensure mySongs button cannot be deselected
 		mySongsButton.setSelected(true);
 
@@ -345,7 +345,7 @@ public class SongViewController implements Initializable{
 		if (user.getPlaylists() != null) {
 			displayPlaylists(user.getPlaylists());
 		}
-		
+
 		//ensure myPlaylists button cannot be deselected
 		myPlaylistsButton.setSelected(true);
 
@@ -364,7 +364,7 @@ public class SongViewController implements Initializable{
 			//display songs from current playlist
 			displaySongs(currentPlaylist);
 		}
-		
+
 		// make search results invisible
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
@@ -377,9 +377,9 @@ public class SongViewController implements Initializable{
 		// make search results invisible
 		SearchBarPane.setVisible(true);
 		SearchBarPane.setMouseTransparent(false);
-		
+
 		AllSongsListView.getItems().clear();
-		
+
 		for(int i=0; i<allSongs.size();i++) {
 			AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
 		}
@@ -398,17 +398,17 @@ public class SongViewController implements Initializable{
 		}
 
 	}
-	
-	
+
+
 	@FXML
 	public void OnAllSongsListClicked(MouseEvent event)
 	{
 		//item on the list view that the user selects
- 		try {
+		try {
 			String sel = AllSongsListView.getSelectionModel().getSelectedItem().toString();
 			//user left clicks on library list
 			if(event.getButton() == MouseButton.PRIMARY) {
- 				Playlist allSongsPlaylist = new Playlist("all songs", allSongs);
+				Playlist allSongsPlaylist = new Playlist("all songs", allSongs);
 				for(int i=0; i<allSongs.size();i++) {
 					if(allSongs.get(i).getTitle()!=null) {
 						//check if the selected list item is equal to the current songs title
@@ -420,7 +420,7 @@ public class SongViewController implements Initializable{
 						}
 					}
 				}
-				
+
 				// make search results invisible
 				this.resetSearchText();
 			}
@@ -428,13 +428,13 @@ public class SongViewController implements Initializable{
 			else if(event.getButton() == MouseButton.SECONDARY) {
 				ContextMenu cm = new ContextMenu();
 				Menu parentMenu = new Menu("Add To Playlist");
- 				//user hard coded
- 				ArrayList<Playlist> playlists=user.getPlaylists();
+				//user hard coded
+				ArrayList<Playlist> playlists=user.getPlaylists();
 				ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
 				for (int i = 0; i<playlists.size(); i++) {
 					MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
 					temp.setOnAction(new EventHandler<ActionEvent>() {
- 						@Override
+						@Override
 						public void handle(ActionEvent event) {
 							String playlistName=temp.getText();
 							for(int k=0;k<playlists.size();k++)
@@ -470,7 +470,7 @@ public class SongViewController implements Initializable{
 						}
 					});
 					//childMenu.add(temp);
- 					parentMenu.getItems().add(temp);
+					parentMenu.getItems().add(temp);
 				}
 				MenuItem addToSaved = new MenuItem("Add To Saved Songs");
 				addToSaved.setOnAction(new EventHandler<ActionEvent>() {
@@ -519,25 +519,25 @@ public class SongViewController implements Initializable{
 				cm.getItems().add(parentMenu);
 				cm.getItems().add(addToSaved);
 				cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
- 			}
+			}
 		} catch (Exception e) 
 		{
 			//listview item that was clicked is	 blank
 		}
 	}
-	
+
 	/**
 	 * action when the user left clicks on the UserLibraryList while My Songs is selected. Only action is
 	 * playing the song that is selected
 	 * @param event - the left mouse button is clicked
 	 */
 	public void ltMouseClickMySongs(MouseEvent event){
-		
+
 		//TableView experiment
 		Song selectedSong = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
 		Playlist mySongs=user.getSavedSongs();
 		ArrayList<Song> savedSongs=mySongs.getSongs();
-		
+
 		for(int i=0; i<savedSongs.size();i++) {
 			if(savedSongs.get(i).getTitle()!=null) {
 				//check if the selected list item is equal to the current songs title
@@ -549,12 +549,12 @@ public class SongViewController implements Initializable{
 				}
 			}
 		}
-		
+
 		//TODO remove block comment after TableView experiment
-/*		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
+		/*		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
 		Playlist mySongs=user.getSavedSongs();
 		ArrayList<Song> savedSongs=mySongs.getSongs();
-  
+
   		for(int i=0; i<savedSongs.size();i++) {
 			if(savedSongs.get(i).getTitle()!=null) {
 				//check if the selected list item is equal to the current songs title
@@ -567,7 +567,7 @@ public class SongViewController implements Initializable{
 			}
 		}*/
 	}
-	
+
 	/**
 	 * action when the left mouse button is clicked while my playlists is selected. Either play music from the playlist,
 	 * or do nothing if the playlist doesnt have any songs
@@ -577,7 +577,7 @@ public class SongViewController implements Initializable{
 		//TableView experiment
 		Playlist selectedPlaylist = (Playlist) UserLibraryList.getSelectionModel().getSelectedItem();
 		ArrayList<Playlist> playlists=user.getPlaylists();
-		
+
 		for(int i=0; i<playlists.size();i++) {
 			if(playlists.get(i).getPlaylistName()!=null) {
 				//check if the selected list item is equal to the current playlist
@@ -590,7 +590,7 @@ public class SongViewController implements Initializable{
 				}
 			}
 		}
-		
+
 		/*		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
 		ArrayList<Playlist> playlists = user.getPlaylists();
 		for (int i = 0; i<playlists.size(); i++) {
@@ -610,7 +610,7 @@ public class SongViewController implements Initializable{
 			}
 		}*/
 	}
-	
+
 	/**
 	 * action that occurs after the left mouse is clicked on the UserLibraryList while the current playlist is selected. Only action
 	 * is to play songs
@@ -627,7 +627,7 @@ public class SongViewController implements Initializable{
 			}
 		}
 	}
-	
+
 	/**
 	 * action that occurs when the right mouse is clicked on user library list while my songs is selected.
 	 * menu pops up to either add the song to a playlist or remove the song from saved list
@@ -713,7 +713,7 @@ public class SongViewController implements Initializable{
 		cm.getItems().add(removeSavedSong);
 		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 	}
-	
+
 	/**
 	 * action that occurs when the right mouse is clicked on the UserLibraryList while current playlist is selected.
 	 * Only functionality is to remove songs
@@ -783,7 +783,7 @@ public class SongViewController implements Initializable{
 		cm.getItems().add(remove);
 		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 	}
-	
+
 	/**
 	 * action that occurs after the user right clicks on the userlibrarylist while my playlists are selected
 	 * @param event
@@ -888,7 +888,7 @@ public class SongViewController implements Initializable{
 		cm.getItems().add(createP);
 		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 	}
-	
+
 	@FXML
 	/**
 	 * decides what to do based on what is selected when a user clicks the mouse on the userlibrarylist
@@ -1013,38 +1013,65 @@ public class SongViewController implements Initializable{
 	 * @param query - user inputted query
 	 */
 	public void searchMySongs(String query) {
-		Playlist savedSongsPlaylist=user.getSavedSongs();
-		ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
+		ArrayList<Song> savedSongs = user.getSavedSongs().getSongs();
+
+		Playlist validSongs = new Playlist("valid");
+
 		for(int i=0; i<savedSongs.size();i++) {
 			//checks if query matches the title of the current song
-			if(savedSongs.get(i).getTitle()!=null && savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-				UserLibraryList.getItems().addAll(savedSongs.get(i));
+			if(savedSongs.get(i).getTitle() != null && savedSongs.get(i).getTitle().length() >= query.length()) {
+				// the song title is at least as long as the query
+				if(savedSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+					//the query matches the song title
+					validSongs.addSong(savedSongs.get(i));
+				}
 			}
-			//checks if query matches the album of the current song
-			else if(savedSongs.get(i).getAlbum()!=null && savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-				UserLibraryList.getItems().addAll(savedSongs.get(i));
+
+			//checks if query matches the album name of the current song
+			if(!validSongs.contains(savedSongs.get(i).getTitle())) {
+				// the song has not been added to the list of valid songs yet
+				if(savedSongs.get(i).getAlbum() != null && savedSongs.get(i).getAlbum().length() >= query.length()) {
+					// the album name is at least as long as the query
+					if(savedSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+						//the query matches the album name
+						validSongs.addSong(savedSongs.get(i));
+					}
+				}
 			}
-			//checks if query matches the artist of the current song
-			else if(savedSongs.get(i).getArtist()!=null && savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
-				UserLibraryList.getItems().addAll(savedSongs.get(i));
+
+			//checks if query matches the artist name of the current song
+			if(!validSongs.contains(savedSongs.get(i).getTitle())) {
+				// the song has not been added to the list of valid songs yet
+				if(savedSongs.get(i).getArtist() != null && savedSongs.get(i).getArtist().length() >= query.length()) {
+					// the artist name is at least as long as the query
+					if(savedSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+						//the query matches the artist name
+						validSongs.addSong(savedSongs.get(i));
+					}
+				}
 			}
 		}
+
+		displaySongs(validSongs);
 	}
-	
+
 	/**
 	 * searches and displays user myplaylists on userlibrarylist
 	 * @param query-user inputted query
 	 */
 	public void searchMyPlaylists(String query) {
 		ArrayList<Playlist> playlists=user.getPlaylists();
+		ArrayList<Playlist> validPlaylists = new ArrayList<Playlist>();
 		for (int i = 0; i<playlists.size(); i++) {
-			if(playlists.get(i).getPlaylistName()!=null) {
+			if(playlists.get(i).getPlaylistName()!=null && playlists.get(i).getPlaylistName().length() >= query.length()) {
 				//check if query matches the playlist title
-				if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
-					UserLibraryList.getItems().addAll(playlists.get(i).getPlaylistName());
+				if(playlists.get(i).getPlaylistName().substring(0, query.length()).toLowerCase().equals(query.substring(0, query.length()).toLowerCase())) {
+					validPlaylists.add(playlists.get(i));
 				}
 			}
 		}
+
+		displayPlaylists(validPlaylists);
 	}
 	/**
 	 * searches current playlists and displays on userlibrarylist
@@ -1052,22 +1079,47 @@ public class SongViewController implements Initializable{
 	 */
 	public void searchCurrentPlaylist(String query) {
 		ArrayList<Song> songs = currentPlaylist.getSongs();
+		
+		Playlist validSongs = new Playlist("valid");
+
 		for(int i=0; i<songs.size();i++) {
 			//checks if query matches the title of the current song
-			if(songs.get(i).getTitle()!=null && songs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-				UserLibraryList.getItems().addAll(songs.get(i).getTitle());
+			if(songs.get(i).getTitle() != null && songs.get(i).getTitle().length() >= query.length()) {
+				// the song title is at least as long as the query
+				if(songs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+					//the query matches the song title
+					validSongs.addSong(songs.get(i));
+				}
 			}
-			//checks if query matches the album of the current song
-			else if(songs.get(i).getAlbum()!=null && songs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-				UserLibraryList.getItems().addAll(songs.get(i).getTitle());
+
+			//checks if query matches the album name of the current song
+			if(!validSongs.contains(songs.get(i).getTitle())) {
+				// the song has not been added to the list of valid songs yet
+				if(songs.get(i).getAlbum() != null && songs.get(i).getAlbum().length() >= query.length()) {
+					// the album name is at least as long as the query
+					if(songs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+						//the query matches the album name
+						validSongs.addSong(songs.get(i));
+					}
+				}
 			}
-			//checks if query matches the artist of the current song
-			else if(songs.get(i).getArtist()!=null && songs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
-				UserLibraryList.getItems().addAll(songs.get(i).getTitle());
+
+			//checks if query matches the artist name of the current song
+			if(!validSongs.contains(songs.get(i).getTitle())) {
+				// the song has not been added to the list of valid songs yet
+				if(songs.get(i).getArtist() != null && songs.get(i).getArtist().length() >= query.length()) {
+					// the artist name is at least as long as the query
+					if(songs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+						//the query matches the artist name
+						validSongs.addSong(songs.get(i));
+					}
+				}
 			}
 		}
+
+		displaySongs(validSongs);
 	}
-	
+
 	@FXML
 	/**
 	 * search for user library. decides what to display on userlibrarylist
@@ -1160,14 +1212,14 @@ public class SongViewController implements Initializable{
 		searchbar.setPromptText("search my songs");
 
 		//TODO tableview test code
-		
+
 		// makes sure the columns take up the entire width of the table
 		UserLibraryList.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		
+
 		// title column for song view
 		titleColumn = new TableColumn("Title");
 		titleColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("title"));
-		
+
 		// artist column for song view
 		artistColumn = new TableColumn("Artist");
 		artistColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("artist"));
@@ -1175,8 +1227,8 @@ public class SongViewController implements Initializable{
 		// album column for song view
 		albumColumn = new TableColumn("Album");
 		albumColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
-		
-		
+
+
 		// name table column for playlist view
 		playlistNameColumn = new TableColumn("Playlist Name");
 		playlistNameColumn.setCellValueFactory(new PropertyValueFactory<Playlist, String>("playlistName"));
@@ -1184,10 +1236,10 @@ public class SongViewController implements Initializable{
 		// date created table column for playlist view
 		dateCreatedColumn = new TableColumn("Date Created");
 		dateCreatedColumn.setCellValueFactory(new PropertyValueFactory<Playlist, String>("dateCreated"));
-		
+
 
 		UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
-		
+
 		try 
 		{
 			allSongs = UserRepository.getAllSongs();
@@ -1197,7 +1249,7 @@ public class SongViewController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
+
 		//make listview automatically invisible until the search bar is selected
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
