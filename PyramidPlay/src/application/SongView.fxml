@@ -42,12 +42,11 @@
                   <Insets />
                </opaqueInsets>
                <center>
-                  <ListView fx:id="AllSongsListView" onMouseClicked="#OnAllSongsListClicked" prefHeight="306.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
+                  <TableView fx:id="AllSongsList" onMouseClicked="#OnAllSongsListClicked" prefHeight="306.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </children>
       </Pane>
-      <TextField fx:id="AllSongsSearchBar" layoutX="337.0" layoutY="14.0" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
       <TextField fx:id="AllSongsSearchBar" layoutX="337.0" layoutY="14.0" onKeyReleased="#searchAllSongs" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
       <ImageView fitHeight="59.0" fitWidth="324.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>

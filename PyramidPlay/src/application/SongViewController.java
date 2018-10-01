@@ -84,7 +84,7 @@ public class SongViewController implements Initializable{
 	private ToggleButton currentPlaylistButton;
 
 	@FXML
-	private ListView AllSongsListView;
+	private TableView AllSongsList;
 
 	@FXML
 	private TextField AllSongsSearchBar;
@@ -135,11 +135,11 @@ public class SongViewController implements Initializable{
 
 	ToggleGroup menuToggleGroup;
 
-	TableColumn titleColumn;
+	TableColumn titleColumn, allSongsTitleColumn;
 
-	TableColumn artistColumn;
+	TableColumn artistColumn, allSongsArtistColumn;
 
-	TableColumn albumColumn;
+	TableColumn albumColumn, allSongsAlbumColumn;
 
 	TableColumn playlistNameColumn;
 
@@ -201,28 +201,34 @@ public class SongViewController implements Initializable{
 	}
 
 	public void displaySongs(Playlist pl) {
-		//TableView experiment
 
-		if(UserLibraryList.getColumns().get(0).equals(playlistNameColumn))
+		if(SearchBarPane.isVisible())
 		{
-			//table is currently displaying playlists
-			UserLibraryList.getColumns().clear();
-			UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
-		}
+			// display songs on all songs list
+			AllSongsList.getItems().clear();
 
-		UserLibraryList.getItems().clear();
-		UserLibraryList.getItems().addAll(pl.getSongs());
-
-
-		//TODO uncomment when done with tableview experiment
-		/*ArrayList<Song> savedSongs=pl.getSongs();
-		savedSongs.sort(null);
-
-		for(int i=0; i<savedSongs.size();i++) {
-			if(savedSongs.get(i).getTitle()!=null) {
-				UserLibraryList.getItems().addAll(savedSongs.get(i).getTitle());
+			if(pl.getSongs().size() > 20)
+			{
+				AllSongsList.getItems().addAll(pl.getSongs().subList(0, 20));
 			}
-		}*/
+			else
+			{
+				AllSongsList.getItems().addAll(pl.getSongs());
+			}
+		}
+		else
+		{
+			if(UserLibraryList.getColumns().get(0).equals(playlistNameColumn))
+			{
+				//table is currently displaying playlists
+				UserLibraryList.getColumns().clear();
+				UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
+			}
+
+			//display songs on user library list
+			UserLibraryList.getItems().clear();
+			UserLibraryList.getItems().addAll(pl.getSongs());
+		}
 	}
 
 	public void displayPlaylists(ArrayList<Playlist> playlists) {
@@ -378,11 +384,7 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setVisible(true);
 		SearchBarPane.setMouseTransparent(false);
 
-		AllSongsListView.getItems().clear();
-
-		for(int i=0; i<allSongs.size();i++) {
-			AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
-		}
+		displaySongs(new Playlist("all songs", allSongs));
 	}
 
 	@FXML
@@ -391,10 +393,10 @@ public class SongViewController implements Initializable{
 		SearchBarPane.setVisible(false);
 		SearchBarPane.setMouseTransparent(true);
 
-		AllSongsListView.getItems().clear();
+		AllSongsList.getItems().clear();
 
 		for(int i=0; i<allSongs.size();i++) {
-			AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
+			AllSongsList.getItems().addAll(allSongs.get(i).getTitle());
 		}
 
 	}
@@ -405,7 +407,7 @@ public class SongViewController implements Initializable{
 	{
 		//item on the list view that the user selects
 		try {
-			String sel = AllSongsListView.getSelectionModel().getSelectedItem().toString();
+			String sel = AllSongsList.getSelectionModel().getSelectedItem().toString();
 			//user left clicks on library list
 			if(event.getButton() == MouseButton.PRIMARY) {
 				Playlist allSongsPlaylist = new Playlist("all songs", allSongs);
@@ -458,7 +460,6 @@ public class SongViewController implements Initializable{
 													SearchBarPane.setMouseTransparent(true);
 													resetSearchText();
 												} catch (IOException e) {
-													// TODO Auto-generated catch block
 													e.printStackTrace();
 												}
 												break;
@@ -500,7 +501,6 @@ public class SongViewController implements Initializable{
 												OnMySongsClicked(null);
 											}
 										} catch (IOException e) {
-											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
 									}
@@ -549,23 +549,6 @@ public class SongViewController implements Initializable{
 				}
 			}
 		}
-
-		//TODO remove block comment after TableView experiment
-		/*		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
-		Playlist mySongs=user.getSavedSongs();
-		ArrayList<Song> savedSongs=mySongs.getSongs();
-
-  		for(int i=0; i<savedSongs.size();i++) {
-			if(savedSongs.get(i).getTitle()!=null) {
-				//check if the selected list item is equal to the current songs title
-				if(savedSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
-					currentPlaylist=mySongs;
-					playlistNum=i;
-					playSelectedSong();
-					break;
-				}
-			}
-		}*/
 	}
 
 	/**
@@ -667,7 +650,6 @@ public class SongViewController implements Initializable{
 											user.setPlaylists(playlists);
 											UserRepository.UpdateUser(user);
 										} catch (IOException e) {
-											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
 										break;
@@ -701,7 +683,6 @@ public class SongViewController implements Initializable{
 					try {
 						UserRepository.UpdateUser(user);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					OnMySongsClicked(null);
@@ -775,7 +756,6 @@ public class SongViewController implements Initializable{
 						}
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -823,7 +803,6 @@ public class SongViewController implements Initializable{
 						alert.showAndWait();
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -877,7 +856,6 @@ public class SongViewController implements Initializable{
 						}
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -980,33 +958,49 @@ public class SongViewController implements Initializable{
 	@FXML
 	public void searchAllSongs()
 	{
-		try
-		{
-			AllSongsListView.getItems().clear();
+		Playlist validSongs = new Playlist("valid");
+		
+		String query = AllSongsSearchBar.getText();
 
-			//user inputed text
-			String query = AllSongsSearchBar.getText();
+		for(int i=0; i<allSongs.size();i++) {
+			if(validSongs.getSongs().size() <= 20)
+			{
+				//checks if query matches the title of the current song
+				if(allSongs.get(i).getTitle() != null && allSongs.get(i).getTitle().length() >= query.length()) {
+					// the song title is at least as long as the query
+					if(allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+						//the query matches the song title
+						validSongs.addSong(allSongs.get(i));
+					}
+				}
 
-			for(int i=0; i<allSongs.size();i++) {
-				//checks if query matches the title of the current song				
-				if(allSongs.get(i).getTitle()!=null && allSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-					AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
+				//checks if query matches the album name of the current song
+				if(!validSongs.contains(allSongs.get(i).getTitle())) {
+					// the song has not been added to the list of valid songs yet
+					if(allSongs.get(i).getAlbum() != null && allSongs.get(i).getAlbum().length() >= query.length()) {
+						// the album name is at least as long as the query
+						if(allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+							//the query matches the album name
+							validSongs.addSong(allSongs.get(i));
+						}
+					}
 				}
-				//checks if query matches the album of the current song
-				else if(allSongs.get(i).getAlbum()!=null && allSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-					AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
-				}
-				//checks if query matches the artist of the current song
-				else if(allSongs.get(i).getArtist()!=null && allSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
-					AllSongsListView.getItems().addAll(allSongs.get(i).getTitle());
+
+				//checks if query matches the artist name of the current song
+				if(!validSongs.contains(allSongs.get(i).getTitle())) {
+					// the song has not been added to the list of valid songs yet
+					if(allSongs.get(i).getArtist() != null && allSongs.get(i).getArtist().length() >= query.length()) {
+						// the artist name is at least as long as the query
+						if(allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+							//the query matches the artist name
+							validSongs.addSong(allSongs.get(i));
+						}
+					}
 				}
 			}
-
 		}
-		catch(Exception e)
-		{
 
-		}
+		displaySongs(validSongs);
 	}
 	/**
 	 * searches mysongs and displays on userlibrarylist
@@ -1079,7 +1073,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void searchCurrentPlaylist(String query) {
 		ArrayList<Song> songs = currentPlaylist.getSongs();
-		
+
 		Playlist validSongs = new Playlist("valid");
 
 		for(int i=0; i<songs.size();i++) {
@@ -1178,13 +1172,10 @@ public class SongViewController implements Initializable{
 			totalTime.setText(getTime(_currentSong.getMicrosecondLength()));
 			currentTime.setText(getTime(time));
 		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}
@@ -1211,8 +1202,6 @@ public class SongViewController implements Initializable{
 		mySongsButton.setSelected(true);
 		searchbar.setPromptText("search my songs");
 
-		//TODO tableview test code
-
 		// makes sure the columns take up the entire width of the table
 		UserLibraryList.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -1228,7 +1217,6 @@ public class SongViewController implements Initializable{
 		albumColumn = new TableColumn("Album");
 		albumColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
 
-
 		// name table column for playlist view
 		playlistNameColumn = new TableColumn("Playlist Name");
 		playlistNameColumn.setCellValueFactory(new PropertyValueFactory<Playlist, String>("playlistName"));
@@ -1238,7 +1226,20 @@ public class SongViewController implements Initializable{
 		dateCreatedColumn.setCellValueFactory(new PropertyValueFactory<Playlist, String>("dateCreated"));
 
 
+		// title column for all songs view
+		allSongsTitleColumn = new TableColumn("Title");
+		allSongsTitleColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("title"));
+
+		// artist column for all songs view
+		allSongsArtistColumn = new TableColumn("Artist");
+		allSongsArtistColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("artist"));
+
+		// album column for all songs view
+		allSongsAlbumColumn = new TableColumn("Album");
+		allSongsAlbumColumn.setCellValueFactory(new PropertyValueFactory<Song, String>("album"));
+
 		UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
+		AllSongsList.getColumns().addAll(allSongsTitleColumn, allSongsArtistColumn, allSongsAlbumColumn);
 
 		try 
 		{
