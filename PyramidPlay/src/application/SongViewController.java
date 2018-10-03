@@ -135,19 +135,32 @@ public class SongViewController implements Initializable{
 
 	ToggleGroup menuToggleGroup;
 
+	/**
+	 * sections of the TableViews that show the song title
+	 */
 	TableColumn titleColumn, allSongsTitleColumn;
 
+	/**
+	 * sections of the TableViews that show the artist of the song
+	 */
 	TableColumn artistColumn, allSongsArtistColumn;
 
+	/**
+	 * sections of the TableViews that show the album name
+	 */
 	TableColumn albumColumn, allSongsAlbumColumn;
 
+	/**
+	 * section of the TableView that shows the playlist names
+	 */
 	TableColumn playlistNameColumn;
 
+	/**
+	 * section of the TableView that shows the date the playlist was made
+	 */
 	TableColumn dateCreatedColumn;
 
-
-
-
+	
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
 	 */
@@ -190,14 +203,6 @@ public class SongViewController implements Initializable{
 	 */
 	public void initUser(User user) {
 		this.user = user;
-		mySongs= user.getSavedSongs();
-
-		if(mySongs != null)
-		{
-			displaySongs(mySongs);
-		}
-
-		currentPlaylist = user.getSavedSongs();
 	}
 
 	public void displaySongs(Playlist pl) {
@@ -370,6 +375,9 @@ public class SongViewController implements Initializable{
 			//display songs from current playlist
 			displaySongs(currentPlaylist);
 		}
+		
+		//ensure myPlaylists button cannot be deselected
+		currentPlaylistButton.setSelected(true);
 
 		// make search results invisible
 		SearchBarPane.setVisible(false);
@@ -618,7 +626,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void rtMouseClickMySongs(MouseEvent event) {
 		//the selected item
-		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
+		Song sel = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
 		//popup menu to appear on right click
 		ContextMenu cm = new ContextMenu();
 		//menu with the names of all the playlists in it
@@ -641,7 +649,7 @@ public class SongViewController implements Initializable{
 							for(int j=0; j<savedSongs.size();j++) {
 								if(savedSongs.get(j).getTitle()!=null) {
 									//check if the selected list item is equal to the current songs title
-									if(savedSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
+									if(savedSongs.get(j).equals(sel)) {
 										// add song to playlist
 										Playlist tp = playlists.get(k);
 										tp.addSong(savedSongs.get(j));
@@ -702,7 +710,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void rtMouseClickCurrentPlaylist(MouseEvent event) {
 		//selected object
-		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
+		Song sel = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
 		ContextMenu cm = new ContextMenu();
 		//option to remove song from current playlist
 		MenuItem remove = new MenuItem("Remove Song");
@@ -1195,6 +1203,7 @@ public class SongViewController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		menuToggleGroup = new ToggleGroup();
 
+		//buttons to choose what is displayed in the user library
 		mySongsButton.setToggleGroup(menuToggleGroup);
 		myPlaylistsButton.setToggleGroup(menuToggleGroup);
 		currentPlaylistButton.setToggleGroup(menuToggleGroup);
@@ -1250,6 +1259,14 @@ public class SongViewController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//display my songs and set it as the current playlist
+		mySongs= user.getSavedSongs();
+		if(mySongs != null)
+		{
+			displaySongs(mySongs);
+		}
+		currentPlaylist = user.getSavedSongs();
 
 		//make listview automatically invisible until the search bar is selected
 		SearchBarPane.setVisible(false);

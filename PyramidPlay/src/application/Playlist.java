@@ -123,12 +123,12 @@ public class Playlist implements Comparable<Playlist>, Serializable
 
 	/**
 	 * Removes song from list
-	 * @param title		title of song to remove
+	 * @param s			song to be removed
 	 * @return			true if song was removed, false if song did not exist
 	 */
-	public boolean removeSong(String title)
+	public boolean removeSong(Song s)
 	{
-		return songs.remove(this.contains(title));
+		return songs.remove(s);
 	}
 
 	/**
