@@ -214,6 +214,10 @@ public class SongViewController implements Initializable{
 		
 	}
 
+	/**
+	 * displays songs from a given playlist on the main search bar or on the user library
+	 * @param pl	playlist that contains the songs to be displayed
+	 */
 	public void displaySongs(Playlist pl) {
 
 		if(SearchBarPane.isVisible() && pl.getSongs().equals(allSongs))
@@ -245,6 +249,10 @@ public class SongViewController implements Initializable{
 		}
 	}
 
+	/**
+	 * displays all playlists and the dates they were created on the User Library
+	 * @param playlists		all of the users playlists
+	 */
 	public void displayPlaylists(ArrayList<Playlist> playlists) {
 
 		if(UserLibraryList.getColumns().get(0).equals(titleColumn))
