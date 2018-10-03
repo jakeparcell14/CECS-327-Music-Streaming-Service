@@ -344,8 +344,6 @@ public class SongViewController implements Initializable{
 			playlistNum--;
 			playSelectedSong();
 		}
-
-
 	}
 
 	@FXML
@@ -598,25 +596,6 @@ public class SongViewController implements Initializable{
 				}
 			}
 		}
-
-		/*		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
-		ArrayList<Playlist> playlists = user.getPlaylists();
-		for (int i = 0; i<playlists.size(); i++) {
-			if(playlists.get(i).getPlaylistName()!=null) {
-				//check to see if the selected item matches the playlist title
-				if(playlists.get(i).getPlaylistName().toLowerCase().equals(sel.toLowerCase())) {
-					// only play playlist if it has songs
-					if(playlists.get(i).getLength()>0) {
-						currentPlaylist=playlists.get(i);
-						playlistNum=0;
-						playSelectedSong();
-						currentPlaylistButton.setSelected(true);
-						OnCurrentPlaylistClicked(null);
-					}
-					break;
-				}
-			}
-		}*/
 	}
 
 	/**
@@ -1024,9 +1003,9 @@ public class SongViewController implements Initializable{
 				}
 			}
 		}
-
 		displaySongs(validSongs);
 	}
+	
 	/**
 	 * searches mysongs and displays on userlibrarylist
 	 * @param query - user inputted query
@@ -1230,6 +1209,7 @@ public class SongViewController implements Initializable{
 
 		// makes sure the columns take up the entire width of the table
 		UserLibraryList.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		AllSongsList.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 		// title column for song view
 		titleColumn = new TableColumn("Title");
@@ -1266,7 +1246,7 @@ public class SongViewController implements Initializable{
 
 		UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
 		AllSongsList.getColumns().addAll(allSongsTitleColumn, allSongsArtistColumn, allSongsAlbumColumn);
-
+		
 		try 
 		{
 			allSongs = UserRepository.getAllSongs();
