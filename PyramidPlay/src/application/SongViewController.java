@@ -203,11 +203,20 @@ public class SongViewController implements Initializable{
 	 */
 	public void initUser(User user) {
 		this.user = user;
+		
+		//display my songs and set it as the current playlist
+		mySongs= user.getSavedSongs();
+		if(mySongs != null)
+		{
+			displaySongs(mySongs);
+		}
+		currentPlaylist = user.getSavedSongs();
+		
 	}
 
 	public void displaySongs(Playlist pl) {
 
-		if(SearchBarPane.isVisible())
+		if(SearchBarPane.isVisible() && pl.getSongs().equals(allSongs))
 		{
 			// display songs on all songs list
 			AllSongsList.getItems().clear();
@@ -463,7 +472,7 @@ public class SongViewController implements Initializable{
 													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 														OnCurrentPlaylistClicked(null);
 													}
-
+													
 													SearchBarPane.setVisible(false);
 													SearchBarPane.setMouseTransparent(true);
 													resetSearchText();
@@ -1259,14 +1268,6 @@ public class SongViewController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//display my songs and set it as the current playlist
-		mySongs= user.getSavedSongs();
-		if(mySongs != null)
-		{
-			displaySongs(mySongs);
-		}
-		currentPlaylist = user.getSavedSongs();
 
 		//make listview automatically invisible until the search bar is selected
 		SearchBarPane.setVisible(false);

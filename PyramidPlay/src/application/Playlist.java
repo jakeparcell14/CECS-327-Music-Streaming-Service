@@ -153,4 +153,19 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		return this.getDateCreated().compareTo(d.getDateCreated());
 	}
+	
+/*	@Override
+	public boolean equals(Object o)
+	{
+		Playlist p = (Playlist) o;
+		
+		if(this.getPlaylistName().equals(p.getPlaylistName())
+		   && this.getSongs().equals(p.getSongs())
+		   && this.getDateCreated().equals(p.getDateCreated()))
+		{
+			return true;
+		}
+		
+		return false;
+	}*/
 }
