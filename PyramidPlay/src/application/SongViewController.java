@@ -415,14 +415,14 @@ public class SongViewController implements Initializable{
 	{
 		//item on the list view that the user selects
 		try {
-			String sel = AllSongsList.getSelectionModel().getSelectedItem().toString();
+			Song sel = (Song) AllSongsList.getSelectionModel().getSelectedItem();
 			//user left clicks on library list
 			if(event.getButton() == MouseButton.PRIMARY) {
 				Playlist allSongsPlaylist = new Playlist("all songs", allSongs);
 				for(int i=0; i<allSongs.size();i++) {
 					if(allSongs.get(i).getTitle()!=null) {
 						//check if the selected list item is equal to the current songs title
-						if(allSongs.get(i).getTitle().toLowerCase().contains(sel.toLowerCase())) {
+						if(allSongs.get(i).equals(sel)) {
 							currentPlaylist=allSongsPlaylist;
 							playlistNum=i;
 							playSelectedSong();
@@ -453,7 +453,7 @@ public class SongViewController implements Initializable{
 									for(int j=0; j<allSongs.size();j++) {
 										if(allSongs.get(j).getTitle()!=null) {
 											//check if the selected list item is equal to the current songs title
-											if(allSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
+											if(allSongs.get(j).equals(sel)) {
 												Playlist tp = playlists.get(k);
 												tp.addSong(allSongs.get(j));
 												playlists.set(k, tp);
@@ -488,11 +488,11 @@ public class SongViewController implements Initializable{
 						Playlist mySongs=user.getSavedSongs();
 						for(int j=0; j<allSongs.size();j++) {
 							if(allSongs.get(j).getTitle()!=null) {
-								if(allSongs.get(j).getTitle().toLowerCase().equals(sel.toLowerCase())) {
+								if(allSongs.get(j).equals(sel)) {
 									ArrayList<Song> myActualSongs=mySongs.getSongs();
 									int sameTitle=0;
 									for(int z=0;z<myActualSongs.size();z++) {
-										if(myActualSongs.get(z).getTitle().equals(sel))
+										if(myActualSongs.get(z).equals(sel))
 										{
 											sameTitle++;
 										}
@@ -572,7 +572,7 @@ public class SongViewController implements Initializable{
 		for(int i=0; i<playlists.size();i++) {
 			if(playlists.get(i).getPlaylistName()!=null) {
 				//check if the selected list item is equal to the current playlist
-				if(playlists.get(i).getPlaylistName().equals(selectedPlaylist.getPlaylistName())) {
+				if(playlists.get(i).equals(selectedPlaylist)) {
 					currentPlaylist=selectedPlaylist;
 					playlistNum=0;
 					currentPlaylistButton.setSelected(true);
@@ -608,10 +608,10 @@ public class SongViewController implements Initializable{
 	 * @param event - the left mouse is clicked
 	 */
 	public void ltMouseClickCurrentPlayList(MouseEvent event) {
-		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
+		Song sel = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
 		ArrayList<Song> songs = currentPlaylist.getSongs();
 		for (int i = 0; i< songs.size(); i++) {
-			if (songs.get(i).getTitle().equals(sel)) {
+			if (songs.get(i).equals(sel)) {
 				playlistNum = i;
 				playSelectedSong();
 				break;
@@ -777,7 +777,7 @@ public class SongViewController implements Initializable{
 	 * @param event
 	 */
 	public void rtMouseClickMyPlaylists(MouseEvent event) {
-		String sel = UserLibraryList.getSelectionModel().getSelectedItem().toString();
+		Playlist sel = (Playlist) UserLibraryList.getSelectionModel().getSelectedItem();
 		ContextMenu cm = new ContextMenu();
 		//option to create a new playlist
 		MenuItem createP = new MenuItem("Create New Playlist");
@@ -789,9 +789,9 @@ public class SongViewController implements Initializable{
 			public void handle(ActionEvent event) {
 				try {
 					ArrayList<Playlist> playlists=user.getPlaylists();
-					if(!sel.equals("My Playlist")){
+					if(!sel.getPlaylistName().equals("My Playlist")){
 						for(int n=0;n<playlists.size();n++) {
-							if(sel.equals(playlists.get(n).getPlaylistName())) {
+							if(sel.equals(playlists.get(n))) {
 								//change track to saved songs if deleted
 								if(playlists.get(n).equals(currentPlaylist)) {
 									currentPlaylist=user.getSavedSongs();
