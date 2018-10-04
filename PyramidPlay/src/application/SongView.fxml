@@ -3,8 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
@@ -13,42 +13,41 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="SongViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#OnSongViewClicked" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
+<AnchorPane fx:id="SongViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#OnSongViewClicked" prefHeight="800" prefWidth="1200" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
    <children>
-      <Label fx:id="currentSongName" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="258.0" prefHeight="18.0" prefWidth="250.0" text="Song Name" />
-      <Label fx:id="currentSongArtist" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="275.0" prefHeight="17.0" prefWidth="250.0" text="Artist" />
-      <Label fx:id="currentSongAlbum" alignment="CENTER" layoutX="337.0" layoutY="294.0" prefHeight="17.0" prefWidth="250.0" text="Album" />
-      <ListView fx:id="UserLibraryList" layoutY="115.0" onMouseClicked="#OnLibraryListClicked" prefHeight="285.0" prefWidth="324.0" />
-      <Button layoutX="367.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPreviousClicked" text="Previous" />
-      <Button fx:id="_playButton" layoutX="447.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnPlayPauseClicked" text="Play" />
-      <Button layoutX="517.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#OnNextClicked" text="Next" />
-      <Slider fx:id="_slider" layoutX="366.0" layoutY="314.0" onDragDetected="#OnSliderDragDetected" onMouseClicked="#OnSliderClicked" prefHeight="14.0" prefWidth="200.0" />
-      <Label fx:id="currentTime" alignment="CENTER_RIGHT" layoutX="419.0" layoutY="329.0" text="0:00:00" />
-      <Label fx:id="totalTime" layoutX="474.0" layoutY="329.0" text="0:00:00" />
-      <Label layoutX="463.0" layoutY="329.0" text="/" />
-      <TextField fx:id="searchbar" layoutY="89.0" onKeyReleased="#search" prefHeight="26.0" prefWidth="324.0" />
-      <Pane fx:id="ToggleListViewPane" layoutY="59.0" prefHeight="30.0" prefWidth="324.0">
+      <Label fx:id="currentSongName" alignment="CENTER" contentDisplay="CENTER" layoutX="674" layoutY="516" prefHeight="36" prefWidth="500" text="Song Name" />
+      <Label fx:id="currentSongArtist" alignment="CENTER" contentDisplay="CENTER" layoutX="674" layoutY="550" prefHeight="34" prefWidth="500" text="Artist" />
+      <Label fx:id="currentSongAlbum" alignment="CENTER" layoutX="674" layoutY="588" prefHeight="34" prefWidth="500" text="Album" />
+      <TableView fx:id="UserLibraryList" layoutY="230" onMouseClicked="#OnLibraryListClicked" prefHeight="570" prefWidth="648" />
+      <Button layoutX="719.0" layoutY="721.0" mnemonicParsing="false" onMouseClicked="#OnPreviousClicked" text="Previous" />
+      <Button fx:id="_playButton" layoutX="903.0" layoutY="721.0" mnemonicParsing="false" onMouseClicked="#OnPlayPauseClicked" text="Play" />
+      <Button layoutX="1087.0" layoutY="721.0" mnemonicParsing="false" onMouseClicked="#OnNextClicked" text="Next" />
+      <Slider fx:id="_slider" layoutX="732" layoutY="628" onDragDetected="#OnSliderDragDetected" onMouseClicked="#OnSliderClicked" prefHeight="28" prefWidth="400" />
+      <Label fx:id="currentTime" alignment="CENTER_RIGHT" layoutX="865.0" layoutY="658.0" text="0:00:00" />
+      <Label fx:id="totalTime" layoutX="941.0" layoutY="658.0" text="0:00:00" />
+      <Label layoutX="922.0" layoutY="658.0" text="/" />
+      <TextField fx:id="searchbar" layoutY="178" onKeyReleased="#search" prefHeight="52" prefWidth="648" />
+      <Pane fx:id="ToggleListViewPane" layoutY="118" prefHeight="60" prefWidth="648">
          <children>
-            <ToggleButton fx:id="mySongsButton" layoutX="108.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#OnMySongsClicked" prefHeight="30.0" prefWidth="108.0" text="My Songs" />
-            <ToggleButton fx:id="myPlaylistsButton" layoutX="216.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#OnMyPlaylistsClicked" prefHeight="30.0" prefWidth="108.0" text="My Playlists" />
-            <ToggleButton fx:id="currentPlaylistButton" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#OnCurrentPlaylistClicked" prefHeight="30.0" prefWidth="108.0" text="Current Playlist" />
+            <ToggleButton fx:id="mySongsButton" layoutX="216" layoutY="2" mnemonicParsing="false" onMouseClicked="#OnMySongsClicked" prefHeight="60" prefWidth="216" text="My Songs" />
+            <ToggleButton fx:id="myPlaylistsButton" layoutX="432" layoutY="2" mnemonicParsing="false" onMouseClicked="#OnMyPlaylistsClicked" prefHeight="60" prefWidth="216" text="My Playlists" />
+            <ToggleButton fx:id="currentPlaylistButton" layoutY="2" mnemonicParsing="false" onMouseClicked="#OnCurrentPlaylistClicked" prefHeight="60" prefWidth="216" text="Current Playlist" />
          </children>
       </Pane>
-      <Pane fx:id="SearchBarPane" layoutX="337.0" layoutY="39.0" prefHeight="263.0" prefWidth="250.0">
+      <Pane fx:id="SearchBarPane" layoutX="674" layoutY="78" prefHeight="526" prefWidth="500">
          <children>
-            <BorderPane fx:id="SearchResultsPane" prefHeight="294.0" prefWidth="250.0">
+            <BorderPane fx:id="SearchResultsPane" prefHeight="588" prefWidth="500">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <center>
-                  <ListView fx:id="AllSongsListView" onMouseClicked="#OnAllSongsListClicked" prefHeight="306.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
+                  <TableView fx:id="AllSongsList" onMouseClicked="#OnAllSongsListClicked" prefHeight="612" prefWidth="500" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </children>
       </Pane>
-      <TextField fx:id="AllSongsSearchBar" layoutX="337.0" layoutY="14.0" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
-      <TextField fx:id="AllSongsSearchBar" layoutX="337.0" layoutY="14.0" onKeyReleased="#searchAllSongs" onMouseClicked="#OnSearchBarClicked" prefWidth="250.0" promptText="search all songs" />
-      <ImageView fitHeight="59.0" fitWidth="324.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="AllSongsSearchBar" layoutX="674" layoutY="28" onKeyReleased="#searchAllSongs" onMouseClicked="#OnSearchBarClicked" prefWidth="500" promptText="search all songs" />
+      <ImageView fitHeight="118" fitWidth="648" layoutY="12" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../logo.png" />
          </image>
