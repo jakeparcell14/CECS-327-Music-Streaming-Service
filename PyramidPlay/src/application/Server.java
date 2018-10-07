@@ -23,7 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class LoginServer {
+public class Server {
 	/**
      * The appplication main method, which just listens on a port and
      * spawns handler threads.
@@ -119,6 +119,14 @@ public class LoginServer {
 				return null;
 			case SEARCHCURRENTPLAYLIST:
 				//searchCurrentPlaylist function goes here
+				return null;
+			case ADDPLAYLIST:
+				return null;
+			case DELETEPLAYLIST:
+				return null;
+			case ADDSONGTOPLAYLIST:
+				return null;
+			case DELETESONGFROMPLAYLIST:
 				return null;
 			default:
 				return null;
@@ -274,24 +282,50 @@ public class LoginServer {
 		return req;
 	}
 	
+	/**
+	 * Gets all of a user's playlist.
+	 * @param msg Message for this request.
+	 * @return Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
 	private static byte[] getPlaylists(Message msg) throws IOException {
 		String username = msg.getArgs()[0];
 		User user = UserRepository.getUser(username);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
+	/**
+	 * Adds a playlist to a user account.
+	 * @param msg Message for this request.
+	 * @return  Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
 	private static byte[] addPlaylist(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.addPlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class));
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
+	/**
+	 * Deletes a given playlist from a user account.
+	 * 
+	 * @param msg Message for this request.
+	 * @return  Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
 	private static byte[] deletePlaylist(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
+	/**
+	 * Adds a song to a given playlist.
+	 * 
+	 * @param msg Message for this request.
+	 * @return  Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
 	private static byte[] addSong(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
@@ -303,6 +337,13 @@ public class LoginServer {
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
+	/**
+	 * Deletes the given song from a given playlist.
+	 * 
+	 * @param msg Message for this request.
+	 * @return  Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
 	private static byte[] deleteSong(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
