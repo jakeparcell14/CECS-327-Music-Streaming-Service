@@ -63,12 +63,14 @@ public class LoginServer {
     	private Gson gson;
     	
     	/**
-    	 * Constructor for Handler class.
+    	 * Constructor for Handler class that creates a socket to 
+    	 * handle the request from the client
     	 * @param req - request from a client.
     	 */
     	public Handler(Request req) {
     		this.req = req;
     		gson = new Gson();
+    		
     		//create a new socket to handle requests from the client
     		try {
 				reqSocket = new DatagramSocket();
@@ -89,6 +91,9 @@ public class LoginServer {
     		switch(opID) {
     			case LOGIN:
     				verifyAccount(msg, reqSocket, req.port);
+    				break;
+    			case REGISTER:
+    				//register will go here
     				break;
     			case SEARCHMYSONGS:
     				//searchMySongs function goes here
@@ -189,6 +194,12 @@ public class LoginServer {
 		return msgList;
 	}
     
+	/**
+	 * Function to verify a username and password combination from a message
+	 * @param msg - message sent from client containing username and password
+	 * @param socket - socket that the reply will be sent back through
+	 * @param port - client port that the socket will send to
+	 */
     public static void verifyAccount(Message msg, DatagramSocket socket, int port) {
     	Gson gson = new Gson();
     	
@@ -210,6 +221,40 @@ public class LoginServer {
 			e.printStackTrace();
 		}
 	}
+    
+    /**
+     * Function to register a new account to the json file
+     * @param msg
+     * @param socket
+     * @param port
+     */
+    public static void registerAccount(Message msg, DatagramSocket socket, int port) {
+    	Gson gson = new Gson();
+    	
+    	//msg args structure = [firstName, lastName, userName, password]
+    	try 
+		{
+			if(UserRepository.userExists(msg.getArgs()[2]))
+			{
+				//tell client that username already exists and is not available
+				SendReply(gson.toJson("USERNAME_TAKEN").getBytes(), msg.getAddress(), port, socket);
+			}
+			else
+			{
+				//username is available and ready to be added to the repository
+				User newUser = new User(msg.getArgs()[0], msg.getArgs()[1], msg.getArgs()[2], msg.getArgs()[3]);
+				
+				//add user to the user repository
+				UserRepository.AddUser(newUser);
+				
+				SendReply(gson.toJson(newUser).getBytes(), msg.getAddress(), port, socket);
+			}
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+    }
     
     /**
 	 * Sends a reply to the client.

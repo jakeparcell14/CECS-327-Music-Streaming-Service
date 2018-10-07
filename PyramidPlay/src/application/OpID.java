@@ -2,6 +2,7 @@ package application;
 
 public enum OpID {
 	LOGIN,
+	REGISTER,
 	SEARCHMYSONGS,
 	SEARCHMYPLAYLISTS,
 	SEARCHCURRENTPLAYLIST;

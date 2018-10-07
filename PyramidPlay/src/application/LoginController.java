@@ -155,16 +155,7 @@ public class LoginController implements Initializable
 			socket.receive(reply);		
 			System.out.println("Response received from port " + reply.getPort() + "!");
 			System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try 
-		{
+			
 			//if server responds with acknowledgement "VERIFIED" switch to song view
 			if(gson.fromJson(new String(buffer).trim(), String.class).equals("VERIFIED"))
 			{
@@ -188,9 +179,10 @@ public class LoginController implements Initializable
 			{
 				InvalidSignInLabel.setVisible(true);
 			}
-		} 
-		catch (IOException e) 
-		{
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -206,20 +198,47 @@ public class LoginController implements Initializable
 	 */
 	public void register(String fn, String ln, String uName, String pw, ActionEvent event) 
 	{
+		//create message to send to server
+		String[] arr = {fn, ln, uName, pw};
+		
+		//initialize buffer
+		byte[] buffer = new byte[1000];
 		try 
 		{
-			if(UserRepository.userExists(AddUsernameTextField.getText()))
+			Message loginMsg = new Message(1, requestID++, OpID.LOGIN, arr, InetAddress.getLocalHost());
+			
+			//convert to json
+			String json = gson.toJson(loginMsg);
+			
+			//we can only send bytes, so flatten the string to a byte array
+			byte[] msg = gson.toJson(loginMsg).getBytes();				
+			
+			System.out.println("Sending request.");
+			//initialize and send request packet using port 1234, the port the server is listening on
+			DatagramPacket request = new DatagramPacket(msg, msg.length, loginMsg.getAddress() , 1234);
+			socket.send(request);
+			System.out.println("request port: " + request.getPort());
+					
+			//initialize reply from server and receive it
+					
+			/* without specifying a port in this datagram packet, the OS will
+			 * randomly assign a port to the reply for the program to listen on
+			 */
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			socket.receive(reply);		
+			System.out.println("Response received from port " + reply.getPort() + "!");
+			
+			if(gson.fromJson(new String(buffer).trim(), String.class).equals("USERNAME_TAKEN"))
 			{
 				//username already exists and is not available
 				UsernameUnavailableLabel.setVisible(true);
 			}
 			else
 			{
-				//username is available and ready to be added to the repository
-				User newUser = new User(AddFirstNameTextField.getText(), AddLastNameTextField.getText(), AddUsernameTextField.getText(), AddPasswordTextField.getText());
-				
-				//add user to the user repository
-				UserRepository.AddUser(newUser);
+				//server confirms username is available and returns new user object
+				//deserialize the byte[] buffer to a user object
+				User newUser = gson.fromJson(new String(buffer).trim(), User.class);
 				
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("SongView.fxml"));
@@ -235,9 +254,7 @@ public class LoginController implements Initializable
 				window.setResizable(false);
 				window.setScene(songViewScene);
 			}
-		}
-		catch(IOException e)
-		{
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
