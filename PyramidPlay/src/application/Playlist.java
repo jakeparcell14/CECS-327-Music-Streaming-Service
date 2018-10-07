@@ -111,6 +111,11 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	{
 		dateCreated = d;
 	}
+	
+	public void setCurrentDate()
+	{
+		dateCreated.setCurrentDate();
+	}
 
 	/**
 	 * Adds song to list

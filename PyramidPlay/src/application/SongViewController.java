@@ -916,7 +916,9 @@ public class SongViewController implements Initializable{
 								alert.showAndWait();
 							}
 							else{//add playlist
-								playlists.add(new Playlist(result.get()));
+								Playlist p = new Playlist(result.get());
+								p.setCurrentDate();
+								playlists.add(p);
 								user.setPlaylists(playlists);
 								UserRepository.UpdateUser(user);
 								OnMyPlaylistsClicked(null);

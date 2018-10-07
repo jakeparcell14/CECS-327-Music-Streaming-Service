@@ -164,6 +164,20 @@ public class Date implements Comparable<Date>
 			return 1;
 		}
 	}
+	
+	/**
+	 * receives current date from the computer and updates the Date parameters to the current date
+	 */
+	public void setCurrentDate()
+	{
+		//receive date from the computer
+		String currentDate = java.time.LocalDate.now().toString(); 	
+		
+		//parse elements of the current date to fill the Date elements
+		this.year = Integer.parseInt(currentDate.substring(0, 4));
+		this.month = Integer.parseInt(currentDate.substring(5, 7));
+		this.day = Integer.parseInt(currentDate.substring(8));		
+	}
 
 	/**
 	 * Compares information in two Date objects and determines equality
