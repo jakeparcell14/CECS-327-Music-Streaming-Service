@@ -3,6 +3,10 @@ package application;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -37,9 +41,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import com.google.gson.Gson;
+
 
 
 public class SongViewController implements Initializable{
+	public static int requestID;
 	@FXML
 	private Button _playButton;
 
@@ -1123,23 +1130,61 @@ public class SongViewController implements Initializable{
 	 * search for user library. decides what to display on userlibrarylist
 	 */
 	public void search() {
-		try {
+		try {			
 			UserLibraryList.getItems().clear();
 			//user inputted text
 			String query=searchbar.getText();
 
-			//my songs are selected
-			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)){
-				searchMySongs(query);
+			DatagramSocket socket = null;
+			try {
+				if(query.equals("")) {
+					query=" ";
+				}
+				socket = new DatagramSocket();
+				//String user="amyer";
+				OpID opID=OpID.SEARCHMYSONGS;
+				//my songs are selected
+				String req="";
+				if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)){
+					opID=OpID.SEARCHMYSONGS;
+				}
+				//my playlists are selected
+				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
+					opID=OpID.SEARCHMYPLAYLISTS;
+				}
+				//current playlists are selected
+				else if (((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+					opID=OpID.SEARCHCURRENTPLAYLIST;
+				}
+				String[] arr= {user.getUsername(),query};
+				Message searchMessage=new Message(1, requestID++, opID, arr, InetAddress.getLocalHost());
+				String json = gson.toJson(searchMessage);
+				byte[] msg = gson.toJson(searchMessage).getBytes();
+				InetAddress host = InetAddress.getLocalHost();
+				
+				int serverPort = 6789;
+				DatagramPacket request = new DatagramPacket(m, m.length, host, serverPort);
+				socket.send(request);
+				System.out.println("Request: " + new String(request.getData()));
+				byte[] buffer = new byte[1000];
+				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+				socket.receive(reply);
+				//System.out.println("Reply: " + new String(reply.getData()));
+				String temp=new String(reply.getData(),0,reply.getLength());
+				String[] mySongQueryList=temp.split("\\.");
+				for(int i=1;i<mySongQueryList.length;i++) {
+					UserLibraryList.getItems().addAll(mySongQueryList[i]);
+				}
+				
+			} catch (SocketException e) {
+				System.out.println("Socket: " + e.getMessage());
+			} catch (IOException e) {
+				System.out.println("IO: " + e.getMessage());
+			}finally {
+				if(socket!=null)
+					socket.close();
 			}
-			//my playlists are selected
-			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
-				searchMyPlaylists(query);
-			}
-			//current playlists are selected
-			else if (((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
-				searchCurrentPlaylist(query);
-			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}		

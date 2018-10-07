@@ -1,0 +1,8 @@
+package application;
+
+public enum OpID {
+	LOGIN,
+	SEARCHMYSONGS,
+	SEARCHMYPLAYLISTS,
+	SEARCHCURRENTPLAYLIST;
+}
