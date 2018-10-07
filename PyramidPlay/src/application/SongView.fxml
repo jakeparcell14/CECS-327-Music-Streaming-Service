@@ -26,7 +26,7 @@
       <Label fx:id="currentTime" alignment="CENTER_RIGHT" layoutX="865.0" layoutY="658.0" text="0:00:00" />
       <Label fx:id="totalTime" layoutX="941.0" layoutY="658.0" text="0:00:00" />
       <Label layoutX="922.0" layoutY="658.0" text="/" />
-      <TextField fx:id="searchbar" layoutY="178" onKeyReleased="#search" prefHeight="52" prefWidth="648" />
+      <TextField fx:id="userLibrarySearchBar" layoutY="178" onKeyReleased="#search" prefHeight="52" prefWidth="648" />
       <Pane fx:id="ToggleListViewPane" layoutY="118" prefHeight="60" prefWidth="648">
          <children>
             <ToggleButton fx:id="mySongsButton" layoutX="216" layoutY="2" mnemonicParsing="false" onMouseClicked="#OnMySongsClicked" prefHeight="60" prefWidth="216" text="My Songs" />
@@ -34,19 +34,21 @@
             <ToggleButton fx:id="currentPlaylistButton" layoutY="2" mnemonicParsing="false" onMouseClicked="#OnCurrentPlaylistClicked" prefHeight="60" prefWidth="216" text="Current Playlist" />
          </children>
       </Pane>
-      <Pane fx:id="SearchBarPane" layoutX="674" layoutY="78" prefHeight="526" prefWidth="500">
-         <children>
-            <BorderPane fx:id="SearchResultsPane" prefHeight="588" prefWidth="500">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <center>
-                  <TableView fx:id="AllSongsList" onMouseClicked="#OnAllSongsListClicked" prefHeight="612" prefWidth="500" BorderPane.alignment="CENTER" />
-               </center>
-            </BorderPane>
-         </children>
-      </Pane>
-      <TextField fx:id="AllSongsSearchBar" layoutX="674" layoutY="28" onKeyReleased="#searchAllSongs" onMouseClicked="#OnSearchBarClicked" prefWidth="500" promptText="search all songs" />
+      <BorderPane fx:id="SearchBarPane" layoutX="674.0" layoutY="78.0" prefHeight="588" prefWidth="500">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <top>
+            <TextField fx:id="AllSongsSearchBar" onKeyReleased="#searchAllSongs" prefWidth="500" promptText="search all songs" BorderPane.alignment="CENTER" />
+         </top>
+         <center>
+            <Pane fx:id="SearchResultsPane" prefHeight="526" prefWidth="500" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="AllSongsList" onMouseClicked="#OnAllSongsListClicked" prefHeight="562.0" prefWidth="500" />
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
       <ImageView fitHeight="118" fitWidth="648" layoutY="12" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../logo.png" />
