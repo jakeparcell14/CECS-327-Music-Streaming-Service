@@ -368,7 +368,7 @@ public class SongViewController implements Initializable{
 		playSelectedSong();
 	}
 
-	/***
+	/**
 	 * Method to play the current song from the beginning.
 	 */
 	public void playSelectedSong () {
@@ -491,6 +491,10 @@ public class SongViewController implements Initializable{
 
 
 	@FXML
+	/**
+	 * This is a listener for the all songs results. If a song is left-clicked, the song will play. If a song is right-clicked, another menu appears to add the song to a playlist or saved songs
+	 * @param event		the table showing search results has been clicked
+	 */
 	public void OnAllSongsListClicked(MouseEvent event)
 	{
 		//item on the list view that the user selects
@@ -514,8 +518,8 @@ public class SongViewController implements Initializable{
 				// make search results invisible
 				this.resetSearchText();
 			}
-			//user right clicks library list
-			else if(event.getButton() == MouseButton.SECONDARY) {
+			//user right clicks library list and list is not empty
+			else if(event.getButton() == MouseButton.SECONDARY && sel.getTitle() != null) {
 				ContextMenu cm = new ContextMenu();
 				Menu parentMenu = new Menu("Add To Playlist");
 				//user hard coded
