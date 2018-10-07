@@ -7,18 +7,18 @@ public class Message {
 	private InetAddress address;
 	private OpID operationID;
 	private String[] args;
-//	private int protocolID;
+	private int protocolID;
 	
 	public Message() {
 		
 	}
 	
-	public Message(int messageType, int requestID, OpID opid, String[] args, InetAddress address) {
+	public Message(int messageType, int requestID, OpID opid, String[] args, InetAddress address, int protocolID) {
 		this.messageType = messageType;
 		this.requestID = requestID;
 		this.operationID = opid;
 		this.args = args;
-//		this.protocolID = protocolID;
+		this.protocolID = protocolID;
 		this.address = address;
 	}
 	
@@ -39,9 +39,9 @@ public class Message {
 		return args;
 	}
 
-//	public int getProtocolID() {
-//		return protocolID;
-//	}
+	public int getProtocolID() {
+		return protocolID;
+	}
 
 	public InetAddress getAddress() {
 		return address;

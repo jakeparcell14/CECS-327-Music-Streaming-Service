@@ -131,7 +131,7 @@ public class LoginController implements Initializable
 		//initialize buffer
 		byte[] buffer = new byte[1000];
 		try {
-			Message loginMsg = new Message(1, requestID++, OpID.LOGIN, arr, InetAddress.getLocalHost());
+			Message loginMsg = new Message(1, requestID++, OpID.LOGIN, arr, InetAddress.getLocalHost(), 1);
 			
 			//convert to json
 			String json = gson.toJson(loginMsg);
