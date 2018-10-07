@@ -27,9 +27,9 @@ public class LoginServer {
      * The appplication main method, which just listens on a port and
      * spawns handler threads.
      */
-    public static void main(String[] args) throws Exception {
-    	Gson gson = new Gson();
-		
+	
+	private static Gson gson = new Gson();
+    public static void main(String[] args) throws Exception {		
 		DatagramSocket socket = null;
 		try {
 			//create a socket listening on port 1234
@@ -249,5 +249,45 @@ public class LoginServer {
 		req.port = request.getPort();
 		//socket.close();
 		return req;
+	}
+	
+	private static byte[] getPlaylists(Message msg) throws IOException {
+		String username = msg.getArgs()[0];
+		User user = UserRepository.getUser(username);
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+	}
+	
+	private static byte[] addPlaylist(Message msg) throws IOException {
+		User user = UserRepository.getUser(msg.getArgs()[0]);
+		user.addPlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class));
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+	}
+	
+	private static byte[] deletePlaylist(Message msg) throws IOException {
+		User user = UserRepository.getUser(msg.getArgs()[0]);
+		user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+	}
+	
+	private static byte[] addSong(Message msg) throws IOException {
+		User user = UserRepository.getUser(msg.getArgs()[0]);
+		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
+		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
+		playlist.addSong(song);
+		
+		user.removePlaylist(playlist.getPlaylistName());
+		user.addPlaylist(playlist);
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+	}
+	
+	private static byte[] deleteSong(Message msg) throws IOException {
+		User user = UserRepository.getUser(msg.getArgs()[0]);
+		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
+		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
+		playlist.removeSong(song);
+		
+		user.removePlaylist(playlist.getPlaylistName());
+		user.addPlaylist(playlist);
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 }
