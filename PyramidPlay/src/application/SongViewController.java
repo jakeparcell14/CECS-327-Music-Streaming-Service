@@ -986,6 +986,10 @@ public class SongViewController implements Initializable{
 	}
 
 	@FXML
+	/**
+	 * This is a listener for the song slider. When dragged, the slider updates the position in the song to the new location of the slider
+	 * @param event		the song slider has been clicked
+	 */
 	public void OnSliderClicked(MouseEvent event)
 	{
 		/* if it was not dragged but simple clicked to a new position,
@@ -1029,6 +1033,9 @@ public class SongViewController implements Initializable{
 
 
 	@FXML
+	/**
+	 * This displays search results in the all songs table when there is text in the all songs search bar
+	 */
 	public void searchAllSongs()
 	{
 		Playlist validSongs = new Playlist("valid");
@@ -1087,7 +1094,7 @@ public class SongViewController implements Initializable{
 
 	/**
 	 * searches mysongs and displays on userlibrarylist
-	 * @param query - user inputted query
+	 * @param query - user inputed query
 	 */
 	public void searchMySongs(String query) {
 		ArrayList<Song> savedSongs = user.getSavedSongs().getSongs();
@@ -1275,6 +1282,11 @@ public class SongViewController implements Initializable{
 	}
 
 	@Override
+	/**
+	 * This initializes columns and toggle button groups. It also adds all songs the the allSongs list
+	 * @param arg0 unused but needed to override the initialize function
+	 * @param arg1 unused but needed to override the initialize function
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		menuToggleGroup = new ToggleGroup();
 
@@ -1332,7 +1344,6 @@ public class SongViewController implements Initializable{
 			allSongs.sort(null);
 		} 
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -1342,6 +1353,9 @@ public class SongViewController implements Initializable{
 		this.resetSearchText();
 	}
 
+	/**
+	 * This clears the text in the all songs search bar and resets the prompt text
+	 */
 	public void resetSearchText()
 	{
 		// reset prompt text
