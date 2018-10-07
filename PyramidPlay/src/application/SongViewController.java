@@ -1136,6 +1136,8 @@ public class SongViewController implements Initializable{
 			String query=searchbar.getText();
 
 			DatagramSocket socket = null;
+			
+			Gson gson = new Gson();
 			try {
 				if(query.equals("")) {
 					query=" ";
@@ -1163,7 +1165,7 @@ public class SongViewController implements Initializable{
 				InetAddress host = InetAddress.getLocalHost();
 				
 				int serverPort = 6789;
-				DatagramPacket request = new DatagramPacket(m, m.length, host, serverPort);
+				DatagramPacket request = new DatagramPacket(msg, msg.length, host, serverPort);
 				socket.send(request);
 				System.out.println("Request: " + new String(request.getData()));
 				byte[] buffer = new byte[1000];

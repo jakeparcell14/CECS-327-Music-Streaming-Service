@@ -89,8 +89,27 @@ public class LoginController implements Initializable
 		
 		try {
 			System.out.println("Initializing Client Socket.");
+			
 			//create a socket with no specific port we listen on
 			socket = new DatagramSocket();
+			System.out.println("Socket created with port " + socket.getLocalPort());
+/**			
+			//send a connection request to the server
+			//when the server receives a request, a new thread will be made to handle
+			//all requests from this client
+			System.out.println("Connecting to server.");
+			byte[] connectionReq = "CONNECTION".getBytes();
+			DatagramPacket initialConnection = new DatagramPacket(
+					connectionReq, connectionReq.length, InetAddress.getLocalHost(), 1234
+					);
+			
+			socket.send(initialConnection);
+			
+			//wait until server sends acknowledgement that a connection was made
+			while (true) {
+				
+			} 
+*/
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,7 +153,7 @@ public class LoginController implements Initializable
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			System.out.println("Awaiting response from server...");
 			socket.receive(reply);		
-			System.out.println("Response received!");
+			System.out.println("Response received from port " + reply.getPort() + "!");
 			System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
 		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block

@@ -34,25 +34,75 @@ public class LoginServer {
 		try {
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
-		} catch (SocketException e1) {
-			// TODO Auto-generated catch block
-			System.out.println("Error creating socket: " + e1.getMessage());
-		}
-		try {
+			
 			while(true) {
 				System.out.println("Waiting for a request...");
 				Request req = getRequest(socket);
-				Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
-				System.out.println("Received a request!");
-				verifyAccount(msg, socket, req.port);
+				
+				System.out.println("Received a request!\nCreating new thread!");
+				//create a new thread to handle a client's requests
+				new Handler(req).start();
 			}
-		} catch (IOException e) {
+		} catch (SocketException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error creating socket: " + e1.getMessage());
 		} finally  {
 			if (socket != null) 
 				socket.close();
 		}
+    }
+    
+    /**
+     * Handler class that will handle a single request from a client.
+     * @author Matthew
+     *
+     */
+    public static class Handler extends Thread {
+    	private Request req;
+    	private DatagramSocket reqSocket;
+    	private Gson gson;
+    	
+    	/**
+    	 * Constructor for Handler class.
+    	 * @param req - request from a client.
+    	 */
+    	public Handler(Request req) {
+    		this.req = req;
+    		gson = new Gson();
+    		//create a new socket to handle requests from the client
+    		try {
+				reqSocket = new DatagramSocket();
+				System.out.println(reqSocket.getLocalPort());
+			} catch (SocketException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	
+    	public void run() {
+    		System.out.println("New handler running and handling request");
+    		Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
+    		
+    		OpID opID = msg.getOperationID();
+    		
+    		//perform operation based on opID of request
+    		switch(opID) {
+    			case LOGIN:
+    				verifyAccount(msg, reqSocket, req.port);
+    				break;
+    			case SEARCHMYSONGS:
+    				//searchMySongs function goes here
+    				break;
+    			case SEARCHMYPLAYLISTS:
+    				//searchMyPlaylists function goes here
+    				break;
+    			case SEARCHCURRENTPLAYLIST:
+    				//searchCurrentPlaylist function goes here
+    				break;
+        	}
+			
+    		//socket should close at the end/destruction of this thread
+    	}
     }
     
     public static String searchMySongs(String q, User user) {
@@ -141,30 +191,24 @@ public class LoginServer {
     
     public static void verifyAccount(Message msg, DatagramSocket socket, int port) {
     	Gson gson = new Gson();
-    	OpID opID=msg.getOperationID();
-    	if(opID==OpID.LOGIN) {
-    		try 
-    		{
-    			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
-    			{
-    				//send acknowledgement back to login client
-    				SendReply(gson.toJson("VERIFIED").getBytes(), msg.getAddress(), port, socket);
-    			}
-    			else {
-    				//send acknowledgement back to login client
-    				SendReply(gson.toJson("INCORRECT").getBytes(), msg.getAddress(), port, socket);
-    			}
-    		} 
-    		catch (IOException e) 
-    		{
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-    	}
-    	else if(opID==OpID.SEARCHMYSONGS) {
-    		String msgList="";
-    		msgList= searchMySongs(q,user);
-    	}
+    	
+    	try 
+		{
+			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
+			{
+				//send acknowledgement back to login client
+				SendReply(gson.toJson("VERIFIED").getBytes(), msg.getAddress(), port, socket);
+			}
+			else {
+				//send acknowledgement back to login client
+				SendReply(gson.toJson("INCORRECT").getBytes(), msg.getAddress(), port, socket);
+			}
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
     
     /**
