@@ -490,20 +490,10 @@ public class SongViewController implements Initializable{
 											//check if the selected list item is equal to the current songs title
 											if(allSongs.get(j).equals(sel)) {
 												Playlist tp = playlists.get(k);
-												tp.addSong(allSongs.get(j));
-												playlists.set(k, tp);
-												try {
-													user.setPlaylists(playlists);
-													UserRepository.UpdateUser(user);
-													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
-														OnCurrentPlaylistClicked(null);
-													}
-
-													SearchBarPane.setVisible(false);
-													SearchBarPane.setMouseTransparent(true);
-													resetSearchText();
-												} catch (IOException e) {
-													e.printStackTrace();
+												ArrayList<Playlist> updatedPlaylist = addSongToServer(allSongs.get(j), tp);												
+												user.setPlaylists(updatedPlaylist);
+												if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+													OnCurrentPlaylistClicked(null);
 												}
 												break;
 											}
@@ -533,18 +523,17 @@ public class SongViewController implements Initializable{
 										}
 									}
 									if(sameTitle==0) {
-										mySongs.addSong(allSongs.get(j));
+										//TODO this does not work because of malformed gson exception
+										ArrayList<Playlist> updatedSavedSongs = addSongToServer(allSongs.get(j), mySongs);
+										
+										mySongs.setSongs(updatedSavedSongs.get(0).getSongs());
 										user.setSavedSongs(mySongs);
-										try {
-											UserRepository.UpdateUser(user);
-											if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
-												OnCurrentPlaylistClicked(null);
-											}
-											else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
-												OnMySongsClicked(null);
-											}
-										} catch (IOException e) {
-											e.printStackTrace();
+										
+										if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+											OnCurrentPlaylistClicked(null);
+										}
+										else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
+											OnMySongsClicked(null);
 										}
 									}
 									else {
@@ -669,6 +658,7 @@ public class SongViewController implements Initializable{
 										//check if the selected list item is equal to the current songs title
 										if(savedSongs.get(j).equals(sel)) {
 											// add song to playlist
+											//TODO implement add song to server
 											Playlist tp = playlists.get(k);
 											tp.addSong(savedSongs.get(j));
 											playlists.set(k, tp);
@@ -703,14 +693,10 @@ public class SongViewController implements Initializable{
 						alert.showAndWait();
 					}
 					else {
-						//good to remove song
-						temp.removeSong(sel);
-						user.setSavedSongs(temp);
-						try {
-							UserRepository.UpdateUser(user);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						//remove song from saved songs
+						ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
+						user.setSavedSongs(updatedPlaylists.get(0));
+						currentPlaylist=user.getSavedSongs();
 						OnMySongsClicked(null);
 					}
 				}
@@ -829,7 +815,6 @@ public class SongViewController implements Initializable{
 					}
 				}
 			});
-			
 			cm.getItems().add(removeP);
 		}
 		
@@ -1421,6 +1406,50 @@ public class SongViewController implements Initializable{
 			e.printStackTrace();
 		}
 
+		return null;
+	}
+	
+	public ArrayList<Playlist> addSongToServer(Song songToAdd, Playlist playlistToUpdate)
+	{		
+		//initialize buffer
+		byte[] buffer = new byte[5000];
+		try {
+			String songJSON = gson.toJson(songToAdd);
+			String playlistJSON = gson.toJson(playlistToUpdate);
+
+			String[] arr = {user.getUsername(), songJSON, playlistJSON};
+
+			Message addSongMessage = new Message(1, requestID++, OpID.ADDSONGTOPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+
+			//convert to json
+			String json = gson.toJson(addSongMessage);
+
+			//we can only send bytes, so flatten the string to a byte array
+			byte[] msg = gson.toJson(addSongMessage).getBytes();				
+
+			System.out.println("Sending request.");
+			//initialize and send request packet using port 1234, the port the server is listening on
+			DatagramPacket request = new DatagramPacket(msg, msg.length, addSongMessage.getAddress() , 1234);
+			socket.send(request);
+			System.out.println("request port: " + request.getPort());
+
+			//initialize reply from server and receive it
+
+			/* without specifying a port in this datagram packet, the OS will
+			 * randomly assign a port to the reply for the program to listen on
+			 */
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			socket.receive(reply);		
+			System.out.println(new String(buffer));
+			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+			//return updated set of playlists
+			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

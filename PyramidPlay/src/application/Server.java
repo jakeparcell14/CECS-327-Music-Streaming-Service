@@ -34,7 +34,6 @@ public class Server {
 		try {
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
-
 			while(true) {
 				System.out.println("Waiting for a request...");
 				Request req = getRequest();
@@ -334,12 +333,26 @@ public class Server {
 	private static byte[] addSong(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
-		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
-		playlist.addSong(song);		
-		user.removePlaylist(playlist.getPlaylistName());
-		user.addPlaylist(playlist);
-		UserRepository.UpdateUser(user);
-		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+		Playlist playlist = gson.fromJson(msg.getArgs()[2], Playlist.class);
+		ArrayList<Playlist> p;
+		if(playlist.getPlaylistName().equals("saved"))
+		{
+			p = new ArrayList<Playlist>();
+			playlist.addSong(song);
+			user.setSavedSongs(playlist);
+			UserRepository.UpdateUser(user);
+			p.add(user.getSavedSongs());
+			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
+		}
+		else
+		{
+			playlist.addSong(song);		
+			user.removePlaylist(playlist.getPlaylistName());
+			user.addPlaylist(playlist);
+			UserRepository.UpdateUser(user);
+			p = user.getPlaylists();
+			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
+		}
 	}
 
 	/**
