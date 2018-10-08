@@ -18,6 +18,7 @@ public class UserRepository {
 		FileWriter out = null;
 		Gson gson = new Gson();
 		out = new FileWriter("users.json", true);
+
 		out.write("\n" + gson.toJson(user));
 			
 		if (out != null)
