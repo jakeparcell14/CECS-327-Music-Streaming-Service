@@ -373,10 +373,10 @@ public class Server {
 			playlist.removeSong(song);
 			user.setSavedSongs(playlist);;
 			UserRepository.UpdateUser(user);
-			
+
 			ArrayList<Playlist> p = new ArrayList<Playlist>();
 			p.add(playlist);
-			
+
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
 		}
 		else
@@ -394,7 +394,14 @@ public class Server {
 			p.remove(playlistIndex);
 
 			//replace old playlist with the updated one
-			p.set(playlistIndex, playlist);
+			if(playlistIndex >= p.size())
+			{
+				p.add(playlist);
+			}
+			else
+			{
+				p.set(playlistIndex, playlist);
+			}
 
 			user.setPlaylists(p);
 			UserRepository.UpdateUser(user);
