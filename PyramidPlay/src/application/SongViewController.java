@@ -734,53 +734,48 @@ public class SongViewController implements Initializable{
 
 			@Override
 			public void handle(ActionEvent event) {
-				try {
-					ArrayList<Playlist> playlists=user.getPlaylists();
-					if(currentPlaylist.getPlaylistName().equals("saved"))
-					{
-						Playlist temp=user.getSavedSongs();
-						//cant delete song if there is only one song in the playlist
-						if(temp.getSongs().size()==1) {
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Remove Saved Song Error");
-							alert.setHeaderText("Saved Songs Must Have At Least One Song");
-							alert.setContentText("Please try a different option");
-							alert.showAndWait();
-						}
-						else {
-							//remove song from saved songs
-							temp.removeSong(sel);
-							user.setSavedSongs(temp);
-							UserRepository.UpdateUser(user);
-							OnCurrentPlaylistClicked(null);
-						}
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				if(currentPlaylist.getPlaylistName().equals("saved"))
+				{
+					Playlist temp=user.getSavedSongs();
+					//cant delete song if there is only one song in the playlist
+					if(temp.getSongs().size()==1) {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Remove Saved Song Error");
+						alert.setHeaderText("Saved Songs Must Have At Least One Song");
+						alert.setContentText("Please try a different option");
+						alert.showAndWait();
 					}
-					else {//current playlist is a playlist, not saved songs
-						for(int n=0;n<playlists.size();n++) {
-							if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
-								Playlist tempo=playlists.get(n);
-								//cant remove last song from playlist
-								if(tempo.getSongs().size()==1) {
-									Alert alert = new Alert(AlertType.ERROR);
-									alert.setTitle("Remove Playlist Song Error");
-									alert.setHeaderText("Playlist Must Have At Least One Song");
-									alert.setContentText("Please try a different option");
-									alert.showAndWait();
-								}
-								else {
-									// remove song from current playlist
-									tempo.removeSong(sel);
-									playlists.set(n, tempo);
-									currentPlaylist=playlists.get(n);
-									UserRepository.UpdateUser(user);
-									OnCurrentPlaylistClicked(null);
-									break;
-								}
+					else {
+						//remove song from saved songs
+						ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
+						user.setSavedSongs(updatedPlaylists.get(0));
+						currentPlaylist=user.getSavedSongs();
+						OnCurrentPlaylistClicked(null);
+					}
+				}
+				else {//current playlist is a playlist, not saved songs
+					for(int n=0;n<playlists.size();n++) {
+						if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
+							Playlist temp=playlists.get(n);
+							//cant remove last song from playlist
+							if(temp.getSongs().size()==1) {
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Remove Playlist Song Error");
+								alert.setHeaderText("Playlist Must Have At Least One Song");
+								alert.setContentText("Please try a different option");
+								alert.showAndWait();
+							}
+							else {
+								// remove song from current playlist
+								ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
+								user.setPlaylists(updatedPlaylists);
+								currentPlaylist=user.getPlaylist(temp.getPlaylistName());
+								OnCurrentPlaylistClicked(null);
+								break;
 							}
 						}
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
 		});
@@ -816,7 +811,6 @@ public class SongViewController implements Initializable{
 							ArrayList<Playlist> updatedPlaylists = removePlaylistFromServer(playlists.get(n));
 							user.setPlaylists(updatedPlaylists);
 							OnMyPlaylistsClicked(null);
-							playlists.remove(n);
 						}
 					}
 				}
@@ -1426,7 +1420,7 @@ public class SongViewController implements Initializable{
 		byte[] buffer = new byte[5000];
 		try {
 			String songJSON = gson.toJson(songToRemove);
-			String playlistJSON = gson.toJson(songToRemove);
+			String playlistJSON = gson.toJson(playlistToUpdate);
 
 			String[] arr = {user.getUsername(), songJSON, playlistJSON};
 

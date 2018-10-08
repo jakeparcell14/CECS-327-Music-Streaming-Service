@@ -25,20 +25,20 @@ import javafx.stage.Stage;
 
 public class Server {
 	/**
-     * The appplication main method, which just listens on a port and
-     * spawns handler threads.
-     */
+	 * The appplication main method, which just listens on a port and
+	 * spawns handler threads.
+	 */
 	private static DatagramSocket socket = null;
 	private static Gson gson = new Gson();
-    public static void main(String[] args) throws Exception {		
+	public static void main(String[] args) throws Exception {		
 		try {
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
-			
+
 			while(true) {
 				System.out.println("Waiting for a request...");
 				Request req = getRequest();
-				
+
 				System.out.println("Received a request!\nCreating new thread!");
 				//create a new thread to handle a client's requests
 				new Handler(req).start();
@@ -50,92 +50,92 @@ public class Server {
 			if (socket != null) 
 				socket.close();
 		}
-    }
-    
-    /**
-     * Handler class that will handle a single request from a client.
-     * @author Matthew
-     *
-     */
-    public static class Handler extends Thread {
-    	private Request req;
-    	private DatagramSocket reqSocket;
-    	private Gson gson;
-    	
-    	/**
-    	 * Constructor for Handler class.
-    	 * @param req - request from a client.
-    	 */
-    	public Handler(Request req) {
-    		this.req = req;
-    		gson = new Gson();
-    		//create a new socket to handle requests from the client
-    		try {
+	}
+
+	/**
+	 * Handler class that will handle a single request from a client.
+	 * @author Matthew
+	 *
+	 */
+	public static class Handler extends Thread {
+		private Request req;
+		private DatagramSocket reqSocket;
+		private Gson gson;
+
+		/**
+		 * Constructor for Handler class.
+		 * @param req - request from a client.
+		 */
+		public Handler(Request req) {
+			this.req = req;
+			gson = new Gson();
+			//create a new socket to handle requests from the client
+			try {
 				reqSocket = new DatagramSocket();
 				System.out.println(reqSocket.getLocalPort());
 			} catch (SocketException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	}
-    	
-    	public void run() {
-    		System.out.println("New handler running and handling request");
-    		Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
-    		switch(msg.getProtocolID()) {
-    			case 0:
-    				break;
-    			case 1:
-					try {
-						RequestReplyProtocol(msg, req);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    			
-    		}
-  
-			
-    		//socket should close at the end/destruction of this thread
-    	}
-    	
-    }
-    
-    private static void RequestReplyProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
+		}
+
+		public void run() {
+			System.out.println("New handler running and handling request");
+			Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
+			switch(msg.getProtocolID()) {
+			case 0:
+				break;
+			case 1:
+				try {
+					RequestReplyProtocol(msg, req);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+
+
+			//socket should close at the end/destruction of this thread
+		}
+
+	}
+
+	private static void RequestReplyProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
 		byte[] result = ChooseAndExecuteOperation(msg);
 		SendReply(result, InetAddress.getLocalHost(), req.port);
 	}
-    
-    
-    private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
-    	switch(msg.getOperationID()) {
-			case LOGIN:
-				return verifyAccount(msg);
-			case SEARCHMYSONGS:
-				//searchMySongs function goes here
-				return null;
-			case SEARCHMYPLAYLISTS:
-				//searchMyPlaylists function goes here
-				return null;
-			case SEARCHCURRENTPLAYLIST:
-				//searchCurrentPlaylist function goes here
-				return null;
-			case ADDPLAYLIST:
-				return addPlaylist(msg);
-			case DELETEPLAYLIST:
-				return deletePlaylist(msg);
-			case ADDSONGTOPLAYLIST:
-				return addSong(msg);
-			case DELETESONGFROMPLAYLIST:
-				return deleteSong(msg);
-			default:
-				return null;
-			
-    	}
-    }
-    
-    
-    public static String searchMySongs(String q, User user) {
+
+
+	private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
+		switch(msg.getOperationID()) {
+		case LOGIN:
+			return verifyAccount(msg);
+		case SEARCHMYSONGS:
+			//searchMySongs function goes here
+			return null;
+		case SEARCHMYPLAYLISTS:
+			//searchMyPlaylists function goes here
+			return null;
+		case SEARCHCURRENTPLAYLIST:
+			//searchCurrentPlaylist function goes here
+			return null;
+		case ADDPLAYLIST:
+			return addPlaylist(msg);
+		case DELETEPLAYLIST:
+			return deletePlaylist(msg);
+		case ADDSONGTOPLAYLIST:
+			return addSong(msg);
+		case DELETESONGFROMPLAYLIST:
+			return deleteSong(msg);
+		default:
+			return null;
+
+		}
+	}
+
+
+	public static String searchMySongs(String q, User user) {
 		String query=q;
 		Playlist savedSongsPlaylist=user.getSavedSongs();
 		ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
@@ -218,11 +218,11 @@ public class Server {
 		}
 		return msgList;
 	}
-    
-    public static byte[] verifyAccount(Message msg) {
-    	Gson gson = new Gson();
-    	
-    	try 
+
+	public static byte[] verifyAccount(Message msg) {
+		Gson gson = new Gson();
+
+		try 
 		{
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
@@ -241,8 +241,8 @@ public class Server {
 			return null;
 		}
 	}
-    
-    /**
+
+	/**
 	 * Sends a reply to the client.
 	 * 
 	 * @param reply Object returning as a reply flattened to a byte array.
@@ -260,7 +260,7 @@ public class Server {
 		System.out.printf("Sending Reply. Port %d, InetAddr: %s\n", rply.getPort(), rply.getAddress());		
 		socket.send(rply);
 	}
-	
+
 	/**
 	 * listens for a request from a client.
 	 * @param socket This server's socket.
@@ -281,7 +281,7 @@ public class Server {
 		//socket.close();
 		return req;
 	}
-	
+
 	/**
 	 * Gets all of a user's playlist.
 	 * @param msg Message for this request.
@@ -293,7 +293,7 @@ public class Server {
 		User user = UserRepository.getUser(username);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
-	
+
 	/**
 	 * Adds a playlist to a user account.
 	 * @param msg Message for this request.
@@ -308,7 +308,7 @@ public class Server {
 		System.out.println(gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes().length);
 		return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
 	}
-	
+
 	/**
 	 * Deletes a given playlist from a user account.
 	 * 
@@ -323,7 +323,7 @@ public class Server {
 		ArrayList<Playlist> p = user.getPlaylists();
 		return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
 	}
-	
+
 	/**
 	 * Adds a song to a given playlist.
 	 * 
@@ -341,7 +341,7 @@ public class Server {
 		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
-	
+
 	/**
 	 * Deletes the given song from a given playlist.
 	 * 
@@ -353,11 +353,40 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
 		Playlist playlist = gson.fromJson(msg.getArgs()[2], Playlist.class);
-		playlist.removeSong(song);	
-		user.removePlaylist(playlist.getPlaylistName());
-		user.addPlaylist(playlist);
-		UserRepository.UpdateUser(user);
-		ArrayList<Playlist> p = user.getPlaylists();
-		return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
+
+		if(playlist.getPlaylistName().equals("saved"))
+		{
+			//remove song from playlist
+			playlist.removeSong(song);
+			user.setSavedSongs(playlist);;
+			UserRepository.UpdateUser(user);
+			
+			ArrayList<Playlist> p = new ArrayList<Playlist>();
+			p.add(playlist);
+			
+			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
+		}
+		else
+		{
+			//arraylist of playlists from the user
+			ArrayList<Playlist> p = user.getPlaylists();
+
+			//get index of playlist that will be changed
+			int playlistIndex = p.indexOf(playlist);
+
+			//remove song from playlist
+			playlist.removeSong(song);
+
+			//remove old playlist
+			p.remove(playlistIndex);
+
+			//replace old playlist with the updated one
+			p.set(playlistIndex, playlist);
+
+			user.setPlaylists(p);
+			UserRepository.UpdateUser(user);
+
+			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
+		}
 	}
 }
