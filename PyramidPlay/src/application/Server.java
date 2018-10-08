@@ -25,22 +25,21 @@ import javafx.stage.Stage;
 
 public class Server {
 	/**
-	 * The appplication main method, which just listens on a port and
-	 * spawns handler threads.
-	 */
-
+     * The appplication main method, which just listens on a port and
+     * spawns handler threads.
+     */
 	private ArrayList<Song> allSongs;
-
 	private static DatagramSocket socket = null;
 	private static Gson gson = new Gson();
-	public static void main(String[] args) throws Exception {		
+    public static void main(String[] args) throws Exception {		
 		try {
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
+			
 			while(true) {
 				System.out.println("Waiting for a request...");
 				Request req = getRequest();
-
+				
 				System.out.println("Received a request!\nCreating new thread!");
 				//create a new thread to handle a client's requests
 				new Handler(req).start();
@@ -81,7 +80,6 @@ public class Server {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
     	}
     	
     	public void run() {
@@ -307,7 +305,6 @@ public class Server {
 		
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
-
     
 	/**
 	 * Function to verify a username and password combination from a message
@@ -335,7 +332,6 @@ public class Server {
 			return null;
 		}
 	}
-
     
     /**
      * Function to register a new account to the json file
@@ -388,7 +384,7 @@ public class Server {
 		System.out.printf("Sending Reply. Port %d, InetAddr: %s\n", rply.getPort(), rply.getAddress());		
 		socket.send(rply);
 	}
-
+	
 	/**
 	 * listens for a request from a client.
 	 * @param socket This server's socket.
@@ -397,7 +393,7 @@ public class Server {
 	 * @throws SocketException
 	 */
 	public static Request getRequest() throws IOException, SocketException {
-		byte[] buff = new byte[5000];
+		byte[] buff = new byte[1000];
 		System.out.println("Getting Request");
 		//listen to request on port 1234 (will block until it gets a request.)
 		DatagramPacket request = new DatagramPacket(buff, buff.length, InetAddress.getLocalHost(), 1234);
@@ -409,7 +405,7 @@ public class Server {
 		//socket.close();
 		return req;
 	}
-
+	
 	/**
 	 * Gets all of a user's playlist.
 	 * @param msg Message for this request.
@@ -421,7 +417,7 @@ public class Server {
 		User user = UserRepository.getUser(username);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
-
+	
 	/**
 	 * Adds a playlist to a user account.
 	 * @param msg Message for this request.
@@ -432,10 +428,9 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.addPlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class));
 		UserRepository.UpdateUser(user);
-		ArrayList<Playlist> p = user.getPlaylists();
-		return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
-
+	
 	/**
 	 * Deletes a given playlist from a user account.
 	 * 
@@ -447,10 +442,9 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
 		UserRepository.UpdateUser(user);
-		ArrayList<Playlist> p = user.getPlaylists();
-		return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
-
+	
 	/**
 	 * Adds a song to a given playlist.
 	 * 
@@ -461,30 +455,14 @@ public class Server {
 	private static byte[] addSong(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
-		Playlist playlist = gson.fromJson(msg.getArgs()[2], Playlist.class);
-		ArrayList<Playlist> p = new ArrayList<Playlist>();
-		if(playlist.getPlaylistName().equals("saved"))
-		{
-			Playlist saved = user.getSavedSongs();
-			saved.addSong(playlist.getSongs().get(0));
-			user.setSavedSongs(saved);
-			UserRepository.UpdateUser(user);
-			p.add(user.getSavedSongs());
-			System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
-			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
-		}
-		else
-		{
-			playlist.addSong(song);		
-			user.removePlaylist(playlist.getPlaylistName());
-			user.addPlaylist(playlist);
-			UserRepository.UpdateUser(user);
-			p.addAll(user.getPlaylists());
-			System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
-			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
-		}
+		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
+		playlist.addSong(song);		
+		user.removePlaylist(playlist.getPlaylistName());
+		user.addPlaylist(playlist);
+		UserRepository.UpdateUser(user);
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
-
+	
 	/**
 	 * Deletes the given song from a given playlist.
 	 * 
@@ -495,54 +473,11 @@ public class Server {
 	private static byte[] deleteSong(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
-		Playlist playlist = gson.fromJson(msg.getArgs()[2], Playlist.class);
-
-		if(playlist.getPlaylistName().equals("saved"))
-		{
-			//remove song from playlist
-			playlist.removeSong(song);
-			user.setSavedSongs(playlist);;
-			UserRepository.UpdateUser(user);
-
-			ArrayList<Playlist> p = new ArrayList<Playlist>();
-			p.add(playlist);
-
-			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
-		}
-		else
-		{
-			//arraylist of playlists from the user
-			ArrayList<Playlist> p = user.getPlaylists();
-			
-			//search for playlist by comparing names
-			int playlistIndex = 0;
-			while(!playlist.getPlaylistName().equals( p.get(playlistIndex).getPlaylistName() ) 
-					&& playlistIndex < p.size()) 
-			{
-				playlistIndex++;
-			}
-
-			//remove song from playlist
-			playlist.removeSong(song);
-			System.out.println("Removing playlist at index " + playlistIndex);
-
-			//remove old playlist
-			p.remove(playlistIndex);
-
-			//replace old playlist with the updated one
-			if(playlistIndex >= p.size())
-			{
-				p.add(playlist);
-			}
-			else
-			{
-				p.set(playlistIndex, playlist);
-			}
-
-			user.setPlaylists(p);
-			UserRepository.UpdateUser(user);
-
-			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
-		}
+		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
+		playlist.removeSong(song);	
+		user.removePlaylist(playlist.getPlaylistName());
+		user.addPlaylist(playlist);
+		UserRepository.UpdateUser(user);
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 }

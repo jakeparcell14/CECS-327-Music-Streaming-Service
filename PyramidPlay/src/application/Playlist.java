@@ -151,36 +151,21 @@ public class Playlist implements Comparable<Playlist>, Serializable
 	@Override
 	public int compareTo(Playlist d) 
 	{
-		if(this.getPlaylistName().equals("My Playlist"))
-		{
-			return -1;
-		}
-		
-		if(this.getDateCreated().equals(d.getDateCreated()))
-		{
-			return this.getPlaylistName().compareTo(d.getPlaylistName());
-		}
-		else
-		{
-			return this.getDateCreated().compareTo(d.getDateCreated());
-		}
+		return this.getDateCreated().compareTo(d.getDateCreated());
 	}
-
-	@Override
+	
+/*	@Override
 	public boolean equals(Object o)
 	{
-		if(this.getClass().equals(o.getClass()))
+		Playlist p = (Playlist) o;
+		
+		if(this.getPlaylistName().equals(p.getPlaylistName())
+		   && this.getSongs().equals(p.getSongs())
+		   && this.getDateCreated().equals(p.getDateCreated()))
 		{
-			Playlist p = (Playlist) o;
-
-			if(this.getPlaylistName().equals(p.getPlaylistName())
-					&& this.getSongs().equals(p.getSongs())
-					&& this.getDateCreated().equals(p.getDateCreated()))
-			{
-				return true;
-			}
+			return true;
 		}
-
+		
 		return false;
-	}
+	}*/
 }

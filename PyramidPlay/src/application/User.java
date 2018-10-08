@@ -197,11 +197,9 @@ public class User implements Comparable<User>, Serializable
 	 * @param playlistName		playlist name to be removed
 	 * @return					true if song is removed, false if song does not exist
 	 */
-	public Playlist removePlaylist(String playlistName)
+	public boolean removePlaylist(String playlistName)
 	{
-		Playlist p = this.getPlaylist(playlistName);
-		playlists.remove(this.getPlaylist(playlistName));
-		return p;
+		return playlists.remove(this.getPlaylist(playlistName));
 	}
 
 	@Override

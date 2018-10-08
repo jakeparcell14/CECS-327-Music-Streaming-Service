@@ -10,7 +10,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javax.sound.sampled.AudioInputStream;
@@ -171,17 +170,7 @@ public class SongViewController implements Initializable{
 	 */
 	TableColumn dateCreatedColumn;
 
-	/**
-	 * TODO document
-	 */
-	DatagramSocket socket;
-
-	/**
-	 * TODO document
-	 */
-	Gson gson;
-
-
+	
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
 	 */
@@ -222,10 +211,9 @@ public class SongViewController implements Initializable{
 	 * the login screen to song viewer
 	 * @param user - user that is grabbed from the login screen controller
 	 */
-	public void initUser(User user, DatagramSocket s) {
+	public void initUser(User user) {
 		this.user = user;
-		this.socket = s;
-
+		
 		//display my songs and set it as the current playlist
 		mySongs= user.getSavedSongs();
 		if(mySongs != null)
@@ -233,7 +221,7 @@ public class SongViewController implements Initializable{
 			displaySongs(mySongs);
 		}
 		currentPlaylist = user.getSavedSongs();
-
+		
 	}
 
 	/**
@@ -246,12 +234,14 @@ public class SongViewController implements Initializable{
 	 */
 	public void displaySongs(Playlist pl) {
 
-		Collections.sort(pl.getSongs());
-
-		if(SearchBarPane.isVisible() && pl.getSongs().equals(allSongs))
+		if(AllSongsSearchBar.isFocused())
 		{
 			// display songs on all songs list
 			AllSongsList.getItems().clear();
+
+			SearchBarPane.setVisible(true);
+			SearchBarPane.setMouseTransparent(false);
+
 			if(pl.getSongs().size() > 20)
 			{
 				AllSongsList.getItems().addAll(pl.getSongs().subList(0, 20));
@@ -283,7 +273,6 @@ public class SongViewController implements Initializable{
 	 */
 	public void displayPlaylists(ArrayList<Playlist> playlists) {
 
-		Collections.sort(playlists);
 		if(UserLibraryList.getColumns().get(0).equals(titleColumn))
 		{
 			//table is currently displaying songs
@@ -417,12 +406,10 @@ public class SongViewController implements Initializable{
 		if(!currentPlaylist.getSongs().isEmpty())
 		{
 			//display songs from current playlist
-			//displaySongs(currentPlaylist);
-			searchCurrentPlaylist("");
+			displaySongs(currentPlaylist);
 		}
-
+		
 		//ensure myPlaylists button cannot be deselected
-		searchCurrentPlaylist("");
 		currentPlaylistButton.setSelected(true);
 
 		// make search results invisible
@@ -459,7 +446,7 @@ public class SongViewController implements Initializable{
 	@FXML
 	public void OnAllSongsListClicked(MouseEvent event)
 	{
-		//user left clicks search result
+		//item on the list view that the user selects
 		try {
 			Song sel = (Song) AllSongsList.getSelectionModel().getSelectedItem();
 			//user left clicks on library list
@@ -480,7 +467,7 @@ public class SongViewController implements Initializable{
 				// make search results invisible
 				this.resetSearchText();
 			}
-			//user right clicks search result
+			//user right clicks library list
 			else if(event.getButton() == MouseButton.SECONDARY) {
 				ContextMenu cm = new ContextMenu();
 				Menu parentMenu = new Menu("Add To Playlist");
@@ -498,13 +485,23 @@ public class SongViewController implements Initializable{
 								if(playlists.get(k).getPlaylistName().equals(playlistName)) {
 									for(int j=0; j<allSongs.size();j++) {
 										if(allSongs.get(j).getTitle()!=null) {
-											//check if the selected list item is equal to the current songs title TODO make it work
+											//check if the selected list item is equal to the current songs title
 											if(allSongs.get(j).equals(sel)) {
 												Playlist tp = playlists.get(k);
-												ArrayList<Playlist> updatedPlaylist = addSongToServer(allSongs.get(j), tp);												
-												user.setPlaylists(updatedPlaylist);
-												if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
-													OnCurrentPlaylistClicked(null);
+												tp.addSong(allSongs.get(j));
+												playlists.set(k, tp);
+												try {
+													user.setPlaylists(playlists);
+													UserRepository.UpdateUser(user);
+													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+														OnCurrentPlaylistClicked(null);
+													}
+													
+													SearchBarPane.setVisible(false);
+													SearchBarPane.setMouseTransparent(true);
+													resetSearchText();
+												} catch (IOException e) {
+													e.printStackTrace();
 												}
 												break;
 											}
@@ -534,18 +531,18 @@ public class SongViewController implements Initializable{
 										}
 									}
 									if(sameTitle==0) {
-										Playlist temp = new Playlist("saved");
-										temp.addSong(allSongs.get(j));
-										ArrayList<Playlist> updatedSavedSongs = addSongToServer(allSongs.get(j), temp);
-										
-										mySongs.setSongs(updatedSavedSongs.get(0).getSongs());
+										mySongs.addSong(allSongs.get(j));
 										user.setSavedSongs(mySongs);
-										
-										if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
-											OnCurrentPlaylistClicked(null);
-										}
-										else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
-											OnMySongsClicked(null);
+										try {
+											UserRepository.UpdateUser(user);
+											if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+												OnCurrentPlaylistClicked(null);
+											}
+											else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
+												OnMySongsClicked(null);
+											}
+										} catch (IOException e) {
+											e.printStackTrace();
 										}
 									}
 									else {
@@ -603,18 +600,17 @@ public class SongViewController implements Initializable{
 	public void ltMouseClickMyPlaylists(MouseEvent event) {
 		//TableView experiment
 		Playlist selectedPlaylist = (Playlist) UserLibraryList.getSelectionModel().getSelectedItem();
-		if(selectedPlaylist.getSongs().size() > 0) {
-			ArrayList<Playlist> playlists=user.getPlaylists();
-			for(int i=0; i<playlists.size();i++) {
-				if(playlists.get(i).getPlaylistName()!=null) {
-					//check if the selected list item is equal to the current playlist
-					if(playlists.get(i).equals(selectedPlaylist)) {
-						currentPlaylist=selectedPlaylist;
-						playlistNum=0;
-						currentPlaylistButton.setSelected(true);
-						OnCurrentPlaylistClicked(null);
-						break;
-					}
+		ArrayList<Playlist> playlists=user.getPlaylists();
+
+		for(int i=0; i<playlists.size();i++) {
+			if(playlists.get(i).getPlaylistName()!=null) {
+				//check if the selected list item is equal to the current playlist
+				if(playlists.get(i).equals(selectedPlaylist)) {
+					currentPlaylist=selectedPlaylist;
+					playlistNum=0;
+					currentPlaylistButton.setSelected(true);
+					OnCurrentPlaylistClicked(null);
+					break;
 				}
 			}
 		}
@@ -645,75 +641,80 @@ public class SongViewController implements Initializable{
 	public void rtMouseClickMySongs(MouseEvent event) {
 		//the selected item
 		Song sel = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
-		if(!sel.getTitle().equals(null)) {
-			//popup menu to appear on right click
-			ContextMenu cm = new ContextMenu();
-			//menu with the names of all the playlists in it
-			Menu parentMenu = new Menu("Add To Playlist");
-			ArrayList<Playlist> playlists=user.getPlaylists();
-			// creates selections for all the playlists
-			for (int i = 0; i<playlists.size(); i++) {
-				MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
-				// when the playlist name is selected
-				temp.setOnAction(new EventHandler<ActionEvent>() {
+		//popup menu to appear on right click
+		ContextMenu cm = new ContextMenu();
+		//menu with the names of all the playlists in it
+		Menu parentMenu = new Menu("Add To Playlist");
+		ArrayList<Playlist> playlists=user.getPlaylists();
+		// creates selections for all the playlists
+		for (int i = 0; i<playlists.size(); i++) {
+			MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
+			// when the playlist name is selected
+			temp.setOnAction(new EventHandler<ActionEvent>() {
 
-					@Override
-					public void handle(ActionEvent event) {
-						String playlistName=temp.getText();
-						Playlist mySongs=user.getSavedSongs();
-						ArrayList<Song> savedSongs=mySongs.getSongs();
-						for(int k=0;k<playlists.size();k++)
-						{
-							if(playlists.get(k).getPlaylistName().equals(playlistName)) {
-								for(int j=0; j<savedSongs.size();j++) {
-									if(savedSongs.get(j).getTitle()!=null) {
-										//check if the selected list item is equal to the current songs title
-										if(savedSongs.get(j).equals(sel)) {
-											// add song to playlist											
-											Playlist tp = playlists.get(k);
-											ArrayList<Playlist> updatedPlaylist = addSongToServer(sel, tp);												
-											user.setPlaylists(updatedPlaylist);
-											break;
+				@Override
+				public void handle(ActionEvent event) {
+					String playlistName=temp.getText();
+					Playlist mySongs=user.getSavedSongs();
+					ArrayList<Song> savedSongs=mySongs.getSongs();
+					for(int k=0;k<playlists.size();k++)
+					{
+						if(playlists.get(k).getPlaylistName().equals(playlistName)) {
+							for(int j=0; j<savedSongs.size();j++) {
+								if(savedSongs.get(j).getTitle()!=null) {
+									//check if the selected list item is equal to the current songs title
+									if(savedSongs.get(j).equals(sel)) {
+										// add song to playlist
+										Playlist tp = playlists.get(k);
+										tp.addSong(savedSongs.get(j));
+										playlists.set(k, tp);
+										try {
+											user.setPlaylists(playlists);
+											UserRepository.UpdateUser(user);
+										} catch (IOException e) {
+											e.printStackTrace();
 										}
+										break;
 									}
 								}
 							}
 						}
 					}
-				});
-				parentMenu.getItems().add(temp);
-			}
-			//option to remove song
-			MenuItem removeSavedSong = new MenuItem("Remove Saved Song");
-			removeSavedSong.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					Playlist temp=user.getSavedSongs();
-					//cant remove a song from saved songs if there is only one song
-					if(temp.getSongs().size()==1) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Remove Saved Song Error");
-						alert.setHeaderText("Saved Songs Must Have At Least One Song");
-						alert.setContentText("Please try a different option");
-						alert.showAndWait();
-					}
-					else {
-						Playlist tp = new Playlist("saved");
-						tp.setSongs(user.getSavedSongs().getSongs());
-						//remove song from saved songs
-						ArrayList<Playlist> updatedPlaylist = removeSongFromServer(sel, tp);
-						//TODO
-						user.setSavedSongs(updatedPlaylist.get(0));
-						currentPlaylist=user.getSavedSongs();
-						OnMySongsClicked(null);
-					}
 				}
 			});
-			//add options to list and show
-			cm.getItems().add(parentMenu);
-			cm.getItems().add(removeSavedSong);
-			cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+			parentMenu.getItems().add(temp);
 		}
+		//option to remove song
+		MenuItem removeSavedSong = new MenuItem("Remove Saved Song");
+		removeSavedSong.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Playlist temp=user.getSavedSongs();
+				//cant remove a song from saved songs if there is only one song
+				if(temp.getSongs().size()==1) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Remove Saved Song Error");
+					alert.setHeaderText("Saved Songs Must Have At Least One Song");
+					alert.setContentText("Please try a different option");
+					alert.showAndWait();
+				}
+				else {
+					//good to remove song
+					temp.removeSong(sel);
+					user.setSavedSongs(temp);
+					try {
+						UserRepository.UpdateUser(user);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					OnMySongsClicked(null);
+				}
+			}
+		});
+		//add options to list and show
+		cm.getItems().add(parentMenu);
+		cm.getItems().add(removeSavedSong);
+		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 	}
 
 	/**
@@ -724,14 +725,14 @@ public class SongViewController implements Initializable{
 	public void rtMouseClickCurrentPlaylist(MouseEvent event) {
 		//selected object
 		Song sel = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
-		if(!sel.getTitle().equals(null)) {
-			ContextMenu cm = new ContextMenu();
-			//option to remove song from current playlist
-			MenuItem remove = new MenuItem("Remove Song");
-			remove.setOnAction(new EventHandler<ActionEvent>() {
+		ContextMenu cm = new ContextMenu();
+		//option to remove song from current playlist
+		MenuItem remove = new MenuItem("Remove Song");
+		remove.setOnAction(new EventHandler<ActionEvent>() {
 
-				@Override
-				public void handle(ActionEvent event) {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
 					ArrayList<Playlist> playlists=user.getPlaylists();
 					if(currentPlaylist.getPlaylistName().equals("saved"))
 					{
@@ -746,18 +747,18 @@ public class SongViewController implements Initializable{
 						}
 						else {
 							//remove song from saved songs
-							ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
-							user.setSavedSongs(updatedPlaylists.get(0));
-							currentPlaylist=user.getSavedSongs();
+							temp.removeSong(sel);
+							user.setSavedSongs(temp);
+							UserRepository.UpdateUser(user);
 							OnCurrentPlaylistClicked(null);
 						}
 					}
 					else {//current playlist is a playlist, not saved songs
 						for(int n=0;n<playlists.size();n++) {
 							if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
-								Playlist temp=playlists.get(n);
+								Playlist tempo=playlists.get(n);
 								//cant remove last song from playlist
-								if(temp.getSongs().size()==1) {
+								if(tempo.getSongs().size()==1) {
 									Alert alert = new Alert(AlertType.ERROR);
 									alert.setTitle("Remove Playlist Song Error");
 									alert.setHeaderText("Playlist Must Have At Least One Song");
@@ -766,20 +767,23 @@ public class SongViewController implements Initializable{
 								}
 								else {
 									// remove song from current playlist
-									ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
-									user.setPlaylists(updatedPlaylists);
-									currentPlaylist=user.getPlaylist(temp.getPlaylistName());
+									tempo.removeSong(sel);
+									playlists.set(n, tempo);
+									currentPlaylist=playlists.get(n);
+									UserRepository.UpdateUser(user);
 									OnCurrentPlaylistClicked(null);
 									break;
 								}
 							}
 						}
 					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			});
-			cm.getItems().add(remove);
-			cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
-		}
+			}
+		});
+		cm.getItems().add(remove);
+		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 	}
 
 	/**
@@ -793,11 +797,11 @@ public class SongViewController implements Initializable{
 		MenuItem createP = new MenuItem("Create New Playlist");
 		//option to remove selected playlist
 		MenuItem removeP = new MenuItem("Remove Playlist");
-		if(sel != null) {
-			removeP.setOnAction(new EventHandler<ActionEvent>() {
+		removeP.setOnAction(new EventHandler<ActionEvent>() {
 
-				@Override
-				public void handle(ActionEvent event) {
+			@Override
+			public void handle(ActionEvent event) {
+				try {
 					ArrayList<Playlist> playlists=user.getPlaylists();
 					if(!sel.getPlaylistName().equals("My Playlist")){
 						for(int n=0;n<playlists.size();n++) {
@@ -806,10 +810,9 @@ public class SongViewController implements Initializable{
 								if(playlists.get(n).equals(currentPlaylist)) {
 									currentPlaylist=user.getSavedSongs();
 								}
-
-								//remove playlist							
-								ArrayList<Playlist> updatedPlaylists = removePlaylistFromServer(playlists.get(n));
-								user.setPlaylists(updatedPlaylists);
+								playlists.remove(n);
+								user.setPlaylists(playlists);
+								UserRepository.UpdateUser(user);
 								OnMyPlaylistsClicked(null);
 							}
 						}
@@ -821,11 +824,11 @@ public class SongViewController implements Initializable{
 						alert.setContentText("Please try a different option");
 						alert.showAndWait();
 					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			});
-			cm.getItems().add(removeP);
-		}
-		
+			}
+		});
 		createP.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -835,52 +838,55 @@ public class SongViewController implements Initializable{
 				dialog.setHeaderText("New Playlist");
 				dialog.setContentText("Enter Playlist Name:");
 
-				ArrayList<Playlist> playlists=user.getPlaylists();
-				//keep on prompting user for name until it is unique or has non whitespace characters
-				while(true) {
-					Optional<String> result = dialog.showAndWait();
-					int count=0;
-					if(result.isPresent()) {
-						for(int i=0;i<playlists.size();i++) {
-							if(playlists.get(i).getPlaylistName().equals(result.get())) {
-								count++;
+				try {
+					ArrayList<Playlist> playlists=user.getPlaylists();
+					//keep on prompting user for name until it is unique or has non whitespace characters
+					while(true) {
+						Optional<String> result = dialog.showAndWait();
+						int count=0;
+						if(result.isPresent()) {
+							for(int i=0;i<playlists.size();i++) {
+								if(playlists.get(i).getPlaylistName().equals(result.get())) {
+									count++;
+								}
+							}
+							if(count!=0) {// input isnt unique
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Error adding playlist");
+								alert.setHeaderText("There is already a playlist with that name");
+								alert.setContentText("Please try a different name");
+								alert.showAndWait();
+							}
+							else if(result.get().trim().length() == 0) { //only whitespace
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Error adding playlist");
+								alert.setHeaderText("Enter Characters that are not blank space");
+								alert.setContentText("Please try a different name");
+								alert.showAndWait();
+							}
+							else{//add playlist
+								playlists.add(new Playlist(result.get()));
+								user.setPlaylists(playlists);
+								UserRepository.UpdateUser(user);
+								OnMyPlaylistsClicked(null);
+								break;
 							}
 						}
-						if(count!=0) {// input isnt unique
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Error adding playlist");
-							alert.setHeaderText("There is already a playlist with that name");
-							alert.setContentText("Please try a different name");
-							alert.showAndWait();
-						}
-						else if(result.get().trim().length() == 0) { //only whitespace
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Error adding playlist");
-							alert.setHeaderText("Enter Characters that are not blank space");
-							alert.setContentText("Please try a different name");
-							alert.showAndWait();
-						}
-						else{
-							//add playlist							
-							ArrayList<Playlist> updatedPlaylists = addPlaylistToServer(result.get());
-							//playlists.add(new Playlist(result.get()));
-							user.setPlaylists(updatedPlaylists);
-							OnMyPlaylistsClicked(null);
+						else
+						{
 							break;
 						}
 					}
-					else
-					{
-						break;
-					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 
 			}
 
 		});
+		cm.getItems().add(removeP);
 		cm.getItems().add(createP);
 		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
-
 	}
 
 	@FXML
@@ -975,7 +981,6 @@ public class SongViewController implements Initializable{
 	public void searchAllSongs()
 	{
 		Playlist validSongs = new Playlist("valid");
-
 		String query = AllSongsSearchBar.getText();
 		DatagramSocket socket;
 		try {
@@ -1075,7 +1080,7 @@ public class SongViewController implements Initializable{
 		}
 		displaySongs(validSongs);*/
 	}
-
+	
 	/**
 	 * searches mysongs and displays on userlibrarylist
 	 * @param query - user inputted query
@@ -1235,10 +1240,6 @@ public class SongViewController implements Initializable{
 			String query=searchbar.getText();
 
 			DatagramSocket socket = null;
-
-
-			Gson gson = new Gson();
-
 			try {
 				if(query.equals("")) {
 					query=" ";
@@ -1264,26 +1265,8 @@ public class SongViewController implements Initializable{
 					opID=OpID.SEARCHCURRENTPLAYLIST;
 					searchCurrentPlaylist(query,opID, socket);
 				}
-
-				String[] arr= {user.getUsername(),query};
-				Message searchMessage=new Message(1, requestID++, opID, arr, InetAddress.getLocalHost(), 1);
-				String json = gson.toJson(searchMessage);
-				byte[] msg = gson.toJson(searchMessage).getBytes();
-				InetAddress host = InetAddress.getLocalHost();
-
-				int serverPort = 6789;
-				DatagramPacket request = new DatagramPacket(msg, msg.length, host, serverPort);
-				socket.send(request);
-				System.out.println("Request: " + new String(request.getData()));
-				byte[] buffer = new byte[1000];
-				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-				socket.receive(reply);
-				//System.out.println("Reply: " + new String(reply.getData()));
-				String temp=new String(reply.getData(),0,reply.getLength());
-				String[] mySongQueryList=temp.split("\\.");
-				for(int i=1;i<mySongQueryList.length;i++) {
-					UserLibraryList.getItems().addAll(mySongQueryList[i]);
-				}
+				
+				
 			} catch (SocketException e) {
 				System.out.println("Socket: " + e.getMessage());
 			} catch (IOException e) {
@@ -1292,7 +1275,7 @@ public class SongViewController implements Initializable{
 				if(socket!=null)
 					socket.close();
 			}
-
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -1350,9 +1333,7 @@ public class SongViewController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
-		gson = new Gson();
-
+		gson = new Gson();	
 		menuToggleGroup = new ToggleGroup();
 
 		//buttons to choose what is displayed in the user library
@@ -1402,13 +1383,14 @@ public class SongViewController implements Initializable{
 
 		UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
 		AllSongsList.getColumns().addAll(allSongsTitleColumn, allSongsArtistColumn, allSongsAlbumColumn);
-
+		
 		try 
 		{
 			allSongs = UserRepository.getAllSongs();
 			allSongs.sort(null);
 		} 
 		catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -1427,184 +1409,4 @@ public class SongViewController implements Initializable{
 		}
 	}
 
-
-	public ArrayList<Playlist> addPlaylistToServer(String playlistName)
-	{
-		//TODO add code to set current date
-		Playlist p = new Playlist(playlistName);
-
-		//initialize buffer
-		byte[] buffer = new byte[5000];
-		try {
-			String playlistJSON = gson.toJson(p);
-
-			String[] arr = {user.getUsername(), playlistJSON};
-
-			Message addPlaylistMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
-
-			//convert to json
-			String json = gson.toJson(addPlaylistMessage);
-
-			//we can only send bytes, so flatten the string to a byte array
-			byte[] msg = gson.toJson(addPlaylistMessage).getBytes();				
-
-			System.out.println("Sending request.");
-			//initialize and send request packet using port 1234, the port the server is listening on
-			DatagramPacket request = new DatagramPacket(msg, msg.length, addPlaylistMessage.getAddress() , 1234);
-			socket.send(request);
-			System.out.println("request port: " + request.getPort());
-
-			//initialize reply from server and receive it
-
-			/* without specifying a port in this datagram packet, the OS will
-			 * randomly assign a port to the reply for the program to listen on
-			 */
-			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			socket.receive(reply);		
-			System.out.println(new String(buffer));
-			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
-			//return updated set of playlists
-			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	public ArrayList<Playlist> removePlaylistFromServer(Playlist playlistToRemove)
-	{		
-		//initialize buffer
-		byte[] buffer = new byte[5000];
-		try {
-			String playlistJSON = gson.toJson(playlistToRemove);
-
-			String[] arr = {user.getUsername(), playlistJSON};
-
-			Message removePlaylistMessage = new Message(1, requestID++, OpID.DELETEPLAYLIST, arr, InetAddress.getLocalHost(), 1);
-
-			//convert to json
-			String json = gson.toJson(removePlaylistMessage);
-
-			//we can only send bytes, so flatten the string to a byte array
-			byte[] msg = gson.toJson(removePlaylistMessage).getBytes();				
-
-			System.out.println("Sending request.");
-			//initialize and send request packet using port 1234, the port the server is listening on
-			DatagramPacket request = new DatagramPacket(msg, msg.length, removePlaylistMessage.getAddress() , 1234);
-			socket.send(request);
-			System.out.println("request port: " + request.getPort());
-
-			//initialize reply from server and receive it
-
-			/* without specifying a port in this datagram packet, the OS will
-			 * randomly assign a port to the reply for the program to listen on
-			 */
-			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			socket.receive(reply);		
-			System.out.println(new String(buffer));
-			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
-			//return updated set of playlists
-			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-	
-	public ArrayList<Playlist> addSongToServer(Song songToAdd, Playlist playlistToUpdate)
-	{		
-		//initialize buffer
-		byte[] buffer = new byte[5000];
-		try {
-			String songJSON = gson.toJson(songToAdd);
-			String playlistJSON = gson.toJson(playlistToUpdate);
-
-			String[] arr = {user.getUsername(), songJSON, playlistJSON};
-
-			Message addSongMessage = new Message(1, requestID++, OpID.ADDSONGTOPLAYLIST, arr, InetAddress.getLocalHost(), 1);
-
-			//convert to json
-			String json = gson.toJson(addSongMessage);
-
-			//we can only send bytes, so flatten the string to a byte array
-			byte[] msg = gson.toJson(addSongMessage).getBytes();				
-
-			System.out.println("Sending request.");
-			//initialize and send request packet using port 1234, the port the server is listening on
-			DatagramPacket request = new DatagramPacket(msg, msg.length, addSongMessage.getAddress() , 1234);
-			socket.send(request);
-			System.out.println("request port: " + request.getPort());
-
-			//initialize reply from server and receive it
-
-			/* without specifying a port in this datagram packet, the OS will
-			 * randomly assign a port to the reply for the program to listen on
-			 */
-			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			socket.receive(reply);		
-			System.out.println(new String(buffer));
-			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
-			//return updated set of playlists
-			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public ArrayList<Playlist> removeSongFromServer(Song songToRemove, Playlist playlistToUpdate)
-	{		
-		//initialize buffer
-		byte[] buffer = new byte[5000];
-		try {
-			String songJSON = gson.toJson(songToRemove);
-			String playlistJSON = gson.toJson(playlistToUpdate);
-
-			String[] arr = {user.getUsername(), songJSON, playlistJSON};
-
-			Message removeSongMessage = new Message(1, requestID++, OpID.DELETESONGFROMPLAYLIST, arr, InetAddress.getLocalHost(), 1);
-
-			//convert to json
-			String json = gson.toJson(removeSongMessage);
-
-			//we can only send bytes, so flatten the string to a byte array
-			byte[] msg = gson.toJson(removeSongMessage).getBytes();				
-
-			System.out.println("Sending request.");
-			//initialize and send request packet using port 1234, the port the server is listening on
-			DatagramPacket request = new DatagramPacket(msg, msg.length, removeSongMessage.getAddress() , 1234);
-			socket.send(request);
-			System.out.println("request port: " + request.getPort());
-
-			//initialize reply from server and receive it
-
-			/* without specifying a port in this datagram packet, the OS will
-			 * randomly assign a port to the reply for the program to listen on
-			 */
-			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			socket.receive(reply);		
-			System.out.println(new String(buffer));
-			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
-			//return updated set of playlists
-			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
 }
