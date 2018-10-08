@@ -80,6 +80,7 @@ public class Server {
 
 		public void run() {
 			System.out.println("New handler running and handling request");
+			//System.out.println("check: "+req.data.length);
 			Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
 			switch(msg.getProtocolID()) {
 			case 0:
@@ -268,7 +269,7 @@ public class Server {
 	 * @throws SocketException
 	 */
 	public static Request getRequest() throws IOException, SocketException {
-		byte[] buff = new byte[1000];
+		byte[] buff = new byte[5000];
 		System.out.println("Getting Request");
 		//listen to request on port 1234 (will block until it gets a request.)
 		DatagramPacket request = new DatagramPacket(buff, buff.length, InetAddress.getLocalHost(), 1234);
@@ -304,7 +305,6 @@ public class Server {
 		user.addPlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class));
 		UserRepository.UpdateUser(user);
 		ArrayList<Playlist> p = user.getPlaylists();
-		System.out.println(gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes().length);
 		return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
 	}
 
@@ -342,6 +342,7 @@ public class Server {
 			user.setSavedSongs(saved);
 			UserRepository.UpdateUser(user);
 			p.add(user.getSavedSongs());
+			System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
 		}
 		else
@@ -351,6 +352,7 @@ public class Server {
 			user.addPlaylist(playlist);
 			UserRepository.UpdateUser(user);
 			p.addAll(user.getPlaylists());
+			System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
 		}
 	}

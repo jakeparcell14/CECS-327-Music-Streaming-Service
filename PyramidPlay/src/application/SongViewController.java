@@ -412,10 +412,12 @@ public class SongViewController implements Initializable{
 		if(!currentPlaylist.getSongs().isEmpty())
 		{
 			//display songs from current playlist
-			displaySongs(currentPlaylist);
+			//displaySongs(currentPlaylist);
+			searchCurrentPlaylist("");
 		}
 
 		//ensure myPlaylists button cannot be deselected
+		searchCurrentPlaylist("");
 		currentPlaylistButton.setSelected(true);
 
 		// make search results invisible
