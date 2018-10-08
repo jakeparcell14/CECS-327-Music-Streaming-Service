@@ -10,6 +10,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.ArrayList;
 
@@ -22,22 +23,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class LoginServer {
+public class Server {
 	/**
      * The appplication main method, which just listens on a port and
      * spawns handler threads.
      */
-    public static void main(String[] args) throws Exception {
-    	Gson gson = new Gson();
-		
-		DatagramSocket socket = null;
+	private static DatagramSocket socket = null;
+	private static Gson gson = new Gson();
+    public static void main(String[] args) throws Exception {		
 		try {
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
 			
 			while(true) {
 				System.out.println("Waiting for a request...");
-				Request req = getRequest(socket);
+				Request req = getRequest();
 				
 				System.out.println("Received a request!\nCreating new thread!");
 				//create a new thread to handle a client's requests
@@ -83,32 +83,67 @@ public class LoginServer {
     	
     	public void run() {
     		System.out.println("New handler running and handling request");
+    		System.out.println(new String(req.data).trim());
     		Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
     		
-    		OpID opID = msg.getOperationID();
-    		
-    		//perform operation based on opID of request
-    		switch(opID) {
-    			case LOGIN:
-    				verifyAccount(msg, reqSocket, req.port);
+/**    		for (int i = 0; i < msg.getArgs().length; i ++) {
+    			System.out.println("args[" + i + "]= " + msg.getArgs()[i]);
+    		}
+*/    		
+    		switch(msg.getProtocolID()) {
+    			case 0:
     				break;
-    			case REGISTER:
-    				//register will go here
-    				break;
-    			case SEARCHMYSONGS:
-    				//searchMySongs function goes here
-    				break;
-    			case SEARCHMYPLAYLISTS:
-    				//searchMyPlaylists function goes here
-    				break;
-    			case SEARCHCURRENTPLAYLIST:
-    				//searchCurrentPlaylist function goes here
-    				break;
-        	}
+    			case 1:
+					try {
+						RequestReplyProtocol(msg, req);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			
+    		}
+  
 			
     		//socket should close at the end/destruction of this thread
     	}
+    	
     }
+    
+    private static void RequestReplyProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
+		byte[] result = ChooseAndExecuteOperation(msg);
+		SendReply(result, InetAddress.getLocalHost(), req.port);
+	}
+    
+    
+    private static byte[] ChooseAndExecuteOperation(Message msg) {
+    	switch(msg.getOperationID()) {
+			case LOGIN:
+				return verifyAccount(msg);
+			case REGISTER:
+				return registerAccount(msg);
+			case SEARCHMYSONGS:
+				//searchMySongs function goes here
+				return null;
+			case SEARCHMYPLAYLISTS:
+				//searchMyPlaylists function goes here
+				return null;
+			case SEARCHCURRENTPLAYLIST:
+				//searchCurrentPlaylist function goes here
+				return null;
+			case ADDPLAYLIST:
+				return null;
+			case DELETEPLAYLIST:
+				return null;
+			case ADDSONGTOPLAYLIST:
+				return null;
+			case DELETESONGFROMPLAYLIST:
+				return null;
+			default:
+				return null;
+			
+    	}
+    }
+    
     
     public static String searchMySongs(String q, User user) {
 		String query=q;
@@ -197,38 +232,35 @@ public class LoginServer {
 	/**
 	 * Function to verify a username and password combination from a message
 	 * @param msg - message sent from client containing username and password
-	 * @param socket - socket that the reply will be sent back through
-	 * @param port - client port that the socket will send to
 	 */
-    public static void verifyAccount(Message msg, DatagramSocket socket, int port) {
-    	Gson gson = new Gson();
+    public static byte[] verifyAccount(Message msg) {
+    	gson = new Gson();
     	
     	try 
 		{
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
 				//send acknowledgement back to login client
-				SendReply(gson.toJson("VERIFIED").getBytes(), msg.getAddress(), port, socket);
+				return gson.toJson("VERIFIED").getBytes();
 			}
 			else {
 				//send acknowledgement back to login client
-				SendReply(gson.toJson("INCORRECT").getBytes(), msg.getAddress(), port, socket);
+				return gson.toJson("INCORRECT").getBytes();
 			}
 		} 
 		catch (IOException e) 
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 	}
     
     /**
      * Function to register a new account to the json file
-     * @param msg
-     * @param socket
-     * @param port
+     * @param msg - message sent from client containing user information
      */
-    public static void registerAccount(Message msg, DatagramSocket socket, int port) {
+    public static byte[] registerAccount(Message msg) {
     	Gson gson = new Gson();
     	
     	//msg args structure = [firstName, lastName, userName, password]
@@ -237,7 +269,7 @@ public class LoginServer {
 			if(UserRepository.userExists(msg.getArgs()[2]))
 			{
 				//tell client that username already exists and is not available
-				SendReply(gson.toJson("USERNAME_TAKEN").getBytes(), msg.getAddress(), port, socket);
+				return gson.toJson("USERNAME_TAKEN").getBytes();
 			}
 			else
 			{
@@ -247,12 +279,13 @@ public class LoginServer {
 				//add user to the user repository
 				UserRepository.AddUser(newUser);
 				
-				SendReply(gson.toJson(newUser).getBytes(), msg.getAddress(), port, socket);
+				return gson.toJson("REGISTERED").trim().getBytes();
 			}
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
+			return null;
 		}
     }
     
@@ -266,7 +299,7 @@ public class LoginServer {
 	 * @throws IOException
 	 * @throws SocketException
 	 */
-	public static void SendReply(byte[] reply, InetAddress addr, int port, DatagramSocket socket) throws IOException, SocketException {
+	public static void SendReply(byte[] reply, InetAddress addr, int port) throws IOException, SocketException {
 		/* create reply packet.
 		 * will be sent to the port that the client is listening to a response on.
 		 */
@@ -282,7 +315,7 @@ public class LoginServer {
 	 * @throws IOException
 	 * @throws SocketException
 	 */
-	public static Request getRequest(DatagramSocket socket) throws IOException, SocketException {
+	public static Request getRequest() throws IOException, SocketException {
 		byte[] buff = new byte[1000];
 		System.out.println("Getting Request");
 		//listen to request on port 1234 (will block until it gets a request.)
@@ -294,5 +327,78 @@ public class LoginServer {
 		req.port = request.getPort();
 		//socket.close();
 		return req;
+	}
+	
+	/**
+	 * Gets all of a user's playlist.
+	 * @param msg Message for this request.
+	 * @return Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
+	private static byte[] getPlaylists(Message msg) throws IOException {
+		String username = msg.getArgs()[0];
+		User user = UserRepository.getUser(username);
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+	}
+	
+	/**
+	 * Adds a playlist to a user account.
+	 * @param msg Message for this request.
+	 * @return  Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
+	private static byte[] addPlaylist(Message msg) throws IOException {
+		User user = UserRepository.getUser(msg.getArgs()[0]);
+		user.addPlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class));
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+	}
+	
+	/**
+	 * Deletes a given playlist from a user account.
+	 * 
+	 * @param msg Message for this request.
+	 * @return  Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
+	private static byte[] deletePlaylist(Message msg) throws IOException {
+		User user = UserRepository.getUser(msg.getArgs()[0]);
+		user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+	}
+	
+	/**
+	 * Adds a song to a given playlist.
+	 * 
+	 * @param msg Message for this request.
+	 * @return  Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
+	private static byte[] addSong(Message msg) throws IOException {
+		User user = UserRepository.getUser(msg.getArgs()[0]);
+		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
+		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
+		playlist.addSong(song);
+		
+		user.removePlaylist(playlist.getPlaylistName());
+		user.addPlaylist(playlist);
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+	}
+	
+	/**
+	 * Deletes the given song from a given playlist.
+	 * 
+	 * @param msg Message for this request.
+	 * @return  Returns byte array containing JSON string of playlist array.
+	 * @throws IOException
+	 */
+	private static byte[] deleteSong(Message msg) throws IOException {
+		User user = UserRepository.getUser(msg.getArgs()[0]);
+		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
+		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
+		playlist.removeSong(song);
+		
+		user.removePlaylist(playlist.getPlaylistName());
+		user.addPlaylist(playlist);
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 }

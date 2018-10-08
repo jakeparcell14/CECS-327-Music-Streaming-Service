@@ -131,7 +131,7 @@ public class LoginController implements Initializable
 		//initialize buffer
 		byte[] buffer = new byte[1000];
 		try {
-			Message loginMsg = new Message(1, requestID++, OpID.LOGIN, arr, InetAddress.getLocalHost());
+			Message loginMsg = new Message(1, requestID++, OpID.LOGIN, arr, InetAddress.getLocalHost(), 1);
 			
 			//convert to json
 			String json = gson.toJson(loginMsg);
@@ -189,7 +189,9 @@ public class LoginController implements Initializable
 	}
 	
 	/**
-	 * Registers a new user and adds user information to users.json
+	 * Requests the server to register a new user.
+	 * If the username is unique, the server will add a new user then sign into the app.
+	 * If the username already exists, the function will display invalid username on the window.
 	 * @param fn - First Name
 	 * @param ln - Last Name
 	 * @param uName - Unique username
@@ -205,16 +207,14 @@ public class LoginController implements Initializable
 		byte[] buffer = new byte[1000];
 		try 
 		{
-			Message loginMsg = new Message(1, requestID++, OpID.LOGIN, arr, InetAddress.getLocalHost());
-			
-			//convert to json
+			//create register request and convert to byte array
+			Message loginMsg = new Message(1, requestID++, OpID.REGISTER, arr, InetAddress.getLocalHost(), 1);
 			String json = gson.toJson(loginMsg);
-			
-			//we can only send bytes, so flatten the string to a byte array
 			byte[] msg = gson.toJson(loginMsg).getBytes();				
 			
 			System.out.println("Sending request.");
-			//initialize and send request packet using port 1234, the port the server is listening on
+			
+			//initialize and send request packet to the port the server is listening on, port 1234
 			DatagramPacket request = new DatagramPacket(msg, msg.length, loginMsg.getAddress() , 1234);
 			socket.send(request);
 			System.out.println("request port: " + request.getPort());
@@ -231,28 +231,13 @@ public class LoginController implements Initializable
 			
 			if(gson.fromJson(new String(buffer).trim(), String.class).equals("USERNAME_TAKEN"))
 			{
-				//username already exists and is not available
+				//username already exists and is not available, inform user
 				UsernameUnavailableLabel.setVisible(true);
 			}
 			else
 			{
-				//server confirms username is available and returns new user object
-				//deserialize the byte[] buffer to a user object
-				User newUser = gson.fromJson(new String(buffer).trim(), User.class);
-				
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("SongView.fxml"));
-				Parent songViewParent = loader.load();
-		
-				Scene songViewScene = new Scene(songViewParent);
-		
-				//access the SongViewController and call initUser() to pass user information
-				SongViewController controller = loader.getController();
-				controller.initUser(newUser);
-				
-				Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-				window.setResizable(false);
-				window.setScene(songViewScene);
+				//server confirms username is available and signs in the new user
+				signIn(uName, pw, event);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();

@@ -179,7 +179,7 @@ public class User implements Comparable<User>, Serializable
 	 * @param playlistName		given playlist name
 	 * @return					playlist with given name, null if playlist with the given name does not exist 
 	 */
-	public Playlist contains(String playlistName)
+	public Playlist getPlaylist(String playlistName)
 	{
 		for(Playlist p : playlists)
 		{
@@ -199,7 +199,7 @@ public class User implements Comparable<User>, Serializable
 	 */
 	public boolean removePlaylist(String playlistName)
 	{
-		return playlists.remove(this.contains(playlistName));
+		return playlists.remove(this.getPlaylist(playlistName));
 	}
 
 	@Override

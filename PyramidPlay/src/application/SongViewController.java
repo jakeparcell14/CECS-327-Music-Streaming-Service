@@ -1159,7 +1159,7 @@ public class SongViewController implements Initializable{
 					opID=OpID.SEARCHCURRENTPLAYLIST;
 				}
 				String[] arr= {user.getUsername(),query};
-				Message searchMessage=new Message(1, requestID++, opID, arr, InetAddress.getLocalHost());
+				Message searchMessage=new Message(1, requestID++, opID, arr, InetAddress.getLocalHost(), 1);
 				String json = gson.toJson(searchMessage);
 				byte[] msg = gson.toJson(searchMessage).getBytes();
 				InetAddress host = InetAddress.getLocalHost();
