@@ -107,7 +107,7 @@ public class Server {
 	}
     
     
-    private static byte[] ChooseAndExecuteOperation(Message msg) {
+    private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
     	switch(msg.getOperationID()) {
 			case LOGIN:
 				return verifyAccount(msg);
@@ -121,13 +121,13 @@ public class Server {
 				return searchCurrentPlaylist(msg);
 				//searchCurrentPlaylist function goes here
 			case ADDPLAYLIST:
-				return null;
+				return addPlaylist(msg);
 			case DELETEPLAYLIST:
-				return null;
+				return deletePlaylist(msg);
 			case ADDSONGTOPLAYLIST:
-				return null;
+				return addSong(msg);
 			case DELETESONGFROMPLAYLIST:
-				return null;
+				return deleteSong(msg);
 			default:
 				return null;
 			
@@ -327,6 +327,7 @@ public class Server {
 	private static byte[] addPlaylist(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.addPlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class));
+		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
@@ -340,6 +341,7 @@ public class Server {
 	private static byte[] deletePlaylist(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
+		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
@@ -354,10 +356,10 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
 		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
-		playlist.addSong(song);
-		
+		playlist.addSong(song);		
 		user.removePlaylist(playlist.getPlaylistName());
 		user.addPlaylist(playlist);
+		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
@@ -372,10 +374,10 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
 		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
-		playlist.removeSong(song);
-		
+		playlist.removeSong(song);	
 		user.removePlaylist(playlist.getPlaylistName());
 		user.addPlaylist(playlist);
+		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 }
