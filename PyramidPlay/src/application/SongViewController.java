@@ -10,6 +10,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javax.sound.sampled.AudioInputStream;
@@ -240,11 +241,13 @@ public class SongViewController implements Initializable{
 	 */
 	public void displaySongs(Playlist pl) {
 
+		Collections.sort(pl.getSongs());
+
 		if(SearchBarPane.isVisible() && pl.getSongs().equals(allSongs))
 		{
 			// display songs on all songs list
 			AllSongsList.getItems().clear();
-
+			
 			if(pl.getSongs().size() > 20)
 			{
 				AllSongsList.getItems().addAll(pl.getSongs().subList(0, 20));
@@ -275,6 +278,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void displayPlaylists(ArrayList<Playlist> playlists) {
 
+		Collections.sort(playlists);
 		if(UserLibraryList.getColumns().get(0).equals(titleColumn))
 		{
 			//table is currently displaying songs
@@ -448,7 +452,7 @@ public class SongViewController implements Initializable{
 	@FXML
 	public void OnAllSongsListClicked(MouseEvent event)
 	{
-		//item on the list view that the user selects
+		//user left clicks search result
 		try {
 			Song sel = (Song) AllSongsList.getSelectionModel().getSelectedItem();
 			//user left clicks on library list
@@ -469,7 +473,7 @@ public class SongViewController implements Initializable{
 				// make search results invisible
 				this.resetSearchText();
 			}
-			//user right clicks library list
+			//user right clicks search result
 			else if(event.getButton() == MouseButton.SECONDARY) {
 				ContextMenu cm = new ContextMenu();
 				Menu parentMenu = new Menu("Add To Playlist");
@@ -487,7 +491,7 @@ public class SongViewController implements Initializable{
 								if(playlists.get(k).getPlaylistName().equals(playlistName)) {
 									for(int j=0; j<allSongs.size();j++) {
 										if(allSongs.get(j).getTitle()!=null) {
-											//check if the selected list item is equal to the current songs title
+											//check if the selected list item is equal to the current songs title TODO make it work
 											if(allSongs.get(j).equals(sel)) {
 												Playlist tp = playlists.get(k);
 												ArrayList<Playlist> updatedPlaylist = addSongToServer(allSongs.get(j), tp);												
@@ -523,8 +527,9 @@ public class SongViewController implements Initializable{
 										}
 									}
 									if(sameTitle==0) {
-										//TODO this does not work because of malformed gson exception
-										ArrayList<Playlist> updatedSavedSongs = addSongToServer(allSongs.get(j), mySongs);
+										Playlist temp = new Playlist("saved");
+										temp.addSong(allSongs.get(j));
+										ArrayList<Playlist> updatedSavedSongs = addSongToServer(allSongs.get(j), temp);
 										
 										mySongs.setSongs(updatedSavedSongs.get(0).getSongs());
 										user.setSavedSongs(mySongs);
@@ -657,17 +662,10 @@ public class SongViewController implements Initializable{
 									if(savedSongs.get(j).getTitle()!=null) {
 										//check if the selected list item is equal to the current songs title
 										if(savedSongs.get(j).equals(sel)) {
-											// add song to playlist
-											//TODO implement add song to server
+											// add song to playlist											
 											Playlist tp = playlists.get(k);
-											tp.addSong(savedSongs.get(j));
-											playlists.set(k, tp);
-											try {
-												user.setPlaylists(playlists);
-												UserRepository.UpdateUser(user);
-											} catch (IOException e) {
-												e.printStackTrace();
-											}
+											ArrayList<Playlist> updatedPlaylist = addSongToServer(sel, tp);												
+											user.setPlaylists(updatedPlaylist);
 											break;
 										}
 									}
@@ -693,9 +691,12 @@ public class SongViewController implements Initializable{
 						alert.showAndWait();
 					}
 					else {
+						Playlist tp = new Playlist("saved");
+						tp.setSongs(user.getSavedSongs().getSongs());
 						//remove song from saved songs
-						ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
-						user.setSavedSongs(updatedPlaylists.get(0));
+						ArrayList<Playlist> updatedPlaylist = removeSongFromServer(sel, tp);
+						//TODO
+						user.setSavedSongs(updatedPlaylist.get(0));
 						currentPlaylist=user.getSavedSongs();
 						OnMySongsClicked(null);
 					}

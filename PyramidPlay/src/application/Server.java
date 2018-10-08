@@ -334,12 +334,12 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
 		Playlist playlist = gson.fromJson(msg.getArgs()[2], Playlist.class);
-		ArrayList<Playlist> p;
+		ArrayList<Playlist> p = new ArrayList<Playlist>();
 		if(playlist.getPlaylistName().equals("saved"))
 		{
-			p = new ArrayList<Playlist>();
-			playlist.addSong(song);
-			user.setSavedSongs(playlist);
+			Playlist saved = user.getSavedSongs();
+			saved.addSong(playlist.getSongs().get(0));
+			user.setSavedSongs(saved);
 			UserRepository.UpdateUser(user);
 			p.add(user.getSavedSongs());
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
@@ -350,7 +350,7 @@ public class Server {
 			user.removePlaylist(playlist.getPlaylistName());
 			user.addPlaylist(playlist);
 			UserRepository.UpdateUser(user);
-			p = user.getPlaylists();
+			p.addAll(user.getPlaylists());
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
 		}
 	}
