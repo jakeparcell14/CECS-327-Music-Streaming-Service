@@ -168,18 +168,18 @@ public class SongViewController implements Initializable{
 	 * section of the TableView that shows the date the playlist was made
 	 */
 	TableColumn dateCreatedColumn;
-	
+
 	/**
 	 * TODO document
 	 */
 	DatagramSocket socket;
-	
+
 	/**
 	 * TODO document
 	 */
 	Gson gson;
 
-	
+
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
 	 */
@@ -223,7 +223,7 @@ public class SongViewController implements Initializable{
 	public void initUser(User user, DatagramSocket s) {
 		this.user = user;
 		this.socket = s;
-		
+
 		//display my songs and set it as the current playlist
 		mySongs= user.getSavedSongs();
 		if(mySongs != null)
@@ -231,7 +231,7 @@ public class SongViewController implements Initializable{
 			displaySongs(mySongs);
 		}
 		currentPlaylist = user.getSavedSongs();
-		
+
 	}
 
 	/**
@@ -410,7 +410,7 @@ public class SongViewController implements Initializable{
 			//display songs from current playlist
 			displaySongs(currentPlaylist);
 		}
-		
+
 		//ensure myPlaylists button cannot be deselected
 		currentPlaylistButton.setSelected(true);
 
@@ -498,7 +498,7 @@ public class SongViewController implements Initializable{
 													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 														OnCurrentPlaylistClicked(null);
 													}
-													
+
 													SearchBarPane.setVisible(false);
 													SearchBarPane.setMouseTransparent(true);
 													resetSearchText();
@@ -803,31 +803,29 @@ public class SongViewController implements Initializable{
 
 			@Override
 			public void handle(ActionEvent event) {
-				try {
-					ArrayList<Playlist> playlists=user.getPlaylists();
-					if(!sel.getPlaylistName().equals("My Playlist")){
-						for(int n=0;n<playlists.size();n++) {
-							if(sel.equals(playlists.get(n))) {
-								//change track to saved songs if deleted
-								if(playlists.get(n).equals(currentPlaylist)) {
-									currentPlaylist=user.getSavedSongs();
-								}
-								playlists.remove(n);
-								user.setPlaylists(playlists);
-								UserRepository.UpdateUser(user);
-								OnMyPlaylistsClicked(null);
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				if(!sel.getPlaylistName().equals("My Playlist")){
+					for(int n=0;n<playlists.size();n++) {
+						if(sel.equals(playlists.get(n))) {
+							//change track to saved songs if deleted
+							if(playlists.get(n).equals(currentPlaylist)) {
+								currentPlaylist=user.getSavedSongs();
 							}
+
+							//remove playlist							
+							ArrayList<Playlist> updatedPlaylists = removePlaylistFromServer(playlists.get(n));
+							user.setPlaylists(updatedPlaylists);
+							OnMyPlaylistsClicked(null);
+							playlists.remove(n);
 						}
 					}
-					else {//My playlist has to exist
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error");
-						alert.setHeaderText("Cannot delete My Playlist");
-						alert.setContentText("Please try a different option");
-						alert.showAndWait();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+				}
+				else {//My playlist has to exist
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Cannot delete My Playlist");
+					alert.setContentText("Please try a different option");
+					alert.showAndWait();
 				}
 			}
 		});
@@ -980,7 +978,7 @@ public class SongViewController implements Initializable{
 	public void searchAllSongs()
 	{
 		Playlist validSongs = new Playlist("valid");
-		
+
 		String query = AllSongsSearchBar.getText();
 
 		for(int i=0; i<allSongs.size();i++) {
@@ -1022,7 +1020,7 @@ public class SongViewController implements Initializable{
 		}
 		displaySongs(validSongs);
 	}
-	
+
 	/**
 	 * searches mysongs and displays on userlibrarylist
 	 * @param query - user inputted query
@@ -1146,7 +1144,7 @@ public class SongViewController implements Initializable{
 			String query=searchbar.getText();
 
 			DatagramSocket socket = null;
-			
+
 			Gson gson = new Gson();
 			try {
 				if(query.equals("")) {
@@ -1173,7 +1171,7 @@ public class SongViewController implements Initializable{
 				String json = gson.toJson(searchMessage);
 				byte[] msg = gson.toJson(searchMessage).getBytes();
 				InetAddress host = InetAddress.getLocalHost();
-				
+
 				int serverPort = 6789;
 				DatagramPacket request = new DatagramPacket(msg, msg.length, host, serverPort);
 				socket.send(request);
@@ -1187,7 +1185,7 @@ public class SongViewController implements Initializable{
 				for(int i=1;i<mySongQueryList.length;i++) {
 					UserLibraryList.getItems().addAll(mySongQueryList[i]);
 				}
-				
+
 			} catch (SocketException e) {
 				System.out.println("Socket: " + e.getMessage());
 			} catch (IOException e) {
@@ -1196,7 +1194,7 @@ public class SongViewController implements Initializable{
 				if(socket!=null)
 					socket.close();
 			}
-			
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -1255,7 +1253,7 @@ public class SongViewController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		gson = new Gson();
-		
+
 		menuToggleGroup = new ToggleGroup();
 
 		//buttons to choose what is displayed in the user library
@@ -1305,7 +1303,7 @@ public class SongViewController implements Initializable{
 
 		UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
 		AllSongsList.getColumns().addAll(allSongsTitleColumn, allSongsArtistColumn, allSongsAlbumColumn);
-		
+
 		try 
 		{
 			allSongs = UserRepository.getAllSongs();
@@ -1329,36 +1327,36 @@ public class SongViewController implements Initializable{
 			AllSongsSearchBar.setPromptText("search all songs");
 		}
 	}
-	
-	
+
+
 	public ArrayList<Playlist> addPlaylistToServer(String playlistName)
 	{
 		//TODO add code to set current date
 		Playlist p = new Playlist(playlistName);
-		
+
 		//initialize buffer
 		byte[] buffer = new byte[5000];
 		try {
 			String playlistJSON = gson.toJson(p);
-			
+
 			String[] arr = {user.getUsername(), playlistJSON};
-			
+
 			Message addPlaylistMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
-			
+
 			//convert to json
 			String json = gson.toJson(addPlaylistMessage);
-			
+
 			//we can only send bytes, so flatten the string to a byte array
 			byte[] msg = gson.toJson(addPlaylistMessage).getBytes();				
-			
+
 			System.out.println("Sending request.");
 			//initialize and send request packet using port 1234, the port the server is listening on
 			DatagramPacket request = new DatagramPacket(msg, msg.length, addPlaylistMessage.getAddress() , 1234);
 			socket.send(request);
 			System.out.println("request port: " + request.getPort());
-					
+
 			//initialize reply from server and receive it
-					
+
 			/* without specifying a port in this datagram packet, the OS will
 			 * randomly assign a port to the reply for the program to listen on
 			 */
@@ -1374,35 +1372,35 @@ public class SongViewController implements Initializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	public ArrayList<Playlist> removePlaylistFromServer(Playlist playlistToRemove)
 	{		
 		//initialize buffer
 		byte[] buffer = new byte[5000];
 		try {
-			String playlistJSON = gson.toJson(p);
-			
+			String playlistJSON = gson.toJson(playlistToRemove);
+
 			String[] arr = {user.getUsername(), playlistJSON};
-			
-			Message addPlaylistMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
-			
+
+			Message removePlaylistMessage = new Message(1, requestID++, OpID.DELETEPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+
 			//convert to json
-			String json = gson.toJson(addPlaylistMessage);
-			
+			String json = gson.toJson(removePlaylistMessage);
+
 			//we can only send bytes, so flatten the string to a byte array
-			byte[] msg = gson.toJson(addPlaylistMessage).getBytes();				
-			
+			byte[] msg = gson.toJson(removePlaylistMessage).getBytes();				
+
 			System.out.println("Sending request.");
 			//initialize and send request packet using port 1234, the port the server is listening on
-			DatagramPacket request = new DatagramPacket(msg, msg.length, addPlaylistMessage.getAddress() , 1234);
+			DatagramPacket request = new DatagramPacket(msg, msg.length, removePlaylistMessage.getAddress() , 1234);
 			socket.send(request);
 			System.out.println("request port: " + request.getPort());
-					
+
 			//initialize reply from server and receive it
-					
+
 			/* without specifying a port in this datagram packet, the OS will
 			 * randomly assign a port to the reply for the program to listen on
 			 */
@@ -1418,7 +1416,7 @@ public class SongViewController implements Initializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 }
