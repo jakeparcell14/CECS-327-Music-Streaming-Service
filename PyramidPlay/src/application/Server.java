@@ -28,6 +28,7 @@ public class Server {
      * The appplication main method, which just listens on a port and
      * spawns handler threads.
      */
+	private ArrayList<Song> allSongs;
 	private static DatagramSocket socket = null;
 	private static Gson gson = new Gson();
     public static void main(String[] args) throws Exception {		
@@ -111,6 +112,8 @@ public class Server {
     	switch(msg.getOperationID()) {
 			case LOGIN:
 				return verifyAccount(msg);
+			case SEARCHALLSONGS:
+				return searchAllSongs(msg);
 			case SEARCHMYSONGS:
 				//searchMySongs function goes here
 				return searchMySongs(msg);
@@ -134,7 +137,57 @@ public class Server {
     	}
     }
     
-    
+    public static byte[] searchAllSongs(Message m) {
+    	ArrayList<Song> allSongs;
+    	Playlist validSongs = new Playlist("valid");
+		try {
+			allSongs = UserRepository.getAllSongs();
+	    	String query=m.getArgs()[1];
+	    	
+	    	for(int i=0; i<allSongs.size();i++) {
+				if(validSongs.getSongs().size() <= 20)
+				{
+					//checks if query matches the title of the current song
+					if(allSongs.get(i).getTitle() != null && allSongs.get(i).getTitle().length() >= query.length()) {
+						// the song title is at least as long as the query
+						if(allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+							//the query matches the song title
+							validSongs.addSong(allSongs.get(i));
+						}
+					}
+
+					//checks if query matches the album name of the current song
+					if(!validSongs.contains(allSongs.get(i).getTitle())) {
+						// the song has not been added to the list of valid songs yet
+						if(allSongs.get(i).getAlbum() != null && allSongs.get(i).getAlbum().length() >= query.length()) {
+							// the album name is at least as long as the query
+							if(allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+								//the query matches the album name
+								validSongs.addSong(allSongs.get(i));
+							}
+						}
+					}
+
+					//checks if query matches the artist name of the current song
+					if(!validSongs.contains(allSongs.get(i).getTitle())) {
+						// the song has not been added to the list of valid songs yet
+						if(allSongs.get(i).getArtist() != null && allSongs.get(i).getArtist().length() >= query.length()) {
+							// the artist name is at least as long as the query
+							if(allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+								//the query matches the artist name
+								validSongs.addSong(allSongs.get(i));
+							}
+						}
+					}
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
+    	
+    }
     public static byte[] searchMySongs(Message m) {
     	String userName=m.getArgs()[0];
     	String query=m.getArgs()[1];

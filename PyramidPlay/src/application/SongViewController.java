@@ -228,12 +228,19 @@ public class SongViewController implements Initializable{
 	 * displays songs from a given playlist on the main search bar or on the user library
 	 * @param pl	playlist that contains the songs to be displayed
 	 */
+	/**
+	 * displays songs from a given playlist on the main search bar or on the user library
+	 * @param pl	playlist that contains the songs to be displayed
+	 */
 	public void displaySongs(Playlist pl) {
 
-		if(SearchBarPane.isVisible() && pl.getSongs().equals(allSongs))
+		if(AllSongsSearchBar.isFocused())
 		{
 			// display songs on all songs list
 			AllSongsList.getItems().clear();
+
+			SearchBarPane.setVisible(true);
+			SearchBarPane.setMouseTransparent(false);
 
 			if(pl.getSongs().size() > 20)
 			{
@@ -258,6 +265,7 @@ public class SongViewController implements Initializable{
 			UserLibraryList.getItems().addAll(pl.getSongs());
 		}
 	}
+
 
 	/**
 	 * displays all playlists and the dates they were created on the User Library
@@ -973,8 +981,65 @@ public class SongViewController implements Initializable{
 	public void searchAllSongs()
 	{
 		Playlist validSongs = new Playlist("valid");
-		
 		String query = AllSongsSearchBar.getText();
+		DatagramSocket socket;
+		try {
+			socket = new DatagramSocket();
+			String[] arr= {user.getUsername(),query};
+			Message searchMessage;
+			OpID opID=OpID.SEARCHALLSONGS;
+			try {
+				searchMessage = new Message(1, requestID++, opID, arr, InetAddress.getLocalHost(),1);
+				String json = gson.toJson(searchMessage);
+				byte[] msg = gson.toJson(searchMessage).getBytes();
+				DatagramPacket request = new DatagramPacket(msg, msg.length, searchMessage.getAddress() , 1234);
+				try {
+					socket.send(request);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("request port: " + request.getPort());
+				byte[] buffer = new byte[5000];
+				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
+				System.out.println("Response received!");
+				
+				//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
+				Song[] temp=gson.fromJson(new String(buffer).trim(), Song[].class);
+				if(temp.length>0) {
+					for(int i=0;i<temp.length;i++) {
+						System.out.println(temp[i]);
+						validSongs.addSong(temp[i]);
+					}
+					displaySongs(validSongs);
+				}
+				
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (SocketException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		/*
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		for(int i=0; i<allSongs.size();i++) {
 			if(validSongs.getSongs().size() <= 20)
@@ -1013,7 +1078,7 @@ public class SongViewController implements Initializable{
 				}
 			}
 		}
-		displaySongs(validSongs);
+		displaySongs(validSongs);*/
 	}
 	
 	/**
