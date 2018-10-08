@@ -28,6 +28,7 @@ public class Server {
      * The appplication main method, which just listens on a port and
      * spawns handler threads.
      */
+	private ArrayList<Song> allSongs;
 	private static DatagramSocket socket = null;
 	private static Gson gson = new Gson();
     public static void main(String[] args) throws Exception {		
@@ -115,118 +116,194 @@ public class Server {
 	}
     
     
-    private static byte[] ChooseAndExecuteOperation(Message msg) {
+    private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
     	switch(msg.getOperationID()) {
 			case LOGIN:
 				return verifyAccount(msg);
 			case REGISTER:
 				return registerAccount(msg);
+			case SEARCHALLSONGS:
+				return searchAllSongs(msg);
 			case SEARCHMYSONGS:
 				//searchMySongs function goes here
-				return null;
+				return searchMySongs(msg);
 			case SEARCHMYPLAYLISTS:
+				return searchMyPlaylists(msg);
 				//searchMyPlaylists function goes here
-				return null;
 			case SEARCHCURRENTPLAYLIST:
+				return searchCurrentPlaylist(msg);
 				//searchCurrentPlaylist function goes here
-				return null;
 			case ADDPLAYLIST:
-				return null;
+				return addPlaylist(msg);
 			case DELETEPLAYLIST:
-				return null;
+				return deletePlaylist(msg);
 			case ADDSONGTOPLAYLIST:
-				return null;
+				return addSong(msg);
 			case DELETESONGFROMPLAYLIST:
-				return null;
+				return deleteSong(msg);
 			default:
 				return null;
 			
     	}
     }
     
-    
-    public static String searchMySongs(String q, User user) {
-		String query=q;
-		Playlist savedSongsPlaylist=user.getSavedSongs();
-		ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
-		String msgList="";
-		for(int i=0; i<savedSongs.size();i++) {
-			//checks if query matches the title of the current song
-			if(savedSongs.get(i).getTitle()!=null && savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+savedSongs.get(i).getTitle();
+    public static byte[] searchAllSongs(Message m) {
+    	ArrayList<Song> allSongs;
+    	Playlist validSongs = new Playlist("valid");
+		try {
+			allSongs = UserRepository.getAllSongs();
+	    	String query=m.getArgs()[1];
+	    	
+	    	for(int i=0; i<allSongs.size();i++) {
+				if(validSongs.getSongs().size() <= 20)
+				{
+					//checks if query matches the title of the current song
+					if(allSongs.get(i).getTitle() != null && allSongs.get(i).getTitle().length() >= query.length()) {
+						// the song title is at least as long as the query
+						if(allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+							//the query matches the song title
+							validSongs.addSong(allSongs.get(i));
+						}
+					}
+
+					//checks if query matches the album name of the current song
+					if(!validSongs.contains(allSongs.get(i).getTitle())) {
+						// the song has not been added to the list of valid songs yet
+						if(allSongs.get(i).getAlbum() != null && allSongs.get(i).getAlbum().length() >= query.length()) {
+							// the album name is at least as long as the query
+							if(allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+								//the query matches the album name
+								validSongs.addSong(allSongs.get(i));
+							}
+						}
+					}
+
+					//checks if query matches the artist name of the current song
+					if(!validSongs.contains(allSongs.get(i).getTitle())) {
+						// the song has not been added to the list of valid songs yet
+						if(allSongs.get(i).getArtist() != null && allSongs.get(i).getArtist().length() >= query.length()) {
+							// the artist name is at least as long as the query
+							if(allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+								//the query matches the artist name
+								validSongs.addSong(allSongs.get(i));
+							}
+						}
+					}
+				}
 			}
-			//checks if query matches the album of the current song
-			else if(savedSongs.get(i).getAlbum()!=null && savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+savedSongs.get(i).getTitle();
-			}
-			//checks if query matches the artist of the current song
-			else if(savedSongs.get(i).getArtist()!=null && savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+savedSongs.get(i).getTitle();
-			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return msgList;
+		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
+    	
+    }
+    public static byte[] searchMySongs(Message m) {
+    	String userName=m.getArgs()[0];
+    	String query=m.getArgs()[1];
+    	ArrayList<Song> msgList=new ArrayList<Song>();
+    	User user;
+		try {
+			user = UserRepository.getUser(userName);
+			Playlist savedSongsPlaylist=user.getSavedSongs();
+			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
+			for(int i=0; i<savedSongs.size();i++) {
+				//checks if query matches the title of the current song
+				if(savedSongs.get(i).getTitle()!=null && savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(savedSongs.get(i));
+				}
+				//checks if query matches the album of the current song
+				else if(savedSongs.get(i).getAlbum()!=null && savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(savedSongs.get(i));
+				}
+				//checks if query matches the artist of the current song
+				else if(savedSongs.get(i).getArtist()!=null && savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(savedSongs.get(i));
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
 	/**
 	 * searches and displays user myplaylists on userlibrarylist
 	 * @param query-user inputted query
 	 */
-	public static String searchMyPlaylists(String query,User user) {
-		String msgList="";
-		ArrayList<Playlist> playlists=user.getPlaylists();
-		for (int i = 0; i<playlists.size(); i++) {
-			if(playlists.get(i).getPlaylistName()!=null) {
-				//check if query matches the playlist title
-				if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
-					String temp=msgList;
-					msgList=temp+"."+playlists.get(i).getPlaylistName();
+	public static byte[] searchMyPlaylists(Message m) {
+		String userName=m.getArgs()[0];
+		String query=m.getArgs()[1];
+		ArrayList<Playlist> msgList= new ArrayList<Playlist>();
+		User user;
+		try {
+			user = UserRepository.getUser(userName);
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			for (int i = 0; i<playlists.size(); i++) {
+				if(playlists.get(i).getPlaylistName()!=null) {
+					//check if query matches the playlist title
+					if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
+						msgList.add(playlists.get(i));
+					}
 				}
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return msgList;
+		
+		
+		
+		return gson.toJson(msgList.toArray(new Playlist[msgList.size()])).getBytes();
 	}
 	/**
 	 * searches current playlists and displays on userlibrarylist
 	 * @param query
 	 */
-	public static String searchCurrentPlaylist(String query,User user ,String currentPlaylist) {
-		String msgList="";
-		ArrayList<Playlist> playlists=user.getPlaylists();
-		Playlist cp = new Playlist();
-		if(currentPlaylist.equals("saved")) {
-			cp=user.getSavedSongs();
-		}
-		else {
-			for (int i = 0; i<playlists.size(); i++) {
-				if(playlists.get(i).getPlaylistName()!=null) {
-					//check if query matches the playlist title
-					if(playlists.get(i).getPlaylistName().toLowerCase().equals(currentPlaylist.toLowerCase())) {
-						cp=playlists.get(i);
+	public static byte[] searchCurrentPlaylist(Message m) {
+		String userName=m.getArgs()[0];
+    	String query=m.getArgs()[1];
+    	String currentPlaylist=m.getArgs()[2];
+    	ArrayList<Song> msgList=new ArrayList<Song>();
+    	User user;
+		try {
+			user = UserRepository.getUser(userName);
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			Playlist cp = new Playlist();
+			if(currentPlaylist.equals("saved")) {
+				cp=user.getSavedSongs();
+			}
+			else {
+				for (int i = 0; i<playlists.size(); i++) {
+					if(playlists.get(i).getPlaylistName()!=null) {
+						//check if query matches the playlist title
+						if(playlists.get(i).getPlaylistName().toLowerCase().equals(currentPlaylist.toLowerCase())) {
+							cp=playlists.get(i);
+						}
 					}
 				}
 			}
+			ArrayList<Song> songs = cp.getSongs();
+			for(int i=0; i<songs.size();i++) {
+				//checks if query matches the title of the current song
+				if(songs.get(i).getTitle()!=null && songs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(songs.get(i));			
+					}
+				//checks if query matches the album of the current song
+				else if(songs.get(i).getAlbum()!=null && songs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(songs.get(i));		
+				}
+				//checks if query matches the artist of the current song
+				else if(songs.get(i).getArtist()!=null && songs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(songs.get(i));		
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		ArrayList<Song> songs = cp.getSongs();
-		for(int i=0; i<songs.size();i++) {
-			//checks if query matches the title of the current song
-			if(songs.get(i).getTitle()!=null && songs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+songs.get(i).getTitle();
-			}
-			//checks if query matches the album of the current song
-			else if(songs.get(i).getAlbum()!=null && songs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+songs.get(i).getTitle();
-			}
-			//checks if query matches the artist of the current song
-			else if(songs.get(i).getArtist()!=null && songs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+songs.get(i).getTitle();
-			}
-		}
-		return msgList;
+		
+		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
     
 	/**
@@ -350,6 +427,7 @@ public class Server {
 	private static byte[] addPlaylist(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.addPlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class));
+		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
@@ -363,6 +441,7 @@ public class Server {
 	private static byte[] deletePlaylist(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
+		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
@@ -377,10 +456,10 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
 		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
-		playlist.addSong(song);
-		
+		playlist.addSong(song);		
 		user.removePlaylist(playlist.getPlaylistName());
 		user.addPlaylist(playlist);
+		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 	
@@ -395,10 +474,10 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
 		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
-		playlist.removeSong(song);
-		
+		playlist.removeSong(song);	
 		user.removePlaylist(playlist.getPlaylistName());
 		user.addPlaylist(playlist);
+		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
 }
