@@ -28,6 +28,9 @@ public class Server {
 	 * The appplication main method, which just listens on a port and
 	 * spawns handler threads.
 	 */
+
+	private ArrayList<Song> allSongs;
+
 	private static DatagramSocket socket = null;
 	private static Gson gson = new Gson();
 	public static void main(String[] args) throws Exception {		
@@ -49,180 +52,271 @@ public class Server {
 			if (socket != null) 
 				socket.close();
 		}
-	}
-
-	/**
-	 * Handler class that will handle a single request from a client.
-	 * @author Matthew
-	 *
-	 */
-	public static class Handler extends Thread {
-		private Request req;
-		private DatagramSocket reqSocket;
-		private Gson gson;
-
-		/**
-		 * Constructor for Handler class.
-		 * @param req - request from a client.
-		 */
-		public Handler(Request req) {
-			this.req = req;
-			gson = new Gson();
-			//create a new socket to handle requests from the client
-			try {
+    }
+    
+    /**
+     * Handler class that will handle a single request from a client.
+     * @author Matthew
+     *
+     */
+    public static class Handler extends Thread {
+    	private Request req;
+    	private DatagramSocket reqSocket;
+    	private Gson gson;
+    	
+    	/**
+    	 * Constructor for Handler class that creates a socket to 
+    	 * handle the request from the client
+    	 * @param req - request from a client.
+    	 */
+    	public Handler(Request req) {
+    		this.req = req;
+    		gson = new Gson();
+    		
+    		//create a new socket to handle requests from the client
+    		try {
 				reqSocket = new DatagramSocket();
 				System.out.println(reqSocket.getLocalPort());
 			} catch (SocketException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
 
-		public void run() {
-			System.out.println("New handler running and handling request");
-			//System.out.println("check: "+req.data.length);
-			Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
-			switch(msg.getProtocolID()) {
-			case 0:
-				break;
-			case 1:
-				try {
-					RequestReplyProtocol(msg, req);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-
-			//socket should close at the end/destruction of this thread
-		}
-
-	}
-
-	private static void RequestReplyProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
+    	}
+    	
+    	public void run() {
+    		System.out.println("New handler running and handling request");
+    		System.out.println(new String(req.data).trim());
+    		Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
+    		
+/**    		for (int i = 0; i < msg.getArgs().length; i ++) {
+    			System.out.println("args[" + i + "]= " + msg.getArgs()[i]);
+    		}
+*/    		
+    		switch(msg.getProtocolID()) {
+    			case 0:
+    				break;
+    			case 1:
+					try {
+						RequestReplyProtocol(msg, req);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			
+    		}
+  
+			
+    		//socket should close at the end/destruction of this thread
+    	}
+    	
+    }
+    
+    private static void RequestReplyProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
 		byte[] result = ChooseAndExecuteOperation(msg);
 		SendReply(result, InetAddress.getLocalHost(), req.port);
 	}
+    
+    
+    private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
+    	switch(msg.getOperationID()) {
+			case LOGIN:
+				return verifyAccount(msg);
+			case REGISTER:
+				return registerAccount(msg);
+			case SEARCHALLSONGS:
+				return searchAllSongs(msg);
+			case SEARCHMYSONGS:
+				//searchMySongs function goes here
+				return searchMySongs(msg);
+			case SEARCHMYPLAYLISTS:
+				return searchMyPlaylists(msg);
+				//searchMyPlaylists function goes here
+			case SEARCHCURRENTPLAYLIST:
+				return searchCurrentPlaylist(msg);
+				//searchCurrentPlaylist function goes here
+			case ADDPLAYLIST:
+				return addPlaylist(msg);
+			case DELETEPLAYLIST:
+				return deletePlaylist(msg);
+			case ADDSONGTOPLAYLIST:
+				return addSong(msg);
+			case DELETESONGFROMPLAYLIST:
+				return deleteSong(msg);
+			default:
+				return null;
+			
+    	}
+    }
+    
+    public static byte[] searchAllSongs(Message m) {
+    	ArrayList<Song> allSongs;
+    	Playlist validSongs = new Playlist("valid");
+		try {
+			allSongs = UserRepository.getAllSongs();
+	    	String query=m.getArgs()[1];
+	    	
+	    	for(int i=0; i<allSongs.size();i++) {
+				if(validSongs.getSongs().size() <= 20)
+				{
+					//checks if query matches the title of the current song
+					if(allSongs.get(i).getTitle() != null && allSongs.get(i).getTitle().length() >= query.length()) {
+						// the song title is at least as long as the query
+						if(allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+							//the query matches the song title
+							validSongs.addSong(allSongs.get(i));
+						}
+					}
 
+					//checks if query matches the album name of the current song
+					if(!validSongs.contains(allSongs.get(i).getTitle())) {
+						// the song has not been added to the list of valid songs yet
+						if(allSongs.get(i).getAlbum() != null && allSongs.get(i).getAlbum().length() >= query.length()) {
+							// the album name is at least as long as the query
+							if(allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+								//the query matches the album name
+								validSongs.addSong(allSongs.get(i));
+							}
+						}
+					}
 
-	private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
-		switch(msg.getOperationID()) {
-		case LOGIN:
-			return verifyAccount(msg);
-		case SEARCHMYSONGS:
-			//searchMySongs function goes here
-			return null;
-		case SEARCHMYPLAYLISTS:
-			//searchMyPlaylists function goes here
-			return null;
-		case SEARCHCURRENTPLAYLIST:
-			//searchCurrentPlaylist function goes here
-			return null;
-		case ADDPLAYLIST:
-			return addPlaylist(msg);
-		case DELETEPLAYLIST:
-			return deletePlaylist(msg);
-		case ADDSONGTOPLAYLIST:
-			return addSong(msg);
-		case DELETESONGFROMPLAYLIST:
-			return deleteSong(msg);
-		default:
-			return null;
-
+					//checks if query matches the artist name of the current song
+					if(!validSongs.contains(allSongs.get(i).getTitle())) {
+						// the song has not been added to the list of valid songs yet
+						if(allSongs.get(i).getArtist() != null && allSongs.get(i).getArtist().length() >= query.length()) {
+							// the artist name is at least as long as the query
+							if(allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+								//the query matches the artist name
+								validSongs.addSong(allSongs.get(i));
+							}
+						}
+					}
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
-
-
-	public static String searchMySongs(String q, User user) {
-		String query=q;
-		Playlist savedSongsPlaylist=user.getSavedSongs();
-		ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
-		String msgList="";
-		for(int i=0; i<savedSongs.size();i++) {
-			//checks if query matches the title of the current song
-			if(savedSongs.get(i).getTitle()!=null && savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+savedSongs.get(i).getTitle();
+		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
+    	
+    }
+    public static byte[] searchMySongs(Message m) {
+    	String userName=m.getArgs()[0];
+    	String query=m.getArgs()[1];
+    	ArrayList<Song> msgList=new ArrayList<Song>();
+    	User user;
+		try {
+			user = UserRepository.getUser(userName);
+			Playlist savedSongsPlaylist=user.getSavedSongs();
+			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
+			for(int i=0; i<savedSongs.size();i++) {
+				//checks if query matches the title of the current song
+				if(savedSongs.get(i).getTitle()!=null && savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(savedSongs.get(i));
+				}
+				//checks if query matches the album of the current song
+				else if(savedSongs.get(i).getAlbum()!=null && savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(savedSongs.get(i));
+				}
+				//checks if query matches the artist of the current song
+				else if(savedSongs.get(i).getArtist()!=null && savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(savedSongs.get(i));
+				}
 			}
-			//checks if query matches the album of the current song
-			else if(savedSongs.get(i).getAlbum()!=null && savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+savedSongs.get(i).getTitle();
-			}
-			//checks if query matches the artist of the current song
-			else if(savedSongs.get(i).getArtist()!=null && savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+savedSongs.get(i).getTitle();
-			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return msgList;
+		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
 	/**
 	 * searches and displays user myplaylists on userlibrarylist
 	 * @param query-user inputted query
 	 */
-	public static String searchMyPlaylists(String query,User user) {
-		String msgList="";
-		ArrayList<Playlist> playlists=user.getPlaylists();
-		for (int i = 0; i<playlists.size(); i++) {
-			if(playlists.get(i).getPlaylistName()!=null) {
-				//check if query matches the playlist title
-				if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
-					String temp=msgList;
-					msgList=temp+"."+playlists.get(i).getPlaylistName();
+	public static byte[] searchMyPlaylists(Message m) {
+		String userName=m.getArgs()[0];
+		String query=m.getArgs()[1];
+		ArrayList<Playlist> msgList= new ArrayList<Playlist>();
+		User user;
+		try {
+			user = UserRepository.getUser(userName);
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			for (int i = 0; i<playlists.size(); i++) {
+				if(playlists.get(i).getPlaylistName()!=null) {
+					//check if query matches the playlist title
+					if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
+						msgList.add(playlists.get(i));
+					}
 				}
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return msgList;
+		
+		
+		
+		return gson.toJson(msgList.toArray(new Playlist[msgList.size()])).getBytes();
 	}
 	/**
 	 * searches current playlists and displays on userlibrarylist
 	 * @param query
 	 */
-	public static String searchCurrentPlaylist(String query,User user ,String currentPlaylist) {
-		String msgList="";
-		ArrayList<Playlist> playlists=user.getPlaylists();
-		Playlist cp = new Playlist();
-		if(currentPlaylist.equals("saved")) {
-			cp=user.getSavedSongs();
-		}
-		else {
-			for (int i = 0; i<playlists.size(); i++) {
-				if(playlists.get(i).getPlaylistName()!=null) {
-					//check if query matches the playlist title
-					if(playlists.get(i).getPlaylistName().toLowerCase().equals(currentPlaylist.toLowerCase())) {
-						cp=playlists.get(i);
+	public static byte[] searchCurrentPlaylist(Message m) {
+		String userName=m.getArgs()[0];
+    	String query=m.getArgs()[1];
+    	String currentPlaylist=m.getArgs()[2];
+    	ArrayList<Song> msgList=new ArrayList<Song>();
+    	User user;
+		try {
+			user = UserRepository.getUser(userName);
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			Playlist cp = new Playlist();
+			if(currentPlaylist.equals("saved")) {
+				cp=user.getSavedSongs();
+			}
+			else {
+				for (int i = 0; i<playlists.size(); i++) {
+					if(playlists.get(i).getPlaylistName()!=null) {
+						//check if query matches the playlist title
+						if(playlists.get(i).getPlaylistName().toLowerCase().equals(currentPlaylist.toLowerCase())) {
+							cp=playlists.get(i);
+						}
 					}
 				}
 			}
+			ArrayList<Song> songs = cp.getSongs();
+			for(int i=0; i<songs.size();i++) {
+				//checks if query matches the title of the current song
+				if(songs.get(i).getTitle()!=null && songs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(songs.get(i));			
+					}
+				//checks if query matches the album of the current song
+				else if(songs.get(i).getAlbum()!=null && songs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(songs.get(i));		
+				}
+				//checks if query matches the artist of the current song
+				else if(songs.get(i).getArtist()!=null && songs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+					msgList.add(songs.get(i));		
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		ArrayList<Song> songs = cp.getSongs();
-		for(int i=0; i<songs.size();i++) {
-			//checks if query matches the title of the current song
-			if(songs.get(i).getTitle()!=null && songs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+songs.get(i).getTitle();
-			}
-			//checks if query matches the album of the current song
-			else if(songs.get(i).getAlbum()!=null && songs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+songs.get(i).getTitle();
-			}
-			//checks if query matches the artist of the current song
-			else if(songs.get(i).getArtist()!=null && songs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
-				String temp=msgList;
-				msgList=temp+"."+songs.get(i).getTitle();
-			}
-		}
-		return msgList;
+		
+		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
 
-	public static byte[] verifyAccount(Message msg) {
-		Gson gson = new Gson();
-
-		try 
+    
+	/**
+	 * Function to verify a username and password combination from a message
+	 * @param msg - message sent from client containing username and password
+	 */
+    public static byte[] verifyAccount(Message msg) {
+    	gson = new Gson();
+    	
+    	try 
 		{
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
@@ -242,7 +336,41 @@ public class Server {
 		}
 	}
 
-	/**
+    
+    /**
+     * Function to register a new account to the json file
+     * @param msg - message sent from client containing user information
+     */
+    public static byte[] registerAccount(Message msg) {
+    	Gson gson = new Gson();
+    	
+    	//msg args structure = [firstName, lastName, userName, password]
+    	try 
+		{
+			if(UserRepository.userExists(msg.getArgs()[2]))
+			{
+				//tell client that username already exists and is not available
+				return gson.toJson("USERNAME_TAKEN").getBytes();
+			}
+			else
+			{
+				//username is available and ready to be added to the repository
+				User newUser = new User(msg.getArgs()[0], msg.getArgs()[1], msg.getArgs()[2], msg.getArgs()[3]);
+				
+				//add user to the user repository
+				UserRepository.AddUser(newUser);
+				
+				return gson.toJson("REGISTERED").trim().getBytes();
+			}
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+    }
+    
+    /**
 	 * Sends a reply to the client.
 	 * 
 	 * @param reply Object returning as a reply flattened to a byte array.

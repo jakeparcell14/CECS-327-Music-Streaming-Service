@@ -155,16 +155,7 @@ public class LoginController implements Initializable
 			socket.receive(reply);		
 			System.out.println("Response received from port " + reply.getPort() + "!");
 			System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try 
-		{
+			
 			//if server responds with acknowledgement "VERIFIED" switch to song view
 			if(gson.fromJson(new String(buffer).trim(), String.class).equals("VERIFIED"))
 			{
@@ -188,16 +179,19 @@ public class LoginController implements Initializable
 			{
 				InvalidSignInLabel.setVisible(true);
 			}
-		} 
-		catch (IOException e) 
-		{
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	/**
-	 * Registers a new user and adds user information to users.json
+	 * Requests the server to register a new user.
+	 * If the username is unique, the server will add a new user then sign into the app.
+	 * If the username already exists, the function will display invalid username on the window.
 	 * @param fn - First Name
 	 * @param ln - Last Name
 	 * @param uName - Unique username
@@ -206,38 +200,47 @@ public class LoginController implements Initializable
 	 */
 	public void register(String fn, String ln, String uName, String pw, ActionEvent event) 
 	{
+		//create message to send to server
+		String[] arr = {fn, ln, uName, pw};
+		
+		//initialize buffer
+		byte[] buffer = new byte[1000];
 		try 
 		{
-			if(UserRepository.userExists(AddUsernameTextField.getText()))
+			//create register request and convert to byte array
+			Message loginMsg = new Message(1, requestID++, OpID.REGISTER, arr, InetAddress.getLocalHost(), 1);
+			String json = gson.toJson(loginMsg);
+			byte[] msg = gson.toJson(loginMsg).getBytes();				
+			
+			System.out.println("Sending request.");
+			
+			//initialize and send request packet to the port the server is listening on, port 1234
+			DatagramPacket request = new DatagramPacket(msg, msg.length, loginMsg.getAddress() , 1234);
+			socket.send(request);
+			System.out.println("request port: " + request.getPort());
+					
+			//initialize reply from server and receive it
+					
+			/* without specifying a port in this datagram packet, the OS will
+			 * randomly assign a port to the reply for the program to listen on
+			 */
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			socket.receive(reply);		
+			System.out.println("Response received from port " + reply.getPort() + "!");
+			
+			if(gson.fromJson(new String(buffer).trim(), String.class).equals("USERNAME_TAKEN"))
 			{
-				//username already exists and is not available
+				//username already exists and is not available, inform user
 				UsernameUnavailableLabel.setVisible(true);
 			}
 			else
 			{
-				//username is available and ready to be added to the repository
-				User newUser = new User(AddFirstNameTextField.getText(), AddLastNameTextField.getText(), AddUsernameTextField.getText(), AddPasswordTextField.getText());
-				
-				//add user to the user repository
-				UserRepository.AddUser(newUser);
-				
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("SongView.fxml"));
-				Parent songViewParent = loader.load();
-		
-				Scene songViewScene = new Scene(songViewParent);
-		
-				//access the SongViewController and call initUser() to pass user information
-				SongViewController controller = loader.getController();
-				controller.initUser(newUser, socket);
-				
-				Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-				window.setResizable(false);
-				window.setScene(songViewScene);
+
+				//server confirms username is available and signs in the new user
+				signIn(uName, pw, event);
 			}
-		}
-		catch(IOException e)
-		{
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
