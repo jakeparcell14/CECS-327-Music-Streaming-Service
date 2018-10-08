@@ -352,11 +352,12 @@ public class Server {
 	private static byte[] deleteSong(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		Song song = gson.fromJson(msg.getArgs()[1], Song.class);
-		Playlist playlist = gson.fromJson(msg.getArgs()[3], Playlist.class);
+		Playlist playlist = gson.fromJson(msg.getArgs()[2], Playlist.class);
 		playlist.removeSong(song);	
 		user.removePlaylist(playlist.getPlaylistName());
 		user.addPlaylist(playlist);
 		UserRepository.UpdateUser(user);
-		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+		ArrayList<Playlist> p = user.getPlaylists();
+		return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
 	}
 }

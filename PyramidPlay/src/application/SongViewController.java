@@ -1419,4 +1419,49 @@ public class SongViewController implements Initializable{
 
 		return null;
 	}
+	
+	public ArrayList<Playlist> removeSongFromServer(Song songToRemove, Playlist playlistToUpdate)
+	{		
+		//initialize buffer
+		byte[] buffer = new byte[5000];
+		try {
+			String songJSON = gson.toJson(songToRemove);
+			String playlistJSON = gson.toJson(songToRemove);
+
+			String[] arr = {user.getUsername(), songJSON, playlistJSON};
+
+			Message removeSongMessage = new Message(1, requestID++, OpID.DELETESONGFROMPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+
+			//convert to json
+			String json = gson.toJson(removeSongMessage);
+
+			//we can only send bytes, so flatten the string to a byte array
+			byte[] msg = gson.toJson(removeSongMessage).getBytes();				
+
+			System.out.println("Sending request.");
+			//initialize and send request packet using port 1234, the port the server is listening on
+			DatagramPacket request = new DatagramPacket(msg, msg.length, removeSongMessage.getAddress() , 1234);
+			socket.send(request);
+			System.out.println("request port: " + request.getPort());
+
+			//initialize reply from server and receive it
+
+			/* without specifying a port in this datagram packet, the OS will
+			 * randomly assign a port to the reply for the program to listen on
+			 */
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			socket.receive(reply);		
+			System.out.println(new String(buffer));
+			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+			//return updated set of playlists
+			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 }
