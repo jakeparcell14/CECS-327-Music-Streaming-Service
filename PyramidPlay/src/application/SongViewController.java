@@ -602,17 +602,18 @@ public class SongViewController implements Initializable{
 	public void ltMouseClickMyPlaylists(MouseEvent event) {
 		//TableView experiment
 		Playlist selectedPlaylist = (Playlist) UserLibraryList.getSelectionModel().getSelectedItem();
-		ArrayList<Playlist> playlists=user.getPlaylists();
-
-		for(int i=0; i<playlists.size();i++) {
-			if(playlists.get(i).getPlaylistName()!=null) {
-				//check if the selected list item is equal to the current playlist
-				if(playlists.get(i).equals(selectedPlaylist)) {
-					currentPlaylist=selectedPlaylist;
-					playlistNum=0;
-					currentPlaylistButton.setSelected(true);
-					OnCurrentPlaylistClicked(null);
-					break;
+		if(selectedPlaylist.getSongs().size() > 0) {
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			for(int i=0; i<playlists.size();i++) {
+				if(playlists.get(i).getPlaylistName()!=null) {
+					//check if the selected list item is equal to the current playlist
+					if(playlists.get(i).equals(selectedPlaylist)) {
+						currentPlaylist=selectedPlaylist;
+						playlistNum=0;
+						currentPlaylistButton.setSelected(true);
+						OnCurrentPlaylistClicked(null);
+						break;
+					}
 				}
 			}
 		}
@@ -643,80 +644,82 @@ public class SongViewController implements Initializable{
 	public void rtMouseClickMySongs(MouseEvent event) {
 		//the selected item
 		Song sel = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
-		//popup menu to appear on right click
-		ContextMenu cm = new ContextMenu();
-		//menu with the names of all the playlists in it
-		Menu parentMenu = new Menu("Add To Playlist");
-		ArrayList<Playlist> playlists=user.getPlaylists();
-		// creates selections for all the playlists
-		for (int i = 0; i<playlists.size(); i++) {
-			MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
-			// when the playlist name is selected
-			temp.setOnAction(new EventHandler<ActionEvent>() {
+		if(!sel.getTitle().equals(null)) {
+			//popup menu to appear on right click
+			ContextMenu cm = new ContextMenu();
+			//menu with the names of all the playlists in it
+			Menu parentMenu = new Menu("Add To Playlist");
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			// creates selections for all the playlists
+			for (int i = 0; i<playlists.size(); i++) {
+				MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
+				// when the playlist name is selected
+				temp.setOnAction(new EventHandler<ActionEvent>() {
 
-				@Override
-				public void handle(ActionEvent event) {
-					String playlistName=temp.getText();
-					Playlist mySongs=user.getSavedSongs();
-					ArrayList<Song> savedSongs=mySongs.getSongs();
-					for(int k=0;k<playlists.size();k++)
-					{
-						if(playlists.get(k).getPlaylistName().equals(playlistName)) {
-							for(int j=0; j<savedSongs.size();j++) {
-								if(savedSongs.get(j).getTitle()!=null) {
-									//check if the selected list item is equal to the current songs title
-									if(savedSongs.get(j).equals(sel)) {
-										// add song to playlist
-										Playlist tp = playlists.get(k);
-										tp.addSong(savedSongs.get(j));
-										playlists.set(k, tp);
-										try {
-											user.setPlaylists(playlists);
-											UserRepository.UpdateUser(user);
-										} catch (IOException e) {
-											e.printStackTrace();
+					@Override
+					public void handle(ActionEvent event) {
+						String playlistName=temp.getText();
+						Playlist mySongs=user.getSavedSongs();
+						ArrayList<Song> savedSongs=mySongs.getSongs();
+						for(int k=0;k<playlists.size();k++)
+						{
+							if(playlists.get(k).getPlaylistName().equals(playlistName)) {
+								for(int j=0; j<savedSongs.size();j++) {
+									if(savedSongs.get(j).getTitle()!=null) {
+										//check if the selected list item is equal to the current songs title
+										if(savedSongs.get(j).equals(sel)) {
+											// add song to playlist
+											Playlist tp = playlists.get(k);
+											tp.addSong(savedSongs.get(j));
+											playlists.set(k, tp);
+											try {
+												user.setPlaylists(playlists);
+												UserRepository.UpdateUser(user);
+											} catch (IOException e) {
+												e.printStackTrace();
+											}
+											break;
 										}
-										break;
 									}
 								}
 							}
 						}
 					}
+				});
+				parentMenu.getItems().add(temp);
+			}
+			//option to remove song
+			MenuItem removeSavedSong = new MenuItem("Remove Saved Song");
+			removeSavedSong.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					Playlist temp=user.getSavedSongs();
+					//cant remove a song from saved songs if there is only one song
+					if(temp.getSongs().size()==1) {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Remove Saved Song Error");
+						alert.setHeaderText("Saved Songs Must Have At Least One Song");
+						alert.setContentText("Please try a different option");
+						alert.showAndWait();
+					}
+					else {
+						//good to remove song
+						temp.removeSong(sel);
+						user.setSavedSongs(temp);
+						try {
+							UserRepository.UpdateUser(user);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						OnMySongsClicked(null);
+					}
 				}
 			});
-			parentMenu.getItems().add(temp);
+			//add options to list and show
+			cm.getItems().add(parentMenu);
+			cm.getItems().add(removeSavedSong);
+			cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 		}
-		//option to remove song
-		MenuItem removeSavedSong = new MenuItem("Remove Saved Song");
-		removeSavedSong.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Playlist temp=user.getSavedSongs();
-				//cant remove a song from saved songs if there is only one song
-				if(temp.getSongs().size()==1) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Remove Saved Song Error");
-					alert.setHeaderText("Saved Songs Must Have At Least One Song");
-					alert.setContentText("Please try a different option");
-					alert.showAndWait();
-				}
-				else {
-					//good to remove song
-					temp.removeSong(sel);
-					user.setSavedSongs(temp);
-					try {
-						UserRepository.UpdateUser(user);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					OnMySongsClicked(null);
-				}
-			}
-		});
-		//add options to list and show
-		cm.getItems().add(parentMenu);
-		cm.getItems().add(removeSavedSong);
-		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 	}
 
 	/**
@@ -727,60 +730,62 @@ public class SongViewController implements Initializable{
 	public void rtMouseClickCurrentPlaylist(MouseEvent event) {
 		//selected object
 		Song sel = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
-		ContextMenu cm = new ContextMenu();
-		//option to remove song from current playlist
-		MenuItem remove = new MenuItem("Remove Song");
-		remove.setOnAction(new EventHandler<ActionEvent>() {
+		if(!sel.getTitle().equals(null)) {
+			ContextMenu cm = new ContextMenu();
+			//option to remove song from current playlist
+			MenuItem remove = new MenuItem("Remove Song");
+			remove.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent event) {
-				ArrayList<Playlist> playlists=user.getPlaylists();
-				if(currentPlaylist.getPlaylistName().equals("saved"))
-				{
-					Playlist temp=user.getSavedSongs();
-					//cant delete song if there is only one song in the playlist
-					if(temp.getSongs().size()==1) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Remove Saved Song Error");
-						alert.setHeaderText("Saved Songs Must Have At Least One Song");
-						alert.setContentText("Please try a different option");
-						alert.showAndWait();
+				@Override
+				public void handle(ActionEvent event) {
+					ArrayList<Playlist> playlists=user.getPlaylists();
+					if(currentPlaylist.getPlaylistName().equals("saved"))
+					{
+						Playlist temp=user.getSavedSongs();
+						//cant delete song if there is only one song in the playlist
+						if(temp.getSongs().size()==1) {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Remove Saved Song Error");
+							alert.setHeaderText("Saved Songs Must Have At Least One Song");
+							alert.setContentText("Please try a different option");
+							alert.showAndWait();
+						}
+						else {
+							//remove song from saved songs
+							ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
+							user.setSavedSongs(updatedPlaylists.get(0));
+							currentPlaylist=user.getSavedSongs();
+							OnCurrentPlaylistClicked(null);
+						}
 					}
-					else {
-						//remove song from saved songs
-						ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
-						user.setSavedSongs(updatedPlaylists.get(0));
-						currentPlaylist=user.getSavedSongs();
-						OnCurrentPlaylistClicked(null);
-					}
-				}
-				else {//current playlist is a playlist, not saved songs
-					for(int n=0;n<playlists.size();n++) {
-						if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
-							Playlist temp=playlists.get(n);
-							//cant remove last song from playlist
-							if(temp.getSongs().size()==1) {
-								Alert alert = new Alert(AlertType.ERROR);
-								alert.setTitle("Remove Playlist Song Error");
-								alert.setHeaderText("Playlist Must Have At Least One Song");
-								alert.setContentText("Please try a different option");
-								alert.showAndWait();
-							}
-							else {
-								// remove song from current playlist
-								ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
-								user.setPlaylists(updatedPlaylists);
-								currentPlaylist=user.getPlaylist(temp.getPlaylistName());
-								OnCurrentPlaylistClicked(null);
-								break;
+					else {//current playlist is a playlist, not saved songs
+						for(int n=0;n<playlists.size();n++) {
+							if(currentPlaylist.getPlaylistName().equals(playlists.get(n).getPlaylistName())) {
+								Playlist temp=playlists.get(n);
+								//cant remove last song from playlist
+								if(temp.getSongs().size()==1) {
+									Alert alert = new Alert(AlertType.ERROR);
+									alert.setTitle("Remove Playlist Song Error");
+									alert.setHeaderText("Playlist Must Have At Least One Song");
+									alert.setContentText("Please try a different option");
+									alert.showAndWait();
+								}
+								else {
+									// remove song from current playlist
+									ArrayList<Playlist> updatedPlaylists = removeSongFromServer(sel, temp);
+									user.setPlaylists(updatedPlaylists);
+									currentPlaylist=user.getPlaylist(temp.getPlaylistName());
+									OnCurrentPlaylistClicked(null);
+									break;
+								}
 							}
 						}
 					}
 				}
-			}
-		});
-		cm.getItems().add(remove);
-		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+			});
+			cm.getItems().add(remove);
+			cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+		}
 	}
 
 	/**
@@ -794,35 +799,40 @@ public class SongViewController implements Initializable{
 		MenuItem createP = new MenuItem("Create New Playlist");
 		//option to remove selected playlist
 		MenuItem removeP = new MenuItem("Remove Playlist");
-		removeP.setOnAction(new EventHandler<ActionEvent>() {
+		if(sel != null) {
+			removeP.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent event) {
-				ArrayList<Playlist> playlists=user.getPlaylists();
-				if(!sel.getPlaylistName().equals("My Playlist")){
-					for(int n=0;n<playlists.size();n++) {
-						if(sel.equals(playlists.get(n))) {
-							//change track to saved songs if deleted
-							if(playlists.get(n).equals(currentPlaylist)) {
-								currentPlaylist=user.getSavedSongs();
+				@Override
+				public void handle(ActionEvent event) {
+					ArrayList<Playlist> playlists=user.getPlaylists();
+					if(!sel.getPlaylistName().equals("My Playlist")){
+						for(int n=0;n<playlists.size();n++) {
+							if(sel.equals(playlists.get(n))) {
+								//change track to saved songs if deleted
+								if(playlists.get(n).equals(currentPlaylist)) {
+									currentPlaylist=user.getSavedSongs();
+								}
+
+								//remove playlist							
+								ArrayList<Playlist> updatedPlaylists = removePlaylistFromServer(playlists.get(n));
+								user.setPlaylists(updatedPlaylists);
+								OnMyPlaylistsClicked(null);
 							}
-
-							//remove playlist							
-							ArrayList<Playlist> updatedPlaylists = removePlaylistFromServer(playlists.get(n));
-							user.setPlaylists(updatedPlaylists);
-							OnMyPlaylistsClicked(null);
 						}
 					}
+					else {//My playlist has to exist
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Error");
+						alert.setHeaderText("Cannot delete My Playlist");
+						alert.setContentText("Please try a different option");
+						alert.showAndWait();
+					}
 				}
-				else {//My playlist has to exist
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Cannot delete My Playlist");
-					alert.setContentText("Please try a different option");
-					alert.showAndWait();
-				}
-			}
-		});
+			});
+			
+			cm.getItems().add(removeP);
+		}
+		
 		createP.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -875,9 +885,9 @@ public class SongViewController implements Initializable{
 			}
 
 		});
-		cm.getItems().add(removeP);
 		cm.getItems().add(createP);
 		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
+
 	}
 
 	@FXML
@@ -1413,7 +1423,7 @@ public class SongViewController implements Initializable{
 
 		return null;
 	}
-	
+
 	public ArrayList<Playlist> removeSongFromServer(Song songToRemove, Playlist playlistToUpdate)
 	{		
 		//initialize buffer
