@@ -3,11 +3,13 @@ package application;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javax.sound.sampled.AudioInputStream;
@@ -166,6 +168,16 @@ public class SongViewController implements Initializable{
 	 * section of the TableView that shows the date the playlist was made
 	 */
 	TableColumn dateCreatedColumn;
+	
+	/**
+	 * TODO document
+	 */
+	DatagramSocket socket;
+	
+	/**
+	 * TODO document
+	 */
+	Gson gson;
 
 	
 	/**
@@ -208,8 +220,9 @@ public class SongViewController implements Initializable{
 	 * the login screen to song viewer
 	 * @param user - user that is grabbed from the login screen controller
 	 */
-	public void initUser(User user) {
+	public void initUser(User user, DatagramSocket s) {
 		this.user = user;
+		this.socket = s;
 		
 		//display my songs and set it as the current playlist
 		mySongs= user.getSavedSongs();
@@ -827,47 +840,44 @@ public class SongViewController implements Initializable{
 				dialog.setHeaderText("New Playlist");
 				dialog.setContentText("Enter Playlist Name:");
 
-				try {
-					ArrayList<Playlist> playlists=user.getPlaylists();
-					//keep on prompting user for name until it is unique or has non whitespace characters
-					while(true) {
-						Optional<String> result = dialog.showAndWait();
-						int count=0;
-						if(result.isPresent()) {
-							for(int i=0;i<playlists.size();i++) {
-								if(playlists.get(i).getPlaylistName().equals(result.get())) {
-									count++;
-								}
-							}
-							if(count!=0) {// input isnt unique
-								Alert alert = new Alert(AlertType.ERROR);
-								alert.setTitle("Error adding playlist");
-								alert.setHeaderText("There is already a playlist with that name");
-								alert.setContentText("Please try a different name");
-								alert.showAndWait();
-							}
-							else if(result.get().trim().length() == 0) { //only whitespace
-								Alert alert = new Alert(AlertType.ERROR);
-								alert.setTitle("Error adding playlist");
-								alert.setHeaderText("Enter Characters that are not blank space");
-								alert.setContentText("Please try a different name");
-								alert.showAndWait();
-							}
-							else{//add playlist
-								playlists.add(new Playlist(result.get()));
-								user.setPlaylists(playlists);
-								UserRepository.UpdateUser(user);
-								OnMyPlaylistsClicked(null);
-								break;
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				//keep on prompting user for name until it is unique or has non whitespace characters
+				while(true) {
+					Optional<String> result = dialog.showAndWait();
+					int count=0;
+					if(result.isPresent()) {
+						for(int i=0;i<playlists.size();i++) {
+							if(playlists.get(i).getPlaylistName().equals(result.get())) {
+								count++;
 							}
 						}
-						else
-						{
+						if(count!=0) {// input isnt unique
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error adding playlist");
+							alert.setHeaderText("There is already a playlist with that name");
+							alert.setContentText("Please try a different name");
+							alert.showAndWait();
+						}
+						else if(result.get().trim().length() == 0) { //only whitespace
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error adding playlist");
+							alert.setHeaderText("Enter Characters that are not blank space");
+							alert.setContentText("Please try a different name");
+							alert.showAndWait();
+						}
+						else{
+							//add playlist							
+							ArrayList<Playlist> updatedPlaylists = addPlaylistToServer(result.get());
+							//playlists.add(new Playlist(result.get()));
+							user.setPlaylists(updatedPlaylists);
+							OnMyPlaylistsClicked(null);
 							break;
 						}
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
+					else
+					{
+						break;
+					}
 				}
 
 			}
@@ -1244,6 +1254,8 @@ public class SongViewController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		gson = new Gson();
+		
 		menuToggleGroup = new ToggleGroup();
 
 		//buttons to choose what is displayed in the user library
@@ -1300,7 +1312,6 @@ public class SongViewController implements Initializable{
 			allSongs.sort(null);
 		} 
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -1318,5 +1329,96 @@ public class SongViewController implements Initializable{
 			AllSongsSearchBar.setPromptText("search all songs");
 		}
 	}
-
+	
+	
+	public ArrayList<Playlist> addPlaylistToServer(String playlistName)
+	{
+		//TODO add code to set current date
+		Playlist p = new Playlist(playlistName);
+		
+		//initialize buffer
+		byte[] buffer = new byte[5000];
+		try {
+			String playlistJSON = gson.toJson(p);
+			
+			String[] arr = {user.getUsername(), playlistJSON};
+			
+			Message addPlaylistMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+			
+			//convert to json
+			String json = gson.toJson(addPlaylistMessage);
+			
+			//we can only send bytes, so flatten the string to a byte array
+			byte[] msg = gson.toJson(addPlaylistMessage).getBytes();				
+			
+			System.out.println("Sending request.");
+			//initialize and send request packet using port 1234, the port the server is listening on
+			DatagramPacket request = new DatagramPacket(msg, msg.length, addPlaylistMessage.getAddress() , 1234);
+			socket.send(request);
+			System.out.println("request port: " + request.getPort());
+					
+			//initialize reply from server and receive it
+					
+			/* without specifying a port in this datagram packet, the OS will
+			 * randomly assign a port to the reply for the program to listen on
+			 */
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			socket.receive(reply);		
+			System.out.println(new String(buffer));
+			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+			//return updated set of playlists
+			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ArrayList<Playlist> removePlaylistFromServer(Playlist playlistToRemove)
+	{		
+		//initialize buffer
+		byte[] buffer = new byte[5000];
+		try {
+			String playlistJSON = gson.toJson(p);
+			
+			String[] arr = {user.getUsername(), playlistJSON};
+			
+			Message addPlaylistMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+			
+			//convert to json
+			String json = gson.toJson(addPlaylistMessage);
+			
+			//we can only send bytes, so flatten the string to a byte array
+			byte[] msg = gson.toJson(addPlaylistMessage).getBytes();				
+			
+			System.out.println("Sending request.");
+			//initialize and send request packet using port 1234, the port the server is listening on
+			DatagramPacket request = new DatagramPacket(msg, msg.length, addPlaylistMessage.getAddress() , 1234);
+			socket.send(request);
+			System.out.println("request port: " + request.getPort());
+					
+			//initialize reply from server and receive it
+					
+			/* without specifying a port in this datagram packet, the OS will
+			 * randomly assign a port to the reply for the program to listen on
+			 */
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			socket.receive(reply);		
+			System.out.println(new String(buffer));
+			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+			//return updated set of playlists
+			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }

@@ -178,7 +178,7 @@ public class LoginController implements Initializable
 		
 				//access the SongViewController and call initUser() to pass user information
 				SongViewController controller = loader.getController();
-				controller.initUser(verifiedUser);
+				controller.initUser(verifiedUser, socket);
 				
 				Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 				window.setResizable(false);
@@ -229,7 +229,7 @@ public class LoginController implements Initializable
 		
 				//access the SongViewController and call initUser() to pass user information
 				SongViewController controller = loader.getController();
-				controller.initUser(newUser);
+				controller.initUser(newUser, socket);
 				
 				Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 				window.setResizable(false);
