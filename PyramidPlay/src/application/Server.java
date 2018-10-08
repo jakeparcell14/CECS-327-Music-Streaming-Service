@@ -383,12 +383,18 @@ public class Server {
 		{
 			//arraylist of playlists from the user
 			ArrayList<Playlist> p = user.getPlaylists();
-
-			//get index of playlist that will be changed
-			int playlistIndex = p.indexOf(playlist);
+			
+			//search for playlist by comparing names
+			int playlistIndex = 0;
+			while(!playlist.getPlaylistName().equals( p.get(playlistIndex).getPlaylistName() ) 
+					&& playlistIndex < p.size()) 
+			{
+				playlistIndex++;
+			}
 
 			//remove song from playlist
 			playlist.removeSong(song);
+			System.out.println("Removing playlist at index " + playlistIndex);
 
 			//remove old playlist
 			p.remove(playlistIndex);
