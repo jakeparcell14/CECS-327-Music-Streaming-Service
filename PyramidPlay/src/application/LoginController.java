@@ -146,41 +146,28 @@ public class LoginController implements Initializable
 		byte[] msg = gson.toJson(loginMsg).getBytes();				
 		
 		System.out.println("Sending request.");
-		try {
-			//initialize and send request packet using port 1234, the port the server is listening on
-			DatagramPacket request = new DatagramPacket(msg, msg.length, loginMsg.getAddress() , 1234);
-			socket.send(request);
-			//catch (SocketTimeoutException to)
-			
-			//initialize reply from server and receive it
-			
-			/* without specifying a port in this datagram packet, the OS will
-			 * randomly assign a port to the reply for the program to listen on
-			 */
-			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			socket.receive(reply);		
-			System.out.println("Response received from port " + reply.getPort() + "!");
-			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
-		} catch (SocketTimeoutException e) {
-			for (int i = 0; i < 5; i++) {
-				System.out.println("No response from server, sending request again.");
-				//initialize and send request packet using port 1234, the port the server is listening on
-				DatagramPacket request = new DatagramPacket(msg, msg.length, loginMsg.getAddress() , 1234);
-				socket.send(request);
-				//catch (SocketTimeoutException to)
-				
-				//initialize reply from server and receive it
-				
-				/* without specifying a port in this datagram packet, the OS will
-				 * randomly assign a port to the reply for the program to listen on
-				 */
-				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+		//initialize and send request packet using port 1234, the port the server is listening on
+		DatagramPacket request = new DatagramPacket(msg, msg.length, loginMsg.getAddress() , 1234);
+		socket.send(request);
+		//catch (SocketTimeoutException to)
+		
+		//initialize reply from server and receive it
+		
+		/* without specifying a port in this datagram packet, the OS will
+		 * randomly assign a port to the reply for the program to listen on
+		 */
+		DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+		for (int i = 0; i < 5; i++) {
+			try {
 				System.out.println("Awaiting response from server...");
-				socket.receive(reply);		
-				System.out.println("Response received from port " + reply.getPort() + "!");
+				socket.receive(reply);
+			} catch (SocketTimeoutException e) {
+				System.out.println("No response from server, try again.");
+				socket.send(request);
 			}
-		} 
+		}		
+		System.out.println("Response received from port " + reply.getPort() + "!");
+		//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
 		
 		try {
 			//if server responds with acknowledgement "VERIFIED" switch to song view
@@ -287,9 +274,9 @@ public class LoginController implements Initializable
 				//user is attempting to register a new account
 				register(AddFirstNameTextField.getText(), AddLastNameTextField.getText(), AddUsernameTextField.getText(), AddPasswordTextField.getText(), event);
 			}
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	@FXML
