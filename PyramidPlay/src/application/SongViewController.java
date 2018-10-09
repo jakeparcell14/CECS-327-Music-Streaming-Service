@@ -46,7 +46,9 @@ import javafx.scene.layout.Pane;
 import com.google.gson.Gson;
 
 
-
+/**
+ * This class handles the Song View user interface 
+ */
 public class SongViewController implements Initializable{
 	/**
 	 * TODO document
@@ -54,10 +56,17 @@ public class SongViewController implements Initializable{
 	DatagramSocket socket;
 	Gson gson;
 	public static int requestID;
+
 	@FXML
+	/**
+	 * This button makes the song start or stop playing
+	 */
 	private Button _playButton;
 
 	@FXML
+	/**
+	 * This button shows what part of the song is playing and allows the user to manually choose a part of the song to start playing
+	 */
 	private Slider _slider;
 
 	/**
@@ -70,44 +79,83 @@ public class SongViewController implements Initializable{
 	 */
 	private Playlist mySongs;
 
-	/*
+	@FXML
+	/**
 	 * Name of current song selected/playing
 	 */
-	@FXML
 	private Label currentSongName;
 
 	@FXML
+	/**
+	 * This label displays the artist of the current song
+	 */
 	private Label currentSongArtist;
 
 	@FXML
+	/**
+	 * This label displays the album of the current song
+	 */
 	private Label currentSongAlbum;
 
 	@FXML
+	/**
+	 * This label displays the current time of the song playing
+	 */
 	private Label currentTime;
 
 	@FXML
+	/**
+	 * This label displays the length of the song in minutes and seconds
+	 */
 	private Label totalTime;
 
 	@FXML
+	/**
+	 * This button allows the user to display their saved songs
+	 */
 	private ToggleButton mySongsButton;
 
 	@FXML
+	/**
+	 * This button allows the user to display their playlists
+	 */
 	private ToggleButton myPlaylistsButton;
 
 	@FXML
+	/**
+	 * This button allows the user to display the songs in the current playlist
+	 */
 	private ToggleButton currentPlaylistButton;
 
 	@FXML
+	/**
+	 * This displays the information for the songs in the search results
+	 */
 	private TableView AllSongsList;
 
 	@FXML
+	/**
+	 * This textfield allows the user to type information for the song they want to search
+	 */
 	private TextField AllSongsSearchBar;
 
 	@FXML
+	/**
+	 * This textfield allows the user to view their songs and playlists
+	 */
 	private TableView UserLibraryList;
 
 	@FXML
-	private Pane SearchBarPane;
+	/**
+	 * This pane holds the All Songs search bar
+	 */
+	private Pane SearchResultsPane;
+	
+	@FXML
+	/**
+	 * This Pane is the main window
+	 */
+	private Pane SongViewPane;
 
 	/**
 	 * Current playlist selected.
@@ -142,39 +190,48 @@ public class SongViewController implements Initializable{
 	@FXML
 	private TextField searchbar;
 	
+
 	/**
-	 * Terrible name, but thread that watches the current time of the song.
+	 * This textfield allows the user to search through songs and playlists
+	 */
+	private TextField userLibrarySearchBar;
+
+	/**
+	 * thread that watches the current time of the song.
 	 */
 	public Thread _thread;
 
-	ToggleGroup menuToggleGroup;
+	/**
+	 * this is the group of buttons that allows the user to choose what to display in the User Library List
+	 */
+	private ToggleGroup menuToggleGroup;
 
 	/**
 	 * sections of the TableViews that show the song title
 	 */
-	TableColumn titleColumn, allSongsTitleColumn;
+	private TableColumn titleColumn, allSongsTitleColumn;
 
 	/**
 	 * sections of the TableViews that show the artist of the song
 	 */
-	TableColumn artistColumn, allSongsArtistColumn;
+	private TableColumn artistColumn, allSongsArtistColumn;
 
 	/**
 	 * sections of the TableViews that show the album name
 	 */
-	TableColumn albumColumn, allSongsAlbumColumn;
+	private TableColumn albumColumn, allSongsAlbumColumn;
 
 	/**
 	 * section of the TableView that shows the playlist names
 	 */
-	TableColumn playlistNameColumn;
+	private TableColumn playlistNameColumn;
 
 	/**
 	 * section of the TableView that shows the date the playlist was made
 	 */
-	TableColumn dateCreatedColumn;
+	private TableColumn dateCreatedColumn;
 
-	
+
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
 	 */
@@ -217,7 +274,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void initUser(User user) {
 		this.user = user;
-		
+
 		//display my songs and set it as the current playlist
 		mySongs= user.getSavedSongs();
 		if(mySongs != null)
@@ -225,7 +282,7 @@ public class SongViewController implements Initializable{
 			displaySongs(mySongs);
 		}
 		currentPlaylist = user.getSavedSongs();
-		
+
 	}
 
 	/**
@@ -243,8 +300,9 @@ public class SongViewController implements Initializable{
 			// display songs on all songs list
 			AllSongsList.getItems().clear();
 
-			SearchBarPane.setVisible(true);
-			SearchBarPane.setMouseTransparent(false);
+			SearchResultsPane.setVisible(true);
+			SearchResultsPane.setMouseTransparent(false);
+
 
 			if(pl.getSongs().size() > 20)
 			{
@@ -298,8 +356,11 @@ public class SongViewController implements Initializable{
 		currentSongAlbum.setText(song.getAlbum());
 	}
 
-	// Event Listener on Button[#_playButton].onMouseClicked
 	@FXML
+	/**
+	 * Event Listener for the play button. This listener will stop the song if it is currently playing or start the song if it is not playing
+	 * @param event		the play/pause button has been clicked
+	 */
 	public void OnPlayPauseClicked(MouseEvent event) {
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
@@ -312,14 +373,14 @@ public class SongViewController implements Initializable{
 		}
 
 		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
+		SearchResultsPane.setVisible(false);
+		SearchResultsPane.setMouseTransparent(true);
 	}
 
 	@FXML
 	/**
 	 * Stops the current song and plays the next song in the playlist
-	 * @param event - the previous button is clicked
+	 * @param event  the previous button is clicked
 	 */
 	public void OnNextClicked (MouseEvent event) {
 		//updates current song index then plays
@@ -330,7 +391,7 @@ public class SongViewController implements Initializable{
 		playSelectedSong();
 	}
 
-	/***
+	/**
 	 * Method to play the current song from the beginning.
 	 */
 	public void playSelectedSong () {
@@ -348,15 +409,15 @@ public class SongViewController implements Initializable{
 		}
 
 		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
+		SearchResultsPane.setVisible(false);
+		SearchResultsPane.setMouseTransparent(true);
 		this.resetSearchText();
 	}
 
 	@FXML
 	/**
 	 * Stops the current song and plays the previous song in the playlist
-	 * @param event - the previous button is clicked
+	 * @param event  the previous button is clicked
 	 */
 	public void OnPreviousClicked (MouseEvent event) {
 
@@ -369,6 +430,10 @@ public class SongViewController implements Initializable{
 	}
 
 	@FXML
+	/**
+	 * This is a listener for the my songs button. If the user library is not already displaying the users saved songs, it will display the saved songs
+	 * @param event		The my songs button has been clicked
+	 */
 	public void OnMySongsClicked (MouseEvent event) {
 
 		// display the table view with all saved songs of the user
@@ -380,14 +445,18 @@ public class SongViewController implements Initializable{
 		mySongsButton.setSelected(true);
 
 		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
+		SearchResultsPane.setVisible(false);
+		SearchResultsPane.setMouseTransparent(true);
 		this.resetSearchText();
-		searchbar.setText("");
-		searchbar.setPromptText("search my songs");
+		userLibrarySearchBar.setText("");
+		userLibrarySearchBar.setPromptText("search my songs");
 	}
 
 	@FXML
+	/**
+	 * This is a listener for the my playlists button. If the user library is not already displaying the users playlists, it will display the users playlists
+	 * @param event		the my playlists button has been clicked
+	 */
 	public void OnMyPlaylistsClicked (MouseEvent event) {
 		// initalized table view with all the playlists the user has
 		if (user.getPlaylists() != null) {
@@ -398,56 +467,57 @@ public class SongViewController implements Initializable{
 		myPlaylistsButton.setSelected(true);
 
 		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
+		SearchResultsPane.setVisible(false);
+		SearchResultsPane.setMouseTransparent(true);
 		this.resetSearchText();
-		searchbar.setText("");
-		searchbar.setPromptText("search my playlists");
+		userLibrarySearchBar.setText("");
+		userLibrarySearchBar.setPromptText("search my playlists");
 	}
 
 	@FXML 
+	/**
+	 * This is a listener for the current playlist button. If the user library is not already displaying the current playlist, it will display the current playlist
+	 * @param event		the current playlist button has been clicked
+	 */
 	public void OnCurrentPlaylistClicked(MouseEvent event) {
 		if(!currentPlaylist.getSongs().isEmpty())
 		{
 			//display songs from current playlist
 			displaySongs(currentPlaylist);
 		}
-		
+
 		//ensure myPlaylists button cannot be deselected
 		currentPlaylistButton.setSelected(true);
 
 		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
-		searchbar.setText("");
-		searchbar.setPromptText("search " + currentPlaylist.getPlaylistName());
+		SearchResultsPane.setVisible(false);
+		SearchResultsPane.setMouseTransparent(true);
+		userLibrarySearchBar.setText("");
+		userLibrarySearchBar.setPromptText("search " + currentPlaylist.getPlaylistName());
 	}
 
 	@FXML
-	public void OnSearchBarClicked (MouseEvent event) {
-		// make search results invisible
-		SearchBarPane.setVisible(true);
-		SearchBarPane.setMouseTransparent(false);
-
-		displaySongs(new Playlist("all songs", allSongs));
-	}
-
-	@FXML
+	/**
+	 * This is a listener for the empty space in the window. If it is clicked, the search bar results will be hidden
+	 * @param event		the empty space in the song view has been clicked
+	 */
 	public void OnSongViewClicked (MouseEvent event) {
 		// make search results invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
+		SearchResultsPane.setVisible(false);
+		SearchResultsPane.setMouseTransparent(true);
+		
+		//removes focus from searchbar 
+		SongViewPane.requestFocus();
 
 		AllSongsList.getItems().clear();
-
-		for(int i=0; i<allSongs.size();i++) {
-			AllSongsList.getItems().addAll(allSongs.get(i).getTitle());
-		}
-
 	}
 
 
 	@FXML
+	/**
+	 * This is a listener for the all songs results. If a song is left-clicked, the song will play. If a song is right-clicked, another menu appears to add the song to a playlist or saved songs
+	 * @param event		the table showing search results has been clicked
+	 */
 	public void OnAllSongsListClicked(MouseEvent event)
 	{
 		//item on the list view that the user selects
@@ -471,8 +541,8 @@ public class SongViewController implements Initializable{
 				// make search results invisible
 				this.resetSearchText();
 			}
-			//user right clicks library list
-			else if(event.getButton() == MouseButton.SECONDARY) {
+			//user right clicks library list and list is not empty
+			else if(event.getButton() == MouseButton.SECONDARY && sel.getTitle() != null) {
 				ContextMenu cm = new ContextMenu();
 				Menu parentMenu = new Menu("Add To Playlist");
 				//user hard coded
@@ -500,9 +570,9 @@ public class SongViewController implements Initializable{
 													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 														OnCurrentPlaylistClicked(null);
 													}
-													
-													SearchBarPane.setVisible(false);
-													SearchBarPane.setMouseTransparent(true);
+
+													SearchResultsPane.setVisible(false);
+													SearchResultsPane.setMouseTransparent(true);
 													resetSearchText();
 												} catch (IOException e) {
 													e.printStackTrace();
@@ -836,16 +906,40 @@ public class SongViewController implements Initializable{
 				dialog.setHeaderText("New Playlist");
 				dialog.setContentText("Enter Playlist Name:");
 
-				ArrayList<Playlist> playlists=user.getPlaylists();
-				//keep on prompting user for name until it is unique or has non whitespace characters
-				while(true) {
-					Optional<String> result = dialog.showAndWait();
-					int count=0;
-					if(result.isPresent()) {
-						for(int i=0;i<playlists.size();i++) {
-							System.out.println(playlists.get(i));
-							if(playlists.get(i).getPlaylistName().equals(result.get())) {
-								count++;
+				try {
+					ArrayList<Playlist> playlists=user.getPlaylists();
+					//keep on prompting user for name until it is unique or has non whitespace characters
+					while(true) {
+						Optional<String> result = dialog.showAndWait();
+						int count=0;
+						if(result.isPresent()) {
+							for(int i=0;i<playlists.size();i++) {
+								if(playlists.get(i).getPlaylistName().equals(result.get())) {
+									count++;
+								}
+							}
+							if(count!=0) {// input isnt unique
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Error adding playlist");
+								alert.setHeaderText("There is already a playlist with that name");
+								alert.setContentText("Please try a different name");
+								alert.showAndWait();
+							}
+							else if(result.get().trim().length() == 0) { //only whitespace
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Error adding playlist");
+								alert.setHeaderText("Enter Characters that are not blank space");
+								alert.setContentText("Please try a different name");
+								alert.showAndWait();
+							}
+							else{//add playlist
+								Playlist p = new Playlist(result.get());
+								p.setCurrentDate();
+								playlists.add(p);
+								user.setPlaylists(playlists);
+								UserRepository.UpdateUser(user);
+								OnMyPlaylistsClicked(null);
+								break;
 							}
 						}
 						if(count!=0) {// input isnt unique
@@ -893,8 +987,8 @@ public class SongViewController implements Initializable{
 	 */
 	public void OnLibraryListClicked(MouseEvent event) {
 		// make search results for main search bar invisible
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
+		SearchResultsPane.setVisible(false);
+		SearchResultsPane.setMouseTransparent(true);
 		this.resetSearchText();
 		//item on the list view that the user selects
 
@@ -932,6 +1026,10 @@ public class SongViewController implements Initializable{
 	}
 
 	@FXML
+	/**
+	 * This is a listener for the song slider. When dragged, the slider updates the position in the song to the new location of the slider
+	 * @param event		the song slider has been clicked
+	 */
 	public void OnSliderClicked(MouseEvent event)
 	{
 		/* if it was not dragged but simple clicked to a new position,
@@ -955,7 +1053,7 @@ public class SongViewController implements Initializable{
 
 	@FXML
 	/**
-	 * Event handleer when a drag is detected on the slider
+	 * Event handler when a drag is detected on the slider
 	 * @param event
 	 */
 	public void OnSliderDragDetected(MouseEvent event) {
@@ -975,9 +1073,13 @@ public class SongViewController implements Initializable{
 
 
 	@FXML
+	/**
+	 * This displays search results in the all songs table when there is text in the all songs search bar
+	 */
 	public void searchAllSongs()
 	{
 		Playlist validSongs = new Playlist("valid");
+
 		String query = AllSongsSearchBar.getText();
 		DatagramSocket socket;
 		try {
@@ -1038,49 +1140,62 @@ public class SongViewController implements Initializable{
 		
 		
 
-		for(int i=0; i<allSongs.size();i++) {
-			if(validSongs.getSongs().size() <= 20)
-			{
-				//checks if query matches the title of the current song
-				if(allSongs.get(i).getTitle() != null && allSongs.get(i).getTitle().length() >= query.length()) {
-					// the song title is at least as long as the query
-					if(allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-						//the query matches the song title
-						validSongs.addSong(allSongs.get(i));
-					}
-				}
-
-				//checks if query matches the album name of the current song
-				if(!validSongs.contains(allSongs.get(i).getTitle())) {
-					// the song has not been added to the list of valid songs yet
-					if(allSongs.get(i).getAlbum() != null && allSongs.get(i).getAlbum().length() >= query.length()) {
-						// the album name is at least as long as the query
-						if(allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-							//the query matches the album name
+		if(!query.isEmpty())
+		{
+			// query is not empty
+			for(int i=0; i<allSongs.size();i++) {
+				if(validSongs.getSongs().size() <= 20)
+				{
+					//checks if query matches the title of the current song
+					if(allSongs.get(i).getTitle() != null && allSongs.get(i).getTitle().length() >= query.length()) {
+						// the song title is at least as long as the query
+						if(allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+							//the query matches the song title
 							validSongs.addSong(allSongs.get(i));
 						}
 					}
-				}
 
-				//checks if query matches the artist name of the current song
-				if(!validSongs.contains(allSongs.get(i).getTitle())) {
-					// the song has not been added to the list of valid songs yet
-					if(allSongs.get(i).getArtist() != null && allSongs.get(i).getArtist().length() >= query.length()) {
-						// the artist name is at least as long as the query
-						if(allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-							//the query matches the artist name
-							validSongs.addSong(allSongs.get(i));
+					//checks if query matches the album name of the current song
+					if(!validSongs.contains(allSongs.get(i).getTitle())) {
+						// the song has not been added to the list of valid songs yet
+						if(allSongs.get(i).getAlbum() != null && allSongs.get(i).getAlbum().length() >= query.length()) {
+							// the album name is at least as long as the query
+							if(allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+								//the query matches the album name
+								validSongs.addSong(allSongs.get(i));
+							}
+						}
+					}
+
+					//checks if query matches the artist name of the current song
+					if(!validSongs.contains(allSongs.get(i).getTitle())) {
+						// the song has not been added to the list of valid songs yet
+						if(allSongs.get(i).getArtist() != null && allSongs.get(i).getArtist().length() >= query.length()) {
+							// the artist name is at least as long as the query
+							if(allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
+								//the query matches the artist name
+								validSongs.addSong(allSongs.get(i));
+							}
 						}
 					}
 				}
 			}
+			displaySongs(validSongs);
 		}
+		else
+		{
+			//text bar is empty
+			SearchResultsPane.setVisible(false);
+			SearchResultsPane.setMouseTransparent(true);
+		}
+
 		displaySongs(validSongs);*/
+
 	}
-	
+
 	/**
 	 * searches mysongs and displays on userlibrarylist
-	 * @param query - user inputted query
+	 * @param query - user inputed query
 	 */
 	public void searchMySongs(String query,OpID opID,DatagramSocket socket) {
 		String[] arr= {user.getUsername(),query};
@@ -1234,7 +1349,7 @@ public class SongViewController implements Initializable{
 		try {			
 			UserLibraryList.getItems().clear();
 			//user inputted text
-			String query=searchbar.getText();
+			String query=userLibrarySearchBar.getText();
 
 			DatagramSocket socket = null;
 			try {
@@ -1329,6 +1444,11 @@ public class SongViewController implements Initializable{
 	}
 
 	@Override
+	/**
+	 * This initializes columns and toggle button groups. It also adds all songs the the allSongs list
+	 * @param arg0 unused but needed to override the initialize function
+	 * @param arg1 unused but needed to override the initialize function
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		gson = new Gson();	
 		menuToggleGroup = new ToggleGroup();
@@ -1339,7 +1459,7 @@ public class SongViewController implements Initializable{
 		currentPlaylistButton.setToggleGroup(menuToggleGroup);
 
 		mySongsButton.setSelected(true);
-		searchbar.setPromptText("search my songs");
+		userLibrarySearchBar.setPromptText("search my songs");
 
 		// makes sure the columns take up the entire width of the table
 		UserLibraryList.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -1380,23 +1500,25 @@ public class SongViewController implements Initializable{
 
 		UserLibraryList.getColumns().addAll(titleColumn, artistColumn, albumColumn);
 		AllSongsList.getColumns().addAll(allSongsTitleColumn, allSongsArtistColumn, allSongsAlbumColumn);
-		
+
 		try 
 		{
 			allSongs = UserRepository.getAllSongs();
 			allSongs.sort(null);
 		} 
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		//make listview automatically invisible until the search bar is selected
-		SearchBarPane.setVisible(false);
-		SearchBarPane.setMouseTransparent(true);
+		SearchResultsPane.setVisible(false);
+		SearchResultsPane.setMouseTransparent(true);
 		this.resetSearchText();
 	}
 
+	/**
+	 * This clears the text in the all songs search bar and resets the prompt text
+	 */
 	public void resetSearchText()
 	{
 		// reset prompt text
