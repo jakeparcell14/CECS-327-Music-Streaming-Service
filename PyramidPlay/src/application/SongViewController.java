@@ -51,10 +51,16 @@ import com.google.gson.Gson;
  */
 public class SongViewController implements Initializable{
 	/**
-	 * TODO document
+	 * the socket used to make a connection to the server
 	 */
 	DatagramSocket socket;
+	/**
+	 * gson variable
+	 */
 	Gson gson;
+	/**
+	 * Id used for request method needed
+	 */
 	public static int requestID;
 
 	@FXML
@@ -186,7 +192,9 @@ public class SongViewController implements Initializable{
 	 * Current slider position.
 	 */
 	public double _sliderPosition;
-
+	/**
+	 * search bar
+	 */
 	@FXML
 	private TextField searchbar;
 	
@@ -524,7 +532,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void OnAllSongsListClicked(MouseEvent event)
 	{
-		//item on the list view that the user selects
+		//user left clicks search result
 		try {
 			Song sel = (Song) AllSongsList.getSelectionModel().getSelectedItem();
 			//user left clicks on library list
@@ -545,12 +553,13 @@ public class SongViewController implements Initializable{
 				// make search results invisible
 				this.resetSearchText();
 			}
-			//user right clicks library list and list is not empty
-			else if(event.getButton() == MouseButton.SECONDARY && sel.getTitle() != null) {
+			//user right clicks search result
+			else if(event.getButton() == MouseButton.SECONDARY) {
 				ContextMenu cm = new ContextMenu();
 				Menu parentMenu = new Menu("Add To Playlist");
 				//user hard coded
 				ArrayList<Playlist> playlists=user.getPlaylists();
+				ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
 				for (int i = 0; i<playlists.size(); i++) {
 					MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
 					temp.setOnAction(new EventHandler<ActionEvent>() {
@@ -562,25 +571,21 @@ public class SongViewController implements Initializable{
 								if(playlists.get(k).getPlaylistName().equals(playlistName)) {
 									for(int j=0; j<allSongs.size();j++) {
 										if(allSongs.get(j).getTitle()!=null) {
-											//check if the selected list item is equal to the current songs title
+											//check if the selected list item is equal to the current songs title TODO make it work
 											if(allSongs.get(j).equals(sel)) {
 												Playlist tp = playlists.get(k);
-												tp.addSong(allSongs.get(j));
-												playlists.set(k, tp);
+												ArrayList<Playlist> updatedPlaylist;
 												try {
-													user.setPlaylists(playlists);
-													UserRepository.UpdateUser(user);
+													updatedPlaylist = addSongToServer(allSongs.get(j), tp);
+													user.setPlaylists(updatedPlaylist);
 													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 														OnCurrentPlaylistClicked(null);
 													}
-
-													SearchResultsPane.setVisible(false);
-													SearchResultsPane.setMouseTransparent(true);
-													resetSearchText();
-												} catch (IOException e) {
+													break;
+												} catch (SocketException e) {
+													// TODO Auto-generated catch block
 													e.printStackTrace();
 												}
-												break;
 											}
 										}
 									}
@@ -608,19 +613,26 @@ public class SongViewController implements Initializable{
 										}
 									}
 									if(sameTitle==0) {
-										mySongs.addSong(allSongs.get(j));
-										user.setSavedSongs(mySongs);
+										Playlist temp = new Playlist("saved");
+										temp.addSong(allSongs.get(j));
+										ArrayList<Playlist> updatedSavedSongs;
 										try {
-											UserRepository.UpdateUser(user);
+											updatedSavedSongs = addSongToServer(allSongs.get(j), temp);
+											mySongs.setSongs(updatedSavedSongs.get(0).getSongs());
+											user.setSavedSongs(mySongs);
+											
 											if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 												OnCurrentPlaylistClicked(null);
 											}
 											else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)) {
 												OnMySongsClicked(null);
 											}
-										} catch (IOException e) {
+										} catch (SocketException e) {
+											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
+										
+								
 									}
 									else {
 										Alert alert = new Alert(AlertType.ERROR);
@@ -643,6 +655,7 @@ public class SongViewController implements Initializable{
 			//listview item that was clicked is	 blank
 		}
 	}
+
 
 	/**
 	 * action when the user left clicks on the UserLibraryList while My Songs is selected. Only action is
@@ -960,9 +973,6 @@ public class SongViewController implements Initializable{
 							alert.showAndWait();
 						}
 						else{//add playlist
-							//playlists.add(new Playlist(result.get()));
-							//user.setPlaylists(playlists);
-							//UserRepository.UpdateUser(user);
 							ArrayList<Playlist> updatedPlaylist = addPlaylist(new Playlist(result.get()));												
 							user.setPlaylists(updatedPlaylist);
 							OnMyPlaylistsClicked(null);
