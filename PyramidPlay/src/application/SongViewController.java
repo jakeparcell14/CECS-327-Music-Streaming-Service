@@ -141,7 +141,7 @@ public class SongViewController implements Initializable{
 
 	@FXML
 	private TextField searchbar;
-
+	
 	/**
 	 * Terrible name, but thread that watches the current time of the song.
 	 */
@@ -800,38 +800,31 @@ public class SongViewController implements Initializable{
 		MenuItem createP = new MenuItem("Create New Playlist");
 		//option to remove selected playlist
 		MenuItem removeP = new MenuItem("Remove Playlist");
+		
 		removeP.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
-				try {
-					ArrayList<Playlist> playlists=user.getPlaylists();
-					if(!sel.getPlaylistName().equals("My Playlist")){
-						for(int n=0;n<playlists.size();n++) {
-							if(sel.equals(playlists.get(n))) {
-								//change track to saved songs if deleted
-								if(playlists.get(n).equals(currentPlaylist)) {
-									currentPlaylist=user.getSavedSongs();
-								}
-								playlists.remove(n);
-								user.setPlaylists(playlists);
-								UserRepository.UpdateUser(user);
-								OnMyPlaylistsClicked(null);
-							}
-						}
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				if(!sel.getPlaylistName().equals("My Playlist")){
+					playlists = removePlaylist(sel);
+					//set current playlist to saved 
+					if (sel.getPlaylistName().equals(currentPlaylist.getPlaylistName())) {
+						currentPlaylist = user.getSavedSongs();
 					}
-					else {//My playlist has to exist
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error");
-						alert.setHeaderText("Cannot delete My Playlist");
-						alert.setContentText("Please try a different option");
-						alert.showAndWait();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+					user.setPlaylists(playlists);;
+					OnMySongsClicked(null);
+					
+				}
+				else {//My playlist has to exist
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Cannot delete My Playlist");
+					alert.setContentText("Please try a different option");
+					alert.showAndWait();
 				}
 			}
 		});
+		
 		createP.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -1509,6 +1502,47 @@ public class SongViewController implements Initializable{
 
 			socket.close();
 			return null;
+		} catch (SocketException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Playlist> removePlaylist(Playlist playlistToRemove) {
+		//initialize buffer
+		DatagramSocket socket;
+		try {
+			socket = new DatagramSocket();
+			byte[] buffer = new byte[5000];
+			try {
+				String playlistJSON = gson.toJson(playlistToRemove);
+				String[] arr = {user.getUsername(), playlistJSON};
+				
+				Message removePlaylistMessage = new Message(1, requestID++, OpID.DELETEPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+
+				//convert to json
+				String json = gson.toJson(removePlaylistMessage);
+
+				//we can only send bytes, so flatten the string to a byte array
+				byte[] msg = gson.toJson(removePlaylistMessage).getBytes();				
+
+				System.out.println("Sending request.");
+				//initialize and send request packet using port 1234, the port the server is listening on
+				DatagramPacket request = new DatagramPacket(msg, msg.length, removePlaylistMessage.getAddress() , 1234);
+				System.out.println(socket == null);
+				socket.send(request);
+				System.out.println("request port: " + request.getPort());
+				Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+				
+				socket.close();
+				//return updated set of playlists
+				return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+			} catch (UnknownHostException e1) {
+				e1.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} catch (SocketException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
