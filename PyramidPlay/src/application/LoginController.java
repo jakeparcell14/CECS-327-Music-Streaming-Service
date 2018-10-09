@@ -24,6 +24,10 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import com.google.gson.Gson;
 
+/**
+ * Controller class for login page.
+ * 
+ */
 public class LoginController implements Initializable
 {
 	public static int requestID;

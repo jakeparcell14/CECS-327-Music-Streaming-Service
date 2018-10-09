@@ -1,5 +1,10 @@
 package application;
 
+/**
+ * Class to attach operations to enums.
+ * @author Wesley
+ *
+ */
 public enum OpID {
 	LOGIN,
 	REGISTER,

@@ -47,7 +47,9 @@ import com.google.gson.Gson;
 
 
 /**
- * This class handles the Song View user interface 
+ * This class handles the Song View user interface.
+ * 
+ * We are aware about how absurdly horrific this code is.
  */
 public class SongViewController implements Initializable{
 	/**
