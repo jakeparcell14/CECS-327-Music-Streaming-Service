@@ -181,6 +181,10 @@ public class User implements Comparable<User>, Serializable
 	 */
 	public Playlist getPlaylist(String playlistName)
 	{
+		if(playlistName.equals("saved"))
+		{
+			return savedSongs;
+		}
 		for(Playlist p : playlists)
 		{
 			if(p.getPlaylistName().equals(playlistName))
