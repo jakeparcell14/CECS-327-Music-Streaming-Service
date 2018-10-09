@@ -548,7 +548,6 @@ public class SongViewController implements Initializable{
 				Menu parentMenu = new Menu("Add To Playlist");
 				//user hard coded
 				ArrayList<Playlist> playlists=user.getPlaylists();
-				ArrayList<MenuItem> childMenu = new ArrayList<MenuItem>();
 				for (int i = 0; i<playlists.size(); i++) {
 					MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
 					temp.setOnAction(new EventHandler<ActionEvent>() {
@@ -676,9 +675,9 @@ public class SongViewController implements Initializable{
 		//TableView experiment
 		Playlist selectedPlaylist = (Playlist) UserLibraryList.getSelectionModel().getSelectedItem();
 		ArrayList<Playlist> playlists=user.getPlaylists();
-
 		for(int i=0; i<playlists.size();i++) {
-			if(playlists.get(i).getPlaylistName()!=null) {
+			//make sure playlist is not null and it has a song in it
+			if(playlists.get(i).getPlaylistName()!=null && playlists.get(i).getSongs().size() > 0) {
 				//check if the selected list item is equal to the current playlist
 				if(playlists.get(i).equals(selectedPlaylist)) {
 					currentPlaylist=selectedPlaylist;
