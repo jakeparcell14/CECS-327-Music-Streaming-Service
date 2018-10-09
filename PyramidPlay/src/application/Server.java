@@ -428,7 +428,7 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.addPlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class));
 		UserRepository.UpdateUser(user);
-		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
+		return gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])).getBytes();
 	}
 	
 	/**

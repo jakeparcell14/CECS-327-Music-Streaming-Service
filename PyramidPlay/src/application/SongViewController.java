@@ -834,47 +834,46 @@ public class SongViewController implements Initializable{
 				dialog.setHeaderText("New Playlist");
 				dialog.setContentText("Enter Playlist Name:");
 
-				try {
-					ArrayList<Playlist> playlists=user.getPlaylists();
-					//keep on prompting user for name until it is unique or has non whitespace characters
-					while(true) {
-						Optional<String> result = dialog.showAndWait();
-						int count=0;
-						if(result.isPresent()) {
-							for(int i=0;i<playlists.size();i++) {
-								if(playlists.get(i).getPlaylistName().equals(result.get())) {
-									count++;
-								}
-							}
-							if(count!=0) {// input isnt unique
-								Alert alert = new Alert(AlertType.ERROR);
-								alert.setTitle("Error adding playlist");
-								alert.setHeaderText("There is already a playlist with that name");
-								alert.setContentText("Please try a different name");
-								alert.showAndWait();
-							}
-							else if(result.get().trim().length() == 0) { //only whitespace
-								Alert alert = new Alert(AlertType.ERROR);
-								alert.setTitle("Error adding playlist");
-								alert.setHeaderText("Enter Characters that are not blank space");
-								alert.setContentText("Please try a different name");
-								alert.showAndWait();
-							}
-							else{//add playlist
-								playlists.add(new Playlist(result.get()));
-								user.setPlaylists(playlists);
-								UserRepository.UpdateUser(user);
-								OnMyPlaylistsClicked(null);
-								break;
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				//keep on prompting user for name until it is unique or has non whitespace characters
+				while(true) {
+					Optional<String> result = dialog.showAndWait();
+					int count=0;
+					if(result.isPresent()) {
+						for(int i=0;i<playlists.size();i++) {
+							System.out.println(playlists.get(i));
+							if(playlists.get(i).getPlaylistName().equals(result.get())) {
+								count++;
 							}
 						}
-						else
-						{
+						if(count!=0) {// input isnt unique
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error adding playlist");
+							alert.setHeaderText("There is already a playlist with that name");
+							alert.setContentText("Please try a different name");
+							alert.showAndWait();
+						}
+						else if(result.get().trim().length() == 0) { //only whitespace
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error adding playlist");
+							alert.setHeaderText("Enter Characters that are not blank space");
+							alert.setContentText("Please try a different name");
+							alert.showAndWait();
+						}
+						else{//add playlist
+							//playlists.add(new Playlist(result.get()));
+							//user.setPlaylists(playlists);
+							//UserRepository.UpdateUser(user);
+							ArrayList<Playlist> updatedPlaylist = addPlaylist(new Playlist(result.get()));												
+							user.setPlaylists(updatedPlaylist);
+							OnMyPlaylistsClicked(null);
 							break;
 						}
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
+					else
+					{
+						break;
+					}
 				}
 
 			}
@@ -1451,7 +1450,43 @@ public class SongViewController implements Initializable{
 		socket.close();
 		return null;
 	}
+	public ArrayList<Playlist> addPlaylist(Playlist playlist){
+		
+		try {
+			DatagramSocket socket;
+			socket = new DatagramSocket();
+			byte[] buffer = new byte[5000];
+			String playlistJSON = gson.toJson(playlist);
+			String[] arr = {user.getUsername(), playlistJSON};
+			Message addSongMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+			//convert to json
+			String json = gson.toJson(addSongMessage);
+			//we can only send bytes, so flatten the string to a byte array
+			byte[] msg = gson.toJson(addSongMessage).getBytes();				
+			System.out.println("Sending request.");
+			DatagramPacket request = new DatagramPacket(msg, msg.length, addSongMessage.getAddress() , 1234);
+			System.out.println(socket == null);
+			socket.send(request);
+			System.out.println("request port: " + request.getPort());
 
+			//initialize reply from server and receive it
+
+			/* without specifying a port in this datagram packet, the OS will
+			 * randomly assign a port to the reply for the program to listen on
+			 */
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			socket.receive(reply);		
+			System.out.println(new String(buffer));
+			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+			socket.close();
+			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public ArrayList<Playlist> removeSongFromServer(Song songToRemove, Playlist playlistToUpdate)
 	{		
 		//initialize buffer
