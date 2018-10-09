@@ -194,6 +194,7 @@ public class SongViewController implements Initializable{
 	/**
 	 * This textfield allows the user to search through songs and playlists
 	 */
+	@FXML
 	private TextField userLibrarySearchBar;
 
 	/**
@@ -966,14 +967,10 @@ public class SongViewController implements Initializable{
 							break;
 						}
 					}
-					else
-					{
-						break;
-					}
+				} catch (Exception e) {
+					
 				}
-
 			}
-
 		});
 		cm.getItems().add(removeP);
 		cm.getItems().add(createP);
