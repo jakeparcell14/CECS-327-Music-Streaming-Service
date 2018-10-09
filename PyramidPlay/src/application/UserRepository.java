@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import com.google.gson.*;
 
 public class UserRepository {
@@ -24,7 +23,13 @@ public class UserRepository {
 			out.close();
 	
 	}
-		
+	
+	/**
+	 * Gets all users.
+	 * 
+	 * @return Returns all users from the json database.
+	 * @throws IOException
+	 */
 	private static ArrayList<User> getUsers() throws IOException {
 		Gson gson = new Gson();
 		ArrayList<User> users = new ArrayList<User>();
@@ -43,6 +48,12 @@ public class UserRepository {
 		return users;
 	}
 	
+	/**
+	 * Gets all songs in our json database.
+	 * 
+	 * @return Returns an arraylist of all songs.
+	 * @throws IOException
+	 */
 	private static ArrayList<Song> getSongs() throws IOException {
 		Gson gson = new Gson();
 		ArrayList<Song> songs = new ArrayList<Song>();
@@ -70,6 +81,12 @@ public class UserRepository {
 		return getUsers().contains(new User(username, password));
 	}
 	
+	/***
+	 * Checks if a user exists.
+	 * @param username Username to check for.
+	 * @return Returns true if that username exists, false if it doesn't.
+	 * @throws IOException
+	 */
 	public static boolean userExists(String username) throws IOException
 	{
 		return getUsers().contains(new User(null, null, username, null));
@@ -77,6 +94,7 @@ public class UserRepository {
 	
 	/**
 	 * Gets a specific user.
+	 * 
 	 * @param username Username of user to fetch.
 	 * @return Returns user with that username.Returns null if that username does not exist.
 	 */
@@ -89,11 +107,23 @@ public class UserRepository {
 		return null;
 	}
 	
+	/**
+	 * Gets all songs.
+	 * 
+	 * @return Returns arraylist of all songs.
+	 * @throws IOException
+	 */
 	public static ArrayList<Song> getAllSongs() throws IOException
 	{
 		return getSongs();
 	}
 	
+	/**
+	 * Updates a given user.
+	 * 
+	 * @param user Updated user object to replace in json database.
+	 * @throws IOException
+	 */
 	public static void UpdateUser(User user) throws IOException {
 		ArrayList<User> users = getUsers();
 		User temp = getUser(user.getUsername());
@@ -102,6 +132,12 @@ public class UserRepository {
 		UpdateUsers(users);
 	}
 	
+	/**
+	 * Updates all users in the database.
+	 * 
+	 * @param users ARraylist of all users to update.
+	 * @throws IOException
+	 */
 	private static void UpdateUsers(ArrayList<User> users) throws IOException {
 		FileWriter out = null;
 		Gson gson = new Gson();
