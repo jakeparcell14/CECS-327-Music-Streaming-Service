@@ -20,7 +20,7 @@
       <Pane fx:id="SignInPane" layoutX="200.0" layoutY="94.0" prefHeight="205.0" prefWidth="200.0">
          <children>
             <TextField fx:id="UsernameTextField" layoutY="96.0" opacity="0.5" prefHeight="25.0" prefWidth="200.0" />
-            <PasswordField fx:id="PasswordTextField" layoutY="147.0" opacity="0.5" prefHeight="25.0" prefWidth="200.0" />
+            <PasswordField fx:id="PasswordTextField" layoutY="147.0" onAction = "#signInOrRegister" opacity="0.5" prefHeight="25.0" prefWidth="200.0" />
             <Label fx:id="UsernameLabel" alignment="CENTER" layoutY="77.0" prefWidth="200.0" text="Username" textFill="WHITE">
                <font>
                   <Font size="13.0" />
@@ -61,7 +61,7 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="AddPasswordTextField" layoutY="258.0" opacity="0.5" prefWidth="200.0" />
+            <TextField fx:id="AddPasswordTextField" layoutY="258.0" onAction = "#signInOrRegister" opacity="0.5" prefWidth="200.0" />
             <Label fx:id="UsernameUnavailableLabel" alignment="CENTER" layoutY="243.0" prefWidth="200.0" text="${'username unavailable.\nplease try a different username'}" textAlignment="CENTER" textFill="RED" visible="false">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -71,7 +71,7 @@
       </Pane>
       <Pane fx:id="LoginButtonPane" layoutX="200.0" layoutY="313.0" prefHeight="86.0" prefWidth="200.0">
          <children>
-            <Button fx:id="SignInOrRegisterButton" layoutY="7.0" mnemonicParsing="false" onAction="#OnSignInOrRegisterClicked" opacity="0.5" prefHeight="31.0" prefWidth="200.0" text="Sign In" />
+            <Button fx:id="SignInOrRegisterButton" layoutY="7.0" mnemonicParsing="false" onAction="#signInOrRegister" opacity="0.5" prefHeight="31.0" prefWidth="200.0" text="Sign In" />
             <Button fx:id="RegisterOrCancelButton" layoutY="51.0" mnemonicParsing="false" onAction="#OnRegisterOrCancelClicked" opacity="0.5" prefHeight="31.0" prefWidth="200.0" text="Create an Account" />
          </children>
       </Pane>

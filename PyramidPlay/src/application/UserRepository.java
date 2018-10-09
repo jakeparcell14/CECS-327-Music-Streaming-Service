@@ -18,7 +18,7 @@ public class UserRepository {
 		FileWriter out = null;
 		Gson gson = new Gson();
 		out = new FileWriter("users.json", true);
-		out.write(gson.toJson(user)+"\n");
+		out.write("\n" + gson.toJson(user));
 			
 		if (out != null)
 			out.close();
@@ -32,7 +32,9 @@ public class UserRepository {
 		Scanner scanner = new Scanner(file);
 			
 		while(scanner.hasNextLine()) {
-			User user = gson.fromJson(scanner.nextLine(), User.class);
+			String jsonLine = scanner.nextLine();
+			//System.out.println(jsonLine);
+			User user = gson.fromJson(jsonLine, User.class);
 			if (user != null)
 				users.add(user);
 		}

@@ -3,7 +3,13 @@ package application;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javax.sound.sampled.AudioInputStream;
@@ -37,11 +43,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import com.google.gson.Gson;
+
 
 /**
  * This class handles the Song View user interface 
  */
 public class SongViewController implements Initializable{
+	/**
+	 * TODO document
+	 */
+	DatagramSocket socket;
+	Gson gson;
+	public static int requestID;
 
 	@FXML
 	/**
@@ -174,6 +188,9 @@ public class SongViewController implements Initializable{
 	public double _sliderPosition;
 
 	@FXML
+	private TextField searchbar;
+	
+
 	/**
 	 * This textfield allows the user to search through songs and playlists
 	 */
@@ -272,6 +289,10 @@ public class SongViewController implements Initializable{
 	 * displays songs from a given playlist on the main search bar or on the user library
 	 * @param pl	playlist that contains the songs to be displayed
 	 */
+	/**
+	 * displays songs from a given playlist on the main search bar or on the user library
+	 * @param pl	playlist that contains the songs to be displayed
+	 */
 	public void displaySongs(Playlist pl) {
 
 		if(AllSongsSearchBar.isFocused())
@@ -281,6 +302,7 @@ public class SongViewController implements Initializable{
 
 			SearchResultsPane.setVisible(true);
 			SearchResultsPane.setMouseTransparent(false);
+
 
 			if(pl.getSongs().size() > 20)
 			{
@@ -305,6 +327,7 @@ public class SongViewController implements Initializable{
 			UserLibraryList.getItems().addAll(pl.getSongs());
 		}
 	}
+
 
 	/**
 	 * displays all playlists and the dates they were created on the User Library
@@ -692,80 +715,79 @@ public class SongViewController implements Initializable{
 	public void rtMouseClickMySongs(MouseEvent event) {
 		//the selected item
 		Song sel = (Song) UserLibraryList.getSelectionModel().getSelectedItem();
-		//popup menu to appear on right click
-		ContextMenu cm = new ContextMenu();
-		//menu with the names of all the playlists in it
-		Menu parentMenu = new Menu("Add To Playlist");
-		ArrayList<Playlist> playlists=user.getPlaylists();
-		// creates selections for all the playlists
-		for (int i = 0; i<playlists.size(); i++) {
-			MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
-			// when the playlist name is selected
-			temp.setOnAction(new EventHandler<ActionEvent>() {
+		if(!sel.getTitle().equals(null)) {
+			//popup menu to appear on right click
+			ContextMenu cm = new ContextMenu();
+			//menu with the names of all the playlists in it
+			Menu parentMenu = new Menu("Add To Playlist");
+			ArrayList<Playlist> playlists=user.getPlaylists();
+			// creates selections for all the playlists
+			for (int i = 0; i<playlists.size(); i++) {
+				MenuItem temp = new MenuItem(playlists.get(i).getPlaylistName());
+				// when the playlist name is selected
+				temp.setOnAction(new EventHandler<ActionEvent>() {
 
-				@Override
-				public void handle(ActionEvent event) {
-					String playlistName=temp.getText();
-					Playlist mySongs=user.getSavedSongs();
-					ArrayList<Song> savedSongs=mySongs.getSongs();
-					for(int k=0;k<playlists.size();k++)
-					{
-						if(playlists.get(k).getPlaylistName().equals(playlistName)) {
-							for(int j=0; j<savedSongs.size();j++) {
-								if(savedSongs.get(j).getTitle()!=null) {
-									//check if the selected list item is equal to the current songs title
-									if(savedSongs.get(j).equals(sel)) {
-										// add song to playlist
-										Playlist tp = playlists.get(k);
-										tp.addSong(savedSongs.get(j));
-										playlists.set(k, tp);
-										try {
-											user.setPlaylists(playlists);
-											UserRepository.UpdateUser(user);
-										} catch (IOException e) {
-											e.printStackTrace();
+					@Override
+					public void handle(ActionEvent event) {
+						String playlistName=temp.getText();
+						Playlist mySongs=user.getSavedSongs();
+						ArrayList<Song> savedSongs=mySongs.getSongs();
+						for(int k=0;k<playlists.size();k++)
+						{
+							if(playlists.get(k).getPlaylistName().equals(playlistName)) {
+								for(int j=0; j<savedSongs.size();j++) {
+									if(savedSongs.get(j).getTitle()!=null) {
+										//check if the selected list item is equal to the current songs title
+										if(savedSongs.get(j).equals(sel)) {
+											// add song to playlist											
+											Playlist tp = playlists.get(k);
+											try {
+												ArrayList<Playlist> updatedPlaylist = addSongToServer(sel, tp);												
+												user.setPlaylists(updatedPlaylist);
+											} catch (SocketException e) {
+												
+											}
+											break;
 										}
-										break;
 									}
 								}
 							}
 						}
 					}
+				});
+				parentMenu.getItems().add(temp);
+			}
+			//option to remove song
+			MenuItem removeSavedSong = new MenuItem("Remove Saved Song");
+			removeSavedSong.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					Playlist temp=user.getSavedSongs();
+					//cant remove a song from saved songs if there is only one song
+					if(temp.getSongs().size()==1) {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Remove Saved Song Error");
+						alert.setHeaderText("Saved Songs Must Have At Least One Song");
+						alert.setContentText("Please try a different option");
+						alert.showAndWait();
+					}
+					else {
+						Playlist tp = new Playlist("saved");
+						tp.setSongs(user.getSavedSongs().getSongs());
+						//remove song from saved songs
+						ArrayList<Playlist> updatedPlaylist = removeSongFromServer(sel, tp);
+						//TODO
+						user.setSavedSongs(updatedPlaylist.get(0));
+						currentPlaylist=user.getSavedSongs();
+						OnMySongsClicked(null);
+					}
 				}
 			});
-			parentMenu.getItems().add(temp);
+			//add options to list and show
+			cm.getItems().add(parentMenu);
+			cm.getItems().add(removeSavedSong);
+			cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 		}
-		//option to remove song
-		MenuItem removeSavedSong = new MenuItem("Remove Saved Song");
-		removeSavedSong.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				Playlist temp=user.getSavedSongs();
-				//cant remove a song from saved songs if there is only one song
-				if(temp.getSongs().size()==1) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Remove Saved Song Error");
-					alert.setHeaderText("Saved Songs Must Have At Least One Song");
-					alert.setContentText("Please try a different option");
-					alert.showAndWait();
-				}
-				else {
-					//good to remove song
-					temp.removeSong(sel);
-					user.setSavedSongs(temp);
-					try {
-						UserRepository.UpdateUser(user);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					OnMySongsClicked(null);
-				}
-			}
-		});
-		//add options to list and show
-		cm.getItems().add(parentMenu);
-		cm.getItems().add(removeSavedSong);
-		cm.show(UserLibraryList.getScene().getWindow(), event.getScreenX(), event.getScreenY());
 	}
 
 	/**
@@ -848,38 +870,33 @@ public class SongViewController implements Initializable{
 		MenuItem createP = new MenuItem("Create New Playlist");
 		//option to remove selected playlist
 		MenuItem removeP = new MenuItem("Remove Playlist");
+		
 		removeP.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
-				try {
-					ArrayList<Playlist> playlists=user.getPlaylists();
-					if(!sel.getPlaylistName().equals("My Playlist")){
-						for(int n=0;n<playlists.size();n++) {
-							if(sel.equals(playlists.get(n))) {
-								//change track to saved songs if deleted
-								if(playlists.get(n).equals(currentPlaylist)) {
-									currentPlaylist=user.getSavedSongs();
-								}
-								playlists.remove(n);
-								user.setPlaylists(playlists);
-								UserRepository.UpdateUser(user);
-								OnMyPlaylistsClicked(null);
-							}
-						}
+				ArrayList<Playlist> playlists=user.getPlaylists();
+				if(!sel.getPlaylistName().equals("My Playlist")){
+					playlists = removePlaylist(sel);
+					//set current playlist to saved 
+					if (sel.getPlaylistName().equals(currentPlaylist.getPlaylistName())) {
+						currentPlaylist = user.getSavedSongs();
 					}
-					else {//My playlist has to exist
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error");
-						alert.setHeaderText("Cannot delete My Playlist");
-						alert.setContentText("Please try a different option");
-						alert.showAndWait();
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
+					
+					ArrayList<Playlist> updatedPlaylist = removePlaylist(sel);												
+					user.setPlaylists(updatedPlaylist);
+					OnMyPlaylistsClicked(null);
+					
+				}
+				else {//My playlist has to exist
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Cannot delete My Playlist");
+					alert.setContentText("Please try a different option");
+					alert.showAndWait();
 				}
 			}
 		});
+		
 		createP.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -925,13 +942,34 @@ public class SongViewController implements Initializable{
 								break;
 							}
 						}
-						else
-						{
+						if(count!=0) {// input isnt unique
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error adding playlist");
+							alert.setHeaderText("There is already a playlist with that name");
+							alert.setContentText("Please try a different name");
+							alert.showAndWait();
+						}
+						else if(result.get().trim().length() == 0) { //only whitespace
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error adding playlist");
+							alert.setHeaderText("Enter Characters that are not blank space");
+							alert.setContentText("Please try a different name");
+							alert.showAndWait();
+						}
+						else{//add playlist
+							//playlists.add(new Playlist(result.get()));
+							//user.setPlaylists(playlists);
+							//UserRepository.UpdateUser(user);
+							ArrayList<Playlist> updatedPlaylist = addPlaylist(new Playlist(result.get()));												
+							user.setPlaylists(updatedPlaylist);
+							OnMyPlaylistsClicked(null);
 							break;
 						}
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
+					else
+					{
+						break;
+					}
 				}
 
 			}
@@ -1043,6 +1081,64 @@ public class SongViewController implements Initializable{
 		Playlist validSongs = new Playlist("valid");
 
 		String query = AllSongsSearchBar.getText();
+		DatagramSocket socket;
+		try {
+			socket = new DatagramSocket();
+			String[] arr= {user.getUsername(),query};
+			Message searchMessage;
+			OpID opID=OpID.SEARCHALLSONGS;
+			try {
+				searchMessage = new Message(1, requestID++, opID, arr, InetAddress.getLocalHost(),1);
+				String json = gson.toJson(searchMessage);
+				byte[] msg = gson.toJson(searchMessage).getBytes();
+				DatagramPacket request = new DatagramPacket(msg, msg.length, searchMessage.getAddress() , 1234);
+				try {
+					socket.send(request);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("request port: " + request.getPort());
+				byte[] buffer = new byte[5000];
+				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
+				System.out.println("Response received!");
+				
+				//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
+				Song[] temp=gson.fromJson(new String(buffer).trim(), Song[].class);
+				if(temp.length>0) {
+					for(int i=0;i<temp.length;i++) {
+						System.out.println(temp[i]);
+						validSongs.addSong(temp[i]);
+					}
+					displaySongs(validSongs);
+				}
+				
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (SocketException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		/*
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		if(!query.isEmpty())
 		{
@@ -1092,118 +1188,157 @@ public class SongViewController implements Initializable{
 			SearchResultsPane.setVisible(false);
 			SearchResultsPane.setMouseTransparent(true);
 		}
+
+		displaySongs(validSongs);*/
+
 	}
 
 	/**
 	 * searches mysongs and displays on userlibrarylist
 	 * @param query - user inputed query
 	 */
-	public void searchMySongs(String query) {
-		ArrayList<Song> savedSongs = user.getSavedSongs().getSongs();
-
-		Playlist validSongs = new Playlist("valid");
-
-		for(int i=0; i<savedSongs.size();i++) {
-			//checks if query matches the title of the current song
-			if(savedSongs.get(i).getTitle() != null && savedSongs.get(i).getTitle().length() >= query.length()) {
-				// the song title is at least as long as the query
-				if(savedSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-					//the query matches the song title
-					validSongs.addSong(savedSongs.get(i));
+	public void searchMySongs(String query,OpID opID,DatagramSocket socket) {
+		String[] arr= {user.getUsername(),query};
+		Message searchMessage;
+		try {
+			searchMessage = new Message(1, requestID++, opID, arr, InetAddress.getLocalHost(),1);
+			String json = gson.toJson(searchMessage);
+			byte[] msg = gson.toJson(searchMessage).getBytes();
+			DatagramPacket request = new DatagramPacket(msg, msg.length, searchMessage.getAddress() , 1234);
+			try {
+				socket.send(request);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("request port: " + request.getPort());
+			//InetAddress host = InetAddress.getLocalHost();
+			
+			//int serverPort = 6789;
+			//DatagramPacket request = new DatagramPacket(m, m.length, host, serverPort);
+			//socket.send(request);
+			//System.out.println("Request: " + new String(request.getData()));
+			byte[] buffer = new byte[1000];
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			try {
+				socket.receive(reply);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+			System.out.println("Response received!");
+			
+			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
+			Song[] temp=gson.fromJson(new String(buffer).trim(), Song[].class);
+			if(temp.length>0) {
+				for(int i=0;i<temp.length;i++) {
+					UserLibraryList.getItems().addAll(temp[i]);
 				}
 			}
-
-			//checks if query matches the album name of the current song
-			if(!validSongs.contains(savedSongs.get(i).getTitle())) {
-				// the song has not been added to the list of valid songs yet
-				if(savedSongs.get(i).getAlbum() != null && savedSongs.get(i).getAlbum().length() >= query.length()) {
-					// the album name is at least as long as the query
-					if(savedSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-						//the query matches the album name
-						validSongs.addSong(savedSongs.get(i));
-					}
-				}
-			}
-
-			//checks if query matches the artist name of the current song
-			if(!validSongs.contains(savedSongs.get(i).getTitle())) {
-				// the song has not been added to the list of valid songs yet
-				if(savedSongs.get(i).getArtist() != null && savedSongs.get(i).getArtist().length() >= query.length()) {
-					// the artist name is at least as long as the query
-					if(savedSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-						//the query matches the artist name
-						validSongs.addSong(savedSongs.get(i));
-					}
-				}
-			}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		displaySongs(validSongs);
+		
 	}
 
 	/**
 	 * searches and displays user myplaylists on userlibrarylist
 	 * @param query-user inputted query
 	 */
-	public void searchMyPlaylists(String query) {
-		ArrayList<Playlist> playlists=user.getPlaylists();
-		ArrayList<Playlist> validPlaylists = new ArrayList<Playlist>();
-		for (int i = 0; i<playlists.size(); i++) {
-			if(playlists.get(i).getPlaylistName()!=null && playlists.get(i).getPlaylistName().length() >= query.length()) {
-				//check if query matches the playlist title
-				if(playlists.get(i).getPlaylistName().substring(0, query.length()).toLowerCase().equals(query.substring(0, query.length()).toLowerCase())) {
-					validPlaylists.add(playlists.get(i));
+	public void searchMyPlaylists(String query,OpID opID, DatagramSocket socket) {
+		String[] arr= {user.getUsername(),query,currentPlaylist.getPlaylistName()};
+		Message searchMessage;
+		try {
+			searchMessage = new Message(1, requestID++, opID, arr, InetAddress.getLocalHost(),1);
+			String json = gson.toJson(searchMessage);
+			byte[] msg = gson.toJson(searchMessage).getBytes();
+			DatagramPacket request = new DatagramPacket(msg, msg.length, searchMessage.getAddress() , 1234);
+			try {
+				socket.send(request);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("request port: " + request.getPort());
+			//InetAddress host = InetAddress.getLocalHost();
+			
+			//int serverPort = 6789;
+			//DatagramPacket request = new DatagramPacket(m, m.length, host, serverPort);
+			//socket.send(request);
+			//System.out.println("Request: " + new String(request.getData()));
+			byte[] buffer = new byte[1000];
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			try {
+				socket.receive(reply);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+			System.out.println("Response received!");
+			
+			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
+			Playlist[] temp=gson.fromJson(new String(buffer).trim(), Playlist[].class);
+			if(temp.length>0) {
+				for(int i=0;i<temp.length;i++) {
+					ArrayList<Playlist> arrayList = new ArrayList<Playlist>(Arrays.asList(temp));
+					displayPlaylists(arrayList);
 				}
 			}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		displayPlaylists(validPlaylists);
 	}
 	/**
 	 * searches current playlists and displays on userlibrarylist
 	 * @param query
 	 */
-	public void searchCurrentPlaylist(String query) {
-		ArrayList<Song> songs = currentPlaylist.getSongs();
-
-		Playlist validSongs = new Playlist("valid");
-
-		for(int i=0; i<songs.size();i++) {
-			//checks if query matches the title of the current song
-			if(songs.get(i).getTitle() != null && songs.get(i).getTitle().length() >= query.length()) {
-				// the song title is at least as long as the query
-				if(songs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-					//the query matches the song title
-					validSongs.addSong(songs.get(i));
+	public void searchCurrentPlaylist(String query,OpID opID,DatagramSocket socket) {
+		String[] arr= {user.getUsername(),query,currentPlaylist.getPlaylistName()};
+		Message searchMessage;
+		try {
+			searchMessage = new Message(1, requestID++, opID, arr, InetAddress.getLocalHost(),1);
+			String json = gson.toJson(searchMessage);
+			byte[] msg = gson.toJson(searchMessage).getBytes();
+			DatagramPacket request = new DatagramPacket(msg, msg.length, searchMessage.getAddress() , 1234);
+			try {
+				socket.send(request);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("request port: " + request.getPort());
+			//InetAddress host = InetAddress.getLocalHost();
+			
+			//int serverPort = 6789;
+			//DatagramPacket request = new DatagramPacket(m, m.length, host, serverPort);
+			//socket.send(request);
+			//System.out.println("Request: " + new String(request.getData()));
+			byte[] buffer = new byte[1000];
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			try {
+				socket.receive(reply);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+			System.out.println("Response received!");
+			
+			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
+			Song[] temp=gson.fromJson(new String(buffer).trim(), Song[].class);
+			if(temp.length>0) {
+				for(int i=0;i<temp.length;i++) {
+					UserLibraryList.getItems().addAll(temp[i]);
 				}
 			}
-
-			//checks if query matches the album name of the current song
-			if(!validSongs.contains(songs.get(i).getTitle())) {
-				// the song has not been added to the list of valid songs yet
-				if(songs.get(i).getAlbum() != null && songs.get(i).getAlbum().length() >= query.length()) {
-					// the album name is at least as long as the query
-					if(songs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-						//the query matches the album name
-						validSongs.addSong(songs.get(i));
-					}
-				}
-			}
-
-			//checks if query matches the artist name of the current song
-			if(!validSongs.contains(songs.get(i).getTitle())) {
-				// the song has not been added to the list of valid songs yet
-				if(songs.get(i).getArtist() != null && songs.get(i).getArtist().length() >= query.length()) {
-					// the artist name is at least as long as the query
-					if(songs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-						//the query matches the artist name
-						validSongs.addSong(songs.get(i));
-					}
-				}
-			}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		displaySongs(validSongs);
 	}
 
 	@FXML
@@ -1211,23 +1346,48 @@ public class SongViewController implements Initializable{
 	 * search for user library. decides what to display on userlibrarylist
 	 */
 	public void search() {
-		try {
+		try {			
 			UserLibraryList.getItems().clear();
 			//user inputted text
 			String query=userLibrarySearchBar.getText();
 
-			//my songs are selected
-			if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)){
-				searchMySongs(query);
+			DatagramSocket socket = null;
+			try {
+				if(query.equals("")) {
+					query=" ";
+				}
+				socket = new DatagramSocket();
+				//String user="amyer";
+				OpID opID=OpID.SEARCHMYSONGS;
+				//my songs are selected
+				String req="";
+				if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)){
+					opID=OpID.SEARCHMYSONGS;
+					searchMySongs(query,opID, socket);
+					
+				}
+				//my playlists are selected
+				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
+					opID=OpID.SEARCHMYPLAYLISTS;
+					searchMyPlaylists(query,opID, socket);
+					
+				}
+				//current playlists are selected
+				else if (((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
+					opID=OpID.SEARCHCURRENTPLAYLIST;
+					searchCurrentPlaylist(query,opID, socket);
+				}
+				
+				
+			} catch (SocketException e) {
+				System.out.println("Socket: " + e.getMessage());
+			} catch (IOException e) {
+				System.out.println("IO: " + e.getMessage());
+			}finally {
+				if(socket!=null)
+					socket.close();
 			}
-			//my playlists are selected
-			else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
-				searchMyPlaylists(query);
-			}
-			//current playlists are selected
-			else if (((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
-				searchCurrentPlaylist(query);
-			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -1290,6 +1450,7 @@ public class SongViewController implements Initializable{
 	 * @param arg1 unused but needed to override the initialize function
 	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		gson = new Gson();	
 		menuToggleGroup = new ToggleGroup();
 
 		//buttons to choose what is displayed in the user library
@@ -1366,5 +1527,183 @@ public class SongViewController implements Initializable{
 			AllSongsSearchBar.setPromptText("search all songs");
 		}
 	}
+	public ArrayList<Playlist> addSongToServer(Song songToAdd, Playlist playlistToUpdate) throws SocketException 
+	{		
+		DatagramSocket socket = new DatagramSocket();
+		//initialize buffer
+		byte[] buffer = new byte[5000];
+		try {
+			String songJSON = gson.toJson(songToAdd);
+			String playlistJSON = gson.toJson(playlistToUpdate);
 
+			String[] arr = {user.getUsername(), songJSON, playlistJSON};
+
+			Message addSongMessage = new Message(1, requestID++, OpID.ADDSONGTOPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+
+			//convert to json
+			String json = gson.toJson(addSongMessage);
+
+			//we can only send bytes, so flatten the string to a byte array
+			byte[] msg = gson.toJson(addSongMessage).getBytes();				
+
+			System.out.println("Sending request.");
+			//initialize and send request packet using port 1234, the port the server is listening on
+			DatagramPacket request = new DatagramPacket(msg, msg.length, addSongMessage.getAddress() , 1234);
+			System.out.println("request port: " + request.getPort());
+			socket.send(request);
+			//initialize reply from server and receive it
+
+			/* without specifying a port in this datagram packet, the OS will
+			 * randomly assign a port to the reply for the program to listen on
+			 */
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			System.out.println(socket== null);
+			socket.receive(reply);		
+			System.out.println(new String(buffer));
+			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+			
+			socket.close();
+			//return updated set of playlists
+			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		socket.close();
+		return null;
+	}
+	public ArrayList<Playlist> addPlaylist(Playlist playlist){
+		
+		try {
+			DatagramSocket socket;
+			socket = new DatagramSocket();
+			byte[] buffer = new byte[5000];
+			String playlistJSON = gson.toJson(playlist);
+			String[] arr = {user.getUsername(), playlistJSON};
+			Message addSongMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+			//convert to json
+			String json = gson.toJson(addSongMessage);
+			//we can only send bytes, so flatten the string to a byte array
+			byte[] msg = gson.toJson(addSongMessage).getBytes();				
+			System.out.println("Sending request.");
+			DatagramPacket request = new DatagramPacket(msg, msg.length, addSongMessage.getAddress() , 1234);
+			System.out.println(socket == null);
+			socket.send(request);
+			System.out.println("request port: " + request.getPort());
+
+			//initialize reply from server and receive it
+
+			/* without specifying a port in this datagram packet, the OS will
+			 * randomly assign a port to the reply for the program to listen on
+			 */
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			socket.receive(reply);		
+			System.out.println(new String(buffer));
+			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+			socket.close();
+			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Playlist> removePlaylist(Playlist playlist) {
+		try {
+			DatagramSocket socket;
+			socket = new DatagramSocket();
+			byte[] buffer = new byte[5000];
+			String playlistJSON = gson.toJson(playlist);
+			String[] arr = {user.getUsername(), playlistJSON};
+			Message removePlaylistMessage = new Message(1, requestID++, OpID.DELETEPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+
+			//convert to json
+			String json = gson.toJson(removePlaylistMessage);
+
+			//we can only send bytes, so flatten the string to a byte array
+			byte[] msg = gson.toJson(removePlaylistMessage).getBytes();				
+
+			System.out.println("Sending request.");
+			DatagramPacket request = new DatagramPacket(msg, msg.length, removePlaylistMessage.getAddress() , 1234);
+			System.out.println(socket == null);
+			socket.send(request);
+			System.out.println("request port: " + request.getPort());
+			//initialize and send request packet using port 1234, the port the server is listening on
+			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+			System.out.println("Awaiting response from server...");
+			socket.receive(reply);		
+			System.out.println(new String(buffer));
+			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+			
+			socket.close();
+			//return updated set of playlists
+			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ArrayList<Playlist> removeSongFromServer(Song songToRemove, Playlist playlistToUpdate)
+	{		
+		//initialize buffer
+		DatagramSocket socket;
+		try {
+			socket = new DatagramSocket();
+			byte[] buffer = new byte[5000];
+			try {
+				String songJSON = gson.toJson(songToRemove);
+				String playlistJSON = gson.toJson(playlistToUpdate);
+
+				String[] arr = {user.getUsername(), songJSON, playlistJSON};
+
+				Message removeSongMessage = new Message(1, requestID++, OpID.DELETESONGFROMPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+
+				//convert to json
+				String json = gson.toJson(removeSongMessage);
+
+				//we can only send bytes, so flatten the string to a byte array
+				byte[] msg = gson.toJson(removeSongMessage).getBytes();				
+
+				System.out.println("Sending request.");
+				//initialize and send request packet using port 1234, the port the server is listening on
+				DatagramPacket request = new DatagramPacket(msg, msg.length, removeSongMessage.getAddress() , 1234);
+				System.out.println(socket == null);
+				socket.send(request);
+				System.out.println("request port: " + request.getPort());
+
+				//initialize reply from server and receive it
+
+				/* without specifying a port in this datagram packet, the OS will
+				 * randomly assign a port to the reply for the program to listen on
+				 */
+				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+				System.out.println("Awaiting response from server...");
+				socket.receive(reply);		
+				System.out.println(new String(buffer));
+				Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
+				
+				socket.close();
+				//return updated set of playlists
+				return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
+			} catch (UnknownHostException e1) {
+				e1.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			socket.close();
+			return null;
+		} catch (SocketException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		return null;
+	}
 }
