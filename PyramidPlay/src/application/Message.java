@@ -2,11 +2,34 @@ package application;
 import java.net.InetAddress;
 
 public class Message {
+	/**
+	 * Message type, 0 = request, 1 = reply
+	 */
 	private int messageType;
+	
+	/**
+	 * specific ID for this request.
+	 */
 	private int requestID;
+	
+	/**
+	 * Address of the sender, to be used to return data to client.
+	 */
 	private InetAddress address;
+	
+	/**
+	 * Enumerated ID that indicates which operation/method to execute.
+	 */
 	private OpID operationID;
+	
+	/**
+	 * String of arguments
+	 */
 	private String[] args;
+	
+	/**
+	 * Type of protocol to be used.
+	 */
 	private int protocolID;
 	
 	public Message() {
