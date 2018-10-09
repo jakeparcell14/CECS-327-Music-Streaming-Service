@@ -33,7 +33,7 @@ public class UserRepository {
 			
 		while(scanner.hasNextLine()) {
 			String jsonLine = scanner.nextLine();
-			System.out.println(jsonLine);
+			//System.out.println(jsonLine);
 			User user = gson.fromJson(jsonLine, User.class);
 			if (user != null)
 				users.add(user);
