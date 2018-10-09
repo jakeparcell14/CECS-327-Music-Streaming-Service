@@ -207,20 +207,28 @@ public class Server {
 			user = UserRepository.getUser(userName);
 			Playlist savedSongsPlaylist=user.getSavedSongs();
 			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
-			for(int i=0; i<savedSongs.size();i++) {
-				//checks if query matches the title of the current song
-				if(savedSongs.get(i).getTitle()!=null && savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
-					msgList.add(savedSongs.get(i));
-				}
-				//checks if query matches the album of the current song
-				else if(savedSongs.get(i).getAlbum()!=null && savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
-					msgList.add(savedSongs.get(i));
-				}
-				//checks if query matches the artist of the current song
-				else if(savedSongs.get(i).getArtist()!=null && savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+			if(query.equals(" ")) {
+				for(int i=0; i<savedSongs.size();i++) {
 					msgList.add(savedSongs.get(i));
 				}
 			}
+			else {
+				for(int i=0; i<savedSongs.size();i++) {
+					//checks if query matches the title of the current song
+					if(savedSongs.get(i).getTitle()!=null && savedSongs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
+						msgList.add(savedSongs.get(i));
+					}
+					//checks if query matches the album of the current song
+					else if(savedSongs.get(i).getAlbum()!=null && savedSongs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
+						msgList.add(savedSongs.get(i));
+					}
+					//checks if query matches the artist of the current song
+					else if(savedSongs.get(i).getArtist()!=null && savedSongs.get(i).getArtist().toLowerCase().contains(query.toLowerCase())) {
+						msgList.add(savedSongs.get(i));
+					}
+				}
+			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -239,14 +247,22 @@ public class Server {
 		try {
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
-			for (int i = 0; i<playlists.size(); i++) {
-				if(playlists.get(i).getPlaylistName()!=null) {
-					//check if query matches the playlist title
-					if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
-						msgList.add(playlists.get(i));
+			if(query.equals(" ")) {
+				for(int i=0; i<playlists.size();i++) {
+					msgList.add(playlists.get(i));
+				}
+			}
+			else {
+				for (int i = 0; i<playlists.size(); i++) {
+					if(playlists.get(i).getPlaylistName()!=null) {
+						//check if query matches the playlist title
+						if(playlists.get(i).getPlaylistName().toLowerCase().contains(query.toLowerCase())) {
+							msgList.add(playlists.get(i));
+						}
 					}
 				}
 			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

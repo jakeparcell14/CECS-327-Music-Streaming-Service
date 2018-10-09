@@ -1247,6 +1247,9 @@ public class SongViewController implements Initializable{
 	 * @param query-user inputted query
 	 */
 	public void searchMyPlaylists(String query,OpID opID, DatagramSocket socket) {
+		if(query=="") {
+			query=" ";
+		}
 		String[] arr= {user.getUsername(),query,currentPlaylist.getPlaylistName()};
 		Message searchMessage;
 		try {
@@ -1267,7 +1270,7 @@ public class SongViewController implements Initializable{
 			//DatagramPacket request = new DatagramPacket(m, m.length, host, serverPort);
 			//socket.send(request);
 			//System.out.println("Request: " + new String(request.getData()));
-			byte[] buffer = new byte[1000];
+			byte[] buffer = new byte[5000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			System.out.println("Awaiting response from server...");
 			try {
