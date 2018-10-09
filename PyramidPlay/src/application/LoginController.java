@@ -3,9 +3,6 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.sun.glass.events.KeyEvent;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,11 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -34,51 +29,102 @@ public class LoginController implements Initializable
 	public static int requestID;
 	
 	@FXML
+	/**
+	 * Root pane for window.
+	 */
 	private AnchorPane RootPane;
 
 	@FXML
+	/**
+	 * Pane for sign in
+	 */
 	private Pane SignInPane;
 
 	@FXML
+	/**
+	 * Pane for registration.
+	 */
 	private Pane RegisterPane;
 
 	@FXML
+	/**
+	 * Text field for username.
+	 */
 	private TextField UsernameTextField;
 
 	@FXML
+	/**
+	 * Text field for password.
+	 */
 	private PasswordField PasswordTextField;
 
 	@FXML
+	/**
+	 * Registration button
+	 */
 	private Button RegisterButton;
 
 	@FXML
+	/**
+	 * Sign in button when registering.
+	 */
 	private Button SignInOrRegisterButton;
 
 	@FXML
+	/**
+	 * Cancel button when registering.
+	 */
 	private Button RegisterOrCancelButton;
 
 	@FXML
+	/**
+	 * First name input field.
+	 */
 	private TextField AddFirstNameTextField;
 
 	@FXML
+	/**
+	 * Last name input field.
+	 */
 	private TextField AddLastNameTextField;
 
 	@FXML
+	/**
+	 * Username input field.
+	 */
 	private TextField AddUsernameTextField;
 
 	@FXML
+	/**
+	 * Password input field.
+	 */
 	private TextField AddPasswordTextField;
 
 	@FXML
+	/**
+	 * Label shown if there is an invalid sign in.
+	 */
 	private Label InvalidSignInLabel;
 	
 	@FXML
+	/**
+	 * Label shown if username unavailable.
+	 */
 	private Label UsernameUnavailableLabel;
 	
+	/**
+	 * User object created by creating account.
+	 */
 	private User verifiedUser;
 	
+	/**
+	 * Socket to interact with server.
+	 */
 	DatagramSocket socket;
 	
+	/**
+	 * GSON object for deserializing and serializing json.
+	 */
 	Gson gson;
 
 	@Override
@@ -265,6 +311,10 @@ public class LoginController implements Initializable
 	}
 
 	@FXML
+	/**
+	 * MEthod to execute when registration button clicked.
+	 * @param event
+	 */
 	public void OnRegisterOrCancelClicked(ActionEvent event)
 	{
 		if( SignInOrRegisterButton.getText().equals("Sign In"))
@@ -307,12 +357,18 @@ public class LoginController implements Initializable
 		}
 	}
 
+	/**
+	 * Clears username and password text input fields.
+	 */
 	public void clearSignInText()
 	{
 		UsernameTextField.setText("");
 		PasswordTextField.setText("");
 	}
 
+	/**
+	 * Clears all registration text input fields.
+	 */
 	public void clearRegisterText()
 	{
 		AddFirstNameTextField.setText("");
