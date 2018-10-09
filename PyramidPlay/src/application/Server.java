@@ -1,27 +1,13 @@
 package application;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.HashSet;
 import java.util.ArrayList;
-
 import com.google.gson.Gson;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class Server {
 	/**
@@ -29,8 +15,18 @@ public class Server {
      * spawns handler threads.
      */
 	private ArrayList<Song> allSongs;
+	
+	/**
+	 * Socket used to get incoming requests.
+	 */
 	private static DatagramSocket socket = null;
+	
+	/**
+	 * GSON object to serialize and deserialize objects.
+	 */
 	private static Gson gson = new Gson();
+	
+	
     public static void main(String[] args) throws Exception {		
 		try {
 			//create a socket listening on port 1234
@@ -110,12 +106,27 @@ public class Server {
     	
     }
     
+    /**
+     * Handles logic for request-reply protocol.
+     * 
+     * @param msg Message received by the server.
+     * @param req Request data received by server.
+     * @throws SocketException
+     * @throws UnknownHostException
+     * @throws IOException
+     */
     private static void RequestReplyProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
 		byte[] result = ChooseAndExecuteOperation(msg);
 		SendReply(result, InetAddress.getLocalHost(), req.port);
 	}
     
-    
+    /***
+     * Chooses an operation based on the operation id in the message object sent to the server.
+     * 
+     * @param msg Message the server received.
+     * @return Returns result in the form of a flattened byte array ready to be sent.
+     * @throws IOException
+     */  
     private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
     	switch(msg.getOperationID()) {
 			case LOGIN:
@@ -146,7 +157,12 @@ public class Server {
 			
     	}
     }
-    
+ 
+    /**
+     * Executes a search of all songs.
+     * @param m Message sent to the server.
+     * @return Returns result as flattened byte array ready to be sent.
+     */
     public static byte[] searchAllSongs(Message m) {
     	ArrayList<Song> allSongs;
     	Playlist validSongs = new Playlist("valid");
@@ -198,6 +214,13 @@ public class Server {
 		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
     	
     }
+    
+    /**
+     * Executes search in a user's my songs library.
+     * 
+     * @param m Message sent to the server.
+     * @return Returns result as flattened byte array ready to be sent.
+     */
     public static byte[] searchMySongs(Message m) {
     	String userName=m.getArgs()[0];
     	String query=m.getArgs()[1];
