@@ -1093,6 +1093,7 @@ public class SongViewController implements Initializable{
 		DatagramSocket socket;
 		try {
 			socket = new DatagramSocket();
+			socket.setSoTimeout(3000);
 			String[] arr= {user.getUsername(),query};
 			Message searchMessage;
 			OpID opID=OpID.SEARCHALLSONGS;
@@ -1369,6 +1370,7 @@ public class SongViewController implements Initializable{
 					query=" ";
 				}
 				socket = new DatagramSocket();
+				socket.setSoTimeout(3000);
 				//String user="amyer";
 				OpID opID=OpID.SEARCHMYSONGS;
 				//my songs are selected
@@ -1542,6 +1544,7 @@ public class SongViewController implements Initializable{
 	public ArrayList<Playlist> addSongToServer(Song songToAdd, Playlist playlistToUpdate) throws SocketException 
 	{		
 		DatagramSocket socket = new DatagramSocket();
+		socket.setSoTimeout(3000);
 		//initialize buffer
 		byte[] buffer = new byte[5000];
 		try {
@@ -1591,6 +1594,7 @@ public class SongViewController implements Initializable{
 		try {
 			DatagramSocket socket;
 			socket = new DatagramSocket();
+			socket.setSoTimeout(3000);
 			byte[] buffer = new byte[5000];
 			String playlistJSON = gson.toJson(playlist);
 			String[] arr = {user.getUsername(), playlistJSON};
@@ -1628,6 +1632,7 @@ public class SongViewController implements Initializable{
 		try {
 			DatagramSocket socket;
 			socket = new DatagramSocket();
+			socket.setSoTimeout(3000);
 			byte[] buffer = new byte[5000];
 			String playlistJSON = gson.toJson(playlist);
 			String[] arr = {user.getUsername(), playlistJSON};
@@ -1668,6 +1673,7 @@ public class SongViewController implements Initializable{
 		DatagramSocket socket;
 		try {
 			socket = new DatagramSocket();
+			socket.setSoTimeout(3000);
 			byte[] buffer = new byte[5000];
 			try {
 				String songJSON = gson.toJson(songToRemove);

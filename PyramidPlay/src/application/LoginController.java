@@ -138,6 +138,7 @@ public class LoginController implements Initializable
 			
 			//create a socket with no specific port we listen on
 			socket = new DatagramSocket();
+			socket.setSoTimeout(3000);
 			System.out.println("Socket created with port " + socket.getLocalPort());
 /**			
 			//send a connection request to the server
