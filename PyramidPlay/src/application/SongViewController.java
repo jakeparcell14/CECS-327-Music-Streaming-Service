@@ -8,6 +8,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
@@ -1087,7 +1088,7 @@ public class SongViewController implements Initializable{
 	/**
 	 * This displays search results in the all songs table when there is text in the all songs search bar
 	 */
-	public void searchAllSongs()
+	public void searchAllSongs() throws IOException
 	{
 		Playlist validSongs = new Playlist("valid");
 
@@ -1113,13 +1114,20 @@ public class SongViewController implements Initializable{
 				System.out.println("request port: " + request.getPort());
 				byte[] buffer = new byte[5000];
 				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-				System.out.println("Awaiting response from server...");
-				try {
-					socket.receive(reply);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}		
+				
+				//keep sending request until server responds
+				boolean response = false;
+				while (!response) {
+					System.out.println("Awaiting response from server...");
+					try {
+						socket.receive(reply);		
+						System.out.println("Response received from port " + reply.getPort() + "!");
+						break;
+					} catch (SocketTimeoutException e) {
+						System.out.println("No response from server, sending request again.");
+						socket.send(request);
+					}
+				}
 				System.out.println("Response received!");
 				
 				//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
@@ -1209,7 +1217,7 @@ public class SongViewController implements Initializable{
 	 * searches mysongs and displays on userlibrarylist
 	 * @param query - user inputed query
 	 */
-	public void searchMySongs(String query,OpID opID,DatagramSocket socket) {
+	public void searchMySongs(String query,OpID opID,DatagramSocket socket) throws IOException {
 		String[] arr= {user.getUsername(),query};
 		Message searchMessage;
 		try {
@@ -1232,13 +1240,20 @@ public class SongViewController implements Initializable{
 			//System.out.println("Request: " + new String(request.getData()));
 			byte[] buffer = new byte[1000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			try {
-				socket.receive(reply);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
+			
+			//keep sending request until server responds
+			boolean response = false;
+			while (!response) {
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);		
+					System.out.println("Response received from port " + reply.getPort() + "!");
+					break;
+				} catch (SocketTimeoutException e) {
+					System.out.println("No response from server, sending request again.");
+					socket.send(request);
+				}
+			}
 			System.out.println("Response received!");
 			
 			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
@@ -1259,7 +1274,7 @@ public class SongViewController implements Initializable{
 	 * searches and displays user myplaylists on userlibrarylist
 	 * @param query-user inputted query
 	 */
-	public void searchMyPlaylists(String query,OpID opID, DatagramSocket socket) {
+	public void searchMyPlaylists(String query,OpID opID, DatagramSocket socket) throws IOException {
 		if(query=="") {
 			query=" ";
 		}
@@ -1285,13 +1300,20 @@ public class SongViewController implements Initializable{
 			//System.out.println("Request: " + new String(request.getData()));
 			byte[] buffer = new byte[5000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			try {
-				socket.receive(reply);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
+			
+			//keep sending request until server responds
+			boolean response = false;
+			while (!response) {
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);		
+					System.out.println("Response received from port " + reply.getPort() + "!");
+					break;
+				} catch (SocketTimeoutException e) {
+					System.out.println("No response from server, sending request again.");
+					socket.send(request);
+				}
+			}
 			System.out.println("Response received!");
 			
 			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
@@ -1311,7 +1333,7 @@ public class SongViewController implements Initializable{
 	 * searches current playlists and displays on userlibrarylist
 	 * @param query
 	 */
-	public void searchCurrentPlaylist(String query,OpID opID,DatagramSocket socket) {
+	public void searchCurrentPlaylist(String query,OpID opID,DatagramSocket socket) throws IOException {
 		String[] arr= {user.getUsername(),query,currentPlaylist.getPlaylistName()};
 		Message searchMessage;
 		try {
@@ -1334,13 +1356,20 @@ public class SongViewController implements Initializable{
 			//System.out.println("Request: " + new String(request.getData()));
 			byte[] buffer = new byte[1000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			try {
-				socket.receive(reply);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
+			
+			//keep sending request until server responds
+			boolean response = false;
+			while (!response) {
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);		
+					System.out.println("Response received from port " + reply.getPort() + "!");
+					break;
+				} catch (SocketTimeoutException e) {
+					System.out.println("No response from server, sending request again.");
+					socket.send(request);
+				}
+			}
 			System.out.println("Response received!");
 			
 			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
@@ -1574,9 +1603,20 @@ public class SongViewController implements Initializable{
 			 * randomly assign a port to the reply for the program to listen on
 			 */
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			System.out.println(socket== null);
-			socket.receive(reply);		
+			
+			//keep sending request until server responds
+			boolean response = false;
+			while (!response) {
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);		
+					System.out.println("Response received from port " + reply.getPort() + "!");
+					break;
+				} catch (SocketTimeoutException e) {
+					System.out.println("No response from server, sending request again.");
+					socket.send(request);
+				}
+			}		
 			System.out.println(new String(buffer));
 			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
 			
@@ -1617,9 +1657,20 @@ public class SongViewController implements Initializable{
 			 * randomly assign a port to the reply for the program to listen on
 			 */
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			socket.receive(reply);		
-			System.out.println(new String(buffer));
+			
+			//keep sending request until server responds
+			boolean response = false;
+			while (!response) {
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);		
+					System.out.println("Response received from port " + reply.getPort() + "!");
+					break;
+				} catch (SocketTimeoutException e) {
+					System.out.println("No response from server, sending request again.");
+					socket.send(request);
+				}
+			}
 			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
 			socket.close();
 			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
@@ -1653,8 +1704,20 @@ public class SongViewController implements Initializable{
 			System.out.println("request port: " + request.getPort());
 			//initialize and send request packet using port 1234, the port the server is listening on
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			socket.receive(reply);		
+			
+			//keep sending request until server responds
+			boolean response = false;
+			while (!response) {
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);		
+					System.out.println("Response received from port " + reply.getPort() + "!");
+					break;
+				} catch (SocketTimeoutException e) {
+					System.out.println("No response from server, sending request again.");
+					socket.send(request);
+				}
+			}	
 			System.out.println(new String(buffer));
 			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
 			
@@ -1704,8 +1767,19 @@ public class SongViewController implements Initializable{
 				 * randomly assign a port to the reply for the program to listen on
 				 */
 				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-				System.out.println("Awaiting response from server...");
-				socket.receive(reply);		
+				//keep sending reply until server responds
+				boolean response = false;
+				while (!response) {
+					System.out.println("Awaiting response from server...");
+					try {
+						socket.receive(reply);		
+						System.out.println("Response received from port " + reply.getPort() + "!");
+						break;
+					} catch (SocketTimeoutException e) {
+						System.out.println("No response from server, sending request again.");
+						socket.send(request);
+					}
+				}
 				System.out.println(new String(buffer));
 				Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
 				
