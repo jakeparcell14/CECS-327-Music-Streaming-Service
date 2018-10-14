@@ -21,6 +21,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import com.google.gson.Gson;
 
@@ -142,29 +143,10 @@ public class LoginController implements Initializable
 			
 			//create a socket with no specific port we listen on
 			socket = new DatagramSocket();
-			socket.setSoTimeout(3000);
+			socket.setSoTimeout(500);
 			System.out.println("Socket created with port " + socket.getLocalPort());
-/**			
-			//send a connection request to the server
-			//when the server receives a request, a new thread will be made to handle
-			//all requests from this client
-			System.out.println("Connecting to server.");
-			byte[] connectionReq = "CONNECTION".getBytes();
-			DatagramPacket initialConnection = new DatagramPacket(
-					connectionReq, connectionReq.length, InetAddress.getLocalHost(), 1234
-					);
-			
-			socket.send(initialConnection);
-			
-			//wait until server sends acknowledgement that a connection was made
-			while (true) {
-				
-			} 
-*/
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -180,7 +162,7 @@ public class LoginController implements Initializable
 		String[] arr = {username, password};
 		
 		//initialize buffer
-		byte[] buffer = new byte[1000];
+		byte[] buffer = new byte[5000];
 		try {
 			Message loginMsg = new Message(1, requestID++, OpID.LOGIN, arr, InetAddress.getLocalHost(), 1);
 			
@@ -202,16 +184,27 @@ public class LoginController implements Initializable
 			 * randomly assign a port to the reply for the program to listen on
 			 */
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			socket.receive(reply);		
-			System.out.println("Response received from port " + reply.getPort() + "!");
-			System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
+			
+			//keep sending reply until server responds
+			boolean response = false;
+			while (!response) {
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);		
+					System.out.println("Response received from port " + reply.getPort() + "!");
+					break;
+				} catch (SocketTimeoutException e) {
+					System.out.println("No response from server, sending request again.");
+					socket.send(request);
+				}
+			}
+			
+			User returnedUser = gson.fromJson(new String(buffer).trim(), User.class);
 			
 			//if server responds with acknowledgement "VERIFIED" switch to song view
-			if(gson.fromJson(new String(buffer).trim(), String.class).equals("VERIFIED"))
+			if(returnedUser.getUsername().equals(username))
 			{
 				//switch to Song View screen on successful login
-				verifiedUser = UserRepository.getUser(username);
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("SongView.fxml"));
 				Parent songViewParent = loader.load();
@@ -220,7 +213,7 @@ public class LoginController implements Initializable
 		
 				//access the SongViewController and call initUser() to pass user information
 				SongViewController controller = loader.getController();
-				controller.initUser(verifiedUser);
+				controller.initUser(returnedUser);
 				
 				Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 				window.setResizable(false);
@@ -255,7 +248,7 @@ public class LoginController implements Initializable
 		String[] arr = {fn, ln, uName, pw};
 		
 		//initialize buffer
-		byte[] buffer = new byte[1000];
+		byte[] buffer = new byte[5000];
 		try 
 		{
 			//create register request and convert to byte array
@@ -276,19 +269,48 @@ public class LoginController implements Initializable
 			 * randomly assign a port to the reply for the program to listen on
 			 */
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			System.out.println("Awaiting response from server...");
-			socket.receive(reply);		
+			
+			//keep sending reply until server responds
+			boolean response = false;
+			while (!response) {
+				System.out.println("Awaiting response from server...");
+				try {
+					socket.receive(reply);		
+					System.out.println("Response received from port " + reply.getPort() + "!");
+					break;
+				} catch (SocketTimeoutException e) {
+					System.out.println("No response from server, sending request again.");
+					socket.send(request);
+				}
+			}
+			
 			System.out.println("Response received from port " + reply.getPort() + "!");
 			
-			if(gson.fromJson(new String(buffer).trim(), String.class).equals("USERNAME_TAKEN"))
+			User returnedUser = gson.fromJson(new String(buffer).trim(), User.class);
+			
+			//if username is valid, then server responds with a new user object
+			//client will log in with new user
+			if(returnedUser.getUsername().equals(uName))
 			{
-				//username already exists and is not available, inform user
-				UsernameUnavailableLabel.setVisible(true);
+				//switch to Song View screen on successful login
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("SongView.fxml"));
+				Parent songViewParent = loader.load();
+		
+				Scene songViewScene = new Scene(songViewParent);
+		
+				//access the SongViewController and call initUser() to pass user information
+				SongViewController controller = loader.getController();
+				controller.initUser(returnedUser);
+				
+				Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+				window.setResizable(false);
+				window.setScene(songViewScene);
 			}
 			else
 			{
-				//server confirms username is available and signs in the new user
-				signIn(uName, pw, event);
+				//username already exists and is not available, inform user
+				UsernameUnavailableLabel.setVisible(true);
 			}
 		} catch(IOException e) {
 			e.printStackTrace();

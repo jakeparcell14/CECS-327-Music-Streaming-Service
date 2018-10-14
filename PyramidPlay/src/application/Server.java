@@ -348,6 +348,7 @@ public class Server {
 	/**
 	 * Function to verify a username and password combination from a message
 	 * @param msg - message sent from client containing username and password
+	 * 				args array should be [username, password]
 	 */
     public static byte[] verifyAccount(Message msg) {
     	gson = new Gson();
@@ -357,11 +358,11 @@ public class Server {
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
 				//send acknowledgement back to login client
-				return gson.toJson("VERIFIED").getBytes();
+				return gson.toJson(UserRepository.getUser(msg.getArgs()[0])).getBytes();
 			}
 			else {
 				//send acknowledgement back to login client
-				return gson.toJson("INCORRECT").getBytes();
+				return gson.toJson(new User()).getBytes();
 			}
 		} 
 		catch (IOException e) 
@@ -382,12 +383,7 @@ public class Server {
     	//msg args structure = [firstName, lastName, userName, password]
     	try 
 		{
-			if(UserRepository.userExists(msg.getArgs()[2]))
-			{
-				//tell client that username already exists and is not available
-				return gson.toJson("USERNAME_TAKEN").getBytes();
-			}
-			else
+			if(!UserRepository.userExists(msg.getArgs()[2]))
 			{
 				//username is available and ready to be added to the repository
 				User newUser = new User(msg.getArgs()[0], msg.getArgs()[1], msg.getArgs()[2], msg.getArgs()[3]);
@@ -395,7 +391,14 @@ public class Server {
 				//add user to the user repository
 				UserRepository.AddUser(newUser);
 				
-				return gson.toJson("REGISTERED").trim().getBytes();
+				//return new user
+				return gson.toJson(newUser).getBytes();
+			}
+			else
+			{
+				//return a user with empty attributes to let client know
+				//that username is already taken
+				return gson.toJson(new User()).getBytes();
 			}
 		}
 		catch(IOException e)
