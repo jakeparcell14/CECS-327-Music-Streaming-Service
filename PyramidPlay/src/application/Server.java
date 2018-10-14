@@ -1,10 +1,14 @@
 package application;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import com.google.gson.Gson;
 
@@ -33,10 +37,10 @@ public class Server {
 			socket = new DatagramSocket(1234);
 			
 			while(true) {
-				System.out.println("Waiting for a request...");
+				//System.out.println("Waiting for a request...");
 				Request req = getRequest();
 				
-				System.out.println("Received a request!\nCreating new thread!");
+				//System.out.println("Received a request!\nCreating new thread!");
 				//create a new thread to handle a client's requests
 				new Handler(req).start();
 			}
@@ -71,7 +75,7 @@ public class Server {
     		//create a new socket to handle requests from the client
     		try {
 				reqSocket = new DatagramSocket();
-				System.out.println(reqSocket.getLocalPort());
+				//System.out.println(reqSocket.getLocalPort());
 			} catch (SocketException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -79,14 +83,10 @@ public class Server {
     	}
     	
     	public void run() {
-    		System.out.println("New handler running and handling request");
-    		System.out.println(new String(req.data).trim());
+    		//System.out.println("New handler running and handling request...");
+    		//System.out.println(new String(req.data).trim());
     		Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
-    		
-/**    		for (int i = 0; i < msg.getArgs().length; i ++) {
-    			System.out.println("args[" + i + "]= " + msg.getArgs()[i]);
-    		}
-*/    		
+	
     		switch(msg.getProtocolID()) {
     			case 0:
     				break;
@@ -130,20 +130,18 @@ public class Server {
     private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
     	switch(msg.getOperationID()) {
 			case LOGIN:
+				//System.out.println("Login!");
 				return verifyAccount(msg);
 			case REGISTER:
 				return registerAccount(msg);
 			case SEARCHALLSONGS:
 				return searchAllSongs(msg);
 			case SEARCHMYSONGS:
-				//searchMySongs function goes here
 				return searchMySongs(msg);
 			case SEARCHMYPLAYLISTS:
 				return searchMyPlaylists(msg);
-				//searchMyPlaylists function goes here
 			case SEARCHCURRENTPLAYLIST:
 				return searchCurrentPlaylist(msg);
-				//searchCurrentPlaylist function goes here
 			case ADDPLAYLIST:
 				return addPlaylist(msg);
 			case DELETEPLAYLIST:
@@ -152,7 +150,12 @@ public class Server {
 				return addSong(msg);
 			case DELETESONGFROMPLAYLIST:
 				return deleteSong(msg);
+			case GETNUMBEROFFRAGMENTS:
+				return getNumberOfFragments(msg);
+			case GETSONGBYTES:
+				return getSongBytes(msg);
 			default:
+				//System.out.println("NULL>");
 				return null;
 			
     	}
@@ -420,7 +423,7 @@ public class Server {
 		 * will be sent to the port that the client is listening to a response on.
 		 */
 		DatagramPacket rply = new DatagramPacket(reply, reply.length, addr, port);
-		System.out.printf("Sending Reply. Port %d, InetAddr: %s\n", rply.getPort(), rply.getAddress());		
+		//System.out.printf("Sending Reply. Port %d, InetAddr: %s\n", rply.getPort(), rply.getAddress());		
 		socket.send(rply);
 	}
 	
@@ -433,11 +436,11 @@ public class Server {
 	 */
 	public static Request getRequest() throws IOException, SocketException {
 		byte[] buff = new byte[5000];
-		System.out.println("Getting Request");
+		//System.out.println("Getting Request");
 		//listen to request on port 1234 (will block until it gets a request.)
 		DatagramPacket request = new DatagramPacket(buff, buff.length, InetAddress.getLocalHost(), 1234);
 		socket.receive(request);
-		System.out.println("Client port: " + request.getPort());
+		//System.out.println("Client port: " + request.getPort());
 		Request req = new Request();
 		req.data = request.getData();
 		req.port = request.getPort();
@@ -481,7 +484,7 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
 		UserRepository.UpdateUser(user);
-		System.out.println(gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])));
+		//System.out.println(gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])));
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])).getBytes();
 	}
 	
@@ -504,7 +507,7 @@ public class Server {
 			user.setSavedSongs(saved);
 			UserRepository.UpdateUser(user);
 			p.add(user.getSavedSongs());
-			System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
+			//System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
 		}
 		else
@@ -514,7 +517,7 @@ public class Server {
 			user.addPlaylist(playlist);
 			UserRepository.UpdateUser(user);
 			p.addAll(user.getPlaylists());
-			System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
+			//System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
 		}
 	}
@@ -558,7 +561,7 @@ public class Server {
 
 			//remove song from playlist
 			playlist.removeSong(song);
-			System.out.println("Removing playlist at index " + playlistIndex);
+			//System.out.println("Removing playlist at index " + playlistIndex);
 
 			//remove old playlist
 			p.remove(playlistIndex);
@@ -578,5 +581,26 @@ public class Server {
 
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
 		}
+	}
+	
+	public static byte[] getNumberOfFragments(Message msg) {	
+		ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
+		int size = gson.fromJson(msg.getArgs()[1], int.class);
+		buffer.putLong(new File(song.getFileSource()).length() / size);
+		return buffer.array();
+	}
+	
+	public static byte[] getSongBytes(Message msg) throws IOException {
+		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
+		int offset = gson.fromJson(msg.getArgs()[1], int.class);
+		int bytes = gson.fromJson(msg.getArgs()[2], int.class);
+		byte[] b = new byte[bytes];
+		File f = new File (song.getFileSource());
+		FileInputStream fs = new FileInputStream(f);
+		fs.skip(offset);
+		fs.read(b, 0, bytes);
+		fs.close();
+		return b;
 	}
 }
