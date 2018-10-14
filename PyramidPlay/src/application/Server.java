@@ -6,6 +6,10 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import com.google.gson.Gson;
 import com.sun.glass.ui.Window.Level;
 
@@ -169,9 +173,10 @@ public class Server {
     	ArrayList<Song> allSongs;
     	Playlist validSongs = new Playlist("valid");
 		try {
-			server_log=new Log(userName+"_log.txt");
-			server_log.logger.setLevel(java.util.logging.Level.INFO);
-	    	server_log.logger.info("RECIEVED MESSAGE: "+m.toString()+"\n\n");
+			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
+			//server_log=new Log(userName+"_log.txt");
+			//server_log.logger.setLevel(java.util.logging.Level.INFO);
+	    	//server_log.logger.info("RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			allSongs = UserRepository.getAllSongs();
 	    	String query=m.getArgs()[1];
 	    	
@@ -220,7 +225,7 @@ public class Server {
 		for(int i=0;i<validSongs.getLength();i++) {
 			log_message=log_message+" "+validSongs.getSongs().get(i).toString();
 		}
-		server_log.logger.info("SENT MESSAGE:"+log_message);
+		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
     	
     }
@@ -237,9 +242,7 @@ public class Server {
     	ArrayList<Song> msgList=new ArrayList<Song>();
     	User user;
 		try {
-			server_log=new Log(userName+"_log.txt");
-			server_log.logger.setLevel(java.util.logging.Level.INFO);
-	    	server_log.logger.info("RECIEVED MESSAGE: "+m.toString()+"\n\n");
+			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			Playlist savedSongsPlaylist=user.getSavedSongs();
 			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
@@ -273,8 +276,7 @@ public class Server {
 		for(int i=0;i<msgList.size();i++) {
 			log_message=log_message+" "+msgList.get(i).toString();
 		}
-		server_log.logger.info("SENT MESSAGE:"+log_message);
-	
+		log(userName,"SENT MESSAGE: "+log_message+"\n\n");	
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
 	/**
@@ -287,9 +289,7 @@ public class Server {
 		ArrayList<Playlist> msgList= new ArrayList<Playlist>();
 		User user;
 		try {
-			server_log=new Log(userName+"_log.txt");
-			server_log.logger.setLevel(java.util.logging.Level.INFO);
-	    	server_log.logger.info("RECIEVED MESSAGE: "+m.toString()+"\n\n");
+			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			if(query.equals(" ")) {
@@ -318,7 +318,7 @@ public class Server {
 		for(int i=0;i<msgList.size();i++) {
 			log_message=log_message+" "+msgList.get(i).getPlaylistName();
 		}
-		server_log.logger.info("SENT MESSAGE:"+log_message);
+		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(msgList.toArray(new Playlist[msgList.size()])).getBytes();
 	}
 	/**
@@ -332,9 +332,7 @@ public class Server {
     	ArrayList<Song> msgList=new ArrayList<Song>();
     	User user;
 		try {
-			server_log=new Log(userName+"_log.txt");
-			server_log.logger.setLevel(java.util.logging.Level.INFO);
-	    	server_log.logger.info("RECIEVED MESSAGE: "+m.toString()+"\n\n");
+			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			Playlist cp = new Playlist();
@@ -374,7 +372,7 @@ public class Server {
 		for(int i=0;i<msgList.size();i++) {
 			log_message=log_message+" "+msgList.get(i).toString();
 		}
-		server_log.logger.info("SENT MESSAGE:"+log_message);
+		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
     
@@ -387,18 +385,17 @@ public class Server {
     	String userName=msg.getArgs()[0];
     	try 
 		{
-    		server_log=new Log(userName+"_log.txt");
-    		server_log.logger.setLevel(java.util.logging.Level.INFO);
-        	server_log.logger.info("RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
+				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 				//send acknowledgement back to login client
-				server_log.logger.info("SENT MESSAGE: VERIFIED");
+				log(userName,"SENT MESSAGE: VERIFIED\n\n");
 				return gson.toJson("VERIFIED").getBytes();
 			}
 			else {
+				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 				//send acknowledgement back to login client
-				server_log.logger.info("SENT MESSAGE: INCORRECT");
+				log(userName,"SENT MESSAGE: INCORRECT\n\n");
 				return gson.toJson("INCORRECT").getBytes();
 			}
 		} 
@@ -420,9 +417,6 @@ public class Server {
     	//msg args structure = [firstName, lastName, userName, password]
     	try 
 		{
-    		server_log=new Log(userName+"_log.txt");
-    		server_log.logger.setLevel(java.util.logging.Level.INFO);
-        	server_log.logger.info("RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 			if(UserRepository.userExists(msg.getArgs()[2]))
 			{
 				//tell client that username already exists and is not available
@@ -431,6 +425,7 @@ public class Server {
 			}
 			else
 			{
+				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 				//username is available and ready to be added to the repository
 				User newUser = new User(msg.getArgs()[0], msg.getArgs()[1], msg.getArgs()[2], msg.getArgs()[3]);
 				
@@ -620,5 +615,25 @@ public class Server {
 
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
 		}
+	}
+	public static void log(String fileName,String l) {
+		Logger logger = Logger.getLogger("MyLog");  
+	    FileHandler fh;  
+	    try {  
+	        // This block configure the logger with handler and formatter  
+	        fh = new FileHandler(fileName+".log",100000,1,true);  
+	        logger.addHandler(fh);
+	        SimpleFormatter formatter = new SimpleFormatter();  
+	        fh.setFormatter(formatter);  
+
+	        // the following statement is used to log any messages  
+	        logger.info(l);
+	        fh.close();
+
+	    } catch (SecurityException e) {  
+	        e.printStackTrace();  
+	    } catch (IOException e) {  
+	        e.printStackTrace();  
+	    }  
 	}
 }
