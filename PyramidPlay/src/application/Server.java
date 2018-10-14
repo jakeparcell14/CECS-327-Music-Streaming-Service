@@ -346,7 +346,7 @@ public class Server {
 	public static byte[] verifyAccount(Message msg) {
 		gson = new Gson();
 
-		try 
+		try
 		{
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
@@ -536,7 +536,7 @@ public class Server {
 		{
 			//remove song from playlist
 			playlist.removeSong(song);
-			user.setSavedSongs(playlist);;
+			user.setSavedSongs(playlist);
 			UserRepository.UpdateUser(user);
 
 			ArrayList<Playlist> p = new ArrayList<Playlist>();
