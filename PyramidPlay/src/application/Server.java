@@ -480,15 +480,9 @@ public class Server {
 	 */
 	private static byte[] deletePlaylist(Message msg) throws IOException {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
-		Playlist p = gson.fromJson(msg.getArgs()[1], Playlist.class);
-
-		// makes method idempotent because the method will react the same regardless of how many times a specific process is called TODO make sure it works
-		if(user.getPlaylists().contains(p))
-		{
-			user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
-			UserRepository.UpdateUser(user);
-			System.out.println(gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])));
-		}
+		user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
+		UserRepository.UpdateUser(user);
+		System.out.println(gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])));
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])).getBytes();
 	}
 
