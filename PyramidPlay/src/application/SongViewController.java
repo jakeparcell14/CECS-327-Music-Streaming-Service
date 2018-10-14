@@ -1,9 +1,13 @@
 package application;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -43,6 +47,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 import com.google.gson.Gson;
 
 
@@ -373,6 +380,10 @@ public class SongViewController implements Initializable{
 	 * @param event		the play/pause button has been clicked
 	 */
 	public void OnPlayPauseClicked(MouseEvent event) {
+		
+		
+		
+		
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
 			playSong(_currentTime);
@@ -1140,68 +1151,6 @@ public class SongViewController implements Initializable{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		/*
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-		if(!query.isEmpty())
-		{
-			// query is not empty
-			for(int i=0; i<allSongs.size();i++) {
-				if(validSongs.getSongs().size() <= 20)
-				{
-					//checks if query matches the title of the current song
-					if(allSongs.get(i).getTitle() != null && allSongs.get(i).getTitle().length() >= query.length()) {
-						// the song title is at least as long as the query
-						if(allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-							//the query matches the song title
-							validSongs.addSong(allSongs.get(i));
-						}
-					}
-
-					//checks if query matches the album name of the current song
-					if(!validSongs.contains(allSongs.get(i).getTitle())) {
-						// the song has not been added to the list of valid songs yet
-						if(allSongs.get(i).getAlbum() != null && allSongs.get(i).getAlbum().length() >= query.length()) {
-							// the album name is at least as long as the query
-							if(allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-								//the query matches the album name
-								validSongs.addSong(allSongs.get(i));
-							}
-						}
-					}
-
-					//checks if query matches the artist name of the current song
-					if(!validSongs.contains(allSongs.get(i).getTitle())) {
-						// the song has not been added to the list of valid songs yet
-						if(allSongs.get(i).getArtist() != null && allSongs.get(i).getArtist().length() >= query.length()) {
-							// the artist name is at least as long as the query
-							if(allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-								//the query matches the artist name
-								validSongs.addSong(allSongs.get(i));
-							}
-						}
-					}
-				}
-			}
-			displaySongs(validSongs);
-		}
-		else
-		{
-			//text bar is empty
-			SearchResultsPane.setVisible(false);
-			SearchResultsPane.setMouseTransparent(true);
-		}
-
-		displaySongs(validSongs);*/
 
 	}
 
@@ -1224,12 +1173,6 @@ public class SongViewController implements Initializable{
 				e.printStackTrace();
 			}
 			System.out.println("request port: " + request.getPort());
-			//InetAddress host = InetAddress.getLocalHost();
-			
-			//int serverPort = 6789;
-			//DatagramPacket request = new DatagramPacket(m, m.length, host, serverPort);
-			//socket.send(request);
-			//System.out.println("Request: " + new String(request.getData()));
 			byte[] buffer = new byte[1000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			System.out.println("Awaiting response from server...");
@@ -1277,12 +1220,7 @@ public class SongViewController implements Initializable{
 				e.printStackTrace();
 			}
 			System.out.println("request port: " + request.getPort());
-			//InetAddress host = InetAddress.getLocalHost();
-			
-			//int serverPort = 6789;
-			//DatagramPacket request = new DatagramPacket(m, m.length, host, serverPort);
-			//socket.send(request);
-			//System.out.println("Request: " + new String(request.getData()));
+
 			byte[] buffer = new byte[5000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			System.out.println("Awaiting response from server...");
@@ -1294,7 +1232,6 @@ public class SongViewController implements Initializable{
 			}		
 			System.out.println("Response received!");
 			
-			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
 			Playlist[] temp=gson.fromJson(new String(buffer).trim(), Playlist[].class);
 			if(temp.length>0) {
 				for(int i=0;i<temp.length;i++) {
@@ -1418,11 +1355,45 @@ public class SongViewController implements Initializable{
 		File f;
 		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
 		try {
+			DatagramSocket socket = new DatagramSocket();
 			//initialize clip
 			_currentSong = AudioSystem.getClip();
 			//open file and stream
+
+			String[] arg = {gson.toJson((currentPlaylist.getSongs()).get(playlistNum)), gson.toJson(4096)};
+			Message msg = new Message(0, requestID++, OpID.GETNUMBEROFFRAGMENTS, arg, InetAddress.getLocalHost(), 1);
+			byte[] msgBytes = gson.toJson(msg).getBytes();
+			DatagramPacket request = new DatagramPacket(msgBytes, msgBytes.length, InetAddress.getLocalHost(), 1234);				socket.send(request);
+				
+			byte[] resp = new byte[8];
+			DatagramPacket response = new DatagramPacket(resp, resp.length);
+			socket.receive(response);
+			ByteBuffer buff = ByteBuffer.allocate(Long.BYTES);				
+			buff.put(resp);
+			buff.flip();
+			long numberOfFragments = buff.getLong();
+			byte[] songBytes = new byte[(int) (numberOfFragments * 4096)];
+			System.out.println("received fragments...");
+
+			
+			
+			
+			
+			for (long i = 0; i<numberOfFragments; i++) {
+				String[] arguments = {gson.toJson((currentPlaylist.getSongs()).get(playlistNum)), gson.toJson(4096 * i), gson.toJson(4096)};
+				Message mesg = new Message(0, requestID++, OpID.GETSONGBYTES, arguments, InetAddress.getLocalHost(), 1);
+				msgBytes = gson.toJson(mesg).getBytes();
+				DatagramPacket req = new DatagramPacket(msgBytes, msgBytes.length, InetAddress.getLocalHost(), 1234);
+				socket.send(req);
+				byte[] buffer = new byte[4096];
+				DatagramPacket res = new DatagramPacket(buffer, buffer.length);	
+				socket.receive(res);
+				System.arraycopy(buffer, 0, songBytes, (int) (i * 4096), 4096);
+			}
+			
+
 			//grabs song from current playlist
-			f = new File((currentPlaylist.getSongs()).get(playlistNum).getFileSource());
+			f = createFile(songBytes);
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(f.toURI().toURL());
 
 			_currentSong.open(inputStream);
@@ -1439,13 +1410,29 @@ public class SongViewController implements Initializable{
 			_slider.setMax(_currentSong.getMicrosecondLength());
 			totalTime.setText(getTime(_currentSong.getMicrosecondLength()));
 			currentTime.setText(getTime(time));
+			socket.close();
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		} catch (UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}  finally {
+
+		}
+	}
+	
+	private static File createFile(byte[] bytes) throws IOException, FileNotFoundException {
+		File f = new File("cached_song.wav");
+		f.createNewFile();
+		OutputStream stream = new FileOutputStream(f, false);
+		try {
+		    stream.write(bytes);
+		} finally {
+		    stream.close();
+		}
+		
+		return f;
 	}
 
 	/***
