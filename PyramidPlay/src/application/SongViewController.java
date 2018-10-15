@@ -248,9 +248,20 @@ public class SongViewController implements Initializable{
 	 */
 	private TableColumn dateCreatedColumn;
 
+	/**
+	 * Current song object.
+	 */
 	private Media Song;
 	
+	/**
+	 * Media player to play song.
+	 */
 	private MediaPlayer player;
+	
+	/**
+	 * Cached song file.
+	 */
+	private File cachedSong;
 
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
@@ -409,6 +420,7 @@ public class SongViewController implements Initializable{
 		if(playlistNum == currentPlaylist.getLength()) {
 			playlistNum = 0;
 		}
+
 		playSelectedSong();
 	}
 
@@ -418,12 +430,32 @@ public class SongViewController implements Initializable{
 	public void playSelectedSong () {
 		_currentTime = Duration.ZERO;
 		currentTime.setText((getTime(_currentTime)));
+		
+		
 		if(player != null && player.getStatus().equals(Status.PLAYING)) {
 			player.stop();
 		}
-
-		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
-		playSong(_currentTime);
+		
+		DatagramSocket socket = null;
+		try {
+			socket = new DatagramSocket();
+			cachedSong = SongDownloader.DownloadSong(socket, (currentPlaylist.getSongs()).get(playlistNum), requestID++);
+			System.out.println("Downloaded song.");
+		} catch (SocketTimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (socket != null) 
+				socket.close();
+		}
+		
+		
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
 		}
@@ -432,6 +464,9 @@ public class SongViewController implements Initializable{
 		SearchResultsPane.setVisible(false);
 		SearchResultsPane.setMouseTransparent(true);
 		this.resetSearchText();
+		
+		playSong(_currentTime);
+
 	}
 
 	@FXML
@@ -447,6 +482,8 @@ public class SongViewController implements Initializable{
 			playlistNum--;
 			playSelectedSong();
 		}
+		
+		
 	}
 
 	@FXML
@@ -1408,10 +1445,7 @@ public class SongViewController implements Initializable{
 		try {
 			DatagramSocket socket = new DatagramSocket();
 			
-			//download file
-			File f = SongDownloader.DownloadSong(socket, (currentPlaylist.getSongs()).get(playlistNum), requestID++);
-			System.out.println(f.length());	
-			Song = new Media(f.toURI().toString());
+			Song = new Media(cachedSong.toURI().toString());
 			player = new MediaPlayer(Song);
 			
 			player.setOnReady(new Runnable() {

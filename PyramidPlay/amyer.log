@@ -502,3 +502,35 @@ Oct 15, 2018 1:51:54 PM application.Server log
 INFO: SENT MESSAGE: VERIFIED
 
 
+Oct 15, 2018 2:08:05 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 2:08:05 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 2:10:01 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 2:10:01 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 2:11:35 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 2:11:35 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 2:12:25 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 2:12:25 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
