@@ -1089,6 +1089,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void OnSliderClicked(MouseEvent event)
 	{
+		System.out.println("Click detected.");
 		/* if it was not dragged but simple clicked to a new position,
 		 * make sure to stop the song.
 		 */
@@ -1112,6 +1113,8 @@ public class SongViewController implements Initializable{
 	 * @param event
 	 */
 	public void OnSliderDragDetected(MouseEvent event) {
+		
+		System.out.println("Drag detected.");
 		//if a drag is detected, stop the song.
 		if (player !=null && player.getStatus().equals(Status.PLAYING)) {
 			player.stop();

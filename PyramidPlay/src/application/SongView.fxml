@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="SongViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#OnSongViewClicked" prefHeight="800" prefWidth="1200" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
+<AnchorPane fx:id="SongViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#OnSongViewClicked" prefHeight="800" prefWidth="1200" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SongViewController">
    <children>
       <Label fx:id="currentSongName" alignment="CENTER" contentDisplay="CENTER" layoutX="674" layoutY="516" prefHeight="36" prefWidth="500" text="Song Name" />
       <Label fx:id="currentSongArtist" alignment="CENTER" contentDisplay="CENTER" layoutX="674" layoutY="550" prefHeight="34" prefWidth="500" text="Artist" />
@@ -34,7 +34,7 @@
             <ToggleButton fx:id="currentPlaylistButton" layoutY="2" mnemonicParsing="false" onMouseClicked="#OnCurrentPlaylistClicked" prefHeight="60" prefWidth="216" text="Current Playlist" />
          </children>
       </Pane>
-      <BorderPane fx:id="SearchBarPane" layoutX="674.0" layoutY="78.0" prefHeight="588" prefWidth="500">
+      <BorderPane fx:id="SearchBarPane" layoutX="674.0" layoutY="78.0" prefHeight="446.0" prefWidth="500">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -42,9 +42,9 @@
             <TextField fx:id="AllSongsSearchBar" onKeyReleased="#searchAllSongs" prefWidth="500" promptText="search all songs" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <Pane fx:id="SearchResultsPane" prefHeight="526" prefWidth="500" BorderPane.alignment="CENTER">
+            <Pane fx:id="SearchResultsPane" prefHeight="420.0" prefWidth="500" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="AllSongsList" onMouseClicked="#OnAllSongsListClicked" prefHeight="562.0" prefWidth="500" />
+                  <TableView fx:id="AllSongsList" onMouseClicked="#OnAllSongsListClicked" prefHeight="420.0" prefWidth="500" />
                </children>
             </Pane>
          </center>
