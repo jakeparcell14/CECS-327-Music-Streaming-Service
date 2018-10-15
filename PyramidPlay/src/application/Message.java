@@ -45,6 +45,15 @@ public class Message {
 		this.address = address;
 	}
 	
+	public Message(int messageType, Message m) {
+		this.messageType = messageType;
+		this.requestID = m.requestID;
+		this.operationID = m.operationID;
+		this.args = m.args;
+		this.protocolID = m.protocolID;
+		this.address = m.address;
+	}
+	
 	public int getMessageType() {
 		return messageType;
 	}
@@ -68,14 +77,6 @@ public class Message {
 
 	public InetAddress getAddress() {
 		return address;
-	}
-	public String toString() {
-		String temp= messageType+" "+requestID+" "+operationID+" ";
-		for(int i=0;i<args.length;i++) {
-			temp=temp+" "+args[i];
-		}
-		temp=temp+" "+protocolID+" "+address;
-		return temp;
 	}
 	
 	

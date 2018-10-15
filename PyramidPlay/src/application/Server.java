@@ -1,25 +1,15 @@
 package application;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
 import com.google.gson.Gson;
-import com.sun.glass.ui.Window.Level;
 
 
 public class Server {
-	static Log server_log;
 	/**
      * The appplication main method, which just listens on a port and
      * spawns handler threads.
@@ -38,15 +28,15 @@ public class Server {
 	
 	
     public static void main(String[] args) throws Exception {		
-		try {			
+		try {
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
 			
 			while(true) {
-				//System.out.println("Waiting for a request...");
+				System.out.println("Waiting for a request...");
 				Request req = getRequest();
 				
-				//System.out.println("Received a request!\nCreating new thread!");
+				System.out.println("Received a request!\nCreating new thread!");
 				//create a new thread to handle a client's requests
 				new Handler(req).start();
 			}
@@ -81,7 +71,7 @@ public class Server {
     		//create a new socket to handle requests from the client
     		try {
 				reqSocket = new DatagramSocket();
-				//System.out.println(reqSocket.getLocalPort());
+				System.out.println(reqSocket.getLocalPort());
 			} catch (SocketException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -89,10 +79,14 @@ public class Server {
     	}
     	
     	public void run() {
-    		//System.out.println("New handler running and handling request...");
-    		//System.out.println(new String(req.data).trim());
+    		System.out.println("New handler running and handling request");
+    		System.out.println(new String(req.data).trim());
     		Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
-	
+    		
+/**    		for (int i = 0; i < msg.getArgs().length; i ++) {
+    			System.out.println("args[" + i + "]= " + msg.getArgs()[i]);
+    		}
+*/    		
     		switch(msg.getProtocolID()) {
     			case 0:
     				break;
@@ -103,6 +97,12 @@ public class Server {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+    			case 2: 
+    				try {
+    					RequestReplyAcknowledgeProtocol(msg, req);
+    				} catch (IOException e) {
+    					e.printStackTrace();
+    				}
     			
     		}
   
@@ -126,6 +126,16 @@ public class Server {
 		SendReply(result, InetAddress.getLocalHost(), req.port);
 	}
     
+    private static void RequestReplyAcknowledgeProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
+    	byte[] result = ChooseAndExecuteOperation(msg);
+    	SendReply(result, InetAddress.getLocalHost(), req.port);
+    	Request req = getRequest();
+    	Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
+    	if(msg.messageType == 0)
+    		System.out.println("Acknowledgement recieved");
+    	
+    }
+    
     /***
      * Chooses an operation based on the operation id in the message object sent to the server.
      * 
@@ -136,18 +146,20 @@ public class Server {
     private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
     	switch(msg.getOperationID()) {
 			case LOGIN:
-				//System.out.println("Login!");
 				return verifyAccount(msg);
 			case REGISTER:
 				return registerAccount(msg);
 			case SEARCHALLSONGS:
 				return searchAllSongs(msg);
 			case SEARCHMYSONGS:
+				//searchMySongs function goes here
 				return searchMySongs(msg);
 			case SEARCHMYPLAYLISTS:
 				return searchMyPlaylists(msg);
+				//searchMyPlaylists function goes here
 			case SEARCHCURRENTPLAYLIST:
 				return searchCurrentPlaylist(msg);
+				//searchCurrentPlaylist function goes here
 			case ADDPLAYLIST:
 				return addPlaylist(msg);
 			case DELETEPLAYLIST:
@@ -156,13 +168,9 @@ public class Server {
 				return addSong(msg);
 			case DELETESONGFROMPLAYLIST:
 				return deleteSong(msg);
-			case GETNUMBEROFFRAGMENTS:
-				return getNumberOfFragments(msg);
-			case GETSONGBYTES:
-				return getSongBytes(msg);
 			default:
-				//System.out.println("NULL>");
 				return null;
+			
     	}
     }
  
@@ -172,11 +180,9 @@ public class Server {
      * @return Returns result as flattened byte array ready to be sent.
      */
     public static byte[] searchAllSongs(Message m) {
-    	String userName=m.getArgs()[0];
     	ArrayList<Song> allSongs;
     	Playlist validSongs = new Playlist("valid");
 		try {
-			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			allSongs = UserRepository.getAllSongs();
 	    	String query=m.getArgs()[1];
 	    	
@@ -221,11 +227,6 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String log_message="";
-		for(int i=0;i<validSongs.getLength();i++) {
-			log_message=log_message+" "+validSongs.getSongs().get(i).toString();
-		}
-		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
     	
     }
@@ -242,7 +243,6 @@ public class Server {
     	ArrayList<Song> msgList=new ArrayList<Song>();
     	User user;
 		try {
-			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			Playlist savedSongsPlaylist=user.getSavedSongs();
 			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
@@ -272,11 +272,6 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String log_message="";
-		for(int i=0;i<msgList.size();i++) {
-			log_message=log_message+" "+msgList.get(i).toString();
-		}
-		log(userName,"SENT MESSAGE: "+log_message+"\n\n");	
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
 	/**
@@ -289,7 +284,6 @@ public class Server {
 		ArrayList<Playlist> msgList= new ArrayList<Playlist>();
 		User user;
 		try {
-			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			if(query.equals(" ")) {
@@ -314,11 +308,7 @@ public class Server {
 		}
 		
 		
-		String log_message="";
-		for(int i=0;i<msgList.size();i++) {
-			log_message=log_message+" "+msgList.get(i).getPlaylistName();
-		}
-		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
+		
 		return gson.toJson(msgList.toArray(new Playlist[msgList.size()])).getBytes();
 	}
 	/**
@@ -332,7 +322,6 @@ public class Server {
     	ArrayList<Song> msgList=new ArrayList<Song>();
     	User user;
 		try {
-			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			Playlist cp = new Playlist();
@@ -368,11 +357,7 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String log_message="";
-		for(int i=0;i<msgList.size();i++) {
-			log_message=log_message+" "+msgList.get(i).toString();
-		}
-		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
+		
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
     
@@ -383,14 +368,12 @@ public class Server {
 	 */
     public static byte[] verifyAccount(Message msg) {
     	gson = new Gson();
-    	String userName=msg.getArgs()[0];
+    	
     	try 
 		{
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
-				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 				//send acknowledgement back to login client
-				log(userName,"SENT MESSAGE: VERIFIED\n\n");
 				return gson.toJson(UserRepository.getUser(msg.getArgs()[0])).getBytes();
 			}
 			else {
@@ -412,13 +395,12 @@ public class Server {
      */
     public static byte[] registerAccount(Message msg) {
     	Gson gson = new Gson();
-    	String userName=msg.getArgs()[2];
+    	
     	//msg args structure = [firstName, lastName, userName, password]
     	try 
 		{
 			if(!UserRepository.userExists(msg.getArgs()[2]))
 			{
-				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 				//username is available and ready to be added to the repository
 				User newUser = new User(msg.getArgs()[0], msg.getArgs()[1], msg.getArgs()[2], msg.getArgs()[3]);
 				
@@ -426,7 +408,6 @@ public class Server {
 				UserRepository.AddUser(newUser);
 				
 				//return new user
-				log(userName,"SENT MESSAGE: "+newUser.getUsername()+"\n\n");
 				return gson.toJson(newUser).getBytes();
 			}
 			else
@@ -458,7 +439,7 @@ public class Server {
 		 * will be sent to the port that the client is listening to a response on.
 		 */
 		DatagramPacket rply = new DatagramPacket(reply, reply.length, addr, port);
-		//System.out.printf("Sending Reply. Port %d, InetAddr: %s\n", rply.getPort(), rply.getAddress());		
+		System.out.printf("Sending Reply. Port %d, InetAddr: %s\n", rply.getPort(), rply.getAddress());		
 		socket.send(rply);
 	}
 	
@@ -471,11 +452,11 @@ public class Server {
 	 */
 	public static Request getRequest() throws IOException, SocketException {
 		byte[] buff = new byte[5000];
-		//System.out.println("Getting Request");
+		System.out.println("Getting Request");
 		//listen to request on port 1234 (will block until it gets a request.)
 		DatagramPacket request = new DatagramPacket(buff, buff.length, InetAddress.getLocalHost(), 1234);
 		socket.receive(request);
-		//System.out.println("Client port: " + request.getPort());
+		System.out.println("Client port: " + request.getPort());
 		Request req = new Request();
 		req.data = request.getData();
 		req.port = request.getPort();
@@ -519,7 +500,7 @@ public class Server {
 		User user = UserRepository.getUser(msg.getArgs()[0]);
 		user.removePlaylist(gson.fromJson(msg.getArgs()[1], Playlist.class).getPlaylistName());
 		UserRepository.UpdateUser(user);
-		//System.out.println(gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])));
+		System.out.println(gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])));
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])).getBytes();
 	}
 	
@@ -542,7 +523,7 @@ public class Server {
 			user.setSavedSongs(saved);
 			UserRepository.UpdateUser(user);
 			p.add(user.getSavedSongs());
-			//System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
+			System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
 		}
 		else
@@ -552,7 +533,7 @@ public class Server {
 			user.addPlaylist(playlist);
 			UserRepository.UpdateUser(user);
 			p.addAll(user.getPlaylists());
-			//System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
+			System.out.println("add song size: "+gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes().length);
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
 		}
 	}
@@ -596,7 +577,7 @@ public class Server {
 
 			//remove song from playlist
 			playlist.removeSong(song);
-			//System.out.println("Removing playlist at index " + playlistIndex);
+			System.out.println("Removing playlist at index " + playlistIndex);
 
 			//remove old playlist
 			p.remove(playlistIndex);
@@ -616,46 +597,5 @@ public class Server {
 
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
 		}
-	}
-	
-	public static byte[] getNumberOfFragments(Message msg) {	
-		ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
-		int size = gson.fromJson(msg.getArgs()[1], int.class);
-		buffer.putLong(new File(song.getFileSource()).length() / size);
-		return buffer.array();
-	}
-	
-	public static byte[] getSongBytes(Message msg) throws IOException {
-		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
-		int offset = gson.fromJson(msg.getArgs()[1], int.class);
-		int bytes = gson.fromJson(msg.getArgs()[2], int.class);
-		byte[] b = new byte[bytes];
-		File f = new File (song.getFileSource());
-		FileInputStream fs = new FileInputStream(f);
-		fs.skip(offset);
-		fs.read(b, 0, bytes);
-		fs.close();
-		return b;
-	}
-	public static void log(String fileName,String l) {
-		Logger logger = Logger.getLogger("MyLog");  
-	    FileHandler fh;  
-	    try {  
-	        // This block configure the logger with handler and formatter  
-	        fh = new FileHandler(fileName+".log",100000,1,true);  
-	        logger.addHandler(fh);
-	        SimpleFormatter formatter = new SimpleFormatter();  
-	        fh.setFormatter(formatter);  
-
-	        // the following statement is used to log any messages  
-	        logger.info(l);
-	        fh.close();
-
-	    } catch (SecurityException e) {  
-	        e.printStackTrace();  
-	    } catch (IOException e) {  
-	        e.printStackTrace();  
-	    }  
 	}
 }

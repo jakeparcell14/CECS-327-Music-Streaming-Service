@@ -143,7 +143,7 @@ public class LoginController implements Initializable
 			
 			//create a socket with no specific port we listen on
 			socket = new DatagramSocket();
-			socket.setSoTimeout(1000);
+			socket.setSoTimeout(500);
 			System.out.println("Socket created with port " + socket.getLocalPort());
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
@@ -186,19 +186,14 @@ public class LoginController implements Initializable
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			
 			//keep sending reply until server responds
-			for (int i = 0; i < 10; i++) {
+			boolean response = false;
+			while (!response) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
-						System.out.println("Giving up on request");
-						InvalidSignInLabel.setText("Unable to connect to server");
-						InvalidSignInLabel.setVisible(true);
-						return;
-					}
 					System.out.println("No response from server, sending request again.");
 					socket.send(request);
 				}
@@ -226,7 +221,6 @@ public class LoginController implements Initializable
 			}
 			else
 			{
-				InvalidSignInLabel.setText("Invalid Username/Password");
 				InvalidSignInLabel.setVisible(true);
 			}
 		} catch (UnknownHostException e1) {
@@ -278,21 +272,13 @@ public class LoginController implements Initializable
 			
 			//keep sending reply until server responds
 			boolean response = false;
-			
-			//keep sending reply until server responds
-			for (int i = 0; i < 10; i++) {
+			while (!response) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
-						System.out.println("Giving up on request");
-						UsernameUnavailableLabel.setText("Unable to connect to server");
-						UsernameUnavailableLabel.setVisible(true);
-						return;
-					}
 					System.out.println("No response from server, sending request again.");
 					socket.send(request);
 				}
@@ -324,7 +310,6 @@ public class LoginController implements Initializable
 			else
 			{
 				//username already exists and is not available, inform user
-				UsernameUnavailableLabel.setText("Username already in use");
 				UsernameUnavailableLabel.setVisible(true);
 			}
 		} catch(IOException e) {
