@@ -10,10 +10,16 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import com.google.gson.Gson;
+import com.sun.glass.ui.Window.Level;
 
 
 public class Server {
+	static Log server_log;
 	/**
      * The appplication main method, which just listens on a port and
      * spawns handler threads.
@@ -32,7 +38,7 @@ public class Server {
 	
 	
     public static void main(String[] args) throws Exception {		
-		try {
+		try {			
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
 			
@@ -157,7 +163,6 @@ public class Server {
 			default:
 				//System.out.println("NULL>");
 				return null;
-			
     	}
     }
  
@@ -167,9 +172,11 @@ public class Server {
      * @return Returns result as flattened byte array ready to be sent.
      */
     public static byte[] searchAllSongs(Message m) {
+    	String userName=m.getArgs()[0];
     	ArrayList<Song> allSongs;
     	Playlist validSongs = new Playlist("valid");
 		try {
+			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			allSongs = UserRepository.getAllSongs();
 	    	String query=m.getArgs()[1];
 	    	
@@ -214,6 +221,11 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String log_message="";
+		for(int i=0;i<validSongs.getLength();i++) {
+			log_message=log_message+" "+validSongs.getSongs().get(i).toString();
+		}
+		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
     	
     }
@@ -230,6 +242,7 @@ public class Server {
     	ArrayList<Song> msgList=new ArrayList<Song>();
     	User user;
 		try {
+			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			Playlist savedSongsPlaylist=user.getSavedSongs();
 			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
@@ -259,6 +272,11 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String log_message="";
+		for(int i=0;i<msgList.size();i++) {
+			log_message=log_message+" "+msgList.get(i).toString();
+		}
+		log(userName,"SENT MESSAGE: "+log_message+"\n\n");	
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
 	/**
@@ -271,6 +289,7 @@ public class Server {
 		ArrayList<Playlist> msgList= new ArrayList<Playlist>();
 		User user;
 		try {
+			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			if(query.equals(" ")) {
@@ -295,7 +314,11 @@ public class Server {
 		}
 		
 		
-		
+		String log_message="";
+		for(int i=0;i<msgList.size();i++) {
+			log_message=log_message+" "+msgList.get(i).getPlaylistName();
+		}
+		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(msgList.toArray(new Playlist[msgList.size()])).getBytes();
 	}
 	/**
@@ -309,6 +332,7 @@ public class Server {
     	ArrayList<Song> msgList=new ArrayList<Song>();
     	User user;
 		try {
+			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			Playlist cp = new Playlist();
@@ -344,7 +368,11 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		String log_message="";
+		for(int i=0;i<msgList.size();i++) {
+			log_message=log_message+" "+msgList.get(i).toString();
+		}
+		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
     
@@ -355,12 +383,14 @@ public class Server {
 	 */
     public static byte[] verifyAccount(Message msg) {
     	gson = new Gson();
-    	
+    	String userName=msg.getArgs()[0];
     	try 
 		{
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
+				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 				//send acknowledgement back to login client
+				log(userName,"SENT MESSAGE: VERIFIED\n\n");
 				return gson.toJson(UserRepository.getUser(msg.getArgs()[0])).getBytes();
 			}
 			else {
@@ -382,12 +412,13 @@ public class Server {
      */
     public static byte[] registerAccount(Message msg) {
     	Gson gson = new Gson();
-    	
+    	String userName=msg.getArgs()[2];
     	//msg args structure = [firstName, lastName, userName, password]
     	try 
 		{
 			if(!UserRepository.userExists(msg.getArgs()[2]))
 			{
+				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 				//username is available and ready to be added to the repository
 				User newUser = new User(msg.getArgs()[0], msg.getArgs()[1], msg.getArgs()[2], msg.getArgs()[3]);
 				
@@ -395,6 +426,7 @@ public class Server {
 				UserRepository.AddUser(newUser);
 				
 				//return new user
+				log(userName,"SENT MESSAGE: "+newUser.getUsername()+"\n\n");
 				return gson.toJson(newUser).getBytes();
 			}
 			else
@@ -605,5 +637,25 @@ public class Server {
 		fs.read(b, 0, bytes);
 		fs.close();
 		return b;
+	}
+	public static void log(String fileName,String l) {
+		Logger logger = Logger.getLogger("MyLog");  
+	    FileHandler fh;  
+	    try {  
+	        // This block configure the logger with handler and formatter  
+	        fh = new FileHandler(fileName+".log",100000,1,true);  
+	        logger.addHandler(fh);
+	        SimpleFormatter formatter = new SimpleFormatter();  
+	        fh.setFormatter(formatter);  
+
+	        // the following statement is used to log any messages  
+	        logger.info(l);
+	        fh.close();
+
+	    } catch (SecurityException e) {  
+	        e.printStackTrace();  
+	    } catch (IOException e) {  
+	        e.printStackTrace();  
+	    }  
 	}
 }

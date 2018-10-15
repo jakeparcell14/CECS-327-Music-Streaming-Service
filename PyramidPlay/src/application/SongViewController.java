@@ -60,6 +60,7 @@ import com.google.gson.Gson;
  * We are aware about how absurdly horrific this code is.
  */
 public class SongViewController implements Initializable{
+	static Log server_log;
 	/**
 	 * the socket used to make a connection to the server
 	 */
