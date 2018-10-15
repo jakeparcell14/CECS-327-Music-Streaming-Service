@@ -50,6 +50,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
+import javafx.util.Duration;
 
 import com.google.gson.Gson;
 
@@ -197,7 +199,7 @@ public class SongViewController implements Initializable{
 	/**
 	 * Current time of the song. Used for pausing purposes.
 	 */
-	private long _currentTime;
+	private Duration _currentTime;
 
 	/**
 	 * Current slider position.
@@ -251,13 +253,19 @@ public class SongViewController implements Initializable{
 	 */
 	private TableColumn dateCreatedColumn;
 
+	private Media Song;
+	
+	private MediaPlayer player;
 
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
 	 */
 	Runnable UIUpdateThread = () -> {
-		while (_currentSong.isActive()) {
-			long s = _currentSong.getMicrosecondPosition();	
+		//busy wait
+		while(!player.getStatus().equals(Status.PLAYING));
+		while (player.getStatus().equals(Status.PLAYING)) {
+			Duration s = player.getCurrentTime();	
+
 			/**
 			 * This places the code within it into the UI thread's execution queue.
 			 * Allows us to access UI thread elements from a different thread.
@@ -265,17 +273,16 @@ public class SongViewController implements Initializable{
 			 * the thread up.
 			 */
 			Platform.runLater(() -> {
-				_slider.setValue(s);
+				_slider.setValue(s.toMillis());
 				currentTime.setText(getTime(s));
 			});
 
 			/*if we are within a second of the end of the song, move to the next one 
 			 * by simulating a "next song" click.
 			 */
-			if (s > _currentSong.getMicrosecondLength() - 1000000) {
+			if (s.toMillis() > player.getTotalDuration().toMillis() - 1000) {
 				Platform.runLater(() -> {
 					OnNextClicked(null);
-
 				});
 			}
 
@@ -383,7 +390,7 @@ public class SongViewController implements Initializable{
 	 */
 	public void OnPlayPauseClicked(MouseEvent event) {
 		
-		
+		System.out.println("Clicked");
 		
 		
 		if(_playButton.getText().equals("Play")) {
@@ -391,9 +398,9 @@ public class SongViewController implements Initializable{
 			playSong(_currentTime);
 		} else {
 			_playButton.setText("Play");
-			_currentTime = _currentSong.getMicrosecondPosition();
-			_currentSong.stop();
-			_currentSong.close();
+			_currentTime = player.getCurrentTime();
+			player.stop();
+			//_currentSong.close();
 		}
 
 		// make search results invisible
@@ -419,7 +426,7 @@ public class SongViewController implements Initializable{
 	 * Method to play the current song from the beginning.
 	 */
 	public void playSelectedSong () {
-		_currentTime = 0;
+		_currentTime = Duration.ZERO;
 		currentTime.setText((getTime(_currentTime)));
 		if(_currentSong!=null) {
 			_currentSong.stop();
@@ -1064,7 +1071,7 @@ public class SongViewController implements Initializable{
 			_currentSong.close();
 
 		}
-		_currentTime = (long)_slider.getValue();
+		_currentTime = Duration.millis(_slider.getValue());
 
 		//play the song from this new position
 		if (_playButton.getText().equals("Pause")) {
@@ -1409,7 +1416,7 @@ public class SongViewController implements Initializable{
 	 * Plays the current song at the given time.
 	 * @param time Time in microseconds at which the song should start
 	 */
-	public void playSong(long time) {
+	public void playSong(Duration time) {
 		File f;
 		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
 		try {
@@ -1449,25 +1456,34 @@ public class SongViewController implements Initializable{
 				System.arraycopy(buffer, 0, songBytes, (int) (i * 4096), 4096);
 			}
 			
-
+			
 			//grabs song from current playlist
 			f = createFile(songBytes);
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(f.toURI().toURL());
+			
+			Song = new Media(f.toURI().toString());
+			player = new MediaPlayer(Song);
+			
+			player.setOnReady(new Runnable() {
 
-			_currentSong.open(inputStream);
-			_currentSong.setMicrosecondPosition(time); //sets time song will start at
-			_currentSong.start();
+				@Override
+				public void run() {
+					
+					System.out.println("Duration: "+ getTime(player.getTotalDuration()));
+					player.play();
+					
+					//start background thread to update UI with song
+					_thread = new Thread(UIUpdateThread);
+					_thread.setDaemon(true); //allows thread to end on exit
+					_thread.start();
+					
+					totalTime.setText(getTime(player.getTotalDuration()));
+					currentTime.setText(getTime(time));
+					_slider.setMin(0);
+					_slider.setMax(player.getTotalDuration().toMillis());
+				}
+			});
 
-			//start background thread to update UI with song
-			_thread = new Thread(UIUpdateThread);
-			_thread.setDaemon(true); //allows thread to end on exit
-			_thread.start();
-
-			//set slider details for this song
-			_slider.setMin(0);
-			_slider.setMax(_currentSong.getMicrosecondLength());
-			totalTime.setText(getTime(_currentSong.getMicrosecondLength()));
-			currentTime.setText(getTime(time));
 			socket.close();
 		} catch (LineUnavailableException e) {
 			e.printStackTrace();
@@ -1493,6 +1509,17 @@ public class SongViewController implements Initializable{
 		return f;
 	}
 
+	/***
+	 * Formats microseconds into a string that is in HH:MM:SS format.
+	 * @param microseconds
+	 * @return Returns properly formatted string.
+	 */
+	public String getTime(Duration duration) {
+		//convert to seconds
+		double s = duration.toMillis()/1000;
+		return String.format("%d:%02d:%02d", (int)(s/3600), (int)((s%3600)/60), (int)(s%60));
+	}
+	
 	/***
 	 * Formats microseconds into a string that is in HH:MM:SS format.
 	 * @param microseconds
