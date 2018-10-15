@@ -1,7 +1,9 @@
 package application;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -21,31 +23,31 @@ import com.sun.glass.ui.Window.Level;
 public class Server {
 	static Log server_log;
 	/**
-     * The appplication main method, which just listens on a port and
-     * spawns handler threads.
-     */
+	 * The appplication main method, which just listens on a port and
+	 * spawns handler threads.
+	 */
 	private ArrayList<Song> allSongs;
-	
+
 	/**
 	 * Socket used to get incoming requests.
 	 */
 	private static DatagramSocket socket = null;
-	
+
 	/**
 	 * GSON object to serialize and deserialize objects.
 	 */
 	private static Gson gson = new Gson();
-	
-	
-    public static void main(String[] args) throws Exception {		
+
+
+	public static void main(String[] args) throws Exception {		
 		try {			
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
-			
+
 			while(true) {
 				//System.out.println("Waiting for a request...");
 				Request req = getRequest();
-				
+
 				//System.out.println("Received a request!\nCreating new thread!");
 				//create a new thread to handle a client's requests
 				new Handler(req).start();
@@ -57,165 +59,174 @@ public class Server {
 			if (socket != null) 
 				socket.close();
 		}
-    }
-    
-    /**
-     * Handler class that will handle a single request from a client.
-     * @author Matthew
-     *
-     */
-    public static class Handler extends Thread {
-    	private Request req;
-    	private DatagramSocket reqSocket;
-    	private Gson gson;
-    	
-    	/**
-    	 * Constructor for Handler class that creates a socket to 
-    	 * handle the request from the client
-    	 * @param req - request from a client.
-    	 */
-    	public Handler(Request req) {
-    		this.req = req;
-    		gson = new Gson();
-    		
-    		//create a new socket to handle requests from the client
-    		try {
+	}
+
+	/**
+	 * Handler class that will handle a single request from a client.
+	 * @author Matthew
+	 *
+	 */
+	public static class Handler extends Thread {
+		private Request req;
+		private DatagramSocket reqSocket;
+		private Gson gson;
+
+		/**
+		 * Constructor for Handler class that creates a socket to 
+		 * handle the request from the client
+		 * @param req - request from a client.
+		 */
+		public Handler(Request req) {
+			this.req = req;
+			gson = new Gson();
+
+			//create a new socket to handle requests from the client
+			try {
 				reqSocket = new DatagramSocket();
 				//System.out.println(reqSocket.getLocalPort());
 			} catch (SocketException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	}
-    	
-    	public void run() {
-    		//System.out.println("New handler running and handling request...");
-    		//System.out.println(new String(req.data).trim());
-    		Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
-	
-    		switch(msg.getProtocolID()) {
-    			case 0:
-    				break;
-    			case 1:
-					try {
-						RequestReplyProtocol(msg, req);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    			
-    		}
-  
-			
-    		//socket should close at the end/destruction of this thread
-    	}
-    	
-    }
-    
-    /**
-     * Handles logic for request-reply protocol.
-     * 
-     * @param msg Message received by the server.
-     * @param req Request data received by server.
-     * @throws SocketException
-     * @throws UnknownHostException
-     * @throws IOException
-     */
-    private static void RequestReplyProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
+		}
+
+		public void run() {
+			//System.out.println("New handler running and handling request...");
+			//System.out.println(new String(req.data).trim());
+			Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
+
+			switch(msg.getProtocolID()) {
+			case 0:
+				break;
+			case 1:
+				try {
+					RequestReplyProtocol(msg, req);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+
+
+			//socket should close at the end/destruction of this thread
+		}
+
+	}
+
+	/**
+	 * Handles logic for request-reply protocol.
+	 * 
+	 * @param msg Message received by the server.
+	 * @param req Request data received by server.
+	 * @throws SocketException
+	 * @throws UnknownHostException
+	 * @throws IOException
+	 */
+	private static void RequestReplyProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
 		byte[] result = ChooseAndExecuteOperation(msg);
 		SendReply(result, InetAddress.getLocalHost(), req.port);
 	}
-    
-    /***
-     * Chooses an operation based on the operation id in the message object sent to the server.
-     * 
-     * @param msg Message the server received.
-     * @return Returns result in the form of a flattened byte array ready to be sent.
-     * @throws IOException
-     */  
-    private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
-    	switch(msg.getOperationID()) {
-			case LOGIN:
-				//System.out.println("Login!");
-				return verifyAccount(msg);
-			case REGISTER:
-				return registerAccount(msg);
-			case SEARCHALLSONGS:
-				return searchAllSongs(msg);
-			case SEARCHMYSONGS:
-				return searchMySongs(msg);
-			case SEARCHMYPLAYLISTS:
-				return searchMyPlaylists(msg);
-			case SEARCHCURRENTPLAYLIST:
-				return searchCurrentPlaylist(msg);
-			case ADDPLAYLIST:
-				return addPlaylist(msg);
-			case DELETEPLAYLIST:
-				return deletePlaylist(msg);
-			case ADDSONGTOPLAYLIST:
-				return addSong(msg);
-			case DELETESONGFROMPLAYLIST:
-				return deleteSong(msg);
-			case GETNUMBEROFFRAGMENTS:
-				return getNumberOfFragments(msg);
-			case GETSONGBYTES:
-				return getSongBytes(msg);
-			default:
-				//System.out.println("NULL>");
-				return null;
-    	}
-    }
- 
-    /**
-     * Executes a search of all songs.
-     * @param m Message sent to the server.
-     * @return Returns result as flattened byte array ready to be sent.
-     */
-    public static byte[] searchAllSongs(Message m) {
-    	String userName=m.getArgs()[0];
-    	ArrayList<Song> allSongs;
-    	Playlist validSongs = new Playlist("valid");
+
+	/***
+	 * Chooses an operation based on the operation id in the message object sent to the server.
+	 * 
+	 * @param msg Message the server received.
+	 * @return Returns result in the form of a flattened byte array ready to be sent.
+	 * @throws IOException
+	 */  
+	private static byte[] ChooseAndExecuteOperation(Message msg) throws IOException {
+		switch(msg.getOperationID()) {
+		case LOGIN:
+			//System.out.println("Login!");
+			return verifyAccount(msg);
+		case REGISTER:
+			return registerAccount(msg);
+		case SEARCHALLSONGS:
+			return searchAllSongs(msg);
+		case SEARCHMYSONGS:
+			return searchMySongs(msg);
+		case SEARCHMYPLAYLISTS:
+			return searchMyPlaylists(msg);
+		case SEARCHCURRENTPLAYLIST:
+			return searchCurrentPlaylist(msg);
+		case ADDPLAYLIST:
+			return addPlaylist(msg);
+		case DELETEPLAYLIST:
+			return deletePlaylist(msg);
+		case ADDSONGTOPLAYLIST:
+			return addSong(msg);
+		case DELETESONGFROMPLAYLIST:
+			return deleteSong(msg);
+		case GETNUMBEROFFRAGMENTS:
+			return getNumberOfFragments(msg);
+		case GETSONGBYTES:
+			return getSongBytes(msg);
+		default:
+			//System.out.println("NULL>");
+			return null;
+		}
+	}
+
+	/**
+	 * Executes a search of all songs.
+	 * @param m Message sent to the server.
+	 * @return Returns result as flattened byte array ready to be sent.
+	 */
+	public static byte[] searchAllSongs(Message m) {
+		String userName=m.getArgs()[0];
+		ArrayList<Song> allSongs;
+		Playlist validSongs = new Playlist("valid");
 		try {
 			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			allSongs = UserRepository.getAllSongs();
-	    	String query=m.getArgs()[1];
-	    	
-	    	for(int i=0; i<allSongs.size();i++) {
-				if(validSongs.getSongs().size() <= 20)
-				{
-					//checks if query matches the title of the current song
-					if(allSongs.get(i).getTitle() != null && allSongs.get(i).getTitle().length() >= query.length()) {
-						// the song title is at least as long as the query
-						if(allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-							//the query matches the song title
-							validSongs.addSong(allSongs.get(i));
-						}
-					}
+			String query=m.getArgs()[1];
 
-					//checks if query matches the album name of the current song
-					if(!validSongs.contains(allSongs.get(i).getTitle())) {
-						// the song has not been added to the list of valid songs yet
-						if(allSongs.get(i).getAlbum() != null && allSongs.get(i).getAlbum().length() >= query.length()) {
-							// the album name is at least as long as the query
-							if(allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-								//the query matches the album name
+
+			if (!query.isEmpty()) 
+			{
+				for (int i = 0; i < allSongs.size(); i++) {
+					if (validSongs.getSongs().size() <= 20) {
+						//checks if query matches the title of the current song
+						if (allSongs.get(i).getTitle() != null
+								&& allSongs.get(i).getTitle().length() >= query.length()) {
+							// the song title is at least as long as the query
+							if (allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase()
+									.equals(query.toLowerCase())) {
+								//the query matches the song title
 								validSongs.addSong(allSongs.get(i));
 							}
 						}
-					}
 
-					//checks if query matches the artist name of the current song
-					if(!validSongs.contains(allSongs.get(i).getTitle())) {
-						// the song has not been added to the list of valid songs yet
-						if(allSongs.get(i).getArtist() != null && allSongs.get(i).getArtist().length() >= query.length()) {
-							// the artist name is at least as long as the query
-							if(allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase().equals(query.toLowerCase())) {
-								//the query matches the artist name
-								validSongs.addSong(allSongs.get(i));
+						//checks if query matches the album name of the current song
+						if (!validSongs.contains(allSongs.get(i).getTitle())) {
+							// the song has not been added to the list of valid songs yet
+							if (allSongs.get(i).getAlbum() != null
+									&& allSongs.get(i).getAlbum().length() >= query.length()) {
+								// the album name is at least as long as the query
+								if (allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase()
+										.equals(query.toLowerCase())) {
+									//the query matches the album name
+									validSongs.addSong(allSongs.get(i));
+								}
+							}
+						}
+
+						//checks if query matches the artist name of the current song
+						if (!validSongs.contains(allSongs.get(i).getTitle())) {
+							// the song has not been added to the list of valid songs yet
+							if (allSongs.get(i).getArtist() != null
+									&& allSongs.get(i).getArtist().length() >= query.length()) {
+								// the artist name is at least as long as the query
+								if (allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase()
+										.equals(query.toLowerCase())) {
+									//the query matches the artist name
+									validSongs.addSong(allSongs.get(i));
+								}
 							}
 						}
 					}
-				}
+				} 
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -227,20 +238,20 @@ public class Server {
 		}
 		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
-    	
-    }
-    
-    /**
-     * Executes search in a user's my songs library.
-     * 
-     * @param m Message sent to the server.
-     * @return Returns result as flattened byte array ready to be sent.
-     */
-    public static byte[] searchMySongs(Message m) {
-    	String userName=m.getArgs()[0];
-    	String query=m.getArgs()[1];
-    	ArrayList<Song> msgList=new ArrayList<Song>();
-    	User user;
+
+	}
+
+	/**
+	 * Executes search in a user's my songs library.
+	 * 
+	 * @param m Message sent to the server.
+	 * @return Returns result as flattened byte array ready to be sent.
+	 */
+	public static byte[] searchMySongs(Message m) {
+		String userName=m.getArgs()[0];
+		String query=m.getArgs()[1];
+		ArrayList<Song> msgList=new ArrayList<Song>();
+		User user;
 		try {
 			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
@@ -312,8 +323,8 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 		String log_message="";
 		for(int i=0;i<msgList.size();i++) {
 			log_message=log_message+" "+msgList.get(i).getPlaylistName();
@@ -327,10 +338,10 @@ public class Server {
 	 */
 	public static byte[] searchCurrentPlaylist(Message m) {
 		String userName=m.getArgs()[0];
-    	String query=m.getArgs()[1];
-    	String currentPlaylist=m.getArgs()[2];
-    	ArrayList<Song> msgList=new ArrayList<Song>();
-    	User user;
+		String query=m.getArgs()[1];
+		String currentPlaylist=m.getArgs()[2];
+		ArrayList<Song> msgList=new ArrayList<Song>();
+		User user;
 		try {
 			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
@@ -354,7 +365,7 @@ public class Server {
 				//checks if query matches the title of the current song
 				if(songs.get(i).getTitle()!=null && songs.get(i).getTitle().toLowerCase().contains(query.toLowerCase())) {
 					msgList.add(songs.get(i));			
-					}
+				}
 				//checks if query matches the album of the current song
 				else if(songs.get(i).getAlbum()!=null && songs.get(i).getAlbum().toLowerCase().contains(query.toLowerCase())) {
 					msgList.add(songs.get(i));		
@@ -375,16 +386,16 @@ public class Server {
 		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
-    
+
 	/**
 	 * Function to verify a username and password combination from a message
 	 * @param msg - message sent from client containing username and password
 	 * 				args array should be [username, password]
 	 */
-    public static byte[] verifyAccount(Message msg) {
-    	gson = new Gson();
-    	String userName=msg.getArgs()[0];
-    	try 
+	public static byte[] verifyAccount(Message msg) {
+		gson = new Gson();
+		String userName=msg.getArgs()[0];
+		try 
 		{
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
@@ -405,26 +416,26 @@ public class Server {
 			return null;
 		}
 	}
-    
-    /**
-     * Function to register a new account to the json file
-     * @param msg - message sent from client containing user information
-     */
-    public static byte[] registerAccount(Message msg) {
-    	Gson gson = new Gson();
-    	String userName=msg.getArgs()[2];
-    	//msg args structure = [firstName, lastName, userName, password]
-    	try 
+
+	/**
+	 * Function to register a new account to the json file
+	 * @param msg - message sent from client containing user information
+	 */
+	public static byte[] registerAccount(Message msg) {
+		Gson gson = new Gson();
+		String userName=msg.getArgs()[2];
+		//msg args structure = [firstName, lastName, userName, password]
+		try 
 		{
 			if(!UserRepository.userExists(msg.getArgs()[2]))
 			{
 				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
 				//username is available and ready to be added to the repository
 				User newUser = new User(msg.getArgs()[0], msg.getArgs()[1], msg.getArgs()[2], msg.getArgs()[3]);
-				
+
 				//add user to the user repository
 				UserRepository.AddUser(newUser);
-				
+
 				//return new user
 				log(userName,"SENT MESSAGE: "+newUser.getUsername()+"\n\n");
 				return gson.toJson(newUser).getBytes();
@@ -441,9 +452,9 @@ public class Server {
 			e.printStackTrace();
 			return null;
 		}
-    }
-    
-    /**
+	}
+
+	/**
 	 * Sends a reply to the client.
 	 * 
 	 * @param reply Object returning as a reply flattened to a byte array.
@@ -461,7 +472,7 @@ public class Server {
 		//System.out.printf("Sending Reply. Port %d, InetAddr: %s\n", rply.getPort(), rply.getAddress());		
 		socket.send(rply);
 	}
-	
+
 	/**
 	 * listens for a request from a client.
 	 * @param socket This server's socket.
@@ -482,7 +493,7 @@ public class Server {
 		//socket.close();
 		return req;
 	}
-	
+
 	/**
 	 * Gets all of a user's playlist.
 	 * @param msg Message for this request.
@@ -494,7 +505,7 @@ public class Server {
 		User user = UserRepository.getUser(username);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
 	}
-	
+
 	/**
 	 * Adds a playlist to a user account.
 	 * @param msg Message for this request.
@@ -507,7 +518,7 @@ public class Server {
 		UserRepository.UpdateUser(user);
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])).getBytes();
 	}
-	
+
 	/**
 	 * Deletes a given playlist from a user account.
 	 * 
@@ -522,7 +533,7 @@ public class Server {
 		//System.out.println(gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])));
 		return gson.toJson((Playlist[]) user.getPlaylists().toArray(new Playlist[user.getPlaylists().size()])).getBytes();
 	}
-	
+
 	/**
 	 * Adds a song to a given playlist.
 	 * 
@@ -556,7 +567,7 @@ public class Server {
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()]), Playlist[].class).getBytes();
 		}
 	}
-	
+
 	/**
 	 * Deletes the given song from a given playlist.
 	 * 
@@ -585,7 +596,7 @@ public class Server {
 		{
 			//arraylist of playlists from the user
 			ArrayList<Playlist> p = user.getPlaylists();
-			
+
 			//search for playlist by comparing names
 			int playlistIndex = 0;
 			while(!playlist.getPlaylistName().equals( p.get(playlistIndex).getPlaylistName() ) 
@@ -617,7 +628,7 @@ public class Server {
 			return gson.toJson((Playlist[]) p.toArray(new Playlist[p.size()])).getBytes();
 		}
 	}
-	
+
 	public static byte[] getNumberOfFragments(Message msg) {	
 		ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
 		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
@@ -625,7 +636,7 @@ public class Server {
 		buffer.putLong(new File(song.getFileSource()).length() / size);
 		return buffer.array();
 	}
-	
+
 	public static byte[] getSongBytes(Message msg) throws IOException {
 		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
 		int offset = gson.fromJson(msg.getArgs()[1], int.class);
@@ -638,24 +649,63 @@ public class Server {
 		fs.close();
 		return b;
 	}
+
 	public static void log(String fileName,String l) {
 		Logger logger = Logger.getLogger("MyLog");  
-	    FileHandler fh;  
-	    try {  
-	        // This block configure the logger with handler and formatter  
-	        fh = new FileHandler(fileName+".log",100000,1,true);  
-	        logger.addHandler(fh);
-	        SimpleFormatter formatter = new SimpleFormatter();  
-	        fh.setFormatter(formatter);  
+		FileHandler fh;  
+		try {  
+			// This block configure the logger with handler and formatter  
+			fh = new FileHandler(fileName+".log",100000,1,true);  
+			logger.addHandler(fh);
+			SimpleFormatter formatter = new SimpleFormatter();  
+			fh.setFormatter(formatter);  
 
-	        // the following statement is used to log any messages  
-	        logger.info(l);
-	        fh.close();
+			// the following statement is used to log any messages  
+			logger.info(l);
+			fh.close();
 
-	    } catch (SecurityException e) {  
-	        e.printStackTrace();  
-	    } catch (IOException e) {  
-	        e.printStackTrace();  
-	    }  
+		} catch (SecurityException e) {  
+			e.printStackTrace();  
+		} catch (IOException e) {  
+			e.printStackTrace();  
+		}  
+	}
+
+	public static ArrayList<String> readLog(String fileName)
+	{
+		try 
+		{
+			BufferedReader in = new BufferedReader(new FileReader(fileName));
+
+			String line = "";
+			ArrayList<String> logText = new ArrayList<String>();
+
+			while(true)
+			{
+				line = in.readLine();
+
+				if(line == null)
+				{
+					// file has been read
+					break;
+				}
+				else
+				{
+					logText.add(line);
+				}
+			}
+
+			return logText;
+
+		} catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		} catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+
+		// an exception was thrown
+		return null;
 	}
 }

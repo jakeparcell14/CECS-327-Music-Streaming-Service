@@ -816,6 +816,7 @@ public class SongViewController implements Initializable{
 						ArrayList<Playlist> updatedPlaylist = removeSongFromServer(sel, tp);
 						//TODO
 						user.setSavedSongs(updatedPlaylist.get(0));
+						mySongs = user.getSavedSongs();
 						currentPlaylist=user.getSavedSongs();
 						OnMySongsClicked(null);
 					}
