@@ -169,7 +169,7 @@ public class SongViewController implements Initializable{
 	 * This pane holds the All Songs search bar
 	 */
 	private Pane SearchResultsPane;
-	
+
 	@FXML
 	/**
 	 * This Pane is the main window
@@ -210,7 +210,7 @@ public class SongViewController implements Initializable{
 	 */
 	@FXML
 	private TextField searchbar;
-	
+
 
 	/**
 	 * This textfield allows the user to search through songs and playlists
@@ -254,7 +254,7 @@ public class SongViewController implements Initializable{
 	private TableColumn dateCreatedColumn;
 
 	private Media Song;
-	
+
 	private MediaPlayer player;
 
 	/**
@@ -389,10 +389,10 @@ public class SongViewController implements Initializable{
 	 * @param event		the play/pause button has been clicked
 	 */
 	public void OnPlayPauseClicked(MouseEvent event) {
-		
+
 		System.out.println("Clicked");
-		
-		
+
+
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
 			playSong(_currentTime);
@@ -539,7 +539,7 @@ public class SongViewController implements Initializable{
 		// make search results invisible
 		SearchResultsPane.setVisible(false);
 		SearchResultsPane.setMouseTransparent(true);
-		
+
 		//removes focus from searchbar 
 		SongViewPane.requestFocus();
 
@@ -642,7 +642,7 @@ public class SongViewController implements Initializable{
 											updatedSavedSongs = addSongToServer(allSongs.get(j), temp);
 											mySongs.setSongs(updatedSavedSongs.get(0).getSongs());
 											user.setSavedSongs(mySongs);
-											
+
 											if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 												OnCurrentPlaylistClicked(null);
 											}
@@ -653,8 +653,8 @@ public class SongViewController implements Initializable{
 											// TODO Auto-generated catch block
 											e.printStackTrace();
 										}
-										
-								
+
+
 									}
 									else {
 										Alert alert = new Alert(AlertType.ERROR);
@@ -783,7 +783,7 @@ public class SongViewController implements Initializable{
 												ArrayList<Playlist> updatedPlaylist = addSongToServer(sel, tp);												
 												user.setPlaylists(updatedPlaylist);
 											} catch (SocketException e) {
-												
+
 											}
 											break;
 										}
@@ -908,7 +908,7 @@ public class SongViewController implements Initializable{
 		MenuItem createP = new MenuItem("Create New Playlist");
 		//option to remove selected playlist
 		MenuItem removeP = new MenuItem("Remove Playlist");
-		
+
 		removeP.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -919,11 +919,11 @@ public class SongViewController implements Initializable{
 					if (sel.getPlaylistName().equals(currentPlaylist.getPlaylistName())) {
 						currentPlaylist = user.getSavedSongs();
 					}
-					
+
 					ArrayList<Playlist> updatedPlaylist = removePlaylist(sel);												
 					user.setPlaylists(updatedPlaylist);
 					OnMyPlaylistsClicked(null);
-					
+
 				}
 				else {//My playlist has to exist
 					Alert alert = new Alert(AlertType.ERROR);
@@ -934,7 +934,7 @@ public class SongViewController implements Initializable{
 				}
 			}
 		});
-		
+
 		createP.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -1002,7 +1002,7 @@ public class SongViewController implements Initializable{
 						}
 					}
 				} catch (Exception e) {
-					
+
 				}
 			}
 		});
@@ -1133,7 +1133,7 @@ public class SongViewController implements Initializable{
 				System.out.println("request port: " + request.getPort());
 				byte[] buffer = new byte[5000];
 				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-				
+
 				//keep sending request until server responds
 				for (int i = 0; i < 10; i++) {
 					System.out.println("Awaiting response from server...");
@@ -1155,7 +1155,7 @@ public class SongViewController implements Initializable{
 					}
 				}
 				System.out.println("Response received!");
-				
+
 				//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
 				Song[] temp=gson.fromJson(new String(buffer).trim(), Song[].class);
 				if(temp.length>0) {
@@ -1165,7 +1165,7 @@ public class SongViewController implements Initializable{
 					}
 					displaySongs(validSongs);
 				}
-				
+
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1198,7 +1198,7 @@ public class SongViewController implements Initializable{
 			System.out.println("request port: " + request.getPort());
 			byte[] buffer = new byte[1000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			
+
 			//keep sending request until server responds
 			for (int i = 0; i < 10; i++) {
 				System.out.println("Awaiting response from server...");
@@ -1220,7 +1220,7 @@ public class SongViewController implements Initializable{
 				}
 			}
 			System.out.println("Response received!");
-			
+
 			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
 			Song[] temp=gson.fromJson(new String(buffer).trim(), Song[].class);
 			if(temp.length>0) {
@@ -1232,7 +1232,7 @@ public class SongViewController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**
@@ -1260,7 +1260,7 @@ public class SongViewController implements Initializable{
 
 			byte[] buffer = new byte[5000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			
+
 			//keep sending request until server responds
 			for (int i = 0; i < 10; i++) {
 				System.out.println("Awaiting response from server...");
@@ -1282,7 +1282,7 @@ public class SongViewController implements Initializable{
 				}
 			}
 			System.out.println("Response received!");
-			
+
 			Playlist[] temp=gson.fromJson(new String(buffer).trim(), Playlist[].class);
 			if(temp.length>0) {
 				for(int i=0;i<temp.length;i++) {
@@ -1315,14 +1315,14 @@ public class SongViewController implements Initializable{
 			}
 			System.out.println("request port: " + request.getPort());
 			//InetAddress host = InetAddress.getLocalHost();
-			
+
 			//int serverPort = 6789;
 			//DatagramPacket request = new DatagramPacket(m, m.length, host, serverPort);
 			//socket.send(request);
 			//System.out.println("Request: " + new String(request.getData()));
 			byte[] buffer = new byte[1000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			
+
 			//keep sending request until server responds
 			for (int i = 0; i < 10; i++) {
 				System.out.println("Awaiting response from server...");
@@ -1344,7 +1344,7 @@ public class SongViewController implements Initializable{
 				}
 			}
 			System.out.println("Response received!");
-			
+
 			//System.out.println(gson.fromJson(new String(buffer).trim(), String.class));
 			Song[] temp=gson.fromJson(new String(buffer).trim(), Song[].class);
 			if(temp.length>0) {
@@ -1382,21 +1382,21 @@ public class SongViewController implements Initializable{
 				if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(mySongsButton)){
 					opID=OpID.SEARCHMYSONGS;
 					searchMySongs(query,opID, socket);
-					
+
 				}
 				//my playlists are selected
 				else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
 					opID=OpID.SEARCHMYPLAYLISTS;
 					searchMyPlaylists(query,opID, socket);
-					
+
 				}
 				//current playlists are selected
 				else if (((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 					opID=OpID.SEARCHCURRENTPLAYLIST;
 					searchCurrentPlaylist(query,opID, socket);
 				}
-				
-				
+
+
 			} catch (SocketException e) {
 				System.out.println("Socket: " + e.getMessage());
 			} catch (IOException e) {
@@ -1405,7 +1405,7 @@ public class SongViewController implements Initializable{
 				if(socket!=null)
 					socket.close();
 			}
-			
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -1429,7 +1429,7 @@ public class SongViewController implements Initializable{
 			Message msg = new Message(0, requestID++, OpID.GETNUMBEROFFRAGMENTS, arg, InetAddress.getLocalHost(), 1);
 			byte[] msgBytes = gson.toJson(msg).getBytes();
 			DatagramPacket request = new DatagramPacket(msgBytes, msgBytes.length, InetAddress.getLocalHost(), 1234);				socket.send(request);
-				
+
 			byte[] resp = new byte[8];
 			DatagramPacket response = new DatagramPacket(resp, resp.length);
 			socket.receive(response);
@@ -1440,10 +1440,10 @@ public class SongViewController implements Initializable{
 			byte[] songBytes = new byte[(int) (numberOfFragments * 4096)];
 			System.out.println("received fragments...");
 
-			
-			
-			
-			
+
+
+
+
 			for (long i = 0; i<numberOfFragments; i++) {
 				String[] arguments = {gson.toJson((currentPlaylist.getSongs()).get(playlistNum)), gson.toJson(4096 * i), gson.toJson(4096)};
 				Message mesg = new Message(0, requestID++, OpID.GETSONGBYTES, arguments, InetAddress.getLocalHost(), 1);
@@ -1455,28 +1455,28 @@ public class SongViewController implements Initializable{
 				socket.receive(res);
 				System.arraycopy(buffer, 0, songBytes, (int) (i * 4096), 4096);
 			}
-			
-			
+
+
 			//grabs song from current playlist
 			f = createFile(songBytes);
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(f.toURI().toURL());
-			
+
 			Song = new Media(f.toURI().toString());
 			player = new MediaPlayer(Song);
-			
+
 			player.setOnReady(new Runnable() {
 
 				@Override
 				public void run() {
-					
+
 					System.out.println("Duration: "+ getTime(player.getTotalDuration()));
 					player.play();
-					
+
 					//start background thread to update UI with song
 					_thread = new Thread(UIUpdateThread);
 					_thread.setDaemon(true); //allows thread to end on exit
 					_thread.start();
-					
+
 					totalTime.setText(getTime(player.getTotalDuration()));
 					currentTime.setText(getTime(time));
 					_slider.setMin(0);
@@ -1495,17 +1495,17 @@ public class SongViewController implements Initializable{
 
 		}
 	}
-	
+
 	private static File createFile(byte[] bytes) throws IOException, FileNotFoundException {
 		File f = new File("cached_song.wav");
 		f.createNewFile();
 		OutputStream stream = new FileOutputStream(f, false);
 		try {
-		    stream.write(bytes);
+			stream.write(bytes);
 		} finally {
-		    stream.close();
+			stream.close();
 		}
-		
+
 		return f;
 	}
 
@@ -1519,7 +1519,7 @@ public class SongViewController implements Initializable{
 		double s = duration.toMillis()/1000;
 		return String.format("%d:%02d:%02d", (int)(s/3600), (int)((s%3600)/60), (int)(s%60));
 	}
-	
+
 	/***
 	 * Formats microseconds into a string that is in HH:MM:SS format.
 	 * @param microseconds
@@ -1646,7 +1646,7 @@ public class SongViewController implements Initializable{
 			 * randomly assign a port to the reply for the program to listen on
 			 */
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			
+
 			//keep sending request until server responds
 			for (int i = 0; i < 10; i++) {
 				System.out.println("Awaiting response from server...");
@@ -1661,7 +1661,7 @@ public class SongViewController implements Initializable{
 						alert.setHeaderText("Client was unable to connect to server");
 						alert.setContentText("Please try again later");
 						alert.showAndWait();
-						
+
 						//return unupdated list of playlists
 						return user.getPlaylists();
 					}
@@ -1671,7 +1671,7 @@ public class SongViewController implements Initializable{
 			}		
 			System.out.println(new String(buffer));
 			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
-			
+
 			socket.close();
 			//return updated set of playlists
 			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
@@ -1684,7 +1684,7 @@ public class SongViewController implements Initializable{
 		return null;
 	}
 	public ArrayList<Playlist> addPlaylist(Playlist playlist){
-		
+
 		try {
 			DatagramSocket socket;
 			socket = new DatagramSocket();
@@ -1709,7 +1709,7 @@ public class SongViewController implements Initializable{
 			 * randomly assign a port to the reply for the program to listen on
 			 */
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			
+
 			//keep sending request until server responds
 			for (int i = 0; i < 10; i++) {
 				System.out.println("Awaiting response from server...");
@@ -1724,8 +1724,8 @@ public class SongViewController implements Initializable{
 						alert.setHeaderText("Client was unable to connect to server");
 						alert.setContentText("Please try again later");
 						alert.showAndWait();
-						
-						//return unupdated list of playlists
+
+						//return unchanged list of playlists
 						return user.getPlaylists();
 					}
 					System.out.println("No response from server, sending request again.");
@@ -1741,7 +1741,7 @@ public class SongViewController implements Initializable{
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Playlist> removePlaylist(Playlist playlist) {
 		try {
 			DatagramSocket socket;
@@ -1765,7 +1765,7 @@ public class SongViewController implements Initializable{
 			System.out.println("request port: " + request.getPort());
 			//initialize and send request packet using port 1234, the port the server is listening on
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			
+
 			//keep sending request until server responds
 			for (int i = 0; i < 10; i++) {
 				System.out.println("Awaiting response from server...");
@@ -1780,7 +1780,7 @@ public class SongViewController implements Initializable{
 						alert.setHeaderText("Client was unable to connect to server");
 						alert.setContentText("Please try again later");
 						alert.showAndWait();
-						
+
 						//return unupdated list of playlists
 						return user.getPlaylists();
 					}
@@ -1790,7 +1790,7 @@ public class SongViewController implements Initializable{
 			}	
 			System.out.println(new String(buffer));
 			Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
-			
+
 			socket.close();
 			//return updated set of playlists
 			return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
@@ -1801,7 +1801,7 @@ public class SongViewController implements Initializable{
 		}
 		return null;
 	}
-	
+
 	public ArrayList<Playlist> removeSongFromServer(Song songToRemove, Playlist playlistToUpdate)
 	{		
 		//initialize buffer
@@ -1838,30 +1838,14 @@ public class SongViewController implements Initializable{
 				 */
 				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 				//keep sending reply until server responds
-				for (int i = 0; i < 10; i++) {
-					System.out.println("Awaiting response from server...");
-					try {
-						socket.receive(reply);		
-						System.out.println("Response received from port " + reply.getPort() + "!");
-						break;
-					} catch (SocketTimeoutException e) {
-						if (i == 9) {
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Server connection error");
-							alert.setHeaderText("Client was unable to connect to server");
-							alert.setContentText("Please try again later");
-							alert.showAndWait();
-							
-							//return unupdated list of playlists
-							return user.getPlaylists();
-						}
-						System.out.println("No response from server, sending request again.");
-						socket.send(request);
-					}
-				}
+				System.out.println("Awaiting response from server...");
+
+				socket.receive(reply);		
+				System.out.println("Response received from port " + reply.getPort() + "!");
+
 				System.out.println(new String(buffer));
 				Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
-				
+
 				socket.close();
 				//return updated set of playlists
 				return new ArrayList<Playlist>(Arrays.asList(updatedPlaylists));
@@ -1870,6 +1854,7 @@ public class SongViewController implements Initializable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 
 			socket.close();
 			return null;
