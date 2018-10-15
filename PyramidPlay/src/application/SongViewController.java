@@ -384,10 +384,6 @@ public class SongViewController implements Initializable{
 	 * @param event		the play/pause button has been clicked
 	 */
 	public void OnPlayPauseClicked(MouseEvent event) {
-		
-		System.out.println("Clicked");
-		
-		
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
 			playSong(_currentTime);
@@ -395,7 +391,6 @@ public class SongViewController implements Initializable{
 			_playButton.setText("Play");
 			_currentTime = player.getCurrentTime();
 			player.stop();
-			//_currentSong.close();
 		}
 
 		// make search results invisible
@@ -1408,48 +1403,14 @@ public class SongViewController implements Initializable{
 	 * @param time Time in microseconds at which the song should start
 	 */
 	public void playSong(Duration time) {
-		File f;
 		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
 
 		try {
 			DatagramSocket socket = new DatagramSocket();
-			//open file and stream
-
-			String[] arg = {gson.toJson((currentPlaylist.getSongs()).get(playlistNum)), gson.toJson(4096)};
-			Message msg = new Message(0, requestID++, OpID.GETNUMBEROFFRAGMENTS, arg, InetAddress.getLocalHost(), 1);
-			byte[] msgBytes = gson.toJson(msg).getBytes();
-			DatagramPacket request = new DatagramPacket(msgBytes, msgBytes.length, InetAddress.getLocalHost(), 1234);				
-			socket.send(request);
-				
-			byte[] resp = new byte[8];
-			DatagramPacket response = new DatagramPacket(resp, resp.length);
-			socket.receive(response);
-			ByteBuffer buff = ByteBuffer.allocate(Long.BYTES);				
-			buff.put(resp);
-			buff.flip();
-			long numberOfFragments = buff.getLong();
-			byte[] songBytes = new byte[(int) (numberOfFragments * 4096)];
-			System.out.println("received fragments...");
-
 			
-			
-			
-			
-			for (long i = 0; i<numberOfFragments; i++) {
-				String[] arguments = {gson.toJson((currentPlaylist.getSongs()).get(playlistNum)), gson.toJson(4096 * i), gson.toJson(4096)};
-				Message mesg = new Message(0, requestID++, OpID.GETSONGBYTES, arguments, InetAddress.getLocalHost(), 1);
-				msgBytes = gson.toJson(mesg).getBytes();
-				DatagramPacket req = new DatagramPacket(msgBytes, msgBytes.length, InetAddress.getLocalHost(), 1234);
-				socket.send(req);
-				byte[] buffer = new byte[4096];
-				DatagramPacket res = new DatagramPacket(buffer, buffer.length);	
-				socket.receive(res);
-				System.arraycopy(buffer, 0, songBytes, (int) (i * 4096), 4096);
-			}
-			
-			
-			//grabs song from current playlist
-			f = createFile(songBytes);			
+			//download file
+			File f = SongDownloader.DownloadSong(socket, (currentPlaylist.getSongs()).get(playlistNum), requestID++);
+			System.out.println(f.length());	
 			Song = new Media(f.toURI().toString());
 			player = new MediaPlayer(Song);
 			
@@ -1458,7 +1419,10 @@ public class SongViewController implements Initializable{
 				@Override
 				public void run() {
 					
-					System.out.println("Duration: "+ getTime(player.getTotalDuration()));
+					//seek to this time in song
+					player.seek(time);
+					
+					//play song
 					player.play();
 					
 					//start background thread to update UI with song
@@ -1466,6 +1430,7 @@ public class SongViewController implements Initializable{
 					_thread.setDaemon(true); //allows thread to end on exit
 					_thread.start();
 					
+					//update song UI
 					totalTime.setText(getTime(player.getTotalDuration()));
 					currentTime.setText(getTime(time));
 					_slider.setMin(0);
@@ -1477,19 +1442,6 @@ public class SongViewController implements Initializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-	}
-	
-	private static File createFile(byte[] bytes) throws IOException, FileNotFoundException {
-		File f = new File("cached_song.mp3");
-		f.createNewFile();
-		OutputStream stream = new FileOutputStream(f, false);
-		try {
-		    stream.write(bytes);
-		} finally {
-		    stream.close();
-		}
-		
-		return f;
 	}
 
 	/***

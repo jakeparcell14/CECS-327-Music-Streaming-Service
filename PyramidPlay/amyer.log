@@ -462,3 +462,43 @@ Oct 15, 2018 12:53:16 PM application.Server log
 INFO: SENT MESSAGE:  Africa
 
 
+Oct 15, 2018 1:41:26 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 1:41:26 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:41:56 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 1:41:56 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:43:22 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 1:43:22 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:50:55 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 1:50:55 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:51:54 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 1:51:54 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
