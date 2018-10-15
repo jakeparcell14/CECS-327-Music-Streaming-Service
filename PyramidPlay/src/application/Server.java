@@ -43,15 +43,11 @@ public class Server {
 			socket = new DatagramSocket(1234);
 			
 			while(true) {
-				//System.out.println("Waiting for a request...");
 				Request req = getRequest();
-				
-				//System.out.println("Received a request!\nCreating new thread!");
 				//create a new thread to handle a client's requests
 				new Handler(req).start();
 			}
 		} catch (SocketException e1) {
-			// TODO Auto-generated catch block
 			System.out.println("Error creating socket: " + e1.getMessage());
 		} finally  {
 			if (socket != null) 

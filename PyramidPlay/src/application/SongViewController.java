@@ -192,11 +192,6 @@ public class SongViewController implements Initializable{
 	private int playlistNum;
 
 	/**
-	 * Current song.
-	 */
-	private Clip _currentSong;
-
-	/**
 	 * Current time of the song. Used for pausing purposes.
 	 */
 	private Duration _currentTime;
@@ -428,9 +423,8 @@ public class SongViewController implements Initializable{
 	public void playSelectedSong () {
 		_currentTime = Duration.ZERO;
 		currentTime.setText((getTime(_currentTime)));
-		if(_currentSong!=null) {
-			_currentSong.stop();
-			_currentSong.close();
+		if(player != null && player.getStatus().equals(Status.PLAYING)) {
+			player.stop();
 		}
 
 		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
@@ -1066,10 +1060,8 @@ public class SongViewController implements Initializable{
 		/* if it was not dragged but simple clicked to a new position,
 		 * make sure to stop the song.
 		 */
-		if (_currentSong !=null &&_currentSong.isActive()) {
-			_currentSong.stop();	
-			_currentSong.close();
-
+		if (player !=null && player.getStatus().equals(Status.PLAYING)) {
+			player.stop();
 		}
 		_currentTime = Duration.millis(_slider.getValue());
 
@@ -1089,9 +1081,8 @@ public class SongViewController implements Initializable{
 	 */
 	public void OnSliderDragDetected(MouseEvent event) {
 		//if a drag is detected, stop the song.
-		if (_currentSong !=null &&_currentSong.isActive()) {
-			_currentSong.stop();		
-			_currentSong.close();
+		if (player !=null && player.getStatus().equals(Status.PLAYING)) {
+			player.stop();
 		}
 
 		/* the dropping of a drag will result in a click on the slider, 
@@ -1419,16 +1410,16 @@ public class SongViewController implements Initializable{
 	public void playSong(Duration time) {
 		File f;
 		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
+
 		try {
 			DatagramSocket socket = new DatagramSocket();
-			//initialize clip
-			_currentSong = AudioSystem.getClip();
 			//open file and stream
 
 			String[] arg = {gson.toJson((currentPlaylist.getSongs()).get(playlistNum)), gson.toJson(4096)};
 			Message msg = new Message(0, requestID++, OpID.GETNUMBEROFFRAGMENTS, arg, InetAddress.getLocalHost(), 1);
 			byte[] msgBytes = gson.toJson(msg).getBytes();
-			DatagramPacket request = new DatagramPacket(msgBytes, msgBytes.length, InetAddress.getLocalHost(), 1234);				socket.send(request);
+			DatagramPacket request = new DatagramPacket(msgBytes, msgBytes.length, InetAddress.getLocalHost(), 1234);				
+			socket.send(request);
 				
 			byte[] resp = new byte[8];
 			DatagramPacket response = new DatagramPacket(resp, resp.length);
@@ -1458,9 +1449,7 @@ public class SongViewController implements Initializable{
 			
 			
 			//grabs song from current playlist
-			f = createFile(songBytes);
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(f.toURI().toURL());
-			
+			f = createFile(songBytes);			
 			Song = new Media(f.toURI().toString());
 			player = new MediaPlayer(Song);
 			
@@ -1485,19 +1474,13 @@ public class SongViewController implements Initializable{
 			});
 
 			socket.close();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}  finally {
-
-		}
+		} 
 	}
 	
 	private static File createFile(byte[] bytes) throws IOException, FileNotFoundException {
-		File f = new File("cached_song.wav");
+		File f = new File("cached_song.mp3");
 		f.createNewFile();
 		OutputStream stream = new FileOutputStream(f, false);
 		try {

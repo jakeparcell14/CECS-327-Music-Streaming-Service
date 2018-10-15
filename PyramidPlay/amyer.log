@@ -398,3 +398,67 @@ Oct 14, 2018 5:14:54 PM application.Server log
 INFO: SENT MESSAGE:  Controller Hymn For The Weekend A Sky Full Of Stars Closer
 
 
+Oct 15, 2018 12:31:33 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 12:31:33 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 12:35:08 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 12:35:08 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 12:38:45 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 12:38:45 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 12:44:20 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 12:44:20 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 12:52:49 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 12:52:49 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 12:53:15 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3500 SEARCHMYSONGS  amyer af 1 /192.168.1.228
+
+
+Oct 15, 2018 12:53:15 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 12:53:15 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3501 SEARCHMYSONGS  amyer af 1 /192.168.1.228
+
+
+Oct 15, 2018 12:53:15 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 12:53:16 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3502 SEARCHMYSONGS  amyer afr 1 /192.168.1.228
+
+
+Oct 15, 2018 12:53:16 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
