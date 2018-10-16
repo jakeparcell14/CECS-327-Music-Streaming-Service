@@ -977,18 +977,10 @@ public class SongViewController implements Initializable{
 								break;
 							}
 						}
-						if(count!=0) {// input isnt unique
-							DisplayAlert("Error adding playlist", "There is already a playlist with that name", "Please try a different name");
-						}
-						else if(result.get().trim().length() == 0) { //only whitespace
-							DisplayAlert("Error adding playlist", "Enter Characters that are not blank space", "Please try a different name");
-						}
-						else{//add playlist
-							ArrayList<Playlist> updatedPlaylist = addPlaylist(new Playlist(result.get()));												
-							user.setPlaylists(updatedPlaylist);
-							OnMyPlaylistsClicked(null);
+						else {
 							break;
 						}
+
 					}
 				} catch (Exception e) {
 
