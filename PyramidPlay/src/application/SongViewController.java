@@ -1551,6 +1551,14 @@ public class SongViewController implements Initializable{
 			AllSongsSearchBar.setPromptText("search all songs");
 		}
 	}
+	
+	/**
+	 * Adds a song to a given playlist using a server
+	 * @param songToAdd			song to be added
+	 * @param playlistToUpdate  playlist to add the song to
+	 * @return					updated playlist that includes the given song
+	 * @throws SocketException	the socket is invalid
+	 */
 	public ArrayList<Playlist> addSongToServer(Song songToAdd, Playlist playlistToUpdate) throws SocketException 
 	{		
 		DatagramSocket socket = new DatagramSocket();
@@ -1617,7 +1625,11 @@ public class SongViewController implements Initializable{
 		return null;
 	}
 	
-	
+	/**
+	 * adds a playlist to the users list of playlists using a server
+	 * @param playlist		playlist to be added
+	 * @return				updated list of playlists including the given playlist
+	 */
 	public ArrayList<Playlist> addPlaylist(Playlist playlist){
 
 		try {
@@ -1673,6 +1685,11 @@ public class SongViewController implements Initializable{
 		return null;
 	}
 
+	/**
+	 * Communicates with a server to remove a playlist from a users list of playlists
+	 * @param playlist		playlist to be removed
+	 * @return				updated list of playlists that no longer contains the given playlist
+	 */
 	public ArrayList<Playlist> removePlaylist(Playlist playlist) {
 		try {
 			DatagramSocket socket;
@@ -1729,6 +1746,12 @@ public class SongViewController implements Initializable{
 		return null;
 	}
 
+	/**
+	 * using client-server protocol, this method removes a song from a playlist using a server
+	 * @param songToRemove		song to be removed
+	 * @param playlistToUpdate	playlist holding the song that will be removed
+	 * @return					arraylist of playlists where the first index is the updated playlist
+	 */
 	public ArrayList<Playlist> removeSongFromServer(Song songToRemove, Playlist playlistToUpdate)
 	{		
 		//initialize buffer

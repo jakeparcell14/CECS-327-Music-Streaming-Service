@@ -802,6 +802,11 @@ public class Server {
 		return null;
 	}
 
+	/**
+	 * Searches for the most recent successful login for the current user to narrow down the search for duplicate processes
+	 * @param logText	a list of every line of the log
+	 * @return			list of all lines after and including the most recent successful sign in request
+	 */
 	public static ArrayList<String> getCurrentSession(ArrayList<String> logText)
 	{
 		int currentSessionStart = 0;
@@ -817,7 +822,13 @@ public class Server {
 		
 		return currentSession;
 	}
-
+	
+	/**
+	 * Checks if the current process has already been received by the server in another thread
+	 * @param currentSession	all lines of the log since the most recent sign in
+	 * @param msg				the message being checked
+	 * @return					true if the message has already been received by the server
+	 */
 	public static boolean processAlreadyExecuted(ArrayList<String> currentSession, Message msg)
 	{
 		for(int i = 1; i < currentSession.size(); i += 2)
