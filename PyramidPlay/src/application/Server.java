@@ -275,7 +275,6 @@ public class Server {
 			}
 			else
 			{
-				//current process is not a duplicate so we can save it to the log
 				log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			}
 			
@@ -338,7 +337,6 @@ public class Server {
 			}
 			else
 			{
-				//current process is not a duplicate so we can save it to the log
 				log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			}
 			
@@ -399,7 +397,6 @@ public class Server {
 			}
 			else
 			{
-				//current process is not a duplicate so we can save it to the log
 				log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			}
 			
@@ -501,7 +498,6 @@ public class Server {
 				}
 				else
 				{
-					//current process is not a duplicate so we can save it to the log
 					log(userName,"RECEIVED MESSAGE: "+msg.toString()+"\n\n");
 				}
 				
@@ -632,9 +628,7 @@ public class Server {
 		}
 		else
 		{
-			// the current process is not a duplicate so we can add it to the log
-			String receivedLog = "RECEIVED MESSAGE: "+msg.toString()+"\n\n";
-			log(user.getUsername(),receivedLog);
+			log(user.getUsername(),"RECEIVED MESSAGE: "+msg.toString()+"\n\n");
 		}
 
 		if(playlist.getPlaylistName().equals("saved"))
@@ -828,7 +822,7 @@ public class Server {
 		int currentSessionStart = 0;
 		for(int i = 1; i < logText.size(); i += 2)
 		{
-			if(logText.get(i).contains("INFO: SENT MESSAGE: VERIFIED"))
+			if(logText.get(i).contains("INFO: SENT MESSAGE: VERIFIED"))			
 			{
 				currentSessionStart = i - 5;
 			}
@@ -839,14 +833,13 @@ public class Server {
 		return currentSession;
 	}
 
-	public static boolean processAlreadyExecuted(ArrayList<String> logText, Message msg)
+	public static boolean processAlreadyExecuted(ArrayList<String> currentSession, Message msg)
 	{
-		ArrayList<String> currentSession = getCurrentSession(logText);
 		for(int i = 1; i < currentSession.size(); i += 2)
 		{
-			if(currentSession.get(i).contains("RECEIVED MESSAGE: "+msg.toString()))		
+			if(currentSession.get(i).contains("RECEIVED MESSAGE: "+msg.toString()))
 			{
-				//the log contains proof that the specific process has already been received
+				//the log contains proof that the specific process has already executed
 				return true;
 			}
 		}

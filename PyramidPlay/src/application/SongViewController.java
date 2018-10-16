@@ -252,13 +252,12 @@ public class SongViewController implements Initializable{
 	 * Current song object.
 	 */
 	private Media Song;
-	
+
 	/**
 	 * Media player to play song.
 	 */
-
 	private MediaPlayer player;
-	
+
 	/**
 	 * Cached song file.
 	 */
@@ -431,12 +430,12 @@ public class SongViewController implements Initializable{
 	public void playSelectedSong () {
 		_currentTime = Duration.ZERO;
 		currentTime.setText((getTime(_currentTime)));
-		
-		
+
+
 		if(player != null && player.getStatus().equals(Status.PLAYING)) {
 			player.stop();
 		}
-		
+
 		DatagramSocket socket = null;
 		try {
 			socket = new DatagramSocket();
@@ -455,8 +454,8 @@ public class SongViewController implements Initializable{
 			if (socket != null) 
 				socket.close();
 		}
-		
-		
+
+
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
 		}
@@ -465,7 +464,7 @@ public class SongViewController implements Initializable{
 		SearchResultsPane.setVisible(false);
 		SearchResultsPane.setMouseTransparent(true);
 		this.resetSearchText();
-		
+
 		playSong(_currentTime);
 
 	}
@@ -483,8 +482,8 @@ public class SongViewController implements Initializable{
 			playlistNum--;
 			playSelectedSong();
 		}
-		
-		
+
+
 	}
 
 	@FXML
@@ -630,6 +629,9 @@ public class SongViewController implements Initializable{
 													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 														OnCurrentPlaylistClicked(null);
 													}
+													else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
+														OnMyPlaylistsClicked(null);
+													}
 													break;
 												} catch (SocketException e) {
 													// TODO Auto-generated catch block
@@ -669,6 +671,7 @@ public class SongViewController implements Initializable{
 											updatedSavedSongs = addSongToServer(allSongs.get(j), temp);
 											mySongs.setSongs(updatedSavedSongs.get(0).getSongs());
 											user.setSavedSongs(mySongs);
+											mySongs = user.getSavedSongs();
 
 											if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 												OnCurrentPlaylistClicked(null);
@@ -843,8 +846,8 @@ public class SongViewController implements Initializable{
 						ArrayList<Playlist> updatedPlaylist = removeSongFromServer(sel, tp);
 						//TODO
 						user.setSavedSongs(updatedPlaylist.get(0));
-						mySongs = user.getSavedSongs();
 						currentPlaylist=user.getSavedSongs();
+						mySongs = user.getSavedSongs();
 						OnMySongsClicked(null);
 					}
 				}
@@ -1115,7 +1118,7 @@ public class SongViewController implements Initializable{
 	 * @param event
 	 */
 	public void OnSliderDragDetected(MouseEvent event) {
-		
+
 		System.out.println("Drag detected.");
 		//if a drag is detected, stop the song.
 		if (player !=null && player.getStatus().equals(Status.PLAYING)) {
@@ -1449,26 +1452,26 @@ public class SongViewController implements Initializable{
 
 		try {
 			DatagramSocket socket = new DatagramSocket();
-			
+
 			Song = new Media(cachedSong.toURI().toString());
 			player = new MediaPlayer(Song);
-			
+
 			player.setOnReady(new Runnable() {
 
 				@Override
 				public void run() {
-					
+
 					//seek to this time in song
 					player.seek(time);
-					
+
 					//play song
 					player.play();
-					
+
 					//start background thread to update UI with song
 					_thread = new Thread(UIUpdateThread);
 					_thread.setDaemon(true); //allows thread to end on exit
 					_thread.start();
-					
+
 					//update song UI
 					totalTime.setText(getTime(player.getTotalDuration()));
 					currentTime.setText(getTime(time));
@@ -1480,20 +1483,6 @@ public class SongViewController implements Initializable{
 			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
-	}
-
-	private static File createFile(byte[] bytes) throws IOException, FileNotFoundException {
-		File f = new File("cached_song.wav");
-		f.createNewFile();
-		OutputStream stream = new FileOutputStream(f, false);
-		try {
-			stream.write(bytes);
-		} finally {
-			stream.close();
-		}
-
-		return f;
 		} 
 	}
 
@@ -1680,7 +1669,7 @@ public class SongViewController implements Initializable{
 			byte[] buffer = new byte[5000];
 			String playlistJSON = gson.toJson(playlist);
 			String[] arr = {user.getUsername(), playlistJSON};
-			Message SongMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+			Message addSongMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
 			//convert to json
 			String json = gson.toJson(addSongMessage);
 			//we can only send bytes, so flatten the string to a byte array
@@ -1826,11 +1815,27 @@ public class SongViewController implements Initializable{
 				 */
 				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 				//keep sending reply until server responds
-				System.out.println("Awaiting response from server...");
+				for (int i = 0; i < 10; i++) {
+					System.out.println("Awaiting response from server...");
+					try {
+						socket.receive(reply);		
+						System.out.println("Response received from port " + reply.getPort() + "!");
+						break;
+					} catch (SocketTimeoutException e) {
+						if (i == 9) {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Server connection error");
+							alert.setHeaderText("Client was unable to connect to server");
+							alert.setContentText("Please try again later");
+							alert.showAndWait();
 
-				socket.receive(reply);		
-				System.out.println("Response received from port " + reply.getPort() + "!");
-
+							//return unupdated list of playlists
+							return user.getPlaylists();
+						}
+						System.out.println("No response from server, sending request again.");
+						socket.send(request);
+					}
+				}
 				System.out.println(new String(buffer));
 				Playlist[] updatedPlaylists = gson.fromJson(new String(buffer).trim(), Playlist[].class);
 
@@ -1842,7 +1847,6 @@ public class SongViewController implements Initializable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 
 			socket.close();
 			return null;
