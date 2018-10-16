@@ -25,12 +25,6 @@ import com.sun.glass.ui.Window.Level;
 public class Server {
 	static Log server_log;
 	/**
-	 * The appplication main method, which just listens on a port and
-	 * spawns handler threads.
-	 */
-	private ArrayList<Song> allSongs;
-
-	/**
 	 * Socket used to get incoming requests.
 	 */
 	private static DatagramSocket socket = null;
