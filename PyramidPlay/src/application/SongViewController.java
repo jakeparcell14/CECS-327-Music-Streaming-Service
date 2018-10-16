@@ -395,7 +395,13 @@ public class SongViewController implements Initializable{
 	public void OnPlayPauseClicked(MouseEvent event) {
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
-			playSong(_currentTime);
+			try {
+				playSong(_currentTime);
+			} catch (NullPointerException e) {
+				_playButton.setText("Play");
+				DisplayAlert("Error!", "Error reading cache.", "May be due to a server error.");
+			}
+			
 		} else {
 			_playButton.setText("Play");
 			_currentTime = player.getCurrentTime();
@@ -426,8 +432,7 @@ public class SongViewController implements Initializable{
 	 * Method to play the current song from the beginning.
 	 */
 	public void playSelectedSong () {
-		_currentTime = Duration.ZERO;
-		currentTime.setText((getTime(_currentTime)));
+
 
 
 		if(player != null && player.getStatus().equals(Status.PLAYING)) {
@@ -435,35 +440,50 @@ public class SongViewController implements Initializable{
 		}
 
 		DatagramSocket socket = null;
-		try {
-			socket = new DatagramSocket();
-			cachedSong = SongDownloader.DownloadSong(socket, (currentPlaylist.getSongs()).get(playlistNum), requestID++);
-			System.out.println("Downloaded song.");
-		} catch (SocketTimeoutException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (socket != null) 
-				socket.close();
+		for (int i = 0; i< TRIES; i++) {
+			System.out.println("Awaiting response from server...");
+			try {
+				socket = new DatagramSocket();
+				socket.setSoTimeout(TIMEOUT);
+				cachedSong = SongDownloader.DownloadSong(socket, (currentPlaylist.getSongs()).get(playlistNum), requestID++);
+				_currentTime = Duration.ZERO;
+				currentTime.setText((getTime(_currentTime)));
+				System.out.println("Downloaded song.");
+				
+				if(_playButton.getText().equals("Play")) {
+					_playButton.setText("Pause");
+				}
+				playSong(_currentTime);
+				break;
+			} catch (SocketTimeoutException e) {
+				if (i == TRIES - 1) {
+					DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
+					return;
+				}
+				
+				System.out.println("No response from server, sending request again.");
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (socket != null) 
+					socket.close();
+			}
 		}
+		
 
 
-		if(_playButton.getText().equals("Play")) {
-			_playButton.setText("Pause");
-		}
+
 
 		// make search results invisible
 		SearchResultsPane.setVisible(false);
 		SearchResultsPane.setMouseTransparent(true);
 		this.resetSearchText();
 
-		playSong(_currentTime);
+		
 
 	}
 

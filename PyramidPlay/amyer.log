@@ -1150,3 +1150,59 @@ Oct 15, 2018 7:51:43 PM application.Server log
 INFO: SENT MESSAGE:  Africa Imposter Controller
 
 
+Oct 15, 2018 8:01:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 8:01:06 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 8:04:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 8:04:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 8:04:06 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 8:04:06 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 8:04:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 8:04:29 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 8:08:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 8:08:27 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 8:10:04 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 8:10:04 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 8:14:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 8:14:25 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
