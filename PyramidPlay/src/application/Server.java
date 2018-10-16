@@ -267,7 +267,7 @@ public class Server {
 			ArrayList<String> currentSession = getCurrentSession(logText);
 
 			//current message has been received already
-			if(processAlreadyExecuted(currentSession, m.getRequestID()))
+			if(processAlreadyExecuted(currentSession, m))
 			{
 				//the current process is a duplicate and a previous copy has already executed
 				byte[] emptyArray = {};
@@ -329,7 +329,7 @@ public class Server {
 			ArrayList<String> currentSession = getCurrentSession(logText);
 
 			//current message has been received already
-			if(processAlreadyExecuted(currentSession, m.getRequestID()))
+			if(processAlreadyExecuted(currentSession, m))
 			{
 				//the current process is a duplicate and a previous copy has already executed
 				byte[] emptyArray = {};
@@ -389,7 +389,7 @@ public class Server {
 			ArrayList<String> currentSession = getCurrentSession(logText);
 
 			//current message has been received already
-			if(processAlreadyExecuted(currentSession, m.getRequestID()))
+			if(processAlreadyExecuted(currentSession, m))
 			{
 				//the current process is a duplicate and a previous copy has already executed
 				byte[] emptyArray = {};
@@ -490,7 +490,7 @@ public class Server {
 				ArrayList<String> currentSession = getCurrentSession(logText);
 
 				//current message has been received already
-				if(processAlreadyExecuted(currentSession, msg.getRequestID()))
+				if(processAlreadyExecuted(currentSession, msg))
 				{
 					//the current process is a duplicate and a previous copy has already executed
 					byte[] emptyArray = {};
@@ -620,7 +620,7 @@ public class Server {
 		ArrayList<String> currentSession = getCurrentSession(logText);
 
 		//current message has been received already
-		if(processAlreadyExecuted(currentSession, msg.getRequestID()))
+		if(processAlreadyExecuted(currentSession, msg))
 		{
 			//the current process is a duplicate and a previous copy has already executed
 			byte[] emptyArray = {};
@@ -837,11 +837,11 @@ public class Server {
 		return currentSession;
 	}
 
-	public static boolean processAlreadyExecuted(ArrayList<String> currentSession, int requestID)
+	public static boolean processAlreadyExecuted(ArrayList<String> currentSession, Message msg)
 	{
 		for(int i = 1; i < currentSession.size(); i += 2)
 		{
-			if(currentSession.get(i).contains("INFO: SENT MESSAGE (ID = " + requestID))
+			if(currentSession.get(i).contains("RECEIVED MESSAGE: "+msg.toString()))
 			{
 				//the log contains proof that the specific process has already executed
 				return true;
