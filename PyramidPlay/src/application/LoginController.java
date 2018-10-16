@@ -143,7 +143,7 @@ public class LoginController implements Initializable
 			
 			//create a socket with no specific port we listen on
 			socket = new DatagramSocket();
-			socket.setSoTimeout(1000);
+			socket.setSoTimeout(500);
 			System.out.println("Socket created with port " + socket.getLocalPort());
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
@@ -166,9 +166,6 @@ public class LoginController implements Initializable
 		try {
 			Message loginMsg = new Message(1, requestID++, OpID.LOGIN, arr, InetAddress.getLocalHost(), 1);
 			
-			//convert to json
-			String json = gson.toJson(loginMsg);
-			
 			//we can only send bytes, so flatten the string to a byte array
 			byte[] msg = gson.toJson(loginMsg).getBytes();				
 			
@@ -186,14 +183,14 @@ public class LoginController implements Initializable
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			
 			//keep sending reply until server responds
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 5; i++) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
+					if (i == 4) {
 						System.out.println("Giving up on request");
 						InvalidSignInLabel.setText("Unable to connect to server");
 						InvalidSignInLabel.setVisible(true);
@@ -259,7 +256,6 @@ public class LoginController implements Initializable
 		{
 			//create register request and convert to byte array
 			Message loginMsg = new Message(1, requestID++, OpID.REGISTER, arr, InetAddress.getLocalHost(), 1);
-			String json = gson.toJson(loginMsg);
 			byte[] msg = gson.toJson(loginMsg).getBytes();				
 			
 			System.out.println("Sending request.");
@@ -275,10 +271,7 @@ public class LoginController implements Initializable
 			 * randomly assign a port to the reply for the program to listen on
 			 */
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-			
-			//keep sending reply until server responds
-			boolean response = false;
-			
+						
 			//keep sending reply until server responds
 			for (int i = 0; i < 10; i++) {
 				System.out.println("Awaiting response from server...");
