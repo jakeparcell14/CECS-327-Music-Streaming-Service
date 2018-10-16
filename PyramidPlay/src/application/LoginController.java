@@ -273,14 +273,14 @@ public class LoginController implements Initializable
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 						
 			//keep sending reply until server responds
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 5; i++) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
+					if (i == 5) {
 						System.out.println("Giving up on request");
 						UsernameUnavailableLabel.setText("Unable to connect to server");
 						UsernameUnavailableLabel.setVisible(true);
