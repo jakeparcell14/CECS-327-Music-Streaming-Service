@@ -275,7 +275,7 @@ public class Server {
 			}
 			else
 			{
-				log(user.getUsername(),"RECEIVED MESSAGE: "+m.toString()+"\n\n");
+				log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			}
 			
 			if(query.equals(" ")) {
@@ -337,7 +337,7 @@ public class Server {
 			}
 			else
 			{
-				log(user.getUsername(),"RECEIVED MESSAGE: "+m.toString()+"\n\n");
+				log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			}
 			
 			if(query.equals(" ")) {
@@ -397,7 +397,7 @@ public class Server {
 			}
 			else
 			{
-				log(user.getUsername(),"RECEIVED MESSAGE: "+m.toString()+"\n\n");
+				log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			}
 			
 			if(currentPlaylist.equals("saved")) {
@@ -498,7 +498,7 @@ public class Server {
 				}
 				else
 				{
-					log(newUser.getUsername(),"RECEIVED MESSAGE: "+msg.toString()+"\n\n");
+					log(userName,"RECEIVED MESSAGE: "+msg.toString()+"\n\n");
 				}
 				
 				//add user to the user repository
@@ -786,7 +786,7 @@ public class Server {
 
 		} catch (FileNotFoundException e) 
 		{
-			e.printStackTrace();
+			return null;
 		} catch (IOException e) 
 		{
 			e.printStackTrace();
@@ -822,13 +822,9 @@ public class Server {
 		int currentSessionStart = 0;
 		for(int i = 1; i < logText.size(); i += 2)
 		{
-			if(logText.get(i).contains("LOGIN"))
+			if(logText.get(i).contains("INFO: SENT MESSAGE: VERIFIED"))			
 			{
-				currentSessionStart = i - 1;
-			}
-			else if(logText.get(i).contains("REGISTER"))
-			{
-				currentSessionStart = i - 1;
+				currentSessionStart = i - 5;
 			}
 		}
 		
