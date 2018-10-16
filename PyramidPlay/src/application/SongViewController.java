@@ -255,6 +255,11 @@ public class SongViewController implements Initializable{
 	 * Timeout in ms.
 	 */
 	private final int TIMEOUT = 500;
+	
+	/**
+	 * Tries before client gives up trying to contact server.
+	 */
+	private final int TRIES = 5;
 
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
@@ -1099,7 +1104,7 @@ public class SongViewController implements Initializable{
 		DatagramSocket socket;
 		try {
 			socket = new DatagramSocket();
-			socket.setSoTimeout(1000);
+			socket.setSoTimeout(TIMEOUT);
 			String[] arr= {user.getUsername(),query};
 			Message searchMessage;
 			OpID opID=OpID.SEARCHALLSONGS;
@@ -1119,14 +1124,14 @@ public class SongViewController implements Initializable{
 				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 				
 				//keep sending request until server responds
-				for (int i = 0; i < 10; i++) {
+				for (int i = 0; i < TRIES; i++) {
 					System.out.println("Awaiting response from server...");
 					try {
 						socket.receive(reply);		
 						System.out.println("Response received from port " + reply.getPort() + "!");
 						break;
 					} catch (SocketTimeoutException e) {
-						if (i == 9) {
+						if (i == TRIES - 1) {
 							DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 							return;
 						}
@@ -1180,14 +1185,14 @@ public class SongViewController implements Initializable{
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			
 			//keep sending request until server responds
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < TRIES; i++) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
+					if (i == TRIES - 1) {
 						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 						return;
 					}
@@ -1238,14 +1243,14 @@ public class SongViewController implements Initializable{
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			
 			//keep sending request until server responds
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < TRIES; i++) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
+					if (i == TRIES - 1) {
 						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 						return;
 					}
@@ -1296,14 +1301,14 @@ public class SongViewController implements Initializable{
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			
 			//keep sending request until server responds
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < TRIES; i++) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
+					if (i == TRIES - 1) {
 						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 						return;
 					}
@@ -1342,7 +1347,7 @@ public class SongViewController implements Initializable{
 					query=" ";
 				}
 				socket = new DatagramSocket();
-				socket.setSoTimeout(1000);
+				socket.setSoTimeout(TIMEOUT);
 				//String user="amyer";
 				OpID opID=OpID.SEARCHMYSONGS;
 				//my songs are selected
@@ -1532,7 +1537,7 @@ public class SongViewController implements Initializable{
 	public ArrayList<Playlist> addSongToServer(Song songToAdd, Playlist playlistToUpdate) throws SocketException 
 	{		
 		DatagramSocket socket = new DatagramSocket();
-		socket.setSoTimeout(1000);
+		socket.setSoTimeout(TIMEOUT);
 		//initialize buffer
 		byte[] buffer = new byte[5000];
 		try {
@@ -1562,14 +1567,14 @@ public class SongViewController implements Initializable{
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			
 			//keep sending request until server responds
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < TRIES; i++) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
+					if (i == TRIES - 1) {
 						
 						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 						
@@ -1601,7 +1606,7 @@ public class SongViewController implements Initializable{
 		try {
 			DatagramSocket socket;
 			socket = new DatagramSocket();
-			socket.setSoTimeout(1000);
+			socket.setSoTimeout(TIMEOUT);
 			byte[] buffer = new byte[5000];
 			String playlistJSON = gson.toJson(playlist);
 			String[] arr = {user.getUsername(), playlistJSON};
@@ -1624,14 +1629,14 @@ public class SongViewController implements Initializable{
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			
 			//keep sending request until server responds
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < TRIES; i++) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
+					if (i == TRIES - 1) {
 						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 						
 						//return unupdated list of playlists
@@ -1655,7 +1660,7 @@ public class SongViewController implements Initializable{
 		try {
 			DatagramSocket socket;
 			socket = new DatagramSocket();
-			socket.setSoTimeout(1000);
+			socket.setSoTimeout(TIMEOUT);
 			byte[] buffer = new byte[5000];
 			String playlistJSON = gson.toJson(playlist);
 			String[] arr = {user.getUsername(), playlistJSON};
@@ -1676,14 +1681,14 @@ public class SongViewController implements Initializable{
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 			
 			//keep sending request until server responds
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < TRIES; i++) {
 				System.out.println("Awaiting response from server...");
 				try {
 					socket.receive(reply);		
 					System.out.println("Response received from port " + reply.getPort() + "!");
 					break;
 				} catch (SocketTimeoutException e) {
-					if (i == 9) {
+					if (i == TRIES - 1) {
 						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 						
 						//return unupdated list of playlists
@@ -1713,7 +1718,7 @@ public class SongViewController implements Initializable{
 		DatagramSocket socket;
 		try {
 			socket = new DatagramSocket();
-			socket.setSoTimeout(1000);
+			socket.setSoTimeout(TIMEOUT);
 			byte[] buffer = new byte[5000];
 			try {
 				String songJSON = gson.toJson(songToRemove);
@@ -1743,14 +1748,14 @@ public class SongViewController implements Initializable{
 				 */
 				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 				//keep sending reply until server responds
-				for (int i = 0; i < 10; i++) {
+				for (int i = 0; i < TRIES; i++) {
 					System.out.println("Awaiting response from server...");
 					try {
 						socket.receive(reply);		
 						System.out.println("Response received from port " + reply.getPort() + "!");
 						break;
 					} catch (SocketTimeoutException e) {
-						if (i == 9) {						
+						if (i == TRIES - 1) {						
 							DisplayAlert("Server connection error", "Client was unable to connect to server","Please try again later");
 							
 							//return unupdated list of playlists

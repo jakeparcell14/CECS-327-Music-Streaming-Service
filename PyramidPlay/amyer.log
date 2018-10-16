@@ -822,3 +822,331 @@ Oct 15, 2018 7:20:25 PM application.Server log
 INFO: SENT MESSAGE:  Controller
 
 
+Oct 15, 2018 7:49:19 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.1.228
+
+
+Oct 15, 2018 7:49:19 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 7:51:27 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 5 SEARCHMYSONGS  amyer af 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:27 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 7:51:27 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 6 SEARCHMYSONGS  amyer af 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:27 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 7:51:27 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 7 SEARCHMYSONGS  amyer afri 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:27 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 7:51:27 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 8 SEARCHMYSONGS  amyer afri 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:27 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 7:51:28 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 9 SEARCHMYSONGS  amyer afr 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:28 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 7:51:28 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 10 SEARCHMYSONGS  amyer af 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:28 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 7:51:28 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 11 SEARCHMYSONGS  amyer a 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:28 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:28 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 12 SEARCHMYSONGS  amyer   1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:28 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:31 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 13 SEARCHMYPLAYLISTS  amyer m saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:31 PM application.Server log
+INFO: SENT MESSAGE:  meow My Playlist
+
+
+Oct 15, 2018 7:51:32 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 14 SEARCHMYPLAYLISTS  amyer me saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:32 PM application.Server log
+INFO: SENT MESSAGE:  meow
+
+
+Oct 15, 2018 7:51:32 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 15 SEARCHMYPLAYLISTS  amyer meo saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:32 PM application.Server log
+INFO: SENT MESSAGE:  meow
+
+
+Oct 15, 2018 7:51:32 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 16 SEARCHMYPLAYLISTS  amyer meow saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:32 PM application.Server log
+INFO: SENT MESSAGE:  meow
+
+
+Oct 15, 2018 7:51:33 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 17 SEARCHMYPLAYLISTS  amyer meo saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:33 PM application.Server log
+INFO: SENT MESSAGE:  meow
+
+
+Oct 15, 2018 7:51:33 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 18 SEARCHMYPLAYLISTS  amyer me saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:33 PM application.Server log
+INFO: SENT MESSAGE:  meow
+
+
+Oct 15, 2018 7:51:33 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 19 SEARCHMYPLAYLISTS  amyer m saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:33 PM application.Server log
+INFO: SENT MESSAGE:  meow My Playlist
+
+
+Oct 15, 2018 7:51:33 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 20 SEARCHMYPLAYLISTS  amyer   saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:33 PM application.Server log
+INFO: SENT MESSAGE:  meow My Playlist
+
+
+Oct 15, 2018 7:51:36 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 21 SEARCHCURRENTPLAYLIST  amyer a saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:36 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:37 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 22 SEARCHCURRENTPLAYLIST  amyer af saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:37 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 7:51:37 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 23 SEARCHCURRENTPLAYLIST  amyer afr saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:37 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 7:51:37 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 24 SEARCHCURRENTPLAYLIST  amyer af saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:37 PM application.Server log
+INFO: SENT MESSAGE:  Africa
+
+
+Oct 15, 2018 7:51:37 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 25 SEARCHCURRENTPLAYLIST  amyer a saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:37 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:38 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 26 SEARCHCURRENTPLAYLIST  amyer   saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:38 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:38 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 27 SEARCHCURRENTPLAYLIST  amyer o saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:38 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 28 SEARCHCURRENTPLAYLIST  amyer oi saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:39 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 29 SEARCHCURRENTPLAYLIST  amyer oin saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:39 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 30 SEARCHCURRENTPLAYLIST  amyer oing saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:39 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 31 SEARCHCURRENTPLAYLIST  amyer oin saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:39 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:40 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 32 SEARCHCURRENTPLAYLIST  amyer oi saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:40 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:40 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 33 SEARCHCURRENTPLAYLIST  amyer o saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:40 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:40 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 34 SEARCHCURRENTPLAYLIST  amyer   saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:40 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:40 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 35 SEARCHCURRENTPLAYLIST  amyer   saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:40 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:41 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 36 SEARCHCURRENTPLAYLIST  amyer o saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:41 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 37 SEARCHCURRENTPLAYLIST  amyer on saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:42 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 38 SEARCHCURRENTPLAYLIST  amyer only saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:42 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 39 SEARCHCURRENTPLAYLIST  amyer only saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:42 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 40 SEARCHCURRENTPLAYLIST  amyer onl saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:42 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:43 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 41 SEARCHCURRENTPLAYLIST  amyer on saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:43 PM application.Server log
+INFO: SENT MESSAGE:  Imposter Controller
+
+
+Oct 15, 2018 7:51:43 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 42 SEARCHCURRENTPLAYLIST  amyer o saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:43 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:43 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 43 SEARCHCURRENTPLAYLIST  amyer   saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:43 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
+Oct 15, 2018 7:51:43 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 44 SEARCHCURRENTPLAYLIST  amyer   saved 1 /192.168.1.228
+
+
+Oct 15, 2018 7:51:43 PM application.Server log
+INFO: SENT MESSAGE:  Africa Imposter Controller
+
+
