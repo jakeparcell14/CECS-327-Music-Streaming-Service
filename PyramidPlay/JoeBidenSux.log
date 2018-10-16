@@ -1,0 +1,32 @@
+Oct 15, 2018 5:28:08 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  JoeBidenSux USA 1 /192.168.1.180
+
+
+Oct 15, 2018 5:28:08 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 5:29:10 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  JoeBidenSux USA 1 /192.168.1.180
+
+
+Oct 15, 2018 5:29:10 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 5:29:55 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 5 SEARCHALLSONGS  JoeBidenSux f 1 /192.168.1.180
+
+
+Oct 15, 2018 5:29:55 PM application.Server log
+INFO: SENT MESSAGE:  Fireflies Work From Home
+
+
+Oct 15, 2018 5:36:05 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  JoeBidenSux USA 1 /192.168.1.180
+
+
+Oct 15, 2018 5:36:05 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
