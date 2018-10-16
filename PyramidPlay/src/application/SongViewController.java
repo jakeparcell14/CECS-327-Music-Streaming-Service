@@ -250,6 +250,11 @@ public class SongViewController implements Initializable{
 	 * Cached song file.
 	 */
 	private File cachedSong;
+	
+	/**
+	 * Timeout in ms.
+	 */
+	private final int TIMEOUT = 500;
 
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
@@ -1594,6 +1599,8 @@ public class SongViewController implements Initializable{
 		socket.close();
 		return null;
 	}
+	
+	
 	public ArrayList<Playlist> addPlaylist(Playlist playlist){
 
 		try {
@@ -1792,5 +1799,6 @@ public class SongViewController implements Initializable{
 		alert.setTitle(title);
 		alert.setHeaderText(header);
 		alert.setContentText(content);
+		alert.showAndWait();
 	}
 }
