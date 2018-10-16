@@ -492,7 +492,7 @@ public class SongViewController implements Initializable{
 	 * @param event		The my songs button has been clicked
 	 */
 	public void OnMySongsClicked (MouseEvent event) {
-
+	
 		// display the table view with all saved songs of the user
 		if (mySongs != null) {
 			displaySongs(mySongs);
@@ -629,6 +629,9 @@ public class SongViewController implements Initializable{
 													if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 														OnCurrentPlaylistClicked(null);
 													}
+													else if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(myPlaylistsButton)) {
+														OnMyPlaylistsClicked(null);
+													}
 													break;
 												} catch (SocketException e) {
 													// TODO Auto-generated catch block
@@ -668,6 +671,7 @@ public class SongViewController implements Initializable{
 											updatedSavedSongs = addSongToServer(allSongs.get(j), temp);
 											mySongs.setSongs(updatedSavedSongs.get(0).getSongs());
 											user.setSavedSongs(mySongs);
+											mySongs = user.getSavedSongs();
 											
 											if(((ToggleButton)menuToggleGroup.getSelectedToggle()).equals(currentPlaylistButton)) {
 												OnCurrentPlaylistClicked(null);
@@ -843,6 +847,7 @@ public class SongViewController implements Initializable{
 						//TODO
 						user.setSavedSongs(updatedPlaylist.get(0));
 						currentPlaylist=user.getSavedSongs();
+						mySongs = user.getSavedSongs();
 						OnMySongsClicked(null);
 					}
 				}
