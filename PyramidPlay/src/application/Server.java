@@ -802,27 +802,6 @@ public class Server {
 		return null;
 	}
 
-/*	public static ArrayList<String> findDuplicates(ArrayList<String> logText)
-	{
-		Set<String> checker = new TreeSet<String>();
-
-		ArrayList<String> duplicates = new ArrayList<String>();
-
-		for(int i = 1; i < logText.size(); i += 2)
-		{
-			if(logText.get(i).contains("INFO: RECEIVED MESSAGE:"))
-			{
-				//checks all received message lines for duplicates
-				if(!checker.add(logText.get(i)))
-				{
-					duplicates.add(logText.get((i)));
-				}
-			}
-		}
-
-		return duplicates;
-	}*/
-	
 	public static ArrayList<String> getCurrentSession(ArrayList<String> logText)
 	{
 		int currentSessionStart = 0;
