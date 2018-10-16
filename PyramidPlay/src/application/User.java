@@ -97,8 +97,8 @@ public class User implements Comparable<User>, Serializable
 	}
 	
 	/**
-	 * Sets the email to a given value
-	 * @param e		given email
+	 * Sets the last name to a given value
+	 * @param ln given last name
 	 */
 	public void setlastName(String ln)
 	{
@@ -115,8 +115,8 @@ public class User implements Comparable<User>, Serializable
 	}
 	
 	/**
-	 * Sets the email to a given value
-	 * @param e		given email
+	 * Sets the first name to a given value
+	 * @param fn given name
 	 */
 	public void setFirstName(String fn)
 	{
@@ -152,7 +152,7 @@ public class User implements Comparable<User>, Serializable
 	
 	/**
 	 * Sets playlist of saved songs
-	 * @param s		given playlist
+	 * @param p		given playlist
 	 */
 	public void setSavedSongs(Playlist p)
 	{

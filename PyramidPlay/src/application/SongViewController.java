@@ -1447,7 +1447,7 @@ public class SongViewController implements Initializable{
 
 	/***
 	 * Formats microseconds into a string that is in HH:MM:SS format.
-	 * @param microseconds
+	 * @param duration	amount of microseconds
 	 * @return Returns properly formatted string.
 	 */
 	public String getTime(Duration duration) {

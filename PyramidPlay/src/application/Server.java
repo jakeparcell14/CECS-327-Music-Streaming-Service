@@ -307,7 +307,7 @@ public class Server {
 	}
 	/**
 	 * searches and displays user myplaylists on userlibrarylist
-	 * @param query-user inputted query
+	 * @param m		message sent by the user to search playlists
 	 */
 	public static byte[] searchMyPlaylists(Message m) {
 		String userName=m.getArgs()[0];
@@ -365,7 +365,7 @@ public class Server {
 	}
 	/**
 	 * searches current playlists and displays on userlibrarylist
-	 * @param query
+	 * @param m		message that holds the query information
 	 */
 	public static byte[] searchCurrentPlaylist(Message m) {
 		String userName=m.getArgs()[0];
@@ -522,7 +522,6 @@ public class Server {
 	 * @param reply Object returning as a reply flattened to a byte array.
 	 * @param addr Address we are sending to. (In this case, localhost)
 	 * @param port Client's port number we are sending this to.
-	 * @param socket Server socket we are sending through.
 	 * @throws IOException
 	 * @throws SocketException
 	 */
@@ -537,7 +536,6 @@ public class Server {
 
 	/**
 	 * listens for a request from a client.
-	 * @param socket This server's socket.
 	 * @return Returns a request object when it receives a request on port 1234.
 	 * @throws IOException
 	 * @throws SocketException
