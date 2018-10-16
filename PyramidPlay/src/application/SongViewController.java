@@ -1,13 +1,9 @@
 package application;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -17,14 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,7 +23,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
@@ -687,11 +675,8 @@ public class SongViewController implements Initializable{
 
 									}
 									else {
-										Alert alert = new Alert(AlertType.ERROR);
-										alert.setTitle("Save Song Error");
-										alert.setHeaderText("Song Already in Saved Songs");
-										alert.setContentText("Please try a different option");
-										alert.showAndWait();
+										DisplayAlert("Save Song Error", "Song Already in Saved Songs", "Please try a different option");
+	
 									}
 								}
 							}
@@ -833,11 +818,7 @@ public class SongViewController implements Initializable{
 					Playlist temp=user.getSavedSongs();
 					//cant remove a song from saved songs if there is only one song
 					if(temp.getSongs().size()==1) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Remove Saved Song Error");
-						alert.setHeaderText("Saved Songs Must Have At Least One Song");
-						alert.setContentText("Please try a different option");
-						alert.showAndWait();
+						DisplayAlert("Remove Saved Song Error","Saved Songs Must Have At Least One Song", "Please try a different option"); 
 					}
 					else {
 						Playlist tp = new Playlist("saved");
@@ -881,11 +862,7 @@ public class SongViewController implements Initializable{
 						Playlist temp=user.getSavedSongs();
 						//cant delete song if there is only one song in the playlist
 						if(temp.getSongs().size()==1) {
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Remove Saved Song Error");
-							alert.setHeaderText("Saved Songs Must Have At Least One Song");
-							alert.setContentText("Please try a different option");
-							alert.showAndWait();
+							DisplayAlert("Remove Saved Song Error", "Saved Songs Must Have At Least One Song", "Please try a different option");
 						}
 						else {
 							//remove song from saved songs
@@ -901,11 +878,7 @@ public class SongViewController implements Initializable{
 								Playlist tempo=playlists.get(n);
 								//cant remove last song from playlist
 								if(tempo.getSongs().size()==1) {
-									Alert alert = new Alert(AlertType.ERROR);
-									alert.setTitle("Remove Playlist Song Error");
-									alert.setHeaderText("Playlist Must Have At Least One Song");
-									alert.setContentText("Please try a different option");
-									alert.showAndWait();
+									DisplayAlert("Remove Playlist Song Error", "Playlist Must Have At Least One Song", "Please try a different option");
 								}
 								else {
 									// remove song from current playlist
@@ -956,12 +929,8 @@ public class SongViewController implements Initializable{
 					OnMyPlaylistsClicked(null);
 
 				}
-				else {//My playlist has to exist
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Cannot delete My Playlist");
-					alert.setContentText("Please try a different option");
-					alert.showAndWait();
+				else {//My playlist has to exist					
+					DisplayAlert("Error", "Cannot delete My Playlist", "Please try a different option"); 
 				}
 			}
 		});
@@ -987,19 +956,11 @@ public class SongViewController implements Initializable{
 									count++;
 								}
 							}
-							if(count!=0) {// input isnt unique
-								Alert alert = new Alert(AlertType.ERROR);
-								alert.setTitle("Error adding playlist");
-								alert.setHeaderText("There is already a playlist with that name");
-								alert.setContentText("Please try a different name");
-								alert.showAndWait();
+							if(count!=0) {// input isnt unique								
+								DisplayAlert("Error adding playlist", "There is already a playlist with that name", "Please try a different name");
 							}
 							else if(result.get().trim().length() == 0) { //only whitespace
-								Alert alert = new Alert(AlertType.ERROR);
-								alert.setTitle("Error adding playlist");
-								alert.setHeaderText("Enter Characters that are not blank space");
-								alert.setContentText("Please try a different name");
-								alert.showAndWait();
+								DisplayAlert("Error adding playlist", "Enter Characters that are not blank space", "Please try a different name");
 							}
 							else{//add playlist
 								Playlist p = new Playlist(result.get());
@@ -1012,18 +973,10 @@ public class SongViewController implements Initializable{
 							}
 						}
 						if(count!=0) {// input isnt unique
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Error adding playlist");
-							alert.setHeaderText("There is already a playlist with that name");
-							alert.setContentText("Please try a different name");
-							alert.showAndWait();
+							DisplayAlert("Error adding playlist", "There is already a playlist with that name", "Please try a different name");
 						}
 						else if(result.get().trim().length() == 0) { //only whitespace
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Error adding playlist");
-							alert.setHeaderText("Enter Characters that are not blank space");
-							alert.setContentText("Please try a different name");
-							alert.showAndWait();
+							DisplayAlert("Error adding playlist", "Enter Characters that are not blank space", "Please try a different name");
 						}
 						else{//add playlist
 							ArrayList<Playlist> updatedPlaylist = addPlaylist(new Playlist(result.get()));												
@@ -1174,11 +1127,7 @@ public class SongViewController implements Initializable{
 						break;
 					} catch (SocketTimeoutException e) {
 						if (i == 9) {
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Server connection error");
-							alert.setHeaderText("Client was unable to connect to server");
-							alert.setContentText("Please try again later");
-							alert.showAndWait();
+							DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 							return;
 						}
 						System.out.println("No response from server, sending request again.");
@@ -1239,11 +1188,7 @@ public class SongViewController implements Initializable{
 					break;
 				} catch (SocketTimeoutException e) {
 					if (i == 9) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Server connection error");
-						alert.setHeaderText("Client was unable to connect to server");
-						alert.setContentText("Please try again later");
-						alert.showAndWait();
+						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 						return;
 					}
 					System.out.println("No response from server, sending request again.");
@@ -1301,11 +1246,7 @@ public class SongViewController implements Initializable{
 					break;
 				} catch (SocketTimeoutException e) {
 					if (i == 9) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Server connection error");
-						alert.setHeaderText("Client was unable to connect to server");
-						alert.setContentText("Please try again later");
-						alert.showAndWait();
+						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 						return;
 					}
 					System.out.println("No response from server, sending request again.");
@@ -1363,11 +1304,7 @@ public class SongViewController implements Initializable{
 					break;
 				} catch (SocketTimeoutException e) {
 					if (i == 9) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Server connection error");
-						alert.setHeaderText("Client was unable to connect to server");
-						alert.setContentText("Please try again later");
-						alert.showAndWait();
+						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
 						return;
 					}
 					System.out.println("No response from server, sending request again.");
@@ -1633,12 +1570,9 @@ public class SongViewController implements Initializable{
 					break;
 				} catch (SocketTimeoutException e) {
 					if (i == 9) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Server connection error");
-						alert.setHeaderText("Client was unable to connect to server");
-						alert.setContentText("Please try again later");
-						alert.showAndWait();
-
+						
+						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
+						
 						//return unupdated list of playlists
 						return user.getPlaylists();
 					}
@@ -1696,13 +1630,9 @@ public class SongViewController implements Initializable{
 					break;
 				} catch (SocketTimeoutException e) {
 					if (i == 9) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Server connection error");
-						alert.setHeaderText("Client was unable to connect to server");
-						alert.setContentText("Please try again later");
-						alert.showAndWait();
-
-						//return unchanged list of playlists
+						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
+						
+						//return unupdated list of playlists
 						return user.getPlaylists();
 					}
 					System.out.println("No response from server, sending request again.");
@@ -1752,12 +1682,8 @@ public class SongViewController implements Initializable{
 					break;
 				} catch (SocketTimeoutException e) {
 					if (i == 9) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Server connection error");
-						alert.setHeaderText("Client was unable to connect to server");
-						alert.setContentText("Please try again later");
-						alert.showAndWait();
-
+						DisplayAlert("Server connection error", "Client was unable to connect to server", "Please try again later");
+						
 						//return unupdated list of playlists
 						return user.getPlaylists();
 					}
@@ -1822,13 +1748,9 @@ public class SongViewController implements Initializable{
 						System.out.println("Response received from port " + reply.getPort() + "!");
 						break;
 					} catch (SocketTimeoutException e) {
-						if (i == 9) {
-							Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Server connection error");
-							alert.setHeaderText("Client was unable to connect to server");
-							alert.setContentText("Please try again later");
-							alert.showAndWait();
 
+						if (i == 9) {						
+							DisplayAlert("Server connection error", "Client was unable to connect to server","Please try again later");
 							//return unupdated list of playlists
 							return user.getPlaylists();
 						}
@@ -1855,5 +1777,20 @@ public class SongViewController implements Initializable{
 			e2.printStackTrace();
 		}
 		return null;
+	}
+	
+	/**
+	 * Displays an alert to the user.
+	 * 
+	 * @param title Alert title.
+	 * @param header Alert header.
+	 * @param content Alert content.
+	 * 
+	 */
+	public static void DisplayAlert(String title, String header, String content) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(content);
 	}
 }
