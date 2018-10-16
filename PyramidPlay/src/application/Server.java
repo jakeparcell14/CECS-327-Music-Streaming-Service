@@ -709,6 +709,12 @@ public class Server {
 		}
 	}
 
+	/**
+	 * Gets the number of fragments needed to download this entire song.
+	 * 
+	 * @param msg Message sent by client.
+	 * @return Returns byte array to send back to client.
+	 */
 	public static byte[] getNumberOfFragments(Message msg) {	
 		ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
 		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
@@ -717,6 +723,13 @@ public class Server {
 		return buffer.array();
 	}
 
+	/**
+	 * Gets a byte fragment of the song at a certain offset.
+	 * 
+	 * @param msg Message sent by client.
+	 * @return Returns byte array containing this fragment to send back to client.
+	 * @throws IOException
+	 */
 	public static byte[] getSongBytes(Message msg) throws IOException {
 		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
 		int offset = gson.fromJson(msg.getArgs()[1], int.class);
