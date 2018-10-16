@@ -1,7 +1,9 @@
 package application;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -122,7 +124,18 @@ public class Server {
      * @throws IOException
      */
     private static void RequestReplyProtocol(Message msg, Request req) throws SocketException, UnknownHostException, IOException {
-		byte[] result = ChooseAndExecuteOperation(msg);
+		byte[] result;
+		String username="";
+		if(msg.getOperationID()==OpID.REGISTER) {
+			username=msg.getArgs()[2];
+		}
+		else {
+			username=msg.getArgs()[0];
+		}
+		result=duplication_filter(username,gson.toJson(msg));
+		if(result==null) {
+			result=ChooseAndExecuteOperation(msg);
+		}
 		SendReply(result, InetAddress.getLocalHost(), req.port);
 	}
     
@@ -176,7 +189,7 @@ public class Server {
     	ArrayList<Song> allSongs;
     	Playlist validSongs = new Playlist("valid");
 		try {
-			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
+			log(userName,gson.toJson(m));
 			allSongs = UserRepository.getAllSongs();
 	    	String query=m.getArgs()[1];
 	    	
@@ -225,7 +238,8 @@ public class Server {
 		for(int i=0;i<validSongs.getLength();i++) {
 			log_message=log_message+" "+validSongs.getSongs().get(i).toString();
 		}
-		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
+		log(userName,gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])));
+		duplication_filter(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
     	
     }
@@ -242,7 +256,7 @@ public class Server {
     	ArrayList<Song> msgList=new ArrayList<Song>();
     	User user;
 		try {
-			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
+			log(userName,gson.toJson(m));
 			user = UserRepository.getUser(userName);
 			Playlist savedSongsPlaylist=user.getSavedSongs();
 			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
@@ -274,9 +288,10 @@ public class Server {
 		}
 		String log_message="";
 		for(int i=0;i<msgList.size();i++) {
-			log_message=log_message+" "+msgList.get(i).toString();
+			log_message=log_message+"..."+msgList.get(i).toString();
 		}
-		log(userName,"SENT MESSAGE: "+log_message+"\n\n");	
+		log(userName,gson.toJson(msgList.toArray(new Song[msgList.size()])));	
+		//duplication_filter(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
 	/**
@@ -289,7 +304,7 @@ public class Server {
 		ArrayList<Playlist> msgList= new ArrayList<Playlist>();
 		User user;
 		try {
-			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
+			log(userName,gson.toJson(m));
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			if(query.equals(" ")) {
@@ -316,9 +331,10 @@ public class Server {
 		
 		String log_message="";
 		for(int i=0;i<msgList.size();i++) {
-			log_message=log_message+" "+msgList.get(i).getPlaylistName();
+			log_message=log_message+"..."+msgList.get(i).getPlaylistName();
 		}
-		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
+		log(userName,gson.toJson(msgList.toArray(new Playlist[msgList.size()])));
+		duplication_filter(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(msgList.toArray(new Playlist[msgList.size()])).getBytes();
 	}
 	/**
@@ -332,7 +348,7 @@ public class Server {
     	ArrayList<Song> msgList=new ArrayList<Song>();
     	User user;
 		try {
-			log(userName,"RECIEVED MESSAGE: "+m.toString()+"\n\n");
+			log(userName,gson.toJson(m));
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			Playlist cp = new Playlist();
@@ -370,9 +386,10 @@ public class Server {
 		}
 		String log_message="";
 		for(int i=0;i<msgList.size();i++) {
-			log_message=log_message+" "+msgList.get(i).toString();
+			log_message=log_message+"..."+msgList.get(i).toString();
 		}
-		log(userName,"SENT MESSAGE: "+log_message+"\n\n");
+		log(userName,gson.toJson(msgList.toArray(new Song[msgList.size()])));
+		duplication_filter(userName,"SENT MESSAGE: "+log_message+"\n\n");
 		return gson.toJson(msgList.toArray(new Song[msgList.size()])).getBytes();
 	}
     
@@ -388,9 +405,10 @@ public class Server {
 		{
 			if(UserRepository.IsUsernameAndPasswordCorrect(msg.getArgs()[0], msg.getArgs()[1]))
 			{
-				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
+				log(userName,gson.toJson(msg));
 				//send acknowledgement back to login client
-				log(userName,"SENT MESSAGE: VERIFIED\n\n");
+				log(userName,gson.toJson(UserRepository.getUser(msg.getArgs()[0])));
+				duplication_filter(userName,"SENT MESSAGE: VERIFIED\n\n");
 				return gson.toJson(UserRepository.getUser(msg.getArgs()[0])).getBytes();
 			}
 			else {
@@ -418,7 +436,7 @@ public class Server {
 		{
 			if(!UserRepository.userExists(msg.getArgs()[2]))
 			{
-				log(userName,"RECIEVED MESSAGE: "+msg.toString()+"\n\n");
+				log(userName,gson.toJson(msg));
 				//username is available and ready to be added to the repository
 				User newUser = new User(msg.getArgs()[0], msg.getArgs()[1], msg.getArgs()[2], msg.getArgs()[3]);
 				
@@ -426,7 +444,8 @@ public class Server {
 				UserRepository.AddUser(newUser);
 				
 				//return new user
-				log(userName,"SENT MESSAGE: "+newUser.getUsername()+"\n\n");
+				log(userName,gson.toJson(newUser));	
+				duplication_filter(userName,"SENT MESSAGE: "+newUser.getUsername()+"\n\n");
 				return gson.toJson(newUser).getBytes();
 			}
 			else
@@ -647,7 +666,6 @@ public class Server {
 	        logger.addHandler(fh);
 	        SimpleFormatter formatter = new SimpleFormatter();  
 	        fh.setFormatter(formatter);  
-
 	        // the following statement is used to log any messages  
 	        logger.info(l);
 	        fh.close();
@@ -657,5 +675,33 @@ public class Server {
 	    } catch (IOException e) {  
 	        e.printStackTrace();  
 	    }  
+	}
+	public static byte[] duplication_filter(String fileName,String l) {
+		fileName=fileName+".log";
+		File f=new File(fileName);
+		if(f.exists()) {
+			 BufferedReader input;
+			try {
+				ArrayList<String> lines = new ArrayList<String>();
+				input = new BufferedReader(new FileReader(fileName));
+				String line;
+				 while ((line = input.readLine()) != null) {
+					 lines.add(line);
+				 }
+				 String pastQuery=lines.get(lines.size()-2);
+				 if(pastQuery.equals("INFO: "+l)) {
+					 String[] temp=lines.get(lines.size()-1).split("INFO: ");
+					 return temp[1].getBytes();
+				 }
+				 
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 }

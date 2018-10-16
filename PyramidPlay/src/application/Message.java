@@ -72,13 +72,9 @@ public class Message {
 	public String toString() {
 		String temp= messageType+" "+requestID+" "+operationID+" ";
 		for(int i=0;i<args.length;i++) {
-			temp=temp+" "+args[i];
+			temp=temp+"..."+args[i];
 		}
 		temp=temp+" "+protocolID+" "+address;
 		return temp;
 	}
-	
-	
-	
-	
 }

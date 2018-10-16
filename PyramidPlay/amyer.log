@@ -398,3 +398,1219 @@ Oct 14, 2018 5:14:54 PM application.Server log
 INFO: SENT MESSAGE:  Controller Hymn For The Weekend A Sky Full Of Stars Closer
 
 
+Oct 15, 2018 1:12:27 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:12:27 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:14:03 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:03 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:14:09 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer d 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:09 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:10 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer dd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:10 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:10 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer ddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:10 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:10 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3 SEARCHALLSONGS  amyer dddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:10 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:10 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 4 SEARCHALLSONGS  amyer ddddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:10 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 5 SEARCHALLSONGS  amyer dddddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 6 SEARCHALLSONGS  amyer ddddddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 7 SEARCHALLSONGS  amyer dddddddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 8 SEARCHALLSONGS  amyer ddddddddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 9 SEARCHALLSONGS  amyer dddddddddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:11 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:12 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 10 SEARCHALLSONGS  amyer ddddddddddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:12 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:14:12 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 11 SEARCHALLSONGS  amyer dddddddddddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:14:12 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:15:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:39 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:15:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer f 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:42 PM application.Server log
+INFO: SENT MESSAGE:  Fireflies Work From Home
+
+
+Oct 15, 2018 1:15:43 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer ff 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:43 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:15:44 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer ffd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:44 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:15:44 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3 SEARCHALLSONGS  amyer ffds 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:44 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:15:45 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 4 SEARCHALLSONGS  amyer ffdsa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:45 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:15:45 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 5 SEARCHALLSONGS  amyer ffdsaa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:45 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:15:45 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 6 SEARCHALLSONGS  amyer ffdsaaa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:45 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:15:45 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 7 SEARCHALLSONGS  amyer ffdsaaaa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:45 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:15:46 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 8 SEARCHALLSONGS  amyer ffdsaaaaa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:46 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:15:48 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 9 SEARCHALLSONGS  amyer ffdsaaaaas 1 /192.168.56.1
+
+
+Oct 15, 2018 1:15:48 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:16:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:16:39 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:16:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer s 1 /192.168.56.1
+
+
+Oct 15, 2018 1:16:42 PM application.Server log
+INFO: SENT MESSAGE:  September
+
+
+Oct 15, 2018 1:17:46 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:17:46 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:17:49 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer s 1 /192.168.56.1
+
+
+Oct 15, 2018 1:17:49 PM application.Server log
+INFO: SENT MESSAGE:  September
+
+
+Oct 15, 2018 1:17:50 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer ss 1 /192.168.56.1
+
+
+Oct 15, 2018 1:17:50 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:17:51 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer ssa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:17:51 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:17:51 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3 SEARCHALLSONGS  amyer ssaa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:17:51 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:17:51 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 4 SEARCHALLSONGS  amyer ssaaa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:17:51 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:17:52 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 5 SEARCHALLSONGS  amyer ssaaaa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:17:52 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:19:41 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:19:41 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:19:44 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:19:44 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:21:45 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:21:45 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:21:48 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer d 1 /192.168.56.1
+
+
+Oct 15, 2018 1:21:48 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:21:49 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer ds 1 /192.168.56.1
+
+
+Oct 15, 2018 1:21:49 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:21:49 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer dsa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:21:49 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:21:50 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3 SEARCHALLSONGS  amyer dsawe 1 /192.168.56.1
+
+
+Oct 15, 2018 1:21:50 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:21:50 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 4 SEARCHALLSONGS  amyer dsaweq 1 /192.168.56.1
+
+
+Oct 15, 2018 1:21:50 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:21:50 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 5 SEARCHALLSONGS  amyer dsaweq 1 /192.168.56.1
+
+
+Oct 15, 2018 1:21:51 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:22:55 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:22:55 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:22:57 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer d 1 /192.168.56.1
+
+
+Oct 15, 2018 1:22:57 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:22:57 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer dd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:22:57 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:22:57 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer ddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:22:57 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:23:58 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:23:58 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:24:00 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer d 1 /192.168.56.1
+
+
+Oct 15, 2018 1:24:00 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:25:06 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:06 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:25:07 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:07 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:25:08 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:08 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:25:09 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:09 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:25:10 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:10 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:25:11 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:11 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:25:12 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:12 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:25:13 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:13 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:25:53 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:53 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:25:56 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:56 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:25:58 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer as 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:58 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:25:59 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer asd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:25:59 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:26:00 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3 SEARCHALLSONGS  amyer asdf 1 /192.168.56.1
+
+
+Oct 15, 2018 1:26:00 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:27:52 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:27:52 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:27:55 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer d 1 /192.168.56.1
+
+
+Oct 15, 2018 1:27:55 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:29:02 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:29:02 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:29:05 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer s 1 /192.168.56.1
+
+
+Oct 15, 2018 1:29:05 PM application.Server log
+INFO: SENT MESSAGE:  September
+
+
+Oct 15, 2018 1:34:09 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:34:09 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:34:12 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:34:12 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:34:14 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer as 1 /192.168.56.1
+
+
+Oct 15, 2018 1:34:14 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:34:15 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer asd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:34:15 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:37:41 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:37:41 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:37:43 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:37:43 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:37:45 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer as 1 /192.168.56.1
+
+
+Oct 15, 2018 1:37:45 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:38:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:38:39 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:38:41 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:38:41 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:38:43 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer as 1 /192.168.56.1
+
+
+Oct 15, 2018 1:38:43 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:38:43 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer asd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:38:43 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:38:43 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3 SEARCHALLSONGS  amyer asdd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:38:43 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:38:44 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 4 SEARCHALLSONGS  amyer asddd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:38:44 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:39:26 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:39:26 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:41:58 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:41:58 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:42:03 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:42:03 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:42:04 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer as 1 /192.168.56.1
+
+
+Oct 15, 2018 1:42:04 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:43:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:43:39 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:43:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:43:42 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:45:30 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:45:30 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:45:32 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:45:32 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:46:27 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:46:27 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:46:31 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:46:31 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:46:32 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer as 1 /192.168.56.1
+
+
+Oct 15, 2018 1:46:32 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:46:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer as 1 /192.168.56.1
+
+
+Oct 15, 2018 1:46:42 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:47:28 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:47:28 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:47:30 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer e 1 /192.168.56.1
+
+
+Oct 15, 2018 1:47:30 PM application.Server log
+INFO: SENT MESSAGE:  September
+
+
+Oct 15, 2018 1:48:35 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:48:35 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:48:37 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:48:37 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:48:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer as 1 /192.168.56.1
+
+
+Oct 15, 2018 1:48:39 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:48:40 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer asd 1 /192.168.56.1
+
+
+Oct 15, 2018 1:48:40 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:48:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3 SEARCHALLSONGS  amyer as 1 /192.168.56.1
+
+
+Oct 15, 2018 1:48:42 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:48:42 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 4 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:48:42 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:49:49 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 5 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:49:49 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:51:05 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:51:05 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:51:08 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer d 1 /192.168.56.1
+
+
+Oct 15, 2018 1:51:08 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 1:51:10 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer  1 /192.168.56.1
+
+
+Oct 15, 2018 1:51:10 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 1:51:11 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS  amyer  1 /192.168.56.1
+
+
+Oct 15, 2018 1:51:11 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 1:51:11 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:51:11 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:51:11 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 4 SEARCHALLSONGS  amyer  1 /192.168.56.1
+
+
+Oct 15, 2018 1:51:11 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 1:51:12 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 5 SEARCHALLSONGS  amyer  1 /192.168.56.1
+
+
+Oct 15, 2018 1:51:12 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 1:51:13 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 6 SEARCHALLSONGS  amyer s 1 /192.168.56.1
+
+
+Oct 15, 2018 1:51:13 PM application.Server log
+INFO: SENT MESSAGE:  September
+
+
+Oct 15, 2018 1:51:13 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 7 SEARCHALLSONGS  amyer  1 /192.168.56.1
+
+
+Oct 15, 2018 1:51:13 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 1:52:57 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Oct 15, 2018 1:52:57 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 1:52:59 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS  amyer a 1 /192.168.56.1
+
+
+Oct 15, 2018 1:52:59 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 1:53:00 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS  amyer aa 1 /192.168.56.1
+
+
+Oct 15, 2018 1:53:00 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 2:45:31 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN ...amyer...password 1 /192.168.56.1
+
+
+Oct 15, 2018 2:45:31 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 2:45:34 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS ...amyer...a 1 /192.168.56.1
+
+
+Oct 15, 2018 2:45:34 PM application.Server log
+INFO: SENT MESSAGE:  Hymn For The Weekend A Sky Full Of Stars Pompeii Africa
+
+
+Oct 15, 2018 2:52:20 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN ...amyer...password 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:20 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 2:52:22 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS ...amyer...d 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:22 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 2:52:23 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS ...amyer...ds 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:23 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 2:52:30 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS ...amyer...d 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:30 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 2:52:30 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 3 SEARCHALLSONGS ...amyer... 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:30 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 2:52:30 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 4 SEARCHALLSONGS ...amyer... 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:30 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 2:52:31 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 5 SEARCHALLSONGS ...amyer... 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:31 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 2:52:36 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 6 SEARCHALLSONGS ...amyer...d 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:36 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 2:52:37 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 7 SEARCHALLSONGS ...amyer... 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:37 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 2:52:38 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 8 SEARCHALLSONGS ...amyer... 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:38 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 2:52:38 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 9 SEARCHALLSONGS ...amyer... 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:38 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 2:52:38 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 10 SEARCHALLSONGS ...amyer... 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:38 PM application.Server log
+INFO: SENT MESSAGE:  Controller Imposter Nasty Habits Only A Lad Never Gonna Give You Up September What You See You Really Got Me Hymn For The Weekend A Sky Full Of Stars Pompeii Fireflies Africa Girls Like You Closer Work From Home
+
+
+Oct 15, 2018 2:52:39 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 11 SEARCHALLSONGS ...amyer...c 1 /192.168.56.1
+
+
+Oct 15, 2018 2:52:39 PM application.Server log
+INFO: SENT MESSAGE:  Controller Hymn For The Weekend A Sky Full Of Stars Closer
+
+
+Oct 15, 2018 2:53:32 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 LOGIN ...amyer...password 1 /192.168.56.1
+
+
+Oct 15, 2018 2:53:32 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 15, 2018 2:53:33 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 0 SEARCHALLSONGS ...amyer...q 1 /192.168.56.1
+
+
+Oct 15, 2018 2:53:33 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 2:53:35 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 1 SEARCHALLSONGS ...amyer...qw 1 /192.168.56.1
+
+
+Oct 15, 2018 2:53:35 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 2:53:35 PM application.Server log
+INFO: RECIEVED MESSAGE: 1 2 SEARCHALLSONGS ...amyer...qwe 1 /192.168.56.1
+
+
+Oct 15, 2018 2:53:35 PM application.Server log
+INFO: SENT MESSAGE: 
+
+
+Oct 15, 2018 3:12:57 PM application.Server log
+INFO: {"messageType":1,"requestID":0,"address":"192.168.56.1","operationID":"LOGIN","args":["amyer","password"],"protocolID":1}
+Oct 15, 2018 3:12:57 PM application.Server log
+INFO: {"firstName":"Andrew","lastName":"Myer","username":"amyer","password":"password","playlists":[{"name":"My Playlist","songs":[{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"}],"dateCreated":{"year":2018,"month":5,"day":6}},{"name":"meow","songs":[{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"}],"dateCreated":{"year":2018,"month":10,"day":8}}],"savedSongs":{"name":"saved","songs":[{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"}],"dateCreated":{"year":0,"month":0,"day":0}}}
+Oct 15, 2018 3:13:28 PM application.Server log
+INFO: {"messageType":1,"requestID":0,"address":"192.168.56.1","operationID":"LOGIN","args":["amyer","password"],"protocolID":1}
+Oct 15, 2018 3:13:28 PM application.Server log
+INFO: {"firstName":"Andrew","lastName":"Myer","username":"amyer","password":"password","playlists":[{"name":"My Playlist","songs":[{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"}],"dateCreated":{"year":2018,"month":5,"day":6}},{"name":"meow","songs":[{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"}],"dateCreated":{"year":2018,"month":10,"day":8}}],"savedSongs":{"name":"saved","songs":[{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"}],"dateCreated":{"year":0,"month":0,"day":0}}}
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: {"messageType":1,"requestID":0,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","s"],"protocolID":1}
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: [{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"}]
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: {"messageType":1,"requestID":1,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","sh"],"protocolID":1}
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: {"messageType":1,"requestID":2,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shu"],"protocolID":1}
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: {"messageType":1,"requestID":3,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shud"],"protocolID":1}
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: {"messageType":1,"requestID":4,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkj"],"protocolID":1}
+Oct 15, 2018 3:13:31 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: {"messageType":1,"requestID":5,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjab"],"protocolID":1}
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: {"messageType":1,"requestID":6,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjab"],"protocolID":1}
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: {"messageType":1,"requestID":7,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjab"],"protocolID":1}
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: {"messageType":1,"requestID":8,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabk"],"protocolID":1}
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: {"messageType":1,"requestID":9,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksa"],"protocolID":1}
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: {"messageType":1,"requestID":10,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksa"],"protocolID":1}
+Oct 15, 2018 3:13:32 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:33 PM application.Server log
+INFO: {"messageType":1,"requestID":11,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksaj"],"protocolID":1}
+Oct 15, 2018 3:13:33 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:34 PM application.Server log
+INFO: {"messageType":1,"requestID":12,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajn"],"protocolID":1}
+Oct 15, 2018 3:13:34 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:34 PM application.Server log
+INFO: {"messageType":1,"requestID":13,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajnc"],"protocolID":1}
+Oct 15, 2018 3:13:34 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:34 PM application.Server log
+INFO: {"messageType":1,"requestID":14,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajncn"],"protocolID":1}
+Oct 15, 2018 3:13:34 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:34 PM application.Server log
+INFO: {"messageType":1,"requestID":15,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajncnx"],"protocolID":1}
+Oct 15, 2018 3:13:34 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:35 PM application.Server log
+INFO: {"messageType":1,"requestID":16,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajncnxm"],"protocolID":1}
+Oct 15, 2018 3:13:35 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:35 PM application.Server log
+INFO: {"messageType":1,"requestID":17,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajncnxmz"],"protocolID":1}
+Oct 15, 2018 3:13:35 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:35 PM application.Server log
+INFO: {"messageType":1,"requestID":18,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajncnxmzn"],"protocolID":1}
+Oct 15, 2018 3:13:35 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:36 PM application.Server log
+INFO: {"messageType":1,"requestID":19,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajncnxmznm"],"protocolID":1}
+Oct 15, 2018 3:13:36 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:36 PM application.Server log
+INFO: {"messageType":1,"requestID":20,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajncnxmznmn"],"protocolID":1}
+Oct 15, 2018 3:13:36 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:37 PM application.Server log
+INFO: {"messageType":1,"requestID":21,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajncnxmznmnn"],"protocolID":1}
+Oct 15, 2018 3:13:37 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:37 PM application.Server log
+INFO: {"messageType":1,"requestID":22,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","shudkjabksajncnxmznmnn"],"protocolID":1}
+Oct 15, 2018 3:13:37 PM application.Server log
+INFO: []
+Oct 15, 2018 3:13:40 PM application.Server log
+INFO: {"messageType":1,"requestID":23,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer",""],"protocolID":1}
+Oct 15, 2018 3:13:40 PM application.Server log
+INFO: [{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"Only A Lad","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"OnlyALad.wav"},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"What You See","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"WhatYouSee.wav"},{"title":"You Really Got Me","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"YouReallyGotMe.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Pompeii","artist":"Bastille","album":"All This Bad Blood","fileSource":"Bastille_-_Pompeii.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Closer","artist":"The Chainsmokers","album":"Collage","fileSource":"The_Chainsmokers_-_Closer_Lyric_ft._Halsey.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"}]
+Oct 15, 2018 3:43:49 PM application.Server log
+INFO: {"messageType":1,"requestID":0,"address":"192.168.56.1","operationID":"LOGIN","args":["amyer","password"],"protocolID":1}
+Oct 15, 2018 3:43:49 PM application.Server log
+INFO: {"firstName":"Andrew","lastName":"Myer","username":"amyer","password":"password","playlists":[{"name":"My Playlist","songs":[{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"}],"dateCreated":{"year":2018,"month":5,"day":6}},{"name":"meow","songs":[{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"}],"dateCreated":{"year":2018,"month":10,"day":8}}],"savedSongs":{"name":"saved","songs":[{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"}],"dateCreated":{"year":0,"month":0,"day":0}}}
+Oct 15, 2018 3:43:54 PM application.Server log
+INFO: {"messageType":1,"requestID":0,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","d"],"protocolID":1}
+Oct 15, 2018 3:43:54 PM application.Server log
+INFO: []
+Oct 15, 2018 3:43:56 PM application.Server log
+INFO: {"messageType":1,"requestID":1,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","dd"],"protocolID":1}
+Oct 15, 2018 3:43:56 PM application.Server log
+INFO: []
+Oct 15, 2018 3:44:00 PM application.Server log
+INFO: {"messageType":1,"requestID":2,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","ddd"],"protocolID":1}
+Oct 15, 2018 3:44:00 PM application.Server log
+INFO: []
+Oct 15, 2018 3:46:05 PM application.Server log
+INFO: {"messageType":1,"requestID":0,"address":"192.168.56.1","operationID":"LOGIN","args":["amyer","password"],"protocolID":1}
+Oct 15, 2018 3:46:05 PM application.Server log
+INFO: {"firstName":"Andrew","lastName":"Myer","username":"amyer","password":"password","playlists":[{"name":"My Playlist","songs":[{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"}],"dateCreated":{"year":2018,"month":5,"day":6}},{"name":"meow","songs":[{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"}],"dateCreated":{"year":2018,"month":10,"day":8}}],"savedSongs":{"name":"saved","songs":[{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"}],"dateCreated":{"year":0,"month":0,"day":0}}}
+Oct 15, 2018 3:46:08 PM application.Server log
+INFO: {"messageType":1,"requestID":0,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","a"],"protocolID":1}
+Oct 15, 2018 3:46:08 PM application.Server log
+INFO: [{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Pompeii","artist":"Bastille","album":"All This Bad Blood","fileSource":"Bastille_-_Pompeii.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"}]
+Oct 15, 2018 3:47:28 PM application.Server log
+INFO: {"messageType":1,"requestID":0,"address":"192.168.56.1","operationID":"LOGIN","args":["amyer","password"],"protocolID":1}
+Oct 15, 2018 3:47:28 PM application.Server log
+INFO: {"firstName":"Andrew","lastName":"Myer","username":"amyer","password":"password","playlists":[{"name":"My Playlist","songs":[{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"}],"dateCreated":{"year":2018,"month":5,"day":6}},{"name":"meow","songs":[{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"}],"dateCreated":{"year":2018,"month":10,"day":8}}],"savedSongs":{"name":"saved","songs":[{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"}],"dateCreated":{"year":0,"month":0,"day":0}}}
+Oct 15, 2018 3:47:30 PM application.Server log
+INFO: {"messageType":1,"requestID":0,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","d"],"protocolID":1}
+Oct 15, 2018 3:47:30 PM application.Server log
+INFO: []
+Oct 15, 2018 3:47:35 PM application.Server log
+INFO: {"messageType":1,"requestID":1,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","dd"],"protocolID":1}
+Oct 15, 2018 3:47:35 PM application.Server log
+INFO: []
+Oct 15, 2018 3:47:37 PM application.Server log
+INFO: {"messageType":1,"requestID":2,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","d"],"protocolID":1}
+Oct 15, 2018 3:47:37 PM application.Server log
+INFO: []
+Oct 15, 2018 3:47:37 PM application.Server log
+INFO: {"messageType":1,"requestID":3,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer",""],"protocolID":1}
+Oct 15, 2018 3:47:37 PM application.Server log
+INFO: [{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"Only A Lad","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"OnlyALad.wav"},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"What You See","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"WhatYouSee.wav"},{"title":"You Really Got Me","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"YouReallyGotMe.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Pompeii","artist":"Bastille","album":"All This Bad Blood","fileSource":"Bastille_-_Pompeii.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Closer","artist":"The Chainsmokers","album":"Collage","fileSource":"The_Chainsmokers_-_Closer_Lyric_ft._Halsey.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"}]
+Oct 15, 2018 3:47:37 PM application.Server log
+INFO: {"messageType":1,"requestID":4,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer",""],"protocolID":1}
+Oct 15, 2018 3:47:37 PM application.Server log
+INFO: [{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"Only A Lad","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"OnlyALad.wav"},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"What You See","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"WhatYouSee.wav"},{"title":"You Really Got Me","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"YouReallyGotMe.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Pompeii","artist":"Bastille","album":"All This Bad Blood","fileSource":"Bastille_-_Pompeii.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Closer","artist":"The Chainsmokers","album":"Collage","fileSource":"The_Chainsmokers_-_Closer_Lyric_ft._Halsey.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"}]
+Oct 15, 2018 3:47:39 PM application.Server log
+INFO: {"messageType":1,"requestID":5,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer","a"],"protocolID":1}
+Oct 15, 2018 3:47:39 PM application.Server log
+INFO: [{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Pompeii","artist":"Bastille","album":"All This Bad Blood","fileSource":"Bastille_-_Pompeii.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"}]
+Oct 15, 2018 3:47:39 PM application.Server log
+INFO: {"messageType":1,"requestID":6,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer",""],"protocolID":1}
+Oct 15, 2018 3:47:39 PM application.Server log
+INFO: [{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"Only A Lad","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"OnlyALad.wav"},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"What You See","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"WhatYouSee.wav"},{"title":"You Really Got Me","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"YouReallyGotMe.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Pompeii","artist":"Bastille","album":"All This Bad Blood","fileSource":"Bastille_-_Pompeii.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Closer","artist":"The Chainsmokers","album":"Collage","fileSource":"The_Chainsmokers_-_Closer_Lyric_ft._Halsey.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"}]
+Oct 15, 2018 3:47:40 PM application.Server log
+INFO: {"messageType":1,"requestID":7,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer",""],"protocolID":1}
+Oct 15, 2018 3:47:40 PM application.Server log
+INFO: [{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"Only A Lad","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"OnlyALad.wav"},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"What You See","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"WhatYouSee.wav"},{"title":"You Really Got Me","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"YouReallyGotMe.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Pompeii","artist":"Bastille","album":"All This Bad Blood","fileSource":"Bastille_-_Pompeii.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Closer","artist":"The Chainsmokers","album":"Collage","fileSource":"The_Chainsmokers_-_Closer_Lyric_ft._Halsey.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"}]
+Oct 15, 2018 3:47:40 PM application.Server log
+INFO: {"messageType":1,"requestID":8,"address":"192.168.56.1","operationID":"SEARCHALLSONGS","args":["amyer",""],"protocolID":1}
+Oct 15, 2018 3:47:40 PM application.Server log
+INFO: [{"title":"Controller","artist":"Oingo Boing","album":"Only A Lad","fileSource":"Controller.wav"},{"title":"Imposter","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"Imposter.wav"},{"title":"Nasty Habits","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"NastyHabits.wav"},{"title":"Only A Lad","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"OnlyALad.wav"},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.wav"},{"title":"September","artist":"Earth, Wind, and Fire","album":"September","fileSource":"September_EarthWindFire.wav"},{"title":"What You See","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"WhatYouSee.wav"},{"title":"You Really Got Me","artist":"Oingo Boingo","album":"Only A Lad","fileSource":"YouReallyGotMe.wav"},{"title":"Hymn For The Weekend","artist":"Coldplay","album":"A Head Full of Dreams","fileSource":"Coldplay_-_Hymn_For_The_Weekend.wav"},{"title":"A Sky Full Of Stars","artist":"Coldplay","album":"Ghost Stories","fileSource":"Coldplay_-_A_Sky_Full_Of_Stars.wav"},{"title":"Pompeii","artist":"Bastille","album":"All This Bad Blood","fileSource":"Bastille_-_Pompeii.wav"},{"title":"Fireflies","artist":"Owl City","album":"Ocean Eyes","fileSource":"Owl_City_-_Fireflies.wav"},{"title":"Africa","artist":"Toto","album":"Toto IV","fileSource":"Toto_-_Africa.wav"},{"title":"Girls Like You","artist":"Maroon 5","album":"Red Pill Blues","fileSource":"Maroon_5_-_Girls_Like_You_ft._Cardi_B.wav"},{"title":"Closer","artist":"The Chainsmokers","album":"Collage","fileSource":"The_Chainsmokers_-_Closer_Lyric_ft._Halsey.wav"},{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.wav"}]
