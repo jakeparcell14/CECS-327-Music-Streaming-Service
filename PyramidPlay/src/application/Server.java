@@ -732,6 +732,11 @@ public class Server {
 		return b;
 	}
 
+	/**
+	 * adds to log for each user and creates log if it doesn't exist
+	 * @param fileName the name  of the file for the log
+	 * @param l the string to add to the log
+	 */
 	public static void log(String fileName,String l) {
 		Logger logger = Logger.getLogger("MyLog");  
 		FileHandler fh;  
@@ -753,6 +758,11 @@ public class Server {
 		}  
 	}
 
+	/**
+	 * reads from log and returns arraylist with contents of log
+	 * @param fileName the filename of the log to read
+	 * @return arraylist with the contents of the log
+	 */
 	public static ArrayList<String> readLog(String fileName)
 	{
 		try 
