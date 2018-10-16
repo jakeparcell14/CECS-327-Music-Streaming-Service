@@ -556,17 +556,6 @@ public class Server {
 		return req;
 	}
 
-	/**
-	 * Gets all of a user's playlist.
-	 * @param msg Message for this request.
-	 * @return Returns byte array containing JSON string of playlist array.
-	 * @throws IOException
-	 */
-	private static byte[] getPlaylists(Message msg) throws IOException {
-		String username = msg.getArgs()[0];
-		User user = UserRepository.getUser(username);
-		return gson.toJson((Playlist[]) user.getPlaylists().toArray(), Playlist[].class).getBytes();
-	}
 
 	/**
 	 * Adds a playlist to a user account.
