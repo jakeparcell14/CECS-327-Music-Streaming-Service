@@ -192,11 +192,6 @@ public class SongViewController implements Initializable{
 	private int playlistNum;
 
 	/**
-	 * Current song.
-	 */
-	private Clip _currentSong;
-
-	/**
 	 * Current time of the song. Used for pausing purposes.
 	 */
 	private Duration _currentTime;
@@ -253,9 +248,21 @@ public class SongViewController implements Initializable{
 	 */
 	private TableColumn dateCreatedColumn;
 
+	/**
+	 * Current song object.
+	 */
 	private Media Song;
+	
+	/**
+	 * Media player to play song.
+	 */
 
 	private MediaPlayer player;
+	
+	/**
+	 * Cached song file.
+	 */
+	private File cachedSong;
 
 	/**
 	 * Runnable type that runs in the thread. Updates UI as the song plays.
@@ -389,10 +396,6 @@ public class SongViewController implements Initializable{
 	 * @param event		the play/pause button has been clicked
 	 */
 	public void OnPlayPauseClicked(MouseEvent event) {
-
-		System.out.println("Clicked");
-
-
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
 			playSong(_currentTime);
@@ -400,7 +403,6 @@ public class SongViewController implements Initializable{
 			_playButton.setText("Play");
 			_currentTime = player.getCurrentTime();
 			player.stop();
-			//_currentSong.close();
 		}
 
 		// make search results invisible
@@ -419,6 +421,7 @@ public class SongViewController implements Initializable{
 		if(playlistNum == currentPlaylist.getLength()) {
 			playlistNum = 0;
 		}
+
 		playSelectedSong();
 	}
 
@@ -428,13 +431,32 @@ public class SongViewController implements Initializable{
 	public void playSelectedSong () {
 		_currentTime = Duration.ZERO;
 		currentTime.setText((getTime(_currentTime)));
-		if(_currentSong!=null) {
-			_currentSong.stop();
-			_currentSong.close();
+		
+		
+		if(player != null && player.getStatus().equals(Status.PLAYING)) {
+			player.stop();
 		}
-
-		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
-		playSong(_currentTime);
+		
+		DatagramSocket socket = null;
+		try {
+			socket = new DatagramSocket();
+			cachedSong = SongDownloader.DownloadSong(socket, (currentPlaylist.getSongs()).get(playlistNum), requestID++);
+			System.out.println("Downloaded song.");
+		} catch (SocketTimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (socket != null) 
+				socket.close();
+		}
+		
+		
 		if(_playButton.getText().equals("Play")) {
 			_playButton.setText("Pause");
 		}
@@ -443,6 +465,9 @@ public class SongViewController implements Initializable{
 		SearchResultsPane.setVisible(false);
 		SearchResultsPane.setMouseTransparent(true);
 		this.resetSearchText();
+		
+		playSong(_currentTime);
+
 	}
 
 	@FXML
@@ -458,6 +483,8 @@ public class SongViewController implements Initializable{
 			playlistNum--;
 			playSelectedSong();
 		}
+		
+		
 	}
 
 	@FXML
@@ -1064,13 +1091,12 @@ public class SongViewController implements Initializable{
 	 */
 	public void OnSliderClicked(MouseEvent event)
 	{
+		System.out.println("Click detected.");
 		/* if it was not dragged but simple clicked to a new position,
 		 * make sure to stop the song.
 		 */
-		if (_currentSong !=null &&_currentSong.isActive()) {
-			_currentSong.stop();	
-			_currentSong.close();
-
+		if (player !=null && player.getStatus().equals(Status.PLAYING)) {
+			player.stop();
 		}
 		_currentTime = Duration.millis(_slider.getValue());
 
@@ -1089,10 +1115,11 @@ public class SongViewController implements Initializable{
 	 * @param event
 	 */
 	public void OnSliderDragDetected(MouseEvent event) {
+		
+		System.out.println("Drag detected.");
 		//if a drag is detected, stop the song.
-		if (_currentSong !=null &&_currentSong.isActive()) {
-			_currentSong.stop();		
-			_currentSong.close();
+		if (player !=null && player.getStatus().equals(Status.PLAYING)) {
+			player.stop();
 		}
 
 		/* the dropping of a drag will result in a click on the slider, 
@@ -1418,66 +1445,31 @@ public class SongViewController implements Initializable{
 	 * @param time Time in microseconds at which the song should start
 	 */
 	public void playSong(Duration time) {
-		File f;
 		updateSongLabels(currentPlaylist.getSongs().get(playlistNum));
+
 		try {
 			DatagramSocket socket = new DatagramSocket();
-			//initialize clip
-			_currentSong = AudioSystem.getClip();
-			//open file and stream
-
-			String[] arg = {gson.toJson((currentPlaylist.getSongs()).get(playlistNum)), gson.toJson(4096)};
-			Message msg = new Message(0, requestID++, OpID.GETNUMBEROFFRAGMENTS, arg, InetAddress.getLocalHost(), 1);
-			byte[] msgBytes = gson.toJson(msg).getBytes();
-			DatagramPacket request = new DatagramPacket(msgBytes, msgBytes.length, InetAddress.getLocalHost(), 1234);				socket.send(request);
-
-			byte[] resp = new byte[8];
-			DatagramPacket response = new DatagramPacket(resp, resp.length);
-			socket.receive(response);
-			ByteBuffer buff = ByteBuffer.allocate(Long.BYTES);				
-			buff.put(resp);
-			buff.flip();
-			long numberOfFragments = buff.getLong();
-			byte[] songBytes = new byte[(int) (numberOfFragments * 4096)];
-			System.out.println("received fragments...");
-
-
-
-
-
-			for (long i = 0; i<numberOfFragments; i++) {
-				String[] arguments = {gson.toJson((currentPlaylist.getSongs()).get(playlistNum)), gson.toJson(4096 * i), gson.toJson(4096)};
-				Message mesg = new Message(0, requestID++, OpID.GETSONGBYTES, arguments, InetAddress.getLocalHost(), 1);
-				msgBytes = gson.toJson(mesg).getBytes();
-				DatagramPacket req = new DatagramPacket(msgBytes, msgBytes.length, InetAddress.getLocalHost(), 1234);
-				socket.send(req);
-				byte[] buffer = new byte[4096];
-				DatagramPacket res = new DatagramPacket(buffer, buffer.length);	
-				socket.receive(res);
-				System.arraycopy(buffer, 0, songBytes, (int) (i * 4096), 4096);
-			}
-
-
-			//grabs song from current playlist
-			f = createFile(songBytes);
-			AudioInputStream inputStream = AudioSystem.getAudioInputStream(f.toURI().toURL());
-
-			Song = new Media(f.toURI().toString());
+			
+			Song = new Media(cachedSong.toURI().toString());
 			player = new MediaPlayer(Song);
-
+			
 			player.setOnReady(new Runnable() {
 
 				@Override
 				public void run() {
-
-					System.out.println("Duration: "+ getTime(player.getTotalDuration()));
+					
+					//seek to this time in song
+					player.seek(time);
+					
+					//play song
 					player.play();
-
+					
 					//start background thread to update UI with song
 					_thread = new Thread(UIUpdateThread);
 					_thread.setDaemon(true); //allows thread to end on exit
 					_thread.start();
-
+					
+					//update song UI
 					totalTime.setText(getTime(player.getTotalDuration()));
 					currentTime.setText(getTime(time));
 					_slider.setMin(0);
@@ -1486,15 +1478,9 @@ public class SongViewController implements Initializable{
 			});
 
 			socket.close();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}  finally {
-
-		}
+		} 
 	}
 
 	private static File createFile(byte[] bytes) throws IOException, FileNotFoundException {
@@ -1508,6 +1494,7 @@ public class SongViewController implements Initializable{
 		}
 
 		return f;
+		} 
 	}
 
 	/***
@@ -1693,7 +1680,7 @@ public class SongViewController implements Initializable{
 			byte[] buffer = new byte[5000];
 			String playlistJSON = gson.toJson(playlist);
 			String[] arr = {user.getUsername(), playlistJSON};
-			Message addSongMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
+			Message SongMessage = new Message(1, requestID++, OpID.ADDPLAYLIST, arr, InetAddress.getLocalHost(), 1);
 			//convert to json
 			String json = gson.toJson(addSongMessage);
 			//we can only send bytes, so flatten the string to a byte array
