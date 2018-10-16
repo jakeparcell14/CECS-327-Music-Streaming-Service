@@ -261,7 +261,6 @@ public class Server {
 		ArrayList<Song> msgList=new ArrayList<Song>();
 		User user;
 		try {
-			log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			Playlist savedSongsPlaylist=user.getSavedSongs();
 			ArrayList<Song> savedSongs = savedSongsPlaylist.getSongs();
@@ -271,11 +270,16 @@ public class Server {
 			ArrayList<String> currentSession = getCurrentSession(logText);
 
 			//current message has been received already
-			if(processAlreadyExecuted(currentSession, m.getRequestID()))
+			if(processAlreadyExecuted(currentSession, m))
 			{
 				//the current process is a duplicate and a previous copy has already executed
 				byte[] emptyArray = {};
 				return emptyArray;
+			}
+			else
+			{
+				//current process is not a duplicate so we can save it to the log
+				log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			}
 			
 			if(query.equals(" ")) {
@@ -321,7 +325,6 @@ public class Server {
 		ArrayList<Playlist> msgList= new ArrayList<Playlist>();
 		User user;
 		try {
-			log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			
@@ -330,11 +333,16 @@ public class Server {
 			ArrayList<String> currentSession = getCurrentSession(logText);
 
 			//current message has been received already
-			if(processAlreadyExecuted(currentSession, m.getRequestID()))
+			if(processAlreadyExecuted(currentSession, m))
 			{
 				//the current process is a duplicate and a previous copy has already executed
 				byte[] emptyArray = {};
 				return emptyArray;
+			}
+			else
+			{
+				//current process is not a duplicate so we can save it to the log
+				log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			}
 			
 			if(query.equals(" ")) {
@@ -377,7 +385,6 @@ public class Server {
 		ArrayList<Song> msgList=new ArrayList<Song>();
 		User user;
 		try {
-			log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			user = UserRepository.getUser(userName);
 			ArrayList<Playlist> playlists=user.getPlaylists();
 			Playlist cp = new Playlist();
@@ -387,11 +394,16 @@ public class Server {
 			ArrayList<String> currentSession = getCurrentSession(logText);
 
 			//current message has been received already
-			if(processAlreadyExecuted(currentSession, m.getRequestID()))
+			if(processAlreadyExecuted(currentSession, m))
 			{
 				//the current process is a duplicate and a previous copy has already executed
 				byte[] emptyArray = {};
 				return emptyArray;
+			}
+			else
+			{
+				//current process is not a duplicate so we can save it to the log
+				log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
 			}
 			
 			if(currentPlaylist.equals("saved")) {
@@ -448,19 +460,6 @@ public class Server {
 			{
 				log(userName,"RECEIVED MESSAGE: "+msg.toString()+"\n\n");
 				//send acknowledgement back to login client
-				
-				//get all lines from the current session
-				ArrayList<String> logText = readLog(userName + ".log");
-				ArrayList<String> currentSession = getCurrentSession(logText);
-
-				//current message has been received already
-				if(processAlreadyExecuted(currentSession, msg.getRequestID()))
-				{
-					//the current process is a duplicate and a previous copy has already executed
-					byte[] emptyArray = {};
-					return emptyArray;
-				}
-				
 				log(userName,"SENT MESSAGE: VERIFIED\n\n");
 				return gson.toJson(UserRepository.getUser(msg.getArgs()[0])).getBytes();
 			}
@@ -489,7 +488,6 @@ public class Server {
 		{
 			if(!UserRepository.userExists(msg.getArgs()[2]))
 			{
-				log(userName,"RECEIVED MESSAGE: "+msg.toString()+"\n\n");
 				//username is available and ready to be added to the repository
 				User newUser = new User(msg.getArgs()[0], msg.getArgs()[1], msg.getArgs()[2], msg.getArgs()[3]);
 
@@ -498,11 +496,16 @@ public class Server {
 				ArrayList<String> currentSession = getCurrentSession(logText);
 
 				//current message has been received already
-				if(processAlreadyExecuted(currentSession, msg.getRequestID()))
+				if(processAlreadyExecuted(currentSession, msg))
 				{
 					//the current process is a duplicate and a previous copy has already executed
 					byte[] emptyArray = {};
 					return emptyArray;
+				}
+				else
+				{
+					//current process is not a duplicate so we can save it to the log
+					log(userName,"RECEIVED MESSAGE: "+msg.toString()+"\n\n");
 				}
 				
 				//add user to the user repository
@@ -619,19 +622,22 @@ public class Server {
 		Playlist playlist = gson.fromJson(msg.getArgs()[2], Playlist.class);
 		ArrayList<Playlist> p = new ArrayList<Playlist>();
 
-		String receivedLog = "RECEIVED MESSAGE: "+msg.toString()+"\n\n";
-		log(user.getUsername(),receivedLog);
-
 		//get all lines from the current session
 		ArrayList<String> logText = readLog(user.getUsername() + ".log");
 		ArrayList<String> currentSession = getCurrentSession(logText);
 
 		//current message has been received already
-		if(processAlreadyExecuted(currentSession, msg.getRequestID()))
+		if(processAlreadyExecuted(currentSession, msg))
 		{
 			//the current process is a duplicate and a previous copy has already executed
 			byte[] emptyArray = {};
 			return emptyArray;
+		}
+		else
+		{
+			// the current process is not a duplicate so we can add it to the log
+			String receivedLog = "RECEIVED MESSAGE: "+msg.toString()+"\n\n";
+			log(user.getUsername(),receivedLog);
 		}
 
 		if(playlist.getPlaylistName().equals("saved"))
@@ -789,7 +795,7 @@ public class Server {
 
 		} catch (FileNotFoundException e) 
 		{
-			e.printStackTrace();
+			return null;
 		} catch (IOException e) 
 		{
 			e.printStackTrace();
@@ -825,13 +831,9 @@ public class Server {
 		int currentSessionStart = 0;
 		for(int i = 1; i < logText.size(); i += 2)
 		{
-			if(logText.get(i).contains("LOGIN"))
+			if(logText.get(i).contains("INFO: SENT MESSAGE: VERIFIED"))
 			{
-				currentSessionStart = i - 1;
-			}
-			else if(logText.get(i).contains("REGISTER"))
-			{
-				currentSessionStart = i - 1;
+				currentSessionStart = i - 5;
 			}
 		}
 		
@@ -840,13 +842,14 @@ public class Server {
 		return currentSession;
 	}
 
-	public static boolean processAlreadyExecuted(ArrayList<String> currentSession, int requestID)
+	public static boolean processAlreadyExecuted(ArrayList<String> logText, Message msg)
 	{
+		ArrayList<String> currentSession = getCurrentSession(logText);
 		for(int i = 1; i < currentSession.size(); i += 2)
 		{
-			if(currentSession.get(i).contains("INFO: SENT MESSAGE (ID = " + requestID))
+			if(currentSession.get(i).contains("RECEIVED MESSAGE: "+msg.toString()))		
 			{
-				//the log contains proof that the specific process has already executed
+				//the log contains proof that the specific process has already been received
 				return true;
 			}
 		}
