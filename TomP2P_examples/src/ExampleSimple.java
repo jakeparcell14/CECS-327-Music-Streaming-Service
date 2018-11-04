@@ -1,7 +1,11 @@
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.Random;
 
+import net.tomp2p.connection.RSASignatureFactory;
+import net.tomp2p.connection.SignatureFactory;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
 import net.tomp2p.dht.PeerDHT;
@@ -9,6 +13,7 @@ import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
+import net.tomp2p.storage.StorageDisk;
 import net.tomp2p.dht.PeerBuilderDHT;
 
 /**
@@ -32,7 +37,7 @@ public final class ExampleSimple {
      */
     public static void main(final String[] args) throws Exception {
     	PeerDHT master = null;
-        final int nrPeers = 100;
+        final int nrPeers = 3;
         final int port = 4001;
         final int waitingTime = 250;
         try {
@@ -46,10 +51,10 @@ public final class ExampleSimple {
             master = peers[0];
             Number160 nr = new Number160(RND);
             examplePutGet(peers, nr);
-            exampleGetBlocking(peers, nr);
-            exampleGetNonBlocking(peers, nr);
+            //exampleGetBlocking(peers, nr);
+            //exampleGetNonBlocking(peers, nr);
             Thread.sleep(waitingTime);
-            exampleAddGet(peers);
+            //exampleAddGet(peers);
         } finally {
             if (master != null) {
                 master.shutdown();
@@ -58,21 +63,34 @@ public final class ExampleSimple {
     }
     
     public static void bootstrap( PeerDHT[] peers ) {
+    	//loop through all peers
     	for(int i=0;i<peers.length;i++) {
+    		//for each peer, loop through all other peers to build each peer map
     		for(int j=0;j<peers.length;j++) {
     			peers[i].peerBean().peerMap().peerFound(peers[j].peerAddress(), null, null, null);
     		}
     	}
     }
     
+    
     public static PeerDHT[] createAndAttachPeersDHT( int nr, int port ) throws IOException {
         PeerDHT[] peers = new PeerDHT[nr];
+        System.out.println("Creating peers");
+        
+        //create temporary directory
+        File file = Files.createTempDirectory("tomp2p").toFile();
+        System.out.println(file.getAbsolutePath());
+        
+        //create disk object to store on disk
+        StorageDisk disk = new StorageDisk(new Number160(RND), file,  new RSASignatureFactory());
         for ( int i = 0; i < nr; i++ ) {
             if ( i == 0 ) {
-                peers[0] = new PeerBuilderDHT(new PeerBuilder( new Number160( RND ) ).ports( port ).start()).start();
+                peers[0] = new PeerBuilderDHT(new PeerBuilder( new Number160( RND ) ).ports( port ).start()).storage(disk).start();
             } else {
-                peers[i] = new PeerBuilderDHT(new PeerBuilder( new Number160( RND ) ).masterPeer( peers[0].peer() ).start()).start();
+                peers[i] = new PeerBuilderDHT(new PeerBuilder( new Number160( RND ) ).masterPeer( peers[0].peer() ).start()).storage(disk).start();
             }
+            
+            System.out.println("Peer created");
         }
         return peers;
     }
@@ -90,14 +108,15 @@ public final class ExampleSimple {
     	/* In order to store data in TomP2P, the object needs to be wrapped with the Data class. 
     	 * The data class offers additional features, such as setting a TTL or signing the object. 
     	 * Then, put or add is called, which starts the routing process, finds the peers close to nr, 
-    	 * where the data is stored. Since we “only” have a Peer object, we need to 
+    	 * where the data is stored. Since we â€œonlyâ€� have a Peer object, we need to 
     	 * create a PeerDHT object first.
     	 */
-        FuturePut futurePut = peers[10].put(nr).data(new Data("hallo")).start();
-        //waits for a result
+    	
+    	FuturePut futurePut = peers[0].put(nr).data(new Data("hallo")).start();
+    	//waits for a result
         futurePut.awaitUninterruptibly();
         System.out.println("peer " + PEER_NR_1 + " stored [key: " + nr + ", value: \"hallo\"]");
-        FutureGet futureGet = peers[20].get(nr).start();
+        FutureGet futureGet = peers[0].get(nr).start();
         /* Since TomP2P uses non-blocking communication, a future object is used to keep track of future results. 
          * Thus, a get().start(), put().start(), or add().start() returns immediately and the future object is 
          * used to get the results from those operations.
@@ -117,13 +136,13 @@ public final class ExampleSimple {
         String toStore2 = "hallo2";
         Data data1 = new Data( toStore1 );
         Data data2 = new Data( toStore2 );
-        FuturePut futurePut = peers[30].add( nr ).data( data1 ).start();
+        FuturePut futurePut = peers[0].add( nr ).data( data1 ).start();
         futurePut.awaitUninterruptibly();
         System.out.println( "added: " + toStore1 + " (" + futurePut.isSuccess() + ")" );
         futurePut = peers[50].add( nr ).data( data2 ).start();
         futurePut.awaitUninterruptibly();
         System.out.println( "added: " + toStore2 + " (" + futurePut.isSuccess() + ")" );
-        FutureGet futureGet = peers[77].get( nr ).all().start();
+        FutureGet futureGet = peers[0].get( nr ).all().start();
         futureGet.awaitUninterruptibly();
         System.out.println( "size" + futureGet.dataMap().size() );
         Iterator<Data> iterator = futureGet.dataMap().values().iterator();
@@ -175,4 +194,6 @@ public final class ExampleSimple {
          * timeout handler triggers the listener.
          */
     }
+    
+
 }
