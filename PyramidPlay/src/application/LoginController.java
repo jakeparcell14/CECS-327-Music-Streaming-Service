@@ -158,6 +158,13 @@ public class LoginController implements Initializable
 	 * @param event - the event that triggered this function
 	 */
 	public void signIn(String username, String password, ActionEvent event) {
+		//check for empty username/password
+		if (username.isEmpty() || password.isEmpty()) {
+			InvalidSignInLabel.setText("Invalid Username/Password");
+			InvalidSignInLabel.setVisible(true);
+			return;
+		}
+		
 		//create message to send to server
 		String[] arr = {username, password};
 		
