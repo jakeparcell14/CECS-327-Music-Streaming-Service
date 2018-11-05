@@ -1,5 +1,8 @@
 package dfs;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import net.tomp2p.dht.PeerDHT;
 
 public class Metadata {
 	private ArrayList<File> files;
@@ -26,14 +29,15 @@ public class Metadata {
 	 * 
 	 * @param fileName Name of the file.
 	 * @param content Data to append to the file.
+	 * @throws IOException 
 	 */
-	public void append(String fileName, byte[] content) {
+	public void append(String fileName, byte[] content, PeerDHT peer) throws IOException {
 		File f = getFile(fileName);
 		
 		if (null == f) 
 			f = new File(fileName);
 		
-		f.append(content);
+		f.append(content, peer);
 		
 	}
 	

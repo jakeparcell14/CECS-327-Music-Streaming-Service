@@ -1,6 +1,8 @@
 package dfs;
 
-public class Chunk {
+import java.io.Serializable;
+
+public class Chunk implements Serializable {
 	private int guid;
 	private byte[] data;
 	
