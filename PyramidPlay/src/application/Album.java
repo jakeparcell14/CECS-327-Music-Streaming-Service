@@ -3,7 +3,7 @@ package application;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Album  implements Serializable
+public class Album  implements Comparable<Album>, Serializable
 {
 	private String name;
 	private ArrayList<Song> songs;
@@ -74,5 +74,16 @@ public class Album  implements Serializable
 	{
 		songs.remove(s);
 		return songs;
+	}
+	
+	public String toString()
+	{
+		return songs.toString();
+	}
+
+	@Override
+	public int compareTo(Album arg0) 
+	{
+		return this.getName().compareTo(arg0.getName());
 	}
 }
