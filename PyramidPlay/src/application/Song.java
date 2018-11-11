@@ -1,6 +1,10 @@
 package application;
 
 import java.io.Serializable;
+import java.nio.ByteBuffer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 /**
  * This class holds information to identify a song
@@ -10,6 +14,8 @@ import java.io.Serializable;
 public class Song implements Comparable<Song>, Serializable
 {
 	private String title, artist, album, fileSource;
+	
+	private int GUID;
 	
 	/**
 	 * Default constructor for Song
@@ -29,6 +35,7 @@ public class Song implements Comparable<Song>, Serializable
 	 */
 	public Song(String t, String fs)
 	{
+        GUID = 0;
 		title = t;
 		artist = "";
 		album = "";
@@ -43,11 +50,44 @@ public class Song implements Comparable<Song>, Serializable
 	 * @param fs	file source
 	 */
 	public Song(String t, String ar, String al, String fs)
-	{
+	{    
+        GUID = 0;
 		title = t;
 		artist = ar;
 		album = al;
 		fileSource = fs;
+		
+		MessageDigest md;
+		try 
+		{
+			md = MessageDigest.getInstance("MD5");
+			
+			//hash the data to get the guid
+			GUID = ByteBuffer.wrap(md.digest(this.toString().getBytes())).getInt();
+		} 
+		catch (NoSuchAlgorithmException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	/**
+	 * Returns GUID of the song
+	 * @return	song GUID
+	 */
+	public int getGUID()
+	{
+		return GUID;
+	}
+	
+	/**
+	 * Sets GUID of the song to given value
+	 * @param g		given GUID
+	 */
+	public void setGUID(int g)
+	{
+		GUID = g;
 	}
 	
 	/**
@@ -133,7 +173,7 @@ public class Song implements Comparable<Song>, Serializable
 	
 	@Override	
 	public String toString() {
-		return title;
+		return title + "; "+ artist + "; " + album + ";";
 	}
 	
 	@Override
