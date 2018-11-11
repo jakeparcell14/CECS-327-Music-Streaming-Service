@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import net.tomp2p.connection.RSASignatureFactory;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
@@ -64,8 +67,9 @@ public class PeerToPeer {
     private PeerDHT[] createAndAttachPeersDHT( int nr, int port ) throws IOException {
         PeerDHT[] peers = new PeerDHT[nr];
         
+        Path path = Paths.get("p2p");
         //create temporary directory
-        File file = Files.createTempDirectory("tomp2p").toFile();
+        File file = path.toFile();
         
         //create disk object to store on disk
         StorageDisk disk = new StorageDisk(new Number160(DISK_GUID), file,  new RSASignatureFactory());
