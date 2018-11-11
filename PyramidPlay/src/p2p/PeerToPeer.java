@@ -18,7 +18,7 @@ import net.tomp2p.storage.Data;
 import net.tomp2p.storage.StorageDisk;
 
 public class PeerToPeer {
-	private PeerToPeer instance;
+	private static PeerToPeer instance;
 	private PeerDHT master;
 	private final int PORT = 4001;
 	private final int NUM_OF_PEERS = 3;
@@ -46,7 +46,7 @@ public class PeerToPeer {
 
 	}
 	
-	public PeerToPeer getInstance() {
+	public static PeerToPeer getInstance() {
 		if (instance == null ) {
 			return new PeerToPeer();
 		} else {
@@ -67,7 +67,7 @@ public class PeerToPeer {
     private PeerDHT[] createAndAttachPeersDHT( int nr, int port ) throws IOException {
         PeerDHT[] peers = new PeerDHT[nr];
         
-        Path path = Paths.get("p2p");
+        Path path = Paths.get("p2p/tomp2p");
         //create temporary directory
         File file = path.toFile();
         
@@ -86,7 +86,7 @@ public class PeerToPeer {
     
     
     
-    private void Put(Serializable data, int guid) 
+    public void Put(Serializable data, int guid) 
             throws IOException, ClassNotFoundException {
     	/* In order to store data in TomP2P, the object needs to be wrapped with the Data class. 
     	 * The data class offers additional features, such as setting a TTL or signing the object. 
@@ -101,7 +101,7 @@ public class PeerToPeer {
 
     }
     
-    private Object Get(int guid) throws ClassNotFoundException, IOException {
+    public Object Get(int guid) throws ClassNotFoundException, IOException {
     	FutureGet futureGet = master.get(new Number160(guid)).start();
         /* Since TomP2P uses non-blocking communication, a future object is used to keep track of future results. 
          * Thus, a get().start(), put().start(), or add().start() returns immediately and the future object is 

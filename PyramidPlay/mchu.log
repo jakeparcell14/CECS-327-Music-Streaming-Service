@@ -6,3 +6,19 @@ Oct 15, 2018 6:42:23 PM application.Server log
 INFO: SENT MESSAGE: VERIFIED
 
 
+Oct 22, 2018 2:29:36 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 LOGIN  mchu hunter1 1 /10.39.43.84
+
+
+Oct 22, 2018 2:29:36 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Oct 22, 2018 2:44:47 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  mchu hunter1 1 /10.39.43.84
+
+
+Oct 22, 2018 2:44:47 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
