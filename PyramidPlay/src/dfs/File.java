@@ -26,10 +26,13 @@ public class File {
 	 * @param i Index of the chunk to return.
 	 * @return Returns the given chunk of that file.
 	 */
-	public byte[] getChunk(int i) {
-		return chunks.get(i).getData();
+	public Chunk getChunk(int i) {
+		return chunks.get(i);
 	}
 	
+	public int getNumberOfChunks() {
+		return chunks.size();
+	}
 	/**
 	 * Gets this file's name.
 	 * @return Returns filename of this file.

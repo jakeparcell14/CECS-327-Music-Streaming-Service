@@ -2,10 +2,16 @@ package dfs;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+
+import application.Album;
+import application.Artist;
+import application.Song;
 import net.tomp2p.dht.PeerDHT;
 
 public class Metadata {
 	private ArrayList<File> files;
+	private static Gson gson = new Gson();
 	
 	/**
 	 * Reads a particular chunk from a particular file.
@@ -14,7 +20,7 @@ public class Metadata {
 	 * @param i-th index chunk to get from this file.
 	 * @return Returns the chunk object at that index.
 	 */
-	public byte[] getChunk(String fileName, int index) {
+	public Chunk getChunk(String fileName, int index) {
 		for (int i = 0; i<files.size(); i++)  {
 			if (files.get(i).getFileName().equals(fileName)) {
 				return files.get(i).getChunk(i);
@@ -63,5 +69,49 @@ public class Metadata {
 	 */
 	public ArrayList<File> ls() {
 		return files;
+	}
+	
+	public byte[] SearchForChunk(String fileName, String search) {
+		if (fileName.equals("songs_inverted_index")) {
+			File file = getFile(fileName);
+			
+			for (int i = 0; i < file.getNumberOfChunks(); i++) {
+				Chunk chunk = file.getChunk(i);
+				Song first = gson.fromJson(chunk.getFirst(), Song.class);
+				Song last = gson.fromJson(chunk.getLast(), Song.class);
+				
+				if (first.getTitle().compareTo(search) >= 0 && last.getTitle().compareTo(search) <= 0) {
+					return chunk.getData();
+				}
+			}
+		} else if (fileName.equals("albums_inverted_index")) {
+			File file = getFile(fileName);
+			
+			for (int i = 0; i < file.getNumberOfChunks(); i++) {
+				Chunk chunk = file.getChunk(i);
+				Album first = gson.fromJson(chunk.getFirst(), Album.class);
+				Album last = gson.fromJson(chunk.getLast(), Album.class);
+				
+				if (first.getName().compareTo(search) >= 0 && last.getName().compareTo(search) <= 0) {
+					return chunk.getData();
+				}
+			}
+
+		} else {
+			File file = getFile(fileName);
+			
+			for (int i = 0; i < file.getNumberOfChunks(); i++) {
+				Chunk chunk = file.getChunk(i);
+				Artist first = gson.fromJson(chunk.getFirst(), Artist.class);
+				Artist last = gson.fromJson(chunk.getLast(), Artist.class);
+				
+				if (first.getName().compareTo(search) >= 0 && last.getName().compareTo(search) <= 0) {
+					return chunk.getData();
+				}
+			}
+		
+		}
+		
+		return null;
 	}
 }
