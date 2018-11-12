@@ -22,6 +22,9 @@ import java.util.logging.SimpleFormatter;
 
 import com.google.gson.Gson;
 import com.sun.glass.ui.Window.Level;
+import java.util.Collections;
+
+import dfs.Metadata;
 import p2p.PeerToPeer;
 
 
@@ -198,6 +201,30 @@ public class Server {
 
 			if (!query.isEmpty()) 
 			{
+				Metadata meta=Metadata.GetMetadata();
+				ArrayList<Song>temp;
+				ArrayList<Song>songsThatMatch=meta.getAlbum(query);
+				if(songsThatMatch!=null) {
+					songsThatMatch.removeAll(Collections.singleton(null));
+				}
+				else {
+					songsThatMatch=new ArrayList<Song>();
+				}
+				temp=meta.getArtist(query);
+				if(temp!=null) {
+					temp.removeAll(Collections.singleton(null));
+					songsThatMatch.addAll(temp);
+				}
+				Song t=meta.getSong(query);
+				if(t!=null) {
+					songsThatMatch.add(0, t);
+				}
+				if(songsThatMatch!=null) {
+					for(int i=0;i<songsThatMatch.size();i++) {
+						validSongs.addSong(songsThatMatch.get(i));
+					}
+				}
+				/*
 				for (int i = 0; i < allSongs.size(); i++) {
 					if (validSongs.getSongs().size() <= 20) {
 						//checks if query matches the title of the current song
@@ -240,7 +267,7 @@ public class Server {
 						}
 					}
 				} 
-			}
+			*/}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

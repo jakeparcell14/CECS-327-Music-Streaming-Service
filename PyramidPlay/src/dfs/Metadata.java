@@ -219,28 +219,30 @@ public class Metadata {
 		
 		//get the chunk that contains this search criteria
 		byte[] chunkByte = SearchForChunk("artists_inverted_index.json", name);
-		
-		//split it at new line characters, getting each artist json
-		String[] artists = new String(chunkByte).trim().split("\\r?\\n");
-		
-		ArrayList<Song> songs = new ArrayList<Song>();
-		
-		for (int i = 0; i < artists.length; i++) {
-			Artist artist = gson.fromJson(artists[i], Artist.class);
+		if(chunkByte!=null) {
+			//split it at new line characters, getting each artist json
+			String[] artists = new String(chunkByte).trim().split("\\r?\\n");
 			
-			//if this artist starts with the search criteria...
-			//YOU CAN CHANGE THIS LOGIC
-			if (artist.getName().startsWith(name)) {
+			ArrayList<Song> songs = new ArrayList<Song>();
+			
+			for (int i = 0; i < artists.length; i++) {
+				Artist artist = gson.fromJson(artists[i], Artist.class);
 				
-				ArrayList<Album> albums = artist.getSongs();
-				
-				//get all their songs
-				for (int j = 0; j < albums.size(); j++) {
-					songs.addAll(albums.get(j).getSongs());
+				//if this artist starts with the search criteria...
+				//YOU CAN CHANGE THIS LOGIC
+				if (artist.getName().startsWith(name)) {
+					
+					ArrayList<Album> albums = artist.getSongs();
+					
+					//get all their songs
+					for (int j = 0; j < albums.size(); j++) {
+						songs.addAll(albums.get(j).getSongs());
+					}
+					return songs;
 				}
-				return songs;
 			}
 		}
+		
 		return null;
 	}
 	
@@ -254,22 +256,24 @@ public class Metadata {
 
 		//get the chunk that contains this search criteria
 		byte[] chunkByte = SearchForChunk("albums_inverted_index.json", title);
-		
-		//split it at new line characters, getting each album json
-		String[] albums = new String(chunkByte).trim().split("\\r?\\n");
-		
-		for (int i = 0; i < albums.length; i++) {
-			Album album = gson.fromJson(albums[i], Album.class);
+		if(chunkByte!=null) {
+
+			//split it at new line characters, getting each album json
+			String[] albums = new String(chunkByte).trim().split("\\r?\\n");
+			System.out.println(albums==null);
 			
-			//if this album name starts with the search criteria...
-			//YOU CAN CHANGE THIS LOGIC
-			if (album.getName().startsWith(title)) {
+			for (int i = 0; i < albums.length; i++) {
+				Album album = gson.fromJson(albums[i], Album.class);
 				
-				//return all the songs from this album
-				return album.getSongs();
+				//if this album name starts with the search criteria...
+				//YOU CAN CHANGE THIS LOGIC
+				if (album.getName().startsWith(title)) {
+					
+					//return all the songs from this album
+					return album.getSongs();
+				}
 			}
 		}
-
 		return null;
 	}
 	
@@ -284,20 +288,20 @@ public class Metadata {
 
 		//get the chunk that contains this search criteria
 		byte[] chunkByte = SearchForChunk("songs_inverted_index.json", title);
-		
-		//split it at new line characters, getting each song json
-		String[] chunk = new String(chunkByte).trim().split("\\r?\\n");
-		
-		for (int i = 0; i < chunk.length; i++) {
-			Song thisSong = gson.fromJson(chunk[i], Song.class);
+		if(chunkByte!=null) {
+			//split it at new line characters, getting each song json
+			String[] chunk = new String(chunkByte).trim().split("\\r?\\n");
 			
-			//if this song name starts with the search criteria...
-			//YOU CAN CHANGE THIS LOGIC
-			if (thisSong.getTitle().startsWith(title)) {
-				return thisSong;
+			for (int i = 0; i < chunk.length; i++) {
+				Song thisSong = gson.fromJson(chunk[i], Song.class);
+				
+				//if this song name starts with the search criteria...
+				//YOU CAN CHANGE THIS LOGIC
+				if (thisSong.getTitle().startsWith(title)) {
+					return thisSong;
+				}
 			}
-		}
-		
+		}		
 		return null;
 		
 	}

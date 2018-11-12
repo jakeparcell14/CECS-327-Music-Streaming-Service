@@ -246,3 +246,1123 @@ Nov 11, 2018 6:07:03 PM application.Server log
 INFO: SENT MESSAGE: VERIFIED
 
 
+Nov 12, 2018 2:29:24 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:29:24 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:29:28 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:29:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:29:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:29:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:29:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:31:34 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:31:34 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:31:37 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:31:38 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:31:38 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:31:39 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:31:39 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:39:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:39:55 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:39:58 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:39:58 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:39:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:39:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:40:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:42:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:42:13 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:42:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:42:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:42:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:42:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:42:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:44:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:44:14 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:44:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:44:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:44:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:44:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:44:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:49:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:49:26 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:49:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:49:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:49:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:49:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:49:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f h 1 /192.168.1.4
+
+
+Nov 12, 2018 2:50:45 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:50:45 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:50:47 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:50:47 PM application.Server log
+INFO: SENT MESSAGE (ID = 0) 
+
+
+Nov 12, 2018 2:50:50 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 2:50:50 PM application.Server log
+INFO: SENT MESSAGE (ID = 1) 
+
+
+Nov 12, 2018 2:50:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 2:50:55 PM application.Server log
+INFO: SENT MESSAGE (ID = 2) 
+
+
+Nov 12, 2018 2:50:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 2:50:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 3)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 2:50:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 2:50:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 4)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 2:50:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:01 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:01 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:05 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  f Oing 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:05 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  f Oing 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  f Oing 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  f Oing 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:07 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  f Oing 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  f Oingo 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  f Oingo 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  f Oingo 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  f Oingo 1 /192.168.1.4
+
+
+Nov 12, 2018 2:51:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  f Oingo 1 /192.168.1.4
+
+
+Nov 12, 2018 2:55:45 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:55:45 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:55:47 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:55:48 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:55:48 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:55:49 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:55:49 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:06 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:57:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 0) 
+
+
+Nov 12, 2018 2:57:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  f ff 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 1) 
+
+
+Nov 12, 2018 2:57:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 2) 
+
+
+Nov 12, 2018 2:57:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 3) 
+
+
+Nov 12, 2018 2:57:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 4) 
+
+
+Nov 12, 2018 2:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f o 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 5) 
+
+
+Nov 12, 2018 2:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  f oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 6) 
+
+
+Nov 12, 2018 2:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  f oing 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 7) 
+
+
+Nov 12, 2018 2:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 8 SEARCHALLSONGS  f oing 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 8) 
+
+
+Nov 12, 2018 2:57:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 9 SEARCHALLSONGS  f oingo 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 9) 
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 10 SEARCHALLSONGS  f oingo  1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 10) 
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 11 SEARCHALLSONGS  f oingo bo 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 11) 
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 12 SEARCHALLSONGS  f oingo boi 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 12) 
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 13 SEARCHALLSONGS  f oingo boin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 13) 
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 14 SEARCHALLSONGS  f oingo boing 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 14) 
+
+
+Nov 12, 2018 2:57:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 15 SEARCHALLSONGS  f oingo boing 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:15 PM application.Server log
+INFO: SENT MESSAGE (ID = 15) 
+
+
+Nov 12, 2018 2:57:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 16 SEARCHALLSONGS  f oingo boingo 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 16) 
+
+
+Nov 12, 2018 2:57:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 17 SEARCHALLSONGS  f oingo boingo 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 17) 
+
+
+Nov 12, 2018 2:57:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 18 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 18) 
+
+
+Nov 12, 2018 2:57:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 19 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 19)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 2:57:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 20 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 20)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 2:57:20 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 21 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:20 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 21 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:21 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 21 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:21 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 21 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:57:22 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 21 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:25 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 2:59:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 0) 
+
+
+Nov 12, 2018 2:59:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 1) 
+
+
+Nov 12, 2018 2:59:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:30 PM application.Server log
+INFO: SENT MESSAGE (ID = 2)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 2:59:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:30 PM application.Server log
+INFO: SENT MESSAGE (ID = 3)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 2:59:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f Oi 1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f Oi 1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:33 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f Oi 1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:33 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f Oi 1 /192.168.1.4
+
+
+Nov 12, 2018 2:59:34 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f Oi 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:01 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:01 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 3:01:04 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:04 PM application.Server log
+INFO: SENT MESSAGE (ID = 0)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:04 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:04 PM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:04 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  f Oi 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:05 PM application.Server log
+INFO: SENT MESSAGE (ID = 2)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:06 PM application.Server log
+INFO: SENT MESSAGE (ID = 3)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:07 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f Oing 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:07 PM application.Server log
+INFO: SENT MESSAGE (ID = 4)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:07 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f Oingo 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:07 PM application.Server log
+INFO: SENT MESSAGE (ID = 5)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  f Oing 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 6)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  f Oin 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 7)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 8 SEARCHALLSONGS  f Oi 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 8)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 9 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 9)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 10 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 10) 
+
+
+Nov 12, 2018 3:01:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 11 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 11)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 12 SEARCHALLSONGS  f O 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 12)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:22 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 13 SEARCHALLSONGS  f On 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:22 PM application.Server log
+INFO: SENT MESSAGE (ID = 13)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:23 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 14 SEARCHALLSONGS  f Onl 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:23 PM application.Server log
+INFO: SENT MESSAGE (ID = 14)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:24 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 15 SEARCHALLSONGS  f Only 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:24 PM application.Server log
+INFO: SENT MESSAGE (ID = 15)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 16 SEARCHALLSONGS  f Only  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 16)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 17 SEARCHALLSONGS  f Only A 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:26 PM application.Server log
+INFO: SENT MESSAGE (ID = 17)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 18 SEARCHALLSONGS  f Only A 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:26 PM application.Server log
+INFO: SENT MESSAGE (ID = 18)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 19 SEARCHALLSONGS  f Only A  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:26 PM application.Server log
+INFO: SENT MESSAGE (ID = 19)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 20 SEARCHALLSONGS  f Only A L 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 20)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 21 SEARCHALLSONGS  f Only A L 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 21)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 22 SEARCHALLSONGS  f Only A La 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 22)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:28 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 23 SEARCHALLSONGS  f Only A Lad 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:28 PM application.Server log
+INFO: SENT MESSAGE (ID = 23)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 3:01:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 24 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:31 PM application.Server log
+INFO: SENT MESSAGE (ID = 24) 
+
+
+Nov 12, 2018 3:01:33 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 25 SEARCHALLSONGS  f f 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:33 PM application.Server log
+INFO: SENT MESSAGE (ID = 25) 
+
+
+Nov 12, 2018 3:01:34 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 26 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:34 PM application.Server log
+INFO: SENT MESSAGE (ID = 26) 
+
+
+Nov 12, 2018 3:01:35 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 27 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:35 PM application.Server log
+INFO: SENT MESSAGE (ID = 27) 
+
+
+Nov 12, 2018 3:01:35 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 28 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:35 PM application.Server log
+INFO: SENT MESSAGE (ID = 28) 
+
+
+Nov 12, 2018 3:01:36 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 29 SEARCHALLSONGS  f s 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:36 PM application.Server log
+INFO: SENT MESSAGE (ID = 29) 
+
+
+Nov 12, 2018 3:01:37 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 30 SEARCHALLSONGS  f sj 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:37 PM application.Server log
+INFO: SENT MESSAGE (ID = 30) 
+
+
+Nov 12, 2018 3:01:38 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 31 SEARCHALLSONGS  f s 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:38 PM application.Server log
+INFO: SENT MESSAGE (ID = 31) 
+
+
+Nov 12, 2018 3:01:38 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 32 SEARCHALLSONGS  f sk 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:38 PM application.Server log
+INFO: SENT MESSAGE (ID = 32) 
+
+
+Nov 12, 2018 3:01:39 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 33 SEARCHALLSONGS  f sky 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:39 PM application.Server log
+INFO: SENT MESSAGE (ID = 33) 
+
+
+Nov 12, 2018 3:01:41 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 34 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:41 PM application.Server log
+INFO: SENT MESSAGE (ID = 34) 
+
+
+Nov 12, 2018 3:01:41 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 35 SEARCHALLSONGS  f a 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:41 PM application.Server log
+INFO: SENT MESSAGE (ID = 35) 
+
+
+Nov 12, 2018 3:01:41 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 36 SEARCHALLSONGS  f a  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:41 PM application.Server log
+INFO: SENT MESSAGE (ID = 36) 
+
+
+Nov 12, 2018 3:01:41 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 37 SEARCHALLSONGS  f a s 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:41 PM application.Server log
+INFO: SENT MESSAGE (ID = 37) 
+
+
+Nov 12, 2018 3:01:42 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 38 SEARCHALLSONGS  f a sk 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:42 PM application.Server log
+INFO: SENT MESSAGE (ID = 38) 
+
+
+Nov 12, 2018 3:01:42 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 39 SEARCHALLSONGS  f a sky 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:42 PM application.Server log
+INFO: SENT MESSAGE (ID = 39) 
+
+
+Nov 12, 2018 3:01:43 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 40 SEARCHALLSONGS  f a sky f 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:43 PM application.Server log
+INFO: SENT MESSAGE (ID = 40) 
+
+
+Nov 12, 2018 3:01:43 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 41 SEARCHALLSONGS  f a sky f 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:43 PM application.Server log
+INFO: SENT MESSAGE (ID = 41) 
+
+
+Nov 12, 2018 3:01:43 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 42 SEARCHALLSONGS  f a sky fu 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:43 PM application.Server log
+INFO: SENT MESSAGE (ID = 42) 
+
+
+Nov 12, 2018 3:01:44 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 43 SEARCHALLSONGS  f a sky ful 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:44 PM application.Server log
+INFO: SENT MESSAGE (ID = 43) 
+
+
+Nov 12, 2018 3:01:44 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 44 SEARCHALLSONGS  f a sky full 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:44 PM application.Server log
+INFO: SENT MESSAGE (ID = 44) 
+
+
+Nov 12, 2018 3:01:48 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 45 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:48 PM application.Server log
+INFO: SENT MESSAGE (ID = 45) 
+
+
+Nov 12, 2018 3:01:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 46 SEARCHALLSONGS  f C 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:55 PM application.Server log
+INFO: SENT MESSAGE (ID = 46)  Closer; The Chainsmokers; Collage; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:01:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 47 SEARCHALLSONGS  f C 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:55 PM application.Server log
+INFO: SENT MESSAGE (ID = 47)  Closer; The Chainsmokers; Collage; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:01:56 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 48 SEARCHALLSONGS  f Co 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:56 PM application.Server log
+INFO: SENT MESSAGE (ID = 48)  Controller; Oingo Boing; Only A Lad; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:01:56 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 49 SEARCHALLSONGS  f Col 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:56 PM application.Server log
+INFO: SENT MESSAGE (ID = 49)  Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:01:57 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 50 SEARCHALLSONGS  f Cold 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:57 PM application.Server log
+INFO: SENT MESSAGE (ID = 50)  Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:01:58 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 51 SEARCHALLSONGS  f ColdP 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:58 PM application.Server log
+INFO: SENT MESSAGE (ID = 51) 
+
+
+Nov 12, 2018 3:01:58 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 52 SEARCHALLSONGS  f ColdP 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:58 PM application.Server log
+INFO: SENT MESSAGE (ID = 52) 
+
+
+Nov 12, 2018 3:01:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 53 SEARCHALLSONGS  f Cold 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 53)  Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:01:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 54 SEARCHALLSONGS  f Coldp 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 54)  Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:01:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 55 SEARCHALLSONGS  f Coldpl 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 55)  Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:01:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 56 SEARCHALLSONGS  f Coldpla 1 /192.168.1.4
+
+
+Nov 12, 2018 3:01:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 56)  Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:02:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 57 SEARCHALLSONGS  f Coldplay 1 /192.168.1.4
+
+
+Nov 12, 2018 3:02:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 57)  Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 3:02:05 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 58 SEARCHALLSONGS  f  1 /192.168.1.4
+
+
+Nov 12, 2018 3:02:05 PM application.Server log
+INFO: SENT MESSAGE (ID = 58) 
+
+
+Nov 12, 2018 3:02:58 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 59 SEARCHALLSONGS  f S 1 /192.168.1.4
+
+
+Nov 12, 2018 3:02:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 59)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
+Nov 12, 2018 3:02:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 60 SEARCHALLSONGS  f S 1 /192.168.1.4
+
+
+Nov 12, 2018 3:02:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 60)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
+Nov 12, 2018 3:02:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 61 SEARCHALLSONGS  f Se 1 /192.168.1.4
+
+
+Nov 12, 2018 3:02:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 61)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
+Nov 12, 2018 3:02:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 62 SEARCHALLSONGS  f Sep 1 /192.168.1.4
+
+
+Nov 12, 2018 3:02:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 62)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
+Nov 12, 2018 3:03:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 63 SEARCHALLSONGS  f Sept 1 /192.168.1.4
+
+
+Nov 12, 2018 3:03:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 63)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
+Nov 12, 2018 3:03:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 64 SEARCHALLSONGS  f Septe 1 /192.168.1.4
+
+
+Nov 12, 2018 3:03:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 64)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
+Nov 12, 2018 3:03:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 65 SEARCHALLSONGS  f Septem 1 /192.168.1.4
+
+
+Nov 12, 2018 3:03:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 65)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
+Nov 12, 2018 3:03:01 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 66 SEARCHALLSONGS  f Septemb 1 /192.168.1.4
+
+
+Nov 12, 2018 3:03:01 PM application.Server log
+INFO: SENT MESSAGE (ID = 66)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
+Nov 12, 2018 3:03:01 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 67 SEARCHALLSONGS  f Septembe 1 /192.168.1.4
+
+
+Nov 12, 2018 3:03:01 PM application.Server log
+INFO: SENT MESSAGE (ID = 67)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
+Nov 12, 2018 3:03:01 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 68 SEARCHALLSONGS  f September 1 /192.168.1.4
+
+
+Nov 12, 2018 3:03:01 PM application.Server log
+INFO: SENT MESSAGE (ID = 68)  September; Earth, Wind, and Fire; September; September; Earth, Wind, and Fire; September;
+
+
