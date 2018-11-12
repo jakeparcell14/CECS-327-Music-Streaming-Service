@@ -15,7 +15,6 @@ import p2p.PeerToPeer;
 public class File {
 	private String fileName;
 	private ArrayList<Chunk> chunks;
-	private PeerToPeer p2p = PeerToPeer.getInstance();
 	
 	public File(String fileName) {
 		this.fileName = fileName;
@@ -48,6 +47,8 @@ public class File {
 	 * @throws IOException 
 	 */
 	public void append(byte[] content) throws IOException {
+		PeerToPeer p2p = PeerToPeer.getInstance();
+
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");	
 			
@@ -57,6 +58,7 @@ public class File {
 			String[] firstLast = getFirstLast(content);
 			Chunk chunk = new Chunk(guid, firstLast[0], firstLast[1]);
 			
+			System.out.println("Adding chunk");
 			//add a new file to the chunk.
 			chunks.add(chunk);
 			

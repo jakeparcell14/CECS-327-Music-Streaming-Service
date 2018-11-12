@@ -18,7 +18,7 @@ import net.tomp2p.storage.Data;
 import net.tomp2p.storage.StorageDisk;
 
 public class PeerToPeer {
-	private static PeerToPeer instance;
+	private static PeerToPeer instance = null;
 	private PeerDHT master;
 	private final int PORT = 4001;
 	private final int NUM_OF_PEERS = 3;
@@ -27,7 +27,6 @@ public class PeerToPeer {
 	private final int DISK_GUID = 2421;
 	
 	private PeerToPeer() {
-
 		//Creates a list of Peers (3)
         try {
 			peers = createAndAttachPeersDHT(NUM_OF_PEERS, PORT);
@@ -47,11 +46,9 @@ public class PeerToPeer {
 	}
 	
 	public static PeerToPeer getInstance() {
-		if (instance == null ) {
-			return new PeerToPeer();
-		} else {
-			return instance;
-		}
+		if (instance == null ) 
+			instance = new PeerToPeer();
+		return instance;
 	}
 	
     private void bootstrap( PeerDHT[] peers ) {

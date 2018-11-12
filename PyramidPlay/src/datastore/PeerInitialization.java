@@ -26,13 +26,13 @@ public class PeerInitialization {
 		ArrayList<byte[]> getter = new ArrayList<byte[]>();
 		
 		for (int i = 0; i < allSongs.size(); i++) {
-			//File f = new File (allSongs.get(i).getFileSource());
-			//byte[] b = Files.readAllBytes(f.toPath());
+			File f = new File (allSongs.get(i).getFileSource());
+			byte[] b = Files.readAllBytes(f.toPath());
 			
 			try {
-				//p2p.Put(b, allSongs.get(i).getGUID());
-				System.out.println("Getting song with guid: " + allSongs.get(i).getGUID());
-				getter.add( (byte[]) p2p.Get(allSongs.get(i).getGUID()) );
+				p2p.Put(b, allSongs.get(i).getGUID());
+				//System.out.println("Getting song with guid: " + allSongs.get(i).getGUID());
+				//getter.add( (byte[]) p2p.Get(allSongs.get(i).getGUID()) );
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

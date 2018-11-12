@@ -9,7 +9,6 @@ public class Chunk implements Serializable {
 	private int guid;
 	private String first;
 	private String last;
-	private PeerToPeer p2p = PeerToPeer.getInstance();
 	
 	public Chunk(int guid, String first, String last) {
 		this.guid = guid;
@@ -30,6 +29,8 @@ public class Chunk implements Serializable {
 	}
 	
 	public byte[] getData() {
+		PeerToPeer p2p = PeerToPeer.getInstance();
+
 		try {
 			return (byte[]) p2p.Get(guid);
 		} catch (ClassNotFoundException | IOException e) {

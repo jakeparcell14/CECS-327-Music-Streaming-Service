@@ -1,0 +1,232 @@
+Nov 12, 2018 10:55:53 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 REGISTER  Wesley Slates wslates password 1 /10.31.1.22
+
+
+Nov 12, 2018 10:55:53 AM application.Server log
+INFO: SENT MESSAGE (ID = 0) wslates
+
+
+Nov 12, 2018 10:56:23 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  wslates t 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:23 AM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Africa; Toto; Toto IV; Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 10:56:23 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  wslates te 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:23 AM application.Server log
+INFO: SENT MESSAGE (ID = 2) 
+
+
+Nov 12, 2018 10:56:25 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  wslates t 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:25 AM application.Server log
+INFO: SENT MESSAGE (ID = 3)  Africa; Toto; Toto IV; Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 10:56:25 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  wslates  1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:25 AM application.Server log
+INFO: SENT MESSAGE (ID = 4) 
+
+
+Nov 12, 2018 10:56:25 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  wslates co 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:25 AM application.Server log
+INFO: SENT MESSAGE (ID = 5)  Controller; Oingo Boing; Only A Lad; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories; Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  wslates co 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: SENT MESSAGE (ID = 6)  Controller; Oingo Boing; Only A Lad; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories; Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  wslates cont 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: SENT MESSAGE (ID = 7)  Controller; Oingo Boing; Only A Lad;
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 8 SEARCHALLSONGS  wslates cont 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: SENT MESSAGE (ID = 8)  Controller; Oingo Boing; Only A Lad;
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 9 SEARCHALLSONGS  wslates contro 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: SENT MESSAGE (ID = 9)  Controller; Oingo Boing; Only A Lad;
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 10 SEARCHALLSONGS  wslates contro 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:26 AM application.Server log
+INFO: SENT MESSAGE (ID = 10)  Controller; Oingo Boing; Only A Lad;
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 12 SEARCHALLSONGS  wslates  1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: SENT MESSAGE (ID = 12) 
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 13 SEARCHALLSONGS  wslates o 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: SENT MESSAGE (ID = 13)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 14 SEARCHALLSONGS  wslates on 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: SENT MESSAGE (ID = 14)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 15 SEARCHALLSONGS  wslates onl 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: SENT MESSAGE (ID = 15)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 16 SEARCHALLSONGS  wslates only 1 /10.31.1.22
+
+
+Nov 12, 2018 10:56:58 AM application.Server log
+INFO: SENT MESSAGE (ID = 16)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 10:59:08 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 18 SEARCHALLSONGS  wslates c 1 /10.31.1.22
+
+
+Nov 12, 2018 10:59:08 AM application.Server log
+INFO: SENT MESSAGE (ID = 18)  Controller; Oingo Boing; Only A Lad; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories; Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 10:59:09 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 19 SEARCHALLSONGS  wslates cap 1 /10.31.1.22
+
+
+Nov 12, 2018 10:59:09 AM application.Server log
+INFO: SENT MESSAGE (ID = 19) 
+
+
+Nov 12, 2018 10:59:09 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 20 SEARCHALLSONGS  wslates cap 1 /10.31.1.22
+
+
+Nov 12, 2018 10:59:09 AM application.Server log
+INFO: SENT MESSAGE (ID = 20) 
+
+
+Nov 12, 2018 10:59:11 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 21 SEARCHALLSONGS  wslates ca 1 /10.31.1.22
+
+
+Nov 12, 2018 10:59:11 AM application.Server log
+INFO: SENT MESSAGE (ID = 21) 
+
+
+Nov 12, 2018 10:59:12 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 22 SEARCHALLSONGS  wslates c 1 /10.31.1.22
+
+
+Nov 12, 2018 10:59:12 AM application.Server log
+INFO: SENT MESSAGE (ID = 22)  Controller; Oingo Boing; Only A Lad; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories; Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 10:59:12 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 23 SEARCHALLSONGS  wslates  1 /10.31.1.22
+
+
+Nov 12, 2018 10:59:13 AM application.Server log
+INFO: SENT MESSAGE (ID = 23) 
+
+
+Nov 12, 2018 10:59:13 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 24 SEARCHALLSONGS  wslates o 1 /10.31.1.22
+
+
+Nov 12, 2018 10:59:13 AM application.Server log
+INFO: SENT MESSAGE (ID = 24)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
+
+
+Nov 12, 2018 10:59:13 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 25 SEARCHALLSONGS  wslates on 1 /10.31.1.22
+
+
+Nov 12, 2018 10:59:13 AM application.Server log
+INFO: SENT MESSAGE (ID = 25)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 11:01:47 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  wslates password 1 /10.31.1.22
+
+
+Nov 12, 2018 11:01:47 AM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 11:02:01 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  wslates o 1 /10.31.1.22
+
+
+Nov 12, 2018 11:02:01 AM application.Server log
+INFO: SENT MESSAGE (ID = 0)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
+
+
+Nov 12, 2018 11:02:01 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  wslates on 1 /10.31.1.22
+
+
+Nov 12, 2018 11:02:01 AM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 11:02:02 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  wslates onl 1 /10.31.1.22
+
+
+Nov 12, 2018 11:02:02 AM application.Server log
+INFO: SENT MESSAGE (ID = 2)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 11:02:02 AM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  wslates only 1 /10.31.1.22
+
+
+Nov 12, 2018 11:02:02 AM application.Server log
+INFO: SENT MESSAGE (ID = 3)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+

@@ -555,9 +555,7 @@ public class SongViewController implements Initializable{
 	 * @param event		the current playlist button has been clicked
 	 */
 	public void OnCurrentPlaylistClicked(MouseEvent event) {
-		System.out.println(currentPlaylist.getPlaylistName());
 		currentPlaylist=user.getPlaylist(currentPlaylist.getPlaylistName());
-		System.out.println(currentPlaylist==null);
 		if(!currentPlaylist.getSongs().isEmpty())
 		{
 			//display songs from current playlist

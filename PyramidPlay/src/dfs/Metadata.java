@@ -1,5 +1,6 @@
 package dfs;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,8 +13,7 @@ import application.Song;
 import net.tomp2p.dht.PeerDHT;
 
 public class Metadata {
-	private ArrayList<File> files;
-	private static Gson gson = new Gson();
+	private ArrayList<File> files = new ArrayList<File>();
 	
 	/**
 	 * Reads a particular chunk from a particular file.
@@ -42,8 +42,10 @@ public class Metadata {
 	public void append(String fileName, byte[] content) throws IOException {
 		File f = getFile(fileName);
 		
-		if (null == f) 
+		if (null == f) {
 			f = new File(fileName);
+			files.add(f);
+		}
 		
 		f.append(content);
 		
@@ -73,43 +75,89 @@ public class Metadata {
 		return files;
 	}
 	
-	public byte[] SearchForChunk(String fileName, String search) {
-		if (fileName.equals("songs_inverted_index")) {
+	/**
+	 * Searches for the chunk that contains the search criteria.
+	 * @param fileName File that you are searching.
+	 * @param search Search criteria
+	 * @return Returns the chunk that most contains that search criteria if it exists.
+	 */
+	private byte[] SearchForChunk(String fileName, String search) {
+		Gson gson = new Gson();
+		if (fileName.equals("songs_inverted_index.json")) {
 			File file = getFile(fileName);
 			
+			//iterate through file's chunks
 			for (int i = 0; i < file.getNumberOfChunks(); i++) {
+				
+				//get this chunk
 				Chunk chunk = file.getChunk(i);
+				
+				//get the chunks first and last items, this allows us to check if the search is in this chunk
 				Song first = gson.fromJson(chunk.getFirst(), Song.class);
 				Song last = gson.fromJson(chunk.getLast(), Song.class);
 				
-				if (first.getTitle().compareTo(search) >= 0 && last.getTitle().compareTo(search) <= 0) {
-					return chunk.getData();
+				//if the search criteria is smaller than the title, let's just compare the first n letters of the title with the length n search
+				if (first.getTitle().length() > search.length() && last.getTitle().length() > search.length()) {
+					if (first.getTitle().substring(0, search.length()).compareTo(search) <= 0 && last.getTitle().substring(0, search.length()).compareTo(search) >= 0) {
+						return chunk.getData();
+					}
+				//otherwise, we can't compare substrings, so let's just compare alphabetically now
+				} else {
+					if (first.getTitle().compareTo(search) <= 0 && last.getTitle().compareTo(search) >= 0) {
+						return chunk.getData();
+					}
 				}
 			}
-		} else if (fileName.equals("albums_inverted_index")) {
+		} else if (fileName.equals("albums_inverted_index.json")) {
 			File file = getFile(fileName);
 			
+			//iterate through file's chunks
 			for (int i = 0; i < file.getNumberOfChunks(); i++) {
+				
+				//get this chunk
 				Chunk chunk = file.getChunk(i);
+				
+				//gets the chunk's first and last items
 				Album first = gson.fromJson(chunk.getFirst(), Album.class);
 				Album last = gson.fromJson(chunk.getLast(), Album.class);
 				
-				if (first.getName().compareTo(search) >= 0 && last.getName().compareTo(search) <= 0) {
-					return chunk.getData();
+				//if the search criteria is smaller than the title, let's just compare the first n letters of the title with the length n search
+				if (first.getName().length() > search.length() && last.getName().length() > search.length()) {
+					if (first.getName().substring(0, search.length()).compareTo(search) <= 0 && last.getName().substring(0, search.length()).compareTo(search) >= 0) {
+						return chunk.getData();
+					}
+				//otherwise, we can't compare substrings, so let's just compare alphabetically now
+				} else {
+					if (first.getName().compareTo(search) <= 0 && last.getName().compareTo(search) >= 0) {
+						return chunk.getData();
+					}
 				}
 			}
 
-		} else {
+		} else if (fileName.equals("artists_inverted_index.json")){
 			File file = getFile(fileName);
 			
+			//iterate through file's chunks
 			for (int i = 0; i < file.getNumberOfChunks(); i++) {
+				//get this chunk
 				Chunk chunk = file.getChunk(i);
+				
+				//get the chunks first and last items, this allows us to check if the search is in this chunk
 				Artist first = gson.fromJson(chunk.getFirst(), Artist.class);
 				Artist last = gson.fromJson(chunk.getLast(), Artist.class);
 				
-				if (first.getName().compareTo(search) >= 0 && last.getName().compareTo(search) <= 0) {
-					return chunk.getData();
+				//if the search criteria is smaller than the title, let's just compare the first n letters of the title with the length n search
+				if (first.getName().length() > search.length() && last.getName().length() > search.length()) {
+					if (first.getName().substring(0, search.length()).compareTo(search) <= 0 && last.getName().substring(0, search.length()).compareTo(search) >= 0) {
+						return chunk.getData();
+					}
+				//otherwise, we can't compare substrings, so let's just compare alphabetically now
+				} else {
+					if (first.getName().compareTo(search) <= 0 && last.getName().compareTo(search) >= 0) {
+						return chunk.getData();
+					}
 				}
+				
 			}
 		
 		}
@@ -117,9 +165,12 @@ public class Metadata {
 		return null;
 	}
 	
+	/**
+	 * Gets the metadata object from the file system.
+	 * @return Returns instantiated metadata object.
+	 */
 	public static Metadata GetMetadata() {
 		Gson gson = new Gson();
-		ArrayList<Song> songs = new ArrayList<Song>();
 		java.io.File file = new java.io.File("metadata.json");
 		
 		Scanner scanner = null;
@@ -143,42 +194,111 @@ public class Metadata {
 		return metadata;
 	}
 	
+	/**
+	 * Writes metadata to disk.
+	 */
 	public void writeMetadata() {
-		
+		FileWriter out = null;
+		Gson gson = new Gson();
+		try {
+			out = new FileWriter("metadata.json");
+			out.write(gson.toJson(this));
+			out.close();
+		} catch (IOException e) {
+		} 
+			
 	}
 	
-	public Song[] getArtist(String artist){
-		byte[] chunkByte = SearchForChunk("artists_inverted_index", artist);
-		Artist artistObj = gson.fromJson(new String(chunkByte).trim(), Artist.class);
+	/**
+	 * Gets the artist that starts with the specified search criteria.
+	 * @param name String that is being searched in artists.
+	 * @return Returns arraylist of all songs from that artist.
+	 */
+	public ArrayList<Song> getArtist(String name){
+		Gson gson = new Gson();
+		
+		//get the chunk that contains this search criteria
+		byte[] chunkByte = SearchForChunk("artists_inverted_index.json", name);
+		
+		//split it at new line characters, getting each artist json
+		String[] artists = new String(chunkByte).trim().split("\\r?\\n");
+		
 		ArrayList<Song> songs = new ArrayList<Song>();
-		for(int i = 0; i < artistObj.getSongs().size(); i++)
-		{
-			for(int j = 0; j < artistObj.getSongs().get(i).getSongs().size(); j++)
-			{
-				songs.add(artistObj.getSongs().get(i).getSongs().get(j));
+		
+		for (int i = 0; i < artists.length; i++) {
+			Artist artist = gson.fromJson(artists[i], Artist.class);
+			
+			//if this artist starts with the search criteria...
+			//YOU CAN CHANGE THIS LOGIC
+			if (artist.getName().startsWith(name)) {
+				
+				ArrayList<Album> albums = artist.getSongs();
+				
+				//get all their songs
+				for (int j = 0; j < albums.size(); j++) {
+					songs.addAll(albums.get(j).getSongs());
+				}
+				return songs;
 			}
 		}
-		return (Song[]) songs.toArray();
+		return null;
 	}
 	
-	public Song[] getAlbum(String album){
-		byte[] chunkByte = SearchForChunk("albums_inverted_index", album);
-		Album albumObj = gson.fromJson(new String(chunkByte).trim(), Album.class);
-		ArrayList<Song> songs = new ArrayList<Song>();
-		for(int i = 0; i < albumObj.getSongs().size(); i++)
-		{
-				songs.add(albumObj.getSongs().get(i));
+	/**
+	 * Gets all songs from a specific album
+	 * @param title Search criteria
+	 * @return Returns all songs from the album that starts with the search.
+	 */
+	public ArrayList<Song> getAlbum(String title){
+		Gson gson = new Gson();
+
+		//get the chunk that contains this search criteria
+		byte[] chunkByte = SearchForChunk("albums_inverted_index.json", title);
+		
+		//split it at new line characters, getting each album json
+		String[] albums = new String(chunkByte).trim().split("\\r?\\n");
+		
+		for (int i = 0; i < albums.length; i++) {
+			Album album = gson.fromJson(albums[i], Album.class);
+			
+			//if this album name starts with the search criteria...
+			//YOU CAN CHANGE THIS LOGIC
+			if (album.getName().startsWith(title)) {
+				
+				//return all the songs from this album
+				return album.getSongs();
+			}
 		}
-		return (Song[]) songs.toArray();
+
+		return null;
 	}
 	
-	public Song[] getSong(String song){
-		byte[] chunkByte = SearchForChunk("artists_inverted_index", song);
-		Song songObj = gson.fromJson(new String(chunkByte).trim(), Song.class);
-		ArrayList<Song> songs = new ArrayList<Song>();
+	/**
+	 * Gets song with that name.
+	 * 
+	 * @param title Search criteria
+	 * @return Returns song that starts with the search
+	 */
+	public Song getSong(String title){
+		Gson gson = new Gson();
+
+		//get the chunk that contains this search criteria
+		byte[] chunkByte = SearchForChunk("songs_inverted_index.json", title);
 		
-		songs.add(songObj);
+		//split it at new line characters, getting each song json
+		String[] chunk = new String(chunkByte).trim().split("\\r?\\n");
 		
-		return (Song[]) songs.toArray();
+		for (int i = 0; i < chunk.length; i++) {
+			Song thisSong = gson.fromJson(chunk[i], Song.class);
+			
+			//if this song name starts with the search criteria...
+			//YOU CAN CHANGE THIS LOGIC
+			if (thisSong.getTitle().startsWith(title)) {
+				return thisSong;
+			}
+		}
+		
+		return null;
+		
 	}
 }
