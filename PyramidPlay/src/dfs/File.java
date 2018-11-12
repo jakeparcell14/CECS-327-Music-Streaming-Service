@@ -10,11 +10,12 @@ import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
+import p2p.PeerToPeer;
 
 public class File {
 	private String fileName;
 	private ArrayList<Chunk> chunks;
-
+	private PeerToPeer p2p = PeerToPeer.getInstance();
 	
 	public File(String fileName) {
 		this.fileName = fileName;
@@ -46,22 +47,32 @@ public class File {
 	 * @param content
 	 * @throws IOException 
 	 */
-	public void append(byte[] content, PeerDHT peer) throws IOException {
+	public void append(byte[] content) throws IOException {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");	
 			
 			//hash the data to get the guid
 			int guid = ByteBuffer.wrap(md.digest(content)).getInt();
 			
-			Chunk chunk = new Chunk(guid, content);
+			String[] firstLast = getFirstLast(content);
+			Chunk chunk = new Chunk(guid, firstLast[0], firstLast[1]);
+			
 			//add a new file to the chunk.
 			chunks.add(chunk);
 			
-			FuturePut put = peer.add(new Number160(guid)).data(new Data(chunk)).start();
-			put.awaitUninterruptibly();
+			p2p.Put(content, guid);
 			
 		} catch (NoSuchAlgorithmException e) {
 			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
+	
+	private String[] getFirstLast(byte[] content) {
+		String str = new String(content);
+		String[] strs = str.split("\\r?\\n");
+		return new String[]{strs[0], strs[strs.length - 1]};
 	}
 }

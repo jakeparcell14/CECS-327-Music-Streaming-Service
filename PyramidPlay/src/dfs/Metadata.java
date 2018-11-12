@@ -1,6 +1,8 @@
 package dfs;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 
@@ -37,13 +39,13 @@ public class Metadata {
 	 * @param content Data to append to the file.
 	 * @throws IOException 
 	 */
-	public void append(String fileName, byte[] content, PeerDHT peer) throws IOException {
+	public void append(String fileName, byte[] content) throws IOException {
 		File f = getFile(fileName);
 		
 		if (null == f) 
 			f = new File(fileName);
 		
-		f.append(content, peer);
+		f.append(content);
 		
 	}
 	
@@ -113,5 +115,35 @@ public class Metadata {
 		}
 		
 		return null;
+	}
+	
+	public static Metadata GetMetadata() {
+		Gson gson = new Gson();
+		ArrayList<Song> songs = new ArrayList<Song>();
+		java.io.File file = new java.io.File("metadata.json");
+		
+		Scanner scanner = null;
+		Metadata metadata = null;
+		
+		try {
+			scanner = new Scanner(file);
+			metadata = gson.fromJson(scanner.nextLine(), Metadata.class);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (scanner != null) {
+				scanner.close();
+			}
+		}
+		
+		
+		scanner.close();
+
+		return metadata;
+	}
+	
+	public void writeMetadata() {
+		
 	}
 }
