@@ -1,0 +1,88 @@
+Nov 11, 2018 4:03:37 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 REGISTER  f f f f 1 /192.168.56.1
+
+
+Nov 11, 2018 4:03:37 PM application.Server log
+INFO: SENT MESSAGE (ID = 0) f
+
+
+Nov 11, 2018 4:04:58 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.56.1
+
+
+Nov 11, 2018 4:04:58 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 4:06:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  f r 1 /192.168.56.1
+
+
+Nov 11, 2018 4:06:18 PM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody; Girls Like You; Maroon 5; Red Pill Blues;
+
+
+Nov 11, 2018 4:06:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  f ri 1 /192.168.56.1
+
+
+Nov 11, 2018 4:06:18 PM application.Server log
+INFO: SENT MESSAGE (ID = 2)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 4:08:51 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f r 1 /192.168.56.1
+
+
+Nov 11, 2018 4:08:51 PM application.Server log
+INFO: SENT MESSAGE (ID = 4)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody; Girls Like You; Maroon 5; Red Pill Blues;
+
+
+Nov 11, 2018 4:08:52 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f  1 /192.168.56.1
+
+
+Nov 11, 2018 4:08:52 PM application.Server log
+INFO: SENT MESSAGE (ID = 5) 
+
+
+Nov 11, 2018 4:10:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  f o 1 /192.168.56.1
+
+
+Nov 11, 2018 4:10:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 7)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
+
+
+Nov 11, 2018 4:10:28 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 8 SEARCHALLSONGS  f oin 1 /192.168.56.1
+
+
+Nov 11, 2018 4:10:28 PM application.Server log
+INFO: SENT MESSAGE (ID = 8)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 11, 2018 4:10:28 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 9 SEARCHALLSONGS  f oin 1 /192.168.56.1
+
+
+Nov 11, 2018 4:10:28 PM application.Server log
+INFO: SENT MESSAGE (ID = 9)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 11, 2018 4:12:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.56.1
+
+
+Nov 11, 2018 4:12:30 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 4:13:48 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  f o 1 /192.168.56.1
+
+
+Nov 11, 2018 4:13:48 PM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
+
+

@@ -12,6 +12,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.FileHandler;
@@ -20,9 +21,12 @@ import java.util.logging.SimpleFormatter;
 
 import com.google.gson.Gson;
 import com.sun.glass.ui.Window.Level;
+import p2p.PeerToPeer;
 
 
 public class Server {
+	static PeerToPeer p2p = PeerToPeer.getInstance();
+	
 	static Log server_log;
 	/**
 	 * Socket used to get incoming requests.
@@ -36,7 +40,7 @@ public class Server {
 
 
 	public static void main(String[] args) throws Exception {		
-		try {			
+		try {
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
 
@@ -49,6 +53,7 @@ public class Server {
 		} catch (SocketException e1) {
 			System.out.println("Error creating socket: " + e1.getMessage());
 		} finally  {
+			p2p.close();
 			if (socket != null) 
 				socket.close();
 		}
@@ -703,11 +708,22 @@ public class Server {
 	 * @return Returns byte array to send back to client.
 	 */
 	public static byte[] getNumberOfFragments(Message msg) {	
-		ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
-		int size = gson.fromJson(msg.getArgs()[1], int.class);
-		buffer.putLong(new File(song.getFileSource()).length() / size);
-		return buffer.array();
+		byte[] b;
+		try {
+			ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+			Song song = gson.fromJson(msg.getArgs()[0], Song.class);
+			int size = gson.fromJson(msg.getArgs()[1], int.class);
+			b = (byte[])p2p.Get(song.getGUID());
+			buffer.putLong(b.length / size);
+			return buffer.array();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
@@ -718,16 +734,28 @@ public class Server {
 	 * @throws IOException
 	 */
 	public static byte[] getSongBytes(Message msg) throws IOException {
-		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
-		int offset = gson.fromJson(msg.getArgs()[1], int.class);
-		int bytes = gson.fromJson(msg.getArgs()[2], int.class);
-		byte[] b = new byte[bytes];
-		File f = new File (song.getFileSource());
-		FileInputStream fs = new FileInputStream(f);
+		byte[] s;
+		try {
+			Song song = gson.fromJson(msg.getArgs()[0], Song.class);
+			int offset = gson.fromJson(msg.getArgs()[1], int.class);
+			int bytes = gson.fromJson(msg.getArgs()[2], int.class);
+			//byte[] b = new byte[bytes];
+			//PeerToPeer p2p =PeerToPeer.getInstance();
+			//p2p.Get(song.getGUID());
+			s = (byte[])p2p.Get(song.getGUID());
+			return Arrays.copyOfRange(s, offset, offset+bytes);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		/*File f = new File (song.getFileSource());
+		FileInputStream fs = new FileInputStream();
 		fs.skip(offset);
 		fs.read(b, 0, bytes);
 		fs.close();
-		return b;
+		return b;*/
+		
 	}
 
 	/**
@@ -790,7 +818,8 @@ public class Server {
 
 		} catch (FileNotFoundException e) 
 		{
-			return null;
+			//file not found so return a fresh ArrayList
+			return new ArrayList<String>();
 		} catch (IOException e) 
 		{
 			e.printStackTrace();

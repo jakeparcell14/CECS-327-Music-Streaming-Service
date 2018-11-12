@@ -1062,3 +1062,27 @@ Oct 15, 2018 8:14:25 PM application.Server log
 INFO: SENT MESSAGE: VERIFIED
 
 
+Nov 11, 2018 3:37:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Nov 11, 2018 3:37:15 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 3:44:40 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Nov 11, 2018 3:44:40 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 3:46:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /192.168.56.1
+
+
+Nov 11, 2018 3:46:10 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+

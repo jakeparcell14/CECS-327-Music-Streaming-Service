@@ -108,7 +108,6 @@ public class PeerToPeer {
          * used to get the results from those operations.
          */
     	futureGet.awaitUninterruptibly();
-    	
     	return futureGet.data().object();
     }
     

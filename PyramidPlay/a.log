@@ -1,0 +1,16 @@
+Nov 11, 2018 3:58:23 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 REGISTER  a a a a 1 /192.168.56.1
+
+
+Nov 11, 2018 3:58:23 PM application.Server log
+INFO: SENT MESSAGE (ID = 0) a
+
+
+Nov 11, 2018 4:02:33 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  a a 1 /192.168.56.1
+
+
+Nov 11, 2018 4:02:33 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
