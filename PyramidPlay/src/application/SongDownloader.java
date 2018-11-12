@@ -81,7 +81,7 @@ public class SongDownloader {
 		socket.receive(response);
 		
 		//allocate response into a buffer
-		ByteBuffer buff = ByteBuffer.allocate(Long.BYTES);				
+		ByteBuffer buff = ByteBuffer.allocate(Long.BYTES);			
 		buff.put(resp);
 		buff.flip();
 		

@@ -86,3 +86,163 @@ Nov 11, 2018 4:13:48 PM application.Server log
 INFO: SENT MESSAGE (ID = 1)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
 
 
+Nov 11, 2018 5:41:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.24
+
+
+Nov 11, 2018 5:41:06 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  f n 1 /192.168.1.24
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Nasty Habits; Oingo Boingo; Only A Lad; Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  f ne 1 /192.168.1.24
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 2)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  f neve 1 /192.168.1.24
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 3)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f neve 1 /192.168.1.24
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 4)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f never 1 /192.168.1.24
+
+
+Nov 11, 2018 5:41:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 5)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 5:41:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  f never 1 /192.168.1.24
+
+
+Nov 11, 2018 5:41:26 PM application.Server log
+INFO: SENT MESSAGE (ID = 6)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 5:44:35 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.24
+
+
+Nov 11, 2018 5:44:35 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 5:48:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.24
+
+
+Nov 11, 2018 5:48:11 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 5:50:40 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.24
+
+
+Nov 11, 2018 5:50:40 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 6:03:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.24
+
+
+Nov 11, 2018 6:03:32 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 6:05:02 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.24
+
+
+Nov 11, 2018 6:05:03 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 6:06:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  f ne 1 /192.168.1.24
+
+
+Nov 11, 2018 6:06:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 6:06:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  f ne 1 /192.168.1.24
+
+
+Nov 11, 2018 6:06:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 2)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 6:06:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  f neve 1 /192.168.1.24
+
+
+Nov 11, 2018 6:06:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 3)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 6:06:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  f neve 1 /192.168.1.24
+
+
+Nov 11, 2018 6:06:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 4)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 6:06:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  f never 1 /192.168.1.24
+
+
+Nov 11, 2018 6:06:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 5)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 6:06:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  f never 1 /192.168.1.24
+
+
+Nov 11, 2018 6:06:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 6)  Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;
+
+
+Nov 11, 2018 6:06:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.24
+
+
+Nov 11, 2018 6:06:59 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 11, 2018 6:07:03 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  f f 1 /192.168.1.24
+
+
+Nov 11, 2018 6:07:03 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+

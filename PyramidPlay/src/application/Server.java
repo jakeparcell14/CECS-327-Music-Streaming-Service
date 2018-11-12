@@ -14,6 +14,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -32,7 +33,12 @@ public class Server {
 	 * Socket used to get incoming requests.
 	 */
 	private static DatagramSocket socket = null;
-
+	
+	/**
+	 * Array list of songs currently being requested to a client
+	 */
+	private static TreeMap<Integer, CachedSong> cache;
+	
 	/**
 	 * GSON object to serialize and deserialize objects.
 	 */
@@ -43,6 +49,9 @@ public class Server {
 		try {
 			//create a socket listening on port 1234
 			socket = new DatagramSocket(1234);
+			
+			//instantiate a cache map
+			cache = new TreeMap<Integer, CachedSong>();
 
 			while(true) {
 				Request req = getRequest();
@@ -713,7 +722,21 @@ public class Server {
 			ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
 			Song song = gson.fromJson(msg.getArgs()[0], Song.class);
 			int size = gson.fromJson(msg.getArgs()[1], int.class);
-			b = (byte[])p2p.Get(song.getGUID());
+			
+			//check the cache for the requested song
+			if (cache.containsKey(song.getGUID())) {
+				System.out.println("Already exists in cache");
+				b = cache.get(song.getGUID()).getBytes();
+			}
+			else {
+				//get from a peer if it's not in the cache
+				System.out.println("Adding song to cache");
+				b = (byte[])p2p.Get(song.getGUID());
+				
+				//add song to cache
+				cache.put(song.getGUID(), new CachedSong(song.getGUID(), b));
+			}
+			
 			buffer.putLong(b.length / size);
 			return buffer.array();
 		} catch (ClassNotFoundException e) {
@@ -735,20 +758,29 @@ public class Server {
 	 */
 	public static byte[] getSongBytes(Message msg) throws IOException {
 		byte[] s;
-		try {
-			Song song = gson.fromJson(msg.getArgs()[0], Song.class);
-			int offset = gson.fromJson(msg.getArgs()[1], int.class);
-			int bytes = gson.fromJson(msg.getArgs()[2], int.class);
-			//byte[] b = new byte[bytes];
-			//PeerToPeer p2p =PeerToPeer.getInstance();
-			//p2p.Get(song.getGUID());
-			s = (byte[])p2p.Get(song.getGUID());
-			return Arrays.copyOfRange(s, offset, offset+bytes);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Song song = gson.fromJson(msg.getArgs()[0], Song.class);
+		int offset = gson.fromJson(msg.getArgs()[1], int.class);
+		int bytes = gson.fromJson(msg.getArgs()[2], int.class);
+		s = cache.get(song.getGUID()).getBytes();
+		
+		//if download request is starting, then increment usage count
+		//else decrement usage count
+		if (offset == 0) {
+			System.out.println("Incrementing song user count");
+			cache.get(song.getGUID()).count++;
 		}
-		return null;
+		else if (s.length-4098 <= offset+bytes) {
+			System.out.println("Decrementing song user count");
+			cache.get(song.getGUID()).count--;
+		}
+		
+		//removes from cache if no other client is using the song
+		if (cache.get(song.getGUID()).count == 0) {
+			System.out.println("Removing song from cache");
+			cache.remove(song.getGUID());
+		}
+		
+		return Arrays.copyOfRange(s, offset, offset+bytes);
 		/*File f = new File (song.getFileSource());
 		FileInputStream fs = new FileInputStream();
 		fs.skip(offset);
