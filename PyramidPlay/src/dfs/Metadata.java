@@ -146,4 +146,39 @@ public class Metadata {
 	public void writeMetadata() {
 		
 	}
+	
+	public Song[] getArtist(String artist){
+		byte[] chunkByte = SearchForChunk("artists_inverted_index", artist);
+		Artist artistObj = gson.fromJson(new String(chunkByte).trim(), Artist.class);
+		ArrayList<Song> songs = new ArrayList<Song>();
+		for(int i = 0; i < artistObj.getSongs().size(); i++)
+		{
+			for(int j = 0; j < artistObj.getSongs().get(i).getSongs().size(); j++)
+			{
+				songs.add(artistObj.getSongs().get(i).getSongs().get(j));
+			}
+		}
+		return (Song[]) songs.toArray();
+	}
+	
+	public Song[] getAlbum(String album){
+		byte[] chunkByte = SearchForChunk("albums_inverted_index", album);
+		Album albumObj = gson.fromJson(new String(chunkByte).trim(), Album.class);
+		ArrayList<Song> songs = new ArrayList<Song>();
+		for(int i = 0; i < albumObj.getSongs().size(); i++)
+		{
+				songs.add(albumObj.getSongs().get(i));
+		}
+		return (Song[]) songs.toArray();
+	}
+	
+	public Song[] getSong(String song){
+		byte[] chunkByte = SearchForChunk("artists_inverted_index", song);
+		Song songObj = gson.fromJson(new String(chunkByte).trim(), Song.class);
+		ArrayList<Song> songs = new ArrayList<Song>();
+		
+		songs.add(songObj);
+		
+		return (Song[]) songs.toArray();
+	}
 }
