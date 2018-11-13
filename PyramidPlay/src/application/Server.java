@@ -773,14 +773,7 @@ public class Server {
 			cache.remove(song.getGUID());
 		}
 		
-		return Arrays.copyOfRange(s, offset, offset+bytes);
-		/*File f = new File (song.getFileSource());
-		FileInputStream fs = new FileInputStream();
-		fs.skip(offset);
-		fs.read(b, 0, bytes);
-		fs.close();
-		return b;*/
-		
+		return Arrays.copyOfRange(s, offset, offset+bytes);		
 	}
 
 	/**
