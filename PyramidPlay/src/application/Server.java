@@ -29,7 +29,10 @@ import p2p.PeerToPeer;
 
 
 public class Server {
-	static PeerToPeer p2p = PeerToPeer.getInstance();
+	/**
+	 * Instance of the singleton PeerToPeer class for this server
+	 */
+	private static PeerToPeer p2p = PeerToPeer.getInstance();
 	
 	static Log server_log;
 	/**
@@ -38,7 +41,9 @@ public class Server {
 	private static DatagramSocket socket = null;
 	
 	/**
-	 * Array list of songs currently being requested to a client
+	 * Tree map of songs currently being requested by a client
+	 * Key: GUID of song
+	 * Value: CachedSong object of the song
 	 */
 	private static TreeMap<Integer, CachedSong> cache;
 	
@@ -752,6 +757,7 @@ public class Server {
 			
 			//check the cache for the requested song
 			if (cache.containsKey(song.getGUID())) {
+				//get .mp3 from cache
 				System.out.println("Already exists in cache");
 				b = cache.get(song.getGUID()).getBytes();
 			}
@@ -790,8 +796,8 @@ public class Server {
 		int bytes = gson.fromJson(msg.getArgs()[2], int.class);
 		s = cache.get(song.getGUID()).getBytes();
 		
-		//if download request is starting, then increment usage count
-		//else decrement usage count
+		//if download request is starting, then increment song's usage count
+		//if last fragment of download is being sent, decrement usage count
 		if (offset == 0) {
 			System.out.println("Incrementing song user count");
 			cache.get(song.getGUID()).count++;
@@ -801,7 +807,7 @@ public class Server {
 			cache.get(song.getGUID()).count--;
 		}
 		
-		//removes from cache if no other client is using the song
+		//removes from cache if no other client is currently requesting the song
 		if (cache.get(song.getGUID()).count == 0) {
 			System.out.println("Removing song from cache");
 			cache.remove(song.getGUID());
