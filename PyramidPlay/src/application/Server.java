@@ -851,7 +851,7 @@ public class Server {
 		}
 
 		// an exception was thrown
-		return null;
+		return new ArrayList<String>();
 	}
 
 	/**
