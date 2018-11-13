@@ -1086,3 +1086,1675 @@ Nov 11, 2018 3:46:10 PM application.Server log
 INFO: SENT MESSAGE: VERIFIED
 
 
+Nov 12, 2018 4:31:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /10.180.87.1
+
+
+Nov 12, 2018 4:31:55 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  amyer p 1 /10.180.87.1
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 0) 
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 1) 
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 2) 
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 3) 
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:32:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 4) 
+
+
+Nov 12, 2018 4:33:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:33:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 5) 
+
+
+Nov 12, 2018 4:33:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:33:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 6) 
+
+
+Nov 12, 2018 4:34:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /10.180.87.1
+
+
+Nov 12, 2018 4:34:16 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 4:34:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:34:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 0) 
+
+
+Nov 12, 2018 4:34:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:34:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 1) 
+
+
+Nov 12, 2018 4:34:28 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:34:28 PM application.Server log
+INFO: SENT MESSAGE (ID = 2) 
+
+
+Nov 12, 2018 4:34:28 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:34:28 PM application.Server log
+INFO: SENT MESSAGE (ID = 3) 
+
+
+Nov 12, 2018 4:35:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /10.180.87.1
+
+
+Nov 12, 2018 4:35:26 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Nov 12, 2018 4:35:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  amyer p 1 /10.180.87.1
+
+
+Nov 12, 2018 4:35:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 0) 
+
+
+Nov 12, 2018 4:35:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:35:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 1) 
+
+
+Nov 12, 2018 4:35:34 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:35:34 PM application.Server log
+INFO: SENT MESSAGE (ID = 2) 
+
+
+Nov 12, 2018 4:35:35 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:35:35 PM application.Server log
+INFO: SENT MESSAGE (ID = 3) 
+
+
+Nov 12, 2018 4:37:49 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:37:49 PM application.Server log
+INFO: SENT MESSAGE (ID = 4) 
+
+
+Nov 12, 2018 4:38:07 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:38:07 PM application.Server log
+INFO: SENT MESSAGE (ID = 5) 
+
+
+Nov 12, 2018 4:38:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:38:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 6) 
+
+
+Nov 12, 2018 4:38:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:38:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 7) 
+
+
+Nov 12, 2018 4:38:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 8 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:38:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 8) 
+
+
+Nov 12, 2018 4:38:50 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 9 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:38:50 PM application.Server log
+INFO: SENT MESSAGE (ID = 9) 
+
+
+Nov 12, 2018 4:38:57 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 10 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:38:57 PM application.Server log
+INFO: SENT MESSAGE (ID = 10) 
+
+
+Nov 12, 2018 4:39:51 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 11 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:39:51 PM application.Server log
+INFO: SENT MESSAGE (ID = 11) 
+
+
+Nov 12, 2018 4:39:54 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 12 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:39:54 PM application.Server log
+INFO: SENT MESSAGE (ID = 12) 
+
+
+Nov 12, 2018 4:39:54 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 13 SEARCHALLSONGS  amyer pomo 1 /10.180.87.1
+
+
+Nov 12, 2018 4:39:54 PM application.Server log
+INFO: SENT MESSAGE (ID = 13) 
+
+
+Nov 12, 2018 4:39:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 14 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:39:55 PM application.Server log
+INFO: SENT MESSAGE (ID = 14) 
+
+
+Nov 12, 2018 4:39:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 15 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:39:55 PM application.Server log
+INFO: SENT MESSAGE (ID = 15) 
+
+
+Nov 12, 2018 4:42:51 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 16 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:42:51 PM application.Server log
+INFO: SENT MESSAGE (ID = 16) 
+
+
+Nov 12, 2018 4:44:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 17 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:44:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 17) 
+
+
+Nov 12, 2018 4:45:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 18 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:45:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 18) 
+
+
+Nov 12, 2018 4:45:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 19 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:45:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 19) 
+
+
+Nov 12, 2018 4:51:44 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 20 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:51:45 PM application.Server log
+INFO: SENT MESSAGE (ID = 20) 
+
+
+Nov 12, 2018 4:52:58 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 21 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:52:58 PM application.Server log
+INFO: SENT MESSAGE (ID = 21) 
+
+
+Nov 12, 2018 4:53:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 22 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 22)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:53:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 23 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 23)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:53:50 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 24 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:50 PM application.Server log
+INFO: SENT MESSAGE (ID = 24)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:53:52 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 25 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:52 PM application.Server log
+INFO: SENT MESSAGE (ID = 25) 
+
+
+Nov 12, 2018 4:53:52 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 26 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:52 PM application.Server log
+INFO: SENT MESSAGE (ID = 26) 
+
+
+Nov 12, 2018 4:53:53 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 27 SEARCHALLSONGS  amyer P 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:53 PM application.Server log
+INFO: SENT MESSAGE (ID = 27) 
+
+
+Nov 12, 2018 4:53:53 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 28 SEARCHALLSONGS  amyer P 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:53 PM application.Server log
+INFO: SENT MESSAGE (ID = 28) 
+
+
+Nov 12, 2018 4:53:53 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 29 SEARCHALLSONGS  amyer Pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:53 PM application.Server log
+INFO: SENT MESSAGE (ID = 29) 
+
+
+Nov 12, 2018 4:53:54 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 30 SEARCHALLSONGS  amyer Pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:54 PM application.Server log
+INFO: SENT MESSAGE (ID = 30) 
+
+
+Nov 12, 2018 4:53:54 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 31 SEARCHALLSONGS  amyer Pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:54 PM application.Server log
+INFO: SENT MESSAGE (ID = 31) 
+
+
+Nov 12, 2018 4:53:54 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 32 SEARCHALLSONGS  amyer Pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:54 PM application.Server log
+INFO: SENT MESSAGE (ID = 32) 
+
+
+Nov 12, 2018 4:53:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 33 SEARCHALLSONGS  amyer Po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:55 PM application.Server log
+INFO: SENT MESSAGE (ID = 33) 
+
+
+Nov 12, 2018 4:53:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 34 SEARCHALLSONGS  amyer P 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:55 PM application.Server log
+INFO: SENT MESSAGE (ID = 34) 
+
+
+Nov 12, 2018 4:53:55 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 35 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:55 PM application.Server log
+INFO: SENT MESSAGE (ID = 35) 
+
+
+Nov 12, 2018 4:53:56 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 36 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:56 PM application.Server log
+INFO: SENT MESSAGE (ID = 36) 
+
+
+Nov 12, 2018 4:53:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 37 SEARCHALLSONGS  amyer P 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 37) 
+
+
+Nov 12, 2018 4:53:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 38 SEARCHALLSONGS  amyer P 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 38) 
+
+
+Nov 12, 2018 4:53:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 39 SEARCHALLSONGS  amyer Po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:53:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 39) 
+
+
+Nov 12, 2018 4:54:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 40 SEARCHALLSONGS  amyer Pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:54:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 40) 
+
+
+Nov 12, 2018 4:54:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 41 SEARCHALLSONGS  amyer Pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:54:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 41) 
+
+
+Nov 12, 2018 4:54:01 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 42 SEARCHALLSONGS  amyer Pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:54:01 PM application.Server log
+INFO: SENT MESSAGE (ID = 42) 
+
+
+Nov 12, 2018 4:54:03 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 43 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:54:03 PM application.Server log
+INFO: SENT MESSAGE (ID = 43) 
+
+
+Nov 12, 2018 4:54:03 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 44 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:54:03 PM application.Server log
+INFO: SENT MESSAGE (ID = 44) 
+
+
+Nov 12, 2018 4:54:05 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 45 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:54:05 PM application.Server log
+INFO: SENT MESSAGE (ID = 45) 
+
+
+Nov 12, 2018 4:57:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 46 SEARCHALLSONGS  amyer p 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 46)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 47 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 47)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 48 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 48)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 49 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 49)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 50 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 50)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 51 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 51 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 51)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 52 SEARCHALLSONGS  amyer p 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 52)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 53 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 53) 
+
+
+Nov 12, 2018 4:57:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 54 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 54) 
+
+
+Nov 12, 2018 4:57:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 55 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 55) 
+
+
+Nov 12, 2018 4:57:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 56 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 56) 
+
+
+Nov 12, 2018 4:57:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 57 SEARCHALLSONGS  amyer ba 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:15 PM application.Server log
+INFO: SENT MESSAGE (ID = 57)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 58 SEARCHALLSONGS  amyer bas 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 58)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 59 SEARCHALLSONGS  amyer bast 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 59)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 60 SEARCHALLSONGS  amyer basti 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 60)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 61 SEARCHALLSONGS  amyer basti 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 61)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 62 SEARCHALLSONGS  amyer bast 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 62)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 63 SEARCHALLSONGS  amyer bas 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 63)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 64 SEARCHALLSONGS  amyer ba 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 64)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 65 SEARCHALLSONGS  amyer b 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 51)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 65)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 66 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 66) 
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 67 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 67) 
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 68 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 68) 
+
+
+Nov 12, 2018 4:57:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 69 SEARCHALLSONGS  amyer ch 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:18 PM application.Server log
+INFO: SENT MESSAGE (ID = 69) 
+
+
+Nov 12, 2018 4:57:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 70 SEARCHALLSONGS  amyer cha 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:18 PM application.Server log
+INFO: SENT MESSAGE (ID = 70) 
+
+
+Nov 12, 2018 4:57:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 71 SEARCHALLSONGS  amyer cha 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:18 PM application.Server log
+INFO: SENT MESSAGE (ID = 71) 
+
+
+Nov 12, 2018 4:57:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 72 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:18 PM application.Server log
+INFO: SENT MESSAGE (ID = 72) 
+
+
+Nov 12, 2018 4:57:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 73 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 73) 
+
+
+Nov 12, 2018 4:57:20 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 74 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:20 PM application.Server log
+INFO: SENT MESSAGE (ID = 74) 
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 75 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: SENT MESSAGE (ID = 75) 
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 76 SEARCHALLSONGS  amyer cha 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: SENT MESSAGE (ID = 76) 
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 77 SEARCHALLSONGS  amyer ch 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: SENT MESSAGE (ID = 77) 
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 78 SEARCHALLSONGS  amyer c 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: SENT MESSAGE (ID = 78)  Closer; The Chainsmokers; Collage; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 79 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: SENT MESSAGE (ID = 79) 
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 80 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:21 PM application.Server log
+INFO: SENT MESSAGE (ID = 80) 
+
+
+Nov 12, 2018 4:57:23 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 81 SEARCHALLSONGS  amyer ch 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:23 PM application.Server log
+INFO: SENT MESSAGE (ID = 81) 
+
+
+Nov 12, 2018 4:57:24 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 82 SEARCHALLSONGS  amyer ch 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:24 PM application.Server log
+INFO: SENT MESSAGE (ID = 82) 
+
+
+Nov 12, 2018 4:57:24 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 83 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:24 PM application.Server log
+INFO: SENT MESSAGE (ID = 83) 
+
+
+Nov 12, 2018 4:57:24 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 84 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:24 PM application.Server log
+INFO: SENT MESSAGE (ID = 84) 
+
+
+Nov 12, 2018 4:57:24 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 85 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:24 PM application.Server log
+INFO: SENT MESSAGE (ID = 85) 
+
+
+Nov 12, 2018 4:57:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 86 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 86) 
+
+
+Nov 12, 2018 4:57:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 87 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:26 PM application.Server log
+INFO: SENT MESSAGE (ID = 87) 
+
+
+Nov 12, 2018 4:57:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 88 SEARCHALLSONGS  amyer cha 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:26 PM application.Server log
+INFO: SENT MESSAGE (ID = 88) 
+
+
+Nov 12, 2018 4:57:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 89 SEARCHALLSONGS  amyer ch 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:26 PM application.Server log
+INFO: SENT MESSAGE (ID = 89) 
+
+
+Nov 12, 2018 4:57:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 90 SEARCHALLSONGS  amyer c 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 90)  Closer; The Chainsmokers; Collage; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 4:57:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 91 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 91) 
+
+
+Nov 12, 2018 4:57:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 92 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 92) 
+
+
+Nov 12, 2018 4:57:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 93 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 93) 
+
+
+Nov 12, 2018 4:57:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 94 SEARCHALLSONGS  amyer on 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 94)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 4:57:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 95 SEARCHALLSONGS  amyer on 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 95)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 4:57:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 96 SEARCHALLSONGS  amyer onl 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 96)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 4:57:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 97 SEARCHALLSONGS  amyer only 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 97)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 98 SEARCHALLSONGS  amyer onl 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: SENT MESSAGE (ID = 98)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 99 SEARCHALLSONGS  amyer on 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: SENT MESSAGE (ID = 99)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 100 SEARCHALLSONGS  amyer o 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: SENT MESSAGE (ID = 100)  Only A Lad; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 101 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: SENT MESSAGE (ID = 101) 
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 102 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:34 PM application.Server log
+INFO: SENT MESSAGE (ID = 102) 
+
+
+Nov 12, 2018 4:57:35 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 103 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:35 PM application.Server log
+INFO: SENT MESSAGE (ID = 103) 
+
+
+Nov 12, 2018 4:57:35 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 104 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:35 PM application.Server log
+INFO: SENT MESSAGE (ID = 104) 
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 105 SEARCHALLSONGS  amyer ch 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: SENT MESSAGE (ID = 105) 
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 106 SEARCHALLSONGS  amyer cha 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: SENT MESSAGE (ID = 106) 
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 107 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: SENT MESSAGE (ID = 107) 
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 108 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: SENT MESSAGE (ID = 108) 
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 109 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:36 PM application.Server log
+INFO: SENT MESSAGE (ID = 109) 
+
+
+Nov 12, 2018 4:57:37 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 110 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:37 PM application.Server log
+INFO: SENT MESSAGE (ID = 110) 
+
+
+Nov 12, 2018 4:57:39 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 111 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:39 PM application.Server log
+INFO: SENT MESSAGE (ID = 111) 
+
+
+Nov 12, 2018 4:57:39 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 112 SEARCHALLSONGS  amyer cha 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:39 PM application.Server log
+INFO: SENT MESSAGE (ID = 112) 
+
+
+Nov 12, 2018 4:57:39 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 113 SEARCHALLSONGS  amyer ch 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:39 PM application.Server log
+INFO: SENT MESSAGE (ID = 113) 
+
+
+Nov 12, 2018 4:57:40 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 114 SEARCHALLSONGS  amyer c 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:40 PM application.Server log
+INFO: SENT MESSAGE (ID = 114)  Closer; The Chainsmokers; Collage; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 4:57:40 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 115 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:40 PM application.Server log
+INFO: SENT MESSAGE (ID = 115) 
+
+
+Nov 12, 2018 4:57:40 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 116 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:40 PM application.Server log
+INFO: SENT MESSAGE (ID = 116) 
+
+
+Nov 12, 2018 4:57:40 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 117 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:40 PM application.Server log
+INFO: SENT MESSAGE (ID = 117) 
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 118 SEARCHALLSONGS  amyer ch 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: SENT MESSAGE (ID = 118) 
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 119 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: SENT MESSAGE (ID = 119) 
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 120 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: SENT MESSAGE (ID = 120) 
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 121 SEARCHALLSONGS  amyer chai 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: SENT MESSAGE (ID = 121) 
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 122 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:43 PM application.Server log
+INFO: SENT MESSAGE (ID = 122) 
+
+
+Nov 12, 2018 4:57:44 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 123 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:44 PM application.Server log
+INFO: SENT MESSAGE (ID = 123) 
+
+
+Nov 12, 2018 4:57:45 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 124 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:45 PM application.Server log
+INFO: SENT MESSAGE (ID = 124) 
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 125 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: SENT MESSAGE (ID = 125) 
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 126 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: SENT MESSAGE (ID = 126) 
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 127 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: SENT MESSAGE (ID = 127) 
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 128 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: SENT MESSAGE (ID = 128) 
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 129 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:46 PM application.Server log
+INFO: SENT MESSAGE (ID = 129) 
+
+
+Nov 12, 2018 4:57:47 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 130 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:47 PM application.Server log
+INFO: SENT MESSAGE (ID = 130) 
+
+
+Nov 12, 2018 4:57:49 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 131 SEARCHALLSONGS  amyer chain 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:49 PM application.Server log
+INFO: SENT MESSAGE (ID = 131) 
+
+
+Nov 12, 2018 4:57:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 132 SEARCHALLSONGS  amyer chainsm 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 132) 
+
+
+Nov 12, 2018 4:57:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 133 SEARCHALLSONGS  amyer chainsmo 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 133) 
+
+
+Nov 12, 2018 4:57:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 134 SEARCHALLSONGS  amyer chainsmoke 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 134) 
+
+
+Nov 12, 2018 4:57:59 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 135 SEARCHALLSONGS  amyer chainsmoke 1 /10.180.87.1
+
+
+Nov 12, 2018 4:57:59 PM application.Server log
+INFO: SENT MESSAGE (ID = 135) 
+
+
+Nov 12, 2018 4:58:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 136 SEARCHALLSONGS  amyer chainsmokers 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 136) 
+
+
+Nov 12, 2018 4:58:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 137 SEARCHALLSONGS  amyer chainsmokers 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 137) 
+
+
+Nov 12, 2018 4:58:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 138 SEARCHALLSONGS  amyer chainsmokers 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 138) 
+
+
+Nov 12, 2018 4:58:00 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 139 SEARCHALLSONGS  amyer chainsmokers 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:00 PM application.Server log
+INFO: SENT MESSAGE (ID = 139) 
+
+
+Nov 12, 2018 4:58:05 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 140 SEARCHALLSONGS  amyer chainsmokers 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:05 PM application.Server log
+INFO: SENT MESSAGE (ID = 140) 
+
+
+Nov 12, 2018 4:58:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 141 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:06 PM application.Server log
+INFO: SENT MESSAGE (ID = 141) 
+
+
+Nov 12, 2018 4:58:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 142 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:06 PM application.Server log
+INFO: SENT MESSAGE (ID = 142) 
+
+
+Nov 12, 2018 4:58:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 143 SEARCHALLSONGS  amyer th 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:06 PM application.Server log
+INFO: SENT MESSAGE (ID = 143)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:07 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 144 SEARCHALLSONGS  amyer the 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:07 PM application.Server log
+INFO: SENT MESSAGE (ID = 144)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:07 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 145 SEARCHALLSONGS  amyer the 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:07 PM application.Server log
+INFO: SENT MESSAGE (ID = 145)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:07 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 146 SEARCHALLSONGS  amyer the  1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:07 PM application.Server log
+INFO: SENT MESSAGE (ID = 146)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 147 SEARCHALLSONGS  amyer the 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 147)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 148 SEARCHALLSONGS  amyer th 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 148)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 149 SEARCHALLSONGS  amyer t 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 149)  Africa; Toto; Toto IV; Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 150 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 150) 
+
+
+Nov 12, 2018 4:58:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 151 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 151) 
+
+
+Nov 12, 2018 4:58:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 152 SEARCHALLSONGS  amyer co 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 152)  Controller; Oingo Boing; Only A Lad; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 4:58:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 153 SEARCHALLSONGS  amyer co 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 153)  Controller; Oingo Boing; Only A Lad; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 4:58:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 154 SEARCHALLSONGS  amyer col 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 154)  Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 4:58:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 155 SEARCHALLSONGS  amyer colla 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:15 PM application.Server log
+INFO: SENT MESSAGE (ID = 155)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 156 SEARCHALLSONGS  amyer collag 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:15 PM application.Server log
+INFO: SENT MESSAGE (ID = 156)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 157 SEARCHALLSONGS  amyer collage 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:15 PM application.Server log
+INFO: SENT MESSAGE (ID = 157)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 158 SEARCHALLSONGS  amyer collage 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:15 PM application.Server log
+INFO: SENT MESSAGE (ID = 158)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 159 SEARCHALLSONGS  amyer collag 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 159)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 160 SEARCHALLSONGS  amyer colla 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 160)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:16 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 161 SEARCHALLSONGS  amyer coll 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 161)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 4:58:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 162 SEARCHALLSONGS  amyer col 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 162)  Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 4:58:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 163 SEARCHALLSONGS  amyer co 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 163)  Controller; Oingo Boing; Only A Lad; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 4:58:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 164 SEARCHALLSONGS  amyer c 1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 164)  Closer; The Chainsmokers; Collage; Closer; The Chainsmokers; Collage; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories;
+
+
+Nov 12, 2018 4:58:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 165 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 165) 
+
+
+Nov 12, 2018 4:58:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 166 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 4:58:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 166) 
+
+
+Nov 12, 2018 5:00:03 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 167 SEARCHALLSONGS  amyer p 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:04 PM application.Server log
+INFO: SENT MESSAGE (ID = 167)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:04 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 168 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:04 PM application.Server log
+INFO: SENT MESSAGE (ID = 168)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:04 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 169 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:04 PM application.Server log
+INFO: SENT MESSAGE (ID = 169)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:04 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 170 SEARCHALLSONGS  amyer pomp 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:04 PM application.Server log
+INFO: SENT MESSAGE (ID = 170)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 171 SEARCHALLSONGS  amyer pom 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 171)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 172 SEARCHALLSONGS  amyer po 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 172)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 173 SEARCHALLSONGS  amyer p 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 173)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 174 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 174) 
+
+
+Nov 12, 2018 5:00:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 175 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 175) 
+
+
+Nov 12, 2018 5:00:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 176 SEARCHALLSONGS  amyer th 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 176)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 5:00:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 177 SEARCHALLSONGS  amyer th 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 177)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 5:00:10 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 178 SEARCHALLSONGS  amyer the 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:10 PM application.Server log
+INFO: SENT MESSAGE (ID = 178)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 5:00:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 179 SEARCHALLSONGS  amyer th 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 179)  Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 5:00:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 180 SEARCHALLSONGS  amyer t 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 180)  Africa; Toto; Toto IV; Closer; The Chainsmokers; Collage;
+
+
+Nov 12, 2018 5:00:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 181 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 181) 
+
+
+Nov 12, 2018 5:00:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 182 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 182) 
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 183 SEARCHALLSONGS  amyer ba 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 183)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 184 SEARCHALLSONGS  amyer bas 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 184)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 185 SEARCHALLSONGS  amyer bast 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 185)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 186 SEARCHALLSONGS  amyer bast 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 186)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 187 SEARCHALLSONGS  amyer basti 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 187)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 188 SEARCHALLSONGS  amyer bast 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 188)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 189 SEARCHALLSONGS  amyer bas 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 189)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 190 SEARCHALLSONGS  amyer ba 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 190)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 191 SEARCHALLSONGS  amyer b 1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 191)  Pompeii; Bastille; All This Bad Blood;
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 192 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 192) 
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 193 SEARCHALLSONGS  amyer  1 /10.180.87.1
+
+
+Nov 12, 2018 5:00:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 193) 
+
+

@@ -86,24 +86,27 @@ public class Metadata {
 		if (fileName.equals("songs_inverted_index.json")) {
 			File file = getFile(fileName);
 			
+
+			
 			//iterate through file's chunks
 			for (int i = 0; i < file.getNumberOfChunks(); i++) {
 				
 				//get this chunk
 				Chunk chunk = file.getChunk(i);
+
 				
 				//get the chunks first and last items, this allows us to check if the search is in this chunk
 				Song first = gson.fromJson(chunk.getFirst(), Song.class);
 				Song last = gson.fromJson(chunk.getLast(), Song.class);
-				
+								
 				//if the search criteria is smaller than the title, let's just compare the first n letters of the title with the length n search
 				if (first.getTitle().length() > search.length() && last.getTitle().length() > search.length()) {
-					if (first.getTitle().substring(0, search.length()).compareTo(search) <= 0 && last.getTitle().substring(0, search.length()).compareTo(search) >= 0) {
+					if (first.getTitle().substring(0, search.length()).toLowerCase().compareTo(search) <= 0 && last.getTitle().substring(0, search.length()).toLowerCase().compareTo(search) >= 0) {
 						return chunk.getData();
 					}
 				//otherwise, we can't compare substrings, so let's just compare alphabetically now
 				} else {
-					if (first.getTitle().compareTo(search) <= 0 && last.getTitle().compareTo(search) >= 0) {
+					if (first.getTitle().toLowerCase().compareTo(search) <= 0 && last.getTitle().toLowerCase().compareTo(search) >= 0) {
 						return chunk.getData();
 					}
 				}
@@ -123,12 +126,12 @@ public class Metadata {
 				
 				//if the search criteria is smaller than the title, let's just compare the first n letters of the title with the length n search
 				if (first.getName().length() > search.length() && last.getName().length() > search.length()) {
-					if (first.getName().substring(0, search.length()).compareTo(search) <= 0 && last.getName().substring(0, search.length()).compareTo(search) >= 0) {
+					if (first.getName().substring(0, search.length()).toLowerCase().compareTo(search) <= 0 && last.getName().substring(0, search.length()).toLowerCase().compareTo(search) >= 0) {
 						return chunk.getData();
 					}
 				//otherwise, we can't compare substrings, so let's just compare alphabetically now
 				} else {
-					if (first.getName().compareTo(search) <= 0 && last.getName().compareTo(search) >= 0) {
+					if (first.getName().toLowerCase().compareTo(search) <= 0 && last.getName().toLowerCase().compareTo(search) >= 0) {
 						return chunk.getData();
 					}
 				}
@@ -136,7 +139,7 @@ public class Metadata {
 
 		} else if (fileName.equals("artists_inverted_index.json")){
 			File file = getFile(fileName);
-			
+						
 			//iterate through file's chunks
 			for (int i = 0; i < file.getNumberOfChunks(); i++) {
 				//get this chunk
@@ -148,12 +151,12 @@ public class Metadata {
 				
 				//if the search criteria is smaller than the title, let's just compare the first n letters of the title with the length n search
 				if (first.getName().length() > search.length() && last.getName().length() > search.length()) {
-					if (first.getName().substring(0, search.length()).compareTo(search) <= 0 && last.getName().substring(0, search.length()).compareTo(search) >= 0) {
+					if (first.getName().substring(0, search.length()).toLowerCase().compareTo(search) <= 0 && last.getName().substring(0, search.length()).toLowerCase().compareTo(search) >= 0) {
 						return chunk.getData();
 					}
 				//otherwise, we can't compare substrings, so let's just compare alphabetically now
 				} else {
-					if (first.getName().compareTo(search) <= 0 && last.getName().compareTo(search) >= 0) {
+					if (first.getName().toLowerCase().compareTo(search) <= 0 && last.getName().toLowerCase().compareTo(search) >= 0) {
 						return chunk.getData();
 					}
 				}
@@ -170,6 +173,7 @@ public class Metadata {
 	 * @return Returns instantiated metadata object.
 	 */
 	public static Metadata GetMetadata() {
+		
 		Gson gson = new Gson();
 		java.io.File file = new java.io.File("metadata.json");
 		
@@ -230,7 +234,7 @@ public class Metadata {
 				
 				//if this artist starts with the search criteria...
 				//YOU CAN CHANGE THIS LOGIC
-				if (artist.getName().startsWith(name)) {
+				if (artist.getName().toLowerCase().startsWith(name)) {
 					
 					ArrayList<Album> albums = artist.getSongs();
 					
@@ -267,7 +271,7 @@ public class Metadata {
 				
 				//if this album name starts with the search criteria...
 				//YOU CAN CHANGE THIS LOGIC
-				if (album.getName().startsWith(title)) {
+				if (album.getName().toLowerCase().startsWith(title)) {
 					
 					//return all the songs from this album
 					return album.getSongs();
@@ -297,7 +301,7 @@ public class Metadata {
 				
 				//if this song name starts with the search criteria...
 				//YOU CAN CHANGE THIS LOGIC
-				if (thisSong.getTitle().startsWith(title)) {
+				if (thisSong.getTitle().toLowerCase().startsWith(title)) {
 					return thisSong;
 				}
 			}
