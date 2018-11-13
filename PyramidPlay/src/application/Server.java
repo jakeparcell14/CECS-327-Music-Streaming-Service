@@ -196,94 +196,54 @@ public class Server {
 	 */
 	public static byte[] searchAllSongs(Message m) {
 		String userName=m.getArgs()[0];
-		ArrayList<Song> allSongs;
 		Playlist validSongs = new Playlist("valid");
-		try {
-			log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
-			allSongs = UserRepository.getAllSongs();
-			String query=m.getArgs()[1];
+		//add to log 
+		log(userName,"RECEIVED MESSAGE: "+m.toString()+"\n\n");
+		String query=m.getArgs()[1];
 
-
-			if (!query.isEmpty()) 
-			{
-				Metadata meta=Metadata.GetMetadata();
-				ArrayList<Song>temp;
-				ArrayList<Song>songsThatMatch=meta.getAlbum(query);
-				if(songsThatMatch!=null) {
-					songsThatMatch.removeAll(Collections.singleton(null));
+		if (!query.isEmpty()) 
+		{
+			Metadata meta=Metadata.GetMetadata();
+			ArrayList<Song>temp;
+			//add all the songs from an album that matches the query, if applies
+			ArrayList<Song>songsThatMatch=meta.getAlbum(query);
+			if(songsThatMatch!=null) {
+				// removes possible null values from the albums
+				songsThatMatch.removeAll(Collections.singleton(null));
+			}
+			//if null, return an empty song arraylist
+			else {
+				songsThatMatch=new ArrayList<Song>();
+			}
+			//gets songs from an artist that matches the query, if applicable
+			temp=meta.getArtist(query);
+			//if there is an artist that matches the query, add to arraylist
+			if(temp!=null) {
+				//removes possible null values
+				temp.removeAll(Collections.singleton(null));
+				songsThatMatch.addAll(temp);
+			}
+			//gets song that matches query, if applicable
+			Song t=meta.getSong(query);
+			// adds song to arraylist if not null
+			if(t!=null) {
+				songsThatMatch.add(0, t);
+			}
+			// if there is any songs that matched the query, add them to the valid songs playlist
+			if(songsThatMatch!=null) {
+				for(int i=0;i<songsThatMatch.size();i++) {
+					validSongs.addSong(songsThatMatch.get(i));
 				}
-				else {
-					songsThatMatch=new ArrayList<Song>();
-				}
-				temp=meta.getArtist(query);
-				if(temp!=null) {
-					temp.removeAll(Collections.singleton(null));
-					songsThatMatch.addAll(temp);
-				}
-				Song t=meta.getSong(query);
-				if(t!=null) {
-					songsThatMatch.add(0, t);
-				}
-				if(songsThatMatch!=null) {
-					for(int i=0;i<songsThatMatch.size();i++) {
-						validSongs.addSong(songsThatMatch.get(i));
-					}
-				}
-				/*
-				for (int i = 0; i < allSongs.size(); i++) {
-					if (validSongs.getSongs().size() <= 20) {
-						//checks if query matches the title of the current song
-						if (allSongs.get(i).getTitle() != null
-								&& allSongs.get(i).getTitle().length() >= query.length()) {
-							// the song title is at least as long as the query
-							if (allSongs.get(i).getTitle().substring(0, query.length()).toLowerCase()
-									.equals(query.toLowerCase())) {
-								//the query matches the song title
-								validSongs.addSong(allSongs.get(i));
-							}
-						}
-
-						//checks if query matches the album name of the current song
-						if (!validSongs.contains(allSongs.get(i).getTitle())) {
-							// the song has not been added to the list of valid songs yet
-							if (allSongs.get(i).getAlbum() != null
-									&& allSongs.get(i).getAlbum().length() >= query.length()) {
-								// the album name is at least as long as the query
-								if (allSongs.get(i).getAlbum().substring(0, query.length()).toLowerCase()
-										.equals(query.toLowerCase())) {
-									//the query matches the album name
-									validSongs.addSong(allSongs.get(i));
-								}
-							}
-						}
-
-						//checks if query matches the artist name of the current song
-						if (!validSongs.contains(allSongs.get(i).getTitle())) {
-							// the song has not been added to the list of valid songs yet
-							if (allSongs.get(i).getArtist() != null
-									&& allSongs.get(i).getArtist().length() >= query.length()) {
-								// the artist name is at least as long as the query
-								if (allSongs.get(i).getArtist().substring(0, query.length()).toLowerCase()
-										.equals(query.toLowerCase())) {
-									//the query matches the artist name
-									validSongs.addSong(allSongs.get(i));
-								}
-							}
-						}
-					}
-				} 
-			*/}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			}
 		}
 		String log_message="";
 		for(int i=0;i<validSongs.getLength();i++) {
 			log_message=log_message+" "+validSongs.getSongs().get(i).toString();
 		}
+		// add log
 		log(userName,"SENT MESSAGE (ID = " + m.getRequestID() + ") "+log_message+"\n\n");
+		//return byte array of songs that matched the query
 		return gson.toJson(validSongs.getSongs().toArray(new Song[validSongs.getSongs().size()])).getBytes();
-
 	}
 
 	/**
