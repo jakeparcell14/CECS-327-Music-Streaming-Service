@@ -2758,3 +2758,11 @@ Nov 12, 2018 5:00:14 PM application.Server log
 INFO: SENT MESSAGE (ID = 193) 
 
 
+Nov 12, 2018 7:15:41 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  amyer password 1 /10.30.1.14
+
+
+Nov 12, 2018 7:15:41 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+

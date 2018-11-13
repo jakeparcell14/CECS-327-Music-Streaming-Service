@@ -30,9 +30,14 @@ public class File {
 		return chunks.get(i);
 	}
 	
+	/**
+	 * 
+	 * @return Gets total number of chunks in this file.
+	 */
 	public int getNumberOfChunks() {
 		return chunks.size();
 	}
+	
 	/**
 	 * Gets this file's name.
 	 * @return Returns filename of this file.
@@ -58,7 +63,6 @@ public class File {
 			String[] firstLast = getFirstLast(content);
 			Chunk chunk = new Chunk(guid, firstLast[0], firstLast[1]);
 			
-			System.out.println("Adding chunk");
 			//add a new file to the chunk.
 			chunks.add(chunk);
 			

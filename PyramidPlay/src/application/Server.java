@@ -1,7 +1,5 @@
 package application;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,15 +11,12 @@ import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import com.google.gson.Gson;
-import com.sun.glass.ui.Window.Level;
 import java.util.Collections;
 
 import dfs.Metadata;
@@ -83,7 +78,7 @@ public class Server {
 	 */
 	public static class Handler extends Thread {
 		private Request req;
-		private DatagramSocket reqSocket;
+		private DatagramSocket reqSocket = null;
 		private Gson gson;
 
 		/**
@@ -844,7 +839,7 @@ public class Server {
 		}
 
 		// an exception was thrown
-		return null;
+		return new ArrayList<String>();
 	}
 
 	/**

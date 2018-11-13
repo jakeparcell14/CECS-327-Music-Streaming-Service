@@ -1,232 +1,28 @@
-Nov 12, 2018 10:55:53 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 0 REGISTER  Wesley Slates wslates password 1 /10.31.1.22
+Nov 12, 2018 7:40:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 90) [Work From Home; Fifth Harmony; 7/27;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;]
 
 
-Nov 12, 2018 10:55:53 AM application.Server log
-INFO: SENT MESSAGE (ID = 0) wslates
+Nov 12, 2018 7:40:33 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 91 ADDSONGTOPLAYLIST  wslates {"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.mp3","GUID":752470868} {"name":"My Playlist","songs":[{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.mp3","GUID":500649256},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.mp3","GUID":752470868},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.mp3","GUID":752470868},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.mp3","GUID":752470868}],"dateCreated":{"year":0,"month":0,"day":0}} 1 /10.30.1.14
 
 
-Nov 12, 2018 10:56:23 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  wslates t 1 /10.31.1.22
+Nov 12, 2018 7:40:33 PM application.Server log
+INFO: SENT MESSAGE (ID = 91) [Work From Home; Fifth Harmony; 7/27;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;]
 
 
-Nov 12, 2018 10:56:23 AM application.Server log
-INFO: SENT MESSAGE (ID = 1)  Africa; Toto; Toto IV; Closer; The Chainsmokers; Collage;
+Nov 12, 2018 7:40:35 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 92 ADDSONGTOPLAYLIST  wslates {"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.mp3","GUID":752470868} {"name":"My Playlist","songs":[{"title":"Work From Home","artist":"Fifth Harmony","album":"7/27","fileSource":"Fifth_Harmony_-_Work_from_Home_ft._Ty_Dolla.mp3","GUID":500649256},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.mp3","GUID":752470868},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.mp3","GUID":752470868},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.mp3","GUID":752470868},{"title":"Never Gonna Give You Up","artist":"Rick Astley","album":"Whenever You Need Somebody","fileSource":"RickAstley.mp3","GUID":752470868}],"dateCreated":{"year":0,"month":0,"day":0}} 1 /10.30.1.14
 
 
-Nov 12, 2018 10:56:23 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  wslates te 1 /10.31.1.22
+Nov 12, 2018 7:40:35 PM application.Server log
+INFO: SENT MESSAGE (ID = 92) [Work From Home; Fifth Harmony; 7/27;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;, Never Gonna Give You Up; Rick Astley; Whenever You Need Somebody;]
 
 
-Nov 12, 2018 10:56:23 AM application.Server log
-INFO: SENT MESSAGE (ID = 2) 
+Nov 12, 2018 7:57:56 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  wslates password 1 /10.30.1.14
 
 
-Nov 12, 2018 10:56:25 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  wslates t 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:25 AM application.Server log
-INFO: SENT MESSAGE (ID = 3)  Africa; Toto; Toto IV; Closer; The Chainsmokers; Collage;
-
-
-Nov 12, 2018 10:56:25 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  wslates  1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:25 AM application.Server log
-INFO: SENT MESSAGE (ID = 4) 
-
-
-Nov 12, 2018 10:56:25 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  wslates co 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:25 AM application.Server log
-INFO: SENT MESSAGE (ID = 5)  Controller; Oingo Boing; Only A Lad; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories; Closer; The Chainsmokers; Collage;
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  wslates co 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: SENT MESSAGE (ID = 6)  Controller; Oingo Boing; Only A Lad; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories; Closer; The Chainsmokers; Collage;
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 7 SEARCHALLSONGS  wslates cont 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: SENT MESSAGE (ID = 7)  Controller; Oingo Boing; Only A Lad;
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 8 SEARCHALLSONGS  wslates cont 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: SENT MESSAGE (ID = 8)  Controller; Oingo Boing; Only A Lad;
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 9 SEARCHALLSONGS  wslates contro 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: SENT MESSAGE (ID = 9)  Controller; Oingo Boing; Only A Lad;
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 10 SEARCHALLSONGS  wslates contro 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:26 AM application.Server log
-INFO: SENT MESSAGE (ID = 10)  Controller; Oingo Boing; Only A Lad;
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 12 SEARCHALLSONGS  wslates  1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: SENT MESSAGE (ID = 12) 
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 13 SEARCHALLSONGS  wslates o 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: SENT MESSAGE (ID = 13)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 14 SEARCHALLSONGS  wslates on 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: SENT MESSAGE (ID = 14)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 15 SEARCHALLSONGS  wslates onl 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: SENT MESSAGE (ID = 15)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 16 SEARCHALLSONGS  wslates only 1 /10.31.1.22
-
-
-Nov 12, 2018 10:56:58 AM application.Server log
-INFO: SENT MESSAGE (ID = 16)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
-
-
-Nov 12, 2018 10:59:08 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 18 SEARCHALLSONGS  wslates c 1 /10.31.1.22
-
-
-Nov 12, 2018 10:59:08 AM application.Server log
-INFO: SENT MESSAGE (ID = 18)  Controller; Oingo Boing; Only A Lad; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories; Closer; The Chainsmokers; Collage;
-
-
-Nov 12, 2018 10:59:09 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 19 SEARCHALLSONGS  wslates cap 1 /10.31.1.22
-
-
-Nov 12, 2018 10:59:09 AM application.Server log
-INFO: SENT MESSAGE (ID = 19) 
-
-
-Nov 12, 2018 10:59:09 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 20 SEARCHALLSONGS  wslates cap 1 /10.31.1.22
-
-
-Nov 12, 2018 10:59:09 AM application.Server log
-INFO: SENT MESSAGE (ID = 20) 
-
-
-Nov 12, 2018 10:59:11 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 21 SEARCHALLSONGS  wslates ca 1 /10.31.1.22
-
-
-Nov 12, 2018 10:59:11 AM application.Server log
-INFO: SENT MESSAGE (ID = 21) 
-
-
-Nov 12, 2018 10:59:12 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 22 SEARCHALLSONGS  wslates c 1 /10.31.1.22
-
-
-Nov 12, 2018 10:59:12 AM application.Server log
-INFO: SENT MESSAGE (ID = 22)  Controller; Oingo Boing; Only A Lad; Hymn For The Weekend; Coldplay; A Head Full of Dreams; A Sky Full Of Stars; Coldplay; Ghost Stories; Closer; The Chainsmokers; Collage;
-
-
-Nov 12, 2018 10:59:12 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 23 SEARCHALLSONGS  wslates  1 /10.31.1.22
-
-
-Nov 12, 2018 10:59:13 AM application.Server log
-INFO: SENT MESSAGE (ID = 23) 
-
-
-Nov 12, 2018 10:59:13 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 24 SEARCHALLSONGS  wslates o 1 /10.31.1.22
-
-
-Nov 12, 2018 10:59:13 AM application.Server log
-INFO: SENT MESSAGE (ID = 24)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
-
-
-Nov 12, 2018 10:59:13 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 25 SEARCHALLSONGS  wslates on 1 /10.31.1.22
-
-
-Nov 12, 2018 10:59:13 AM application.Server log
-INFO: SENT MESSAGE (ID = 25)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
-
-
-Nov 12, 2018 11:01:47 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 0 LOGIN  wslates password 1 /10.31.1.22
-
-
-Nov 12, 2018 11:01:47 AM application.Server log
+Nov 12, 2018 7:57:56 PM application.Server log
 INFO: SENT MESSAGE: VERIFIED
-
-
-Nov 12, 2018 11:02:01 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  wslates o 1 /10.31.1.22
-
-
-Nov 12, 2018 11:02:01 AM application.Server log
-INFO: SENT MESSAGE (ID = 0)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
-
-
-Nov 12, 2018 11:02:01 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  wslates on 1 /10.31.1.22
-
-
-Nov 12, 2018 11:02:01 AM application.Server log
-INFO: SENT MESSAGE (ID = 1)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
-
-
-Nov 12, 2018 11:02:02 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  wslates onl 1 /10.31.1.22
-
-
-Nov 12, 2018 11:02:02 AM application.Server log
-INFO: SENT MESSAGE (ID = 2)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
-
-
-Nov 12, 2018 11:02:02 AM application.Server log
-INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  wslates only 1 /10.31.1.22
-
-
-Nov 12, 2018 11:02:02 AM application.Server log
-INFO: SENT MESSAGE (ID = 3)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
 
 

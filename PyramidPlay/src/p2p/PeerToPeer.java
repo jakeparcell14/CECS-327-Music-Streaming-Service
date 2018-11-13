@@ -3,7 +3,6 @@ package p2p;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -45,12 +44,24 @@ public class PeerToPeer {
 
 	}
 	
+	/**
+	 * Singleton class instantiation. Returns single singleton object.
+	 * 
+	 * @return Returns Singleton PeerToPeer instance.
+	 */
 	public static PeerToPeer getInstance() {
 		if (instance == null ) 
 			instance = new PeerToPeer();
 		return instance;
 	}
 	
+	/**
+	 * Maps each peer to every other peer. 
+	 * 
+	 * Taken from TomP2P example.
+	 * 
+	 * @param peers Returns the peers, now interconnected. 
+	 */
     private void bootstrap( PeerDHT[] peers ) {
     	//loop through all peers
     	for(int i=0;i<peers.length;i++) {
@@ -61,15 +72,27 @@ public class PeerToPeer {
     	}
     }
     
+    /**
+     * Creates peers and attaches them together.
+     * 
+     * Taken from TomP2P example. (And then edited to store to disk rather than RAM.
+     * 
+     * @param nr Number of peers to create.
+     * @param port Port number for the peers to listen on.
+     * @return Returns array of peers.
+     * @throws IOException Throws IO exception if can't access disk.
+     */
     private PeerDHT[] createAndAttachPeersDHT( int nr, int port ) throws IOException {
         PeerDHT[] peers = new PeerDHT[nr];
         
+        //create path for peer to peer files
         Path path = Paths.get("p2p/tomp2p");
-        //create temporary directory
+        
         File file = path.toFile();
         
         //create disk object to store on disk
         StorageDisk disk = new StorageDisk(new Number160(DISK_GUID), file,  new RSASignatureFactory());
+        
         for ( int i = 0; i < nr; i++ ) {
             if ( i == 0 ) {
                 peers[0] = new PeerBuilderDHT(new PeerBuilder( new Number160( (i + 1) * GUID_STEP ) ).ports( port ).start()).storage(disk).start();
@@ -81,8 +104,14 @@ public class PeerToPeer {
         return peers;
     }
     
-    
-    
+    /**
+     * Puts data to a peer using the given guid.
+     * 
+     * @param data Data to be placed on peer
+     * @param guid GUID of peer.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void Put(Serializable data, int guid) 
             throws IOException, ClassNotFoundException {
     	/* In order to store data in TomP2P, the object needs to be wrapped with the Data class. 
@@ -98,6 +127,14 @@ public class PeerToPeer {
 
     }
     
+    /**
+     * Returns an object that was stored on a peer.
+     * 
+     * @param guid GUID of object that was stored.
+     * @return Returns object that was stored using that GUID.
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
     public Object Get(int guid) throws ClassNotFoundException, IOException {
     	FutureGet futureGet = master.get(new Number160(guid)).start();
         /* Since TomP2P uses non-blocking communication, a future object is used to keep track of future results. 
@@ -108,6 +145,9 @@ public class PeerToPeer {
     	return futureGet.data().object();
     }
     
+    /**
+     * Closes the tomp2p instance.
+     */
     public void close() {
     	if (master != null) {
     		master.shutdown();
