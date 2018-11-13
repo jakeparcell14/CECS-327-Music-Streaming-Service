@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import application.Album;
 import application.Artist;
 import application.Song;
-import net.tomp2p.dht.PeerDHT;
 
 public class Metadata {
 	private ArrayList<File> files = new ArrayList<File>();
