@@ -1,0 +1,64 @@
+Nov 30, 2018 2:17:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 REGISTER  Wesley Slates meow meow 1 /10.33.5.236
+
+
+Nov 30, 2018 2:17:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 0) meow
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  meow O 1 /10.33.5.236
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 0)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  meow O 1 /10.33.5.236
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad; Fireflies; Owl City; Ocean Eyes;
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  meow Oi 1 /10.33.5.236
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 2)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  meow Oin 1 /10.33.5.236
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 3)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  meow Oing 1 /10.33.5.236
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 4)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  meow Oingo 1 /10.33.5.236
+
+
+Nov 30, 2018 2:17:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 5)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Nov 30, 2018 2:18:18 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  meow meow 1 /10.33.5.236
+
+
+Nov 30, 2018 2:18:18 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
