@@ -84,13 +84,14 @@ public class Sorting {
 		public void run() {
 			map(fileName, chunk);
 		}
+	}
 
 	private File map(File file) {
 		return null;
 	}
 	
 
-	private static class Handler extends Thread
+	private class Handler extends Thread
 	{
 		private Chunk chunk;
 		private File f;
@@ -316,20 +317,4 @@ public class Sorting {
 			}
 		}	
 	}
-	
-	private File reduce(File file) {
-		return null;
-	}
-	
-	private void emitMap(Integer key, String value, Counter counter) {
-		
-	}
-	
-	private void addToMap(Map<Integer, List<String>> map, Integer key, String value, Counter counter) {
-		if (map.containsKey(key)) {
-			map.get(key).add(value);
-		} else {
-			map.put(key, new ArrayList<String>(Arrays.asList(value)));
-		}
-		
 }
