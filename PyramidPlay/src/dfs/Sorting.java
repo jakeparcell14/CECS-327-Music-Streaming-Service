@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import application.Song;
+import p2p.PeerToPeer;
 
 public class Sorting {
 	Map<Integer, List<String>> peer1Map = new TreeMap<Integer, List<String>>();
@@ -47,6 +48,35 @@ public class Sorting {
 		}
 		
 		counter.decrement();
+	}
+	
+	private void mapContext(Integer page, MapInterface mapper, Counter counter) {
+		PeerToPeer p2p = PeerToPeer.getInstance();
+		Chunk ch = (Chunk) p2p.Get(page);
+		
+		byte[] chunkByte = ch.getData();
+		
+		String[] song = new String(chunkByte).trim().split("\\r?\\n");
+		
+		int n = 0;
+		
+		for(int i = 0; i < song.length; i++) {
+		
+			String songLine = song[i];
+			
+			String[] songInfo = songLine.split(";");
+			
+			String key = songInfo[0];
+			
+			String value = songInfo[1] + ";" + songInfo[2] + ";" + songInfo[3];
+		
+			n++;
+		}
+		
+		
+		counter.increment(page, n);
+		
+		
 	}
 	
 	
