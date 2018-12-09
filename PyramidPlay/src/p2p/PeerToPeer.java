@@ -9,8 +9,10 @@ import java.nio.file.Paths;
 import net.tomp2p.connection.RSASignatureFactory;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.FuturePut;
+import net.tomp2p.dht.FutureRemove;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
+import net.tomp2p.dht.RemoveBuilder;
 import net.tomp2p.p2p.PeerBuilder;
 import net.tomp2p.peers.Number160;
 import net.tomp2p.storage.Data;
@@ -154,4 +156,8 @@ public class PeerToPeer {
         }
     }
 
+    public void remove(int guid) {
+    	FutureRemove futureRemove=master.remove(new Number160(guid)).start();
+    	futureRemove.awaitUninterruptibly();
+    }
 }
