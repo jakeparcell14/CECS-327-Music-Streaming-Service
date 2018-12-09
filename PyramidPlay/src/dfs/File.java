@@ -39,6 +39,20 @@ public class File {
 	}
 	
 	/**
+	 * Gets guids of all chunks in file
+	 * @return Returns an array of chunk guids
+	 */
+	public int[] getChunkGuids() {
+		int[] guids = new int[chunks.size()];
+		
+		for (int i = 0; i < chunks.size(); i++) {
+			guids[i] = chunks.get(i).getGUID();
+		}
+		
+		return guids;
+	}
+	
+	/**
 	 * Gets this file's name.
 	 * @return Returns filename of this file.
 	 */
