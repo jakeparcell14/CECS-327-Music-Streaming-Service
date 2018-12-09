@@ -1,8 +1,13 @@
 package dfs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import java.util.Iterator;
+
+import java.util.Collections;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,8 +16,10 @@ import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
+
 import application.Album;
 import application.Artist;
+
 import application.Song;
 import p2p.PeerToPeer;
 
@@ -64,6 +71,7 @@ public class Sorting {
 		return null;
 	}
 	
+
 	private class MapThread extends Thread {
 		private String fileName;
 		private Chunk chunk;
@@ -76,7 +84,89 @@ public class Sorting {
 		public void run() {
 			map(fileName, chunk);
 		}
+
+	private File map(File file) {
+		return null;
 	}
+	
+
+	private static class Handler extends Thread
+	{
+		private Chunk chunk;
+		private File f;
+		private Gson gson;
+
+		public Handler(File givenFile, Chunk c)
+		{
+			this.chunk = c;
+			this.f = givenFile;
+			gson = new Gson();
+		}
+
+		public void run()
+		{
+			//get the songs from a specific chunk
+			Song[] temp=gson.fromJson(new String(chunk.getData()).trim(), Song[].class);
+
+			ArrayList<Song> updatedSongs = new ArrayList<Song>();
+
+			for(int i = 0; i < temp.length; i++)
+			{
+				if(!updatedSongs.contains(temp[i]))
+				{
+					//song being tested is not a duplicate
+					updatedSongs.add(temp[i]);
+				}
+			}
+
+			//sort songs from chunk
+			Collections.sort(updatedSongs);
+
+			byte[] newChunk =  gson.toJson((Song[]) updatedSongs.toArray(new Song[updatedSongs.size()]), Song[].class).getBytes();
+
+			try 
+			{
+				//add reduced chunk to file
+				f.append(newChunk);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private File reduce(File file) {
+		//get chunks from file, get file data, add to treemap to remove duplicates, sort map, overwrite onto peer
+		File updatedFile = new File(file.getFileName());
+		Gson gson = new Gson();
+		
+		ArrayList<Handler> threads = new ArrayList<Handler>();
+
+		//reduce each chunk in its own thread
+		for(int i = 0; i < file.getNumberOfChunks(); i++)
+		{
+			Handler h = new Handler(updatedFile, file.getChunk(i));
+
+			threads.add(h);
+			
+			h.start();
+		}
+		
+		for(Handler thread : threads)
+		{
+			try 
+			{
+				thread.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return updatedFile;
+
+	}
+
 	
 	private void map(String fileName, Chunk chunk) {
 		ArrayList<Object> objs = (ArrayList<Object>) createObjects(new String (chunk.getData()), fileName);
@@ -109,6 +199,7 @@ public class Sorting {
 		return null;
 	}
 	
+
 	private TreeMap<String, List<Song>> createSongMap(String fileName, ArrayList<Song> obj) {
 		TreeMap<String, List<Song>> map = new TreeMap<String, List<Song>>();
 		
@@ -241,8 +332,4 @@ public class Sorting {
 			map.put(key, new ArrayList<String>(Arrays.asList(value)));
 		}
 		
-		counter.decrement();
-	}
-	
-	
 }
