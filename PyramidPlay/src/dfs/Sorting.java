@@ -24,9 +24,6 @@ import application.Song;
 import p2p.PeerToPeer;
 
 public class Sorting {
-	Map<Integer, List<String>> peer1Map = new TreeMap<Integer, List<String>>();
-	Map<Integer, List<String>> peer2Map = new TreeMap<Integer, List<String>>();
-	Map<Integer, List<String>> peer3Map = new TreeMap<Integer, List<String>>();
 	
 	private ArrayList<String> songs = new ArrayList<String>(Arrays.asList("", "", ""));
 	private ArrayList<String> albums = new ArrayList<String>(Arrays.asList("", "", ""));
