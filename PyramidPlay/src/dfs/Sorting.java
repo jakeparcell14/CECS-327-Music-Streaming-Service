@@ -90,66 +90,93 @@ public class Sorting {
 
 	private class Handler extends Thread
 	{
-		private Chunk chunk;
-		private File f;
-		private Gson gson;
+		private File file;
+		private String content;
+		private int id;
 
-		public Handler(File givenFile, Chunk c)
+		public Handler(File givenFile, String content, int id)
 		{
-			this.chunk = c;
-			this.f = givenFile;
-			gson = new Gson();
+			this.file = givenFile;
+			this.content = content;
+			this.id = id;
 		}
 
 		public void run()
 		{
-			//get the songs from a specific chunk
-			Song[] temp=gson.fromJson(new String(chunk.getData()).trim(), Song[].class);
-
-			ArrayList<Song> updatedSongs = new ArrayList<Song>();
-
-			for(int i = 0; i < temp.length; i++)
-			{
-				if(!updatedSongs.contains(temp[i]))
-				{
-					//song being tested is not a duplicate
-					updatedSongs.add(temp[i]);
+			ArrayList<String> arr = (ArrayList<String>) Arrays.asList(content.split("\n"));
+			Collections.sort(arr);
+			
+			for (int i = 0; i < arr.size(); i++) {
+				while (i+1 < arr.size()) {
+					if (arr.get(i).equals(arr.get(i+1))) {
+						arr.remove(i+1);
+					}
+					else {
+						break;
+					}
 				}
 			}
-
-			//sort songs from chunk
-			Collections.sort(updatedSongs);
-
-			byte[] newChunk =  gson.toJson((Song[]) updatedSongs.toArray(new Song[updatedSongs.size()]), Song[].class).getBytes();
-
-			try 
-			{
-				//add reduced chunk to file
-				f.append(newChunk);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			String sorted = "";
+			for (int i = 0; i < arr.size(); i++) {
+				sorted += arr.get(i) + "\n";
+			}
+			
+			//turn back into string and give back to arraylist
+			switch (file.getFileName()) {
+			case "songs_inverted_index.json":
+				songs.set(id, sorted);
+				break;
+			case "albums_inverted_index.json":
+				albums.set(id, sorted);
+				break;
+			case "artists_inverted_index.json":
+				artists.set(id, sorted);
 			}
 		}
 	}
-
-	private File reduce(File file) {
+	
+	private File reduce(File file, ArrayList<String> content) {
 		//get chunks from file, get file data, add to treemap to remove duplicates, sort map, overwrite onto peer
-		File updatedFile = new File(file.getFileName());
+		String fileName = file.getFileName();
+		File updatedFile = new File(fileName);
 		Gson gson = new Gson();
 		
 		ArrayList<Handler> threads = new ArrayList<Handler>();
 
 		//reduce each chunk in its own thread
-		for(int i = 0; i < file.getNumberOfChunks(); i++)
-		{
-			Handler h = new Handler(updatedFile, file.getChunk(i));
+		if (fileName.equals("songs_inverted_index.json")) {
+			for(int i = 0; i < content.size(); i++)
+			{
+				Handler h = new Handler(updatedFile, content.get(i), i);
 
-			threads.add(h);
-			
-			h.start();
+				threads.add(h);
+				
+				h.start();
+			}
+		}
+		else if (fileName.equals("albums_inverted_index.json")) {
+			for(int i = 0; i < content.size(); i++)
+			{
+				Handler h = new Handler(updatedFile, content.get(i), i);
+
+				threads.add(h);
+				
+				h.start();
+			}
+		}
+		else if (fileName.equals("artists_inverted_index.json")) {
+			for(int i = 0; i < content.size(); i++)
+			{
+				Handler h = new Handler(updatedFile, content.get(i), i);
+
+				threads.add(h);
+				
+				h.start();
+			}
 		}
 		
+		//join threads to put back into updated file
 		for(Handler thread : threads)
 		{
 			try 

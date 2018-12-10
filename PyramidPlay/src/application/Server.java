@@ -76,7 +76,7 @@ public class Server {
 	 * @author Matthew
 	 *
 	 */
-	public static class Handler extends Thread {
+	private static class Handler extends Thread {
 		private Request req;
 		private DatagramSocket reqSocket = null;
 		private Gson gson;
