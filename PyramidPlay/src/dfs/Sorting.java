@@ -65,6 +65,23 @@ public class Sorting {
 			System.out.println(s);
 		}
 		System.out.println("<<<<<DONE>>>>>");
+		
+		reduce(file);
+		
+		for (String s : songs) {
+			System.out.println(s);
+		}
+		System.out.println("Albums:");
+
+		for (String s : albums) {
+			System.out.println(s);
+		}
+		System.out.println("Artists:");
+
+		for (String s : artists) {
+			System.out.println(s);
+		}
+		
 		return null;
 	}
 	
@@ -103,7 +120,7 @@ public class Sorting {
 
 		public void run()
 		{
-			ArrayList<String> arr = (ArrayList<String>) Arrays.asList(content.split("\n"));
+			ArrayList<String> arr = new ArrayList<String>(Arrays.asList(content.split("\n")));
 			Collections.sort(arr);
 			
 			for (int i = 0; i < arr.size(); i++) {
@@ -124,19 +141,19 @@ public class Sorting {
 			
 			//turn back into string and give back to arraylist
 			switch (file.getFileName()) {
-			case "songs_inverted_index.json":
-				songs.set(id, sorted);
-				break;
-			case "albums_inverted_index.json":
-				albums.set(id, sorted);
-				break;
-			case "artists_inverted_index.json":
-				artists.set(id, sorted);
+				case "songs_inverted_index.json":
+					songs.set(id, sorted);
+					break;
+				case "albums_inverted_index.json":
+					albums.set(id, sorted);
+					break;
+				case "artists_inverted_index.json":
+					artists.set(id, sorted);
 			}
 		}
 	}
 	
-	private File reduce(File file, ArrayList<String> content) {
+	private File reduce(File file) {
 		//get chunks from file, get file data, add to treemap to remove duplicates, sort map, overwrite onto peer
 		String fileName = file.getFileName();
 		File updatedFile = new File(fileName);
@@ -146,9 +163,9 @@ public class Sorting {
 
 		//reduce each chunk in its own thread
 		if (fileName.equals("songs_inverted_index.json")) {
-			for(int i = 0; i < content.size(); i++)
+			for(int i = 0; i < songs.size(); i++)
 			{
-				Handler h = new Handler(updatedFile, content.get(i), i);
+				Handler h = new Handler(updatedFile, songs.get(i), i);
 
 				threads.add(h);
 				
@@ -156,9 +173,9 @@ public class Sorting {
 			}
 		}
 		else if (fileName.equals("albums_inverted_index.json")) {
-			for(int i = 0; i < content.size(); i++)
+			for(int i = 0; i < albums.size(); i++)
 			{
-				Handler h = new Handler(updatedFile, content.get(i), i);
+				Handler h = new Handler(updatedFile, albums.get(i), i);
 
 				threads.add(h);
 				
@@ -166,9 +183,9 @@ public class Sorting {
 			}
 		}
 		else if (fileName.equals("artists_inverted_index.json")) {
-			for(int i = 0; i < content.size(); i++)
+			for(int i = 0; i < artists.size(); i++)
 			{
-				Handler h = new Handler(updatedFile, content.get(i), i);
+				Handler h = new Handler(updatedFile, artists.get(i), i);
 
 				threads.add(h);
 				
