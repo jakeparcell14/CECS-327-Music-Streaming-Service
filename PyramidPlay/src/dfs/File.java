@@ -61,6 +61,22 @@ public class File {
 	}
 	
 	/**
+	 * Removes a chunk from this file and from the peer
+	 * 
+	 * @param guid GUID of chunk to remove.
+	 * @return Returns true if successfully removed, false if it wasn't found.
+	 */
+	public boolean removeChunk(int guid) {
+		if (chunks.stream().anyMatch( d -> d.getGUID() == guid)) {
+			PeerToPeer p2p = PeerToPeer.getInstance();
+			chunks.removeIf( d -> d.getGUID() == guid);
+			p2p.remove(guid);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Appends data to this file.
 	 * @param content
 	 * @throws IOException 

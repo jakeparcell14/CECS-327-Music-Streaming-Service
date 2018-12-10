@@ -50,6 +50,14 @@ public class Metadata {
 		
 	}
 	
+	public void RemoveAllFiles() {
+		files.clear();
+	}
+	
+	public void AddFile(File file) {
+		files.add(file);
+	}
+	
 	/**
 	 * Private helper method that gets a file of a specific name.
 	 * 

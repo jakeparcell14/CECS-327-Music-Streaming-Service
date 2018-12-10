@@ -19,7 +19,9 @@ import java.util.logging.SimpleFormatter;
 import com.google.gson.Gson;
 import java.util.Collections;
 
+import dfs.File;
 import dfs.Metadata;
+import dfs.Sorting;
 import p2p.PeerToPeer;
 
 
@@ -56,6 +58,25 @@ public class Server {
 			//instantiate a cache map
 			cache = new TreeMap<Integer, CachedSong>();
 
+			//get metadata and sorting object
+			Metadata md = Metadata.GetMetadata();
+			Sorting sort = new Sorting();
+			ArrayList<File> files = new ArrayList<File>();
+			
+			//iterate through files in metadata
+			for (int i = 0; i < md.ls().size(); i++) {
+				//map reduce to create new file
+				files.add(sort.mapReduce(md.ls().get(i)));
+			}
+			md.RemoveAllFiles();
+			
+			for (int i = 0; i< files.size(); i++) {
+				md.AddFile(files.get(i));
+			}
+			
+			//write new metadata
+			md.writeMetadata();
+			
 			while(true) {
 				Request req = getRequest();
         
@@ -106,15 +127,15 @@ public class Server {
 			Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
 
 			switch(msg.getProtocolID()) {
-			case 0:
-				break;
-			case 1:
-				try {
-					RequestReplyProtocol(msg, req);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				case 0:
+					break;
+				case 1:
+					try {
+						RequestReplyProtocol(msg, req);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 			}
 
@@ -204,10 +225,13 @@ public class Server {
 			ArrayList<Song>songsThatMatch=meta.getAlbum(query);
 			if(songsThatMatch!=null) {
 				// removes possible null values from the albums
+				System.out.println(songsThatMatch.size());
+
 				songsThatMatch.removeAll(Collections.singleton(null));
 			}
 			//if null, return an empty song arraylist
 			else {
+				System.out.println("null");
 				songsThatMatch=new ArrayList<Song>();
 			}
 			//gets songs from an artist that matches the query, if applicable
@@ -227,7 +251,10 @@ public class Server {
 			// if there is any songs that matched the query, add them to the valid songs playlist
 			if(songsThatMatch!=null) {
 				for(int i=0;i<songsThatMatch.size();i++) {
-					validSongs.addSong(songsThatMatch.get(i));
+					//ensure no repeats
+					if(!validSongs.getSongs().contains(songsThatMatch.get(i))) {
+						validSongs.addSong(songsThatMatch.get(i));
+					}
 				}
 			}
 		}

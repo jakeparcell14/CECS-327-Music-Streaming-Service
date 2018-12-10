@@ -1,0 +1,736 @@
+Dec 10, 2018 12:34:05 PM application.Server log
+INFO: SENT MESSAGE (ID = 51)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 52 SEARCHALLSONGS  tester1 only a la 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:06 PM application.Server log
+INFO: SENT MESSAGE (ID = 52)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 53 SEARCHALLSONGS  tester1 only a la 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:06 PM application.Server log
+INFO: SENT MESSAGE (ID = 53)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 54 SEARCHALLSONGS  tester1 only a lad 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:06 PM application.Server log
+INFO: SENT MESSAGE (ID = 54)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:06 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 55 SEARCHALLSONGS  tester1 only a la 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:06 PM application.Server log
+INFO: SENT MESSAGE (ID = 55)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:07 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 56 SEARCHALLSONGS  tester1 only a l 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:07 PM application.Server log
+INFO: SENT MESSAGE (ID = 56)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:07 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 57 SEARCHALLSONGS  tester1 only a  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:07 PM application.Server log
+INFO: SENT MESSAGE (ID = 57)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 58 SEARCHALLSONGS  tester1 only a 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 58)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 59 SEARCHALLSONGS  tester1 only  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 59)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 60 SEARCHALLSONGS  tester1 only 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 60)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 61 SEARCHALLSONGS  tester1 onl 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 61)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 62 SEARCHALLSONGS  tester1 on 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 62)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 63 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:08 PM application.Server log
+INFO: SENT MESSAGE (ID = 63)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:09 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 64 SEARCHALLSONGS  tester1  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 64) 
+
+
+Dec 10, 2018 12:34:09 PM application.Server log
+INFO: SENT MESSAGE (ID = 64) 
+
+
+Dec 10, 2018 12:34:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 65 SEARCHALLSONGS  tester1 ea 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 65)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 66 SEARCHALLSONGS  tester1 ear 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 66)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:11 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 67 SEARCHALLSONGS  tester1 ear 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:11 PM application.Server log
+INFO: SENT MESSAGE (ID = 67)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 68 SEARCHALLSONGS  tester1 earth 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 68)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 69 SEARCHALLSONGS  tester1 earth 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 69)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 70 SEARCHALLSONGS  tester1 eart 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 70)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 71 SEARCHALLSONGS  tester1 ear 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 71)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 72 SEARCHALLSONGS  tester1 ea 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 72)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 73 SEARCHALLSONGS  tester1 e 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:12 PM application.Server log
+INFO: SENT MESSAGE (ID = 73)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 74 SEARCHALLSONGS  tester1  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 74) 
+
+
+Dec 10, 2018 12:34:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 75 SEARCHALLSONGS  tester1  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 75) 
+
+
+Dec 10, 2018 12:34:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 76 SEARCHALLSONGS  tester1 se 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 76)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:13 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 77 SEARCHALLSONGS  tester1 se 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:13 PM application.Server log
+INFO: SENT MESSAGE (ID = 77)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 78 SEARCHALLSONGS  tester1 sep 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 78)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 79 SEARCHALLSONGS  tester1 sept 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 79)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 80 SEARCHALLSONGS  tester1 septe 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 80)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 81 SEARCHALLSONGS  tester1 septem 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 81)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 82 SEARCHALLSONGS  tester1 septe 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:14 PM application.Server log
+INFO: SENT MESSAGE (ID = 82)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 83 SEARCHALLSONGS  tester1 sept 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:15 PM application.Server log
+INFO: SENT MESSAGE (ID = 83)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 84 SEARCHALLSONGS  tester1 sep 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:15 PM application.Server log
+INFO: SENT MESSAGE (ID = 84)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 85 SEARCHALLSONGS  tester1 se 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:15 PM application.Server log
+INFO: SENT MESSAGE (ID = 85)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:15 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 86 SEARCHALLSONGS  tester1 s 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 86)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 86)  September; Earth, Wind, and Fire; September;
+
+
+Dec 10, 2018 12:34:16 PM application.Server log
+INFO: SENT MESSAGE (ID = 87) 
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 88 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 88)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 89 SEARCHALLSONGS  tester1 oi 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 89)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 90 SEARCHALLSONGS  tester1 oin 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 90)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 91 SEARCHALLSONGS  tester1 oing 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 91)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 92 SEARCHALLSONGS  tester1 oingo 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:17 PM application.Server log
+INFO: SENT MESSAGE (ID = 92)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 93 SEARCHALLSONGS  tester1 oing 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 93)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 94 SEARCHALLSONGS  tester1 oin 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 94)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:19 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 95 SEARCHALLSONGS  tester1 oi 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:19 PM application.Server log
+INFO: SENT MESSAGE (ID = 95)  Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; Only A Lad; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:21 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 96 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:21 PM application.Server log
+INFO: SENT MESSAGE (ID = 96)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 97 SEARCHALLSONGS  tester1 oo 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 97) 
+
+
+Dec 10, 2018 12:34:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 98 SEARCHALLSONGS  tester1 oon 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 98) 
+
+
+Dec 10, 2018 12:34:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 99 SEARCHALLSONGS  tester1 oonl 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 99) 
+
+
+Dec 10, 2018 12:34:25 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 100 SEARCHALLSONGS  tester1 oonly 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:25 PM application.Server log
+INFO: SENT MESSAGE (ID = 100) 
+
+
+Dec 10, 2018 12:34:26 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 101 SEARCHALLSONGS  tester1 oonly  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:26 PM application.Server log
+INFO: SENT MESSAGE (ID = 101) 
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 102 SEARCHALLSONGS  tester1 oonly 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 102) 
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 103 SEARCHALLSONGS  tester1 oonl 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 103) 
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 104 SEARCHALLSONGS  tester1 oon 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 104) 
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 105 SEARCHALLSONGS  tester1 oo 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 105) 
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 106 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 106)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 107 SEARCHALLSONGS  tester1  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:27 PM application.Server log
+INFO: SENT MESSAGE (ID = 107) 
+
+
+Dec 10, 2018 12:34:28 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 108 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:28 PM application.Server log
+INFO: SENT MESSAGE (ID = 108)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:28 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 109 SEARCHALLSONGS  tester1 on 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:28 PM application.Server log
+INFO: SENT MESSAGE (ID = 109)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 110 SEARCHALLSONGS  tester1 only 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 110)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 111 SEARCHALLSONGS  tester1 only 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 111)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 112 SEARCHALLSONGS  tester1 only  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 113 SEARCHALLSONGS  tester1 only a  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 113)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 114 SEARCHALLSONGS  tester1 only a  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 114)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 115 SEARCHALLSONGS  tester1 only a la 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 115)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 116 SEARCHALLSONGS  tester1 only a la 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:30 PM application.Server log
+INFO: SENT MESSAGE (ID = 116)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 117 SEARCHALLSONGS  tester1 only a lad 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:30 PM application.Server log
+INFO: SENT MESSAGE (ID = 117)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 118 SEARCHALLSONGS  tester1 only a la 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:30 PM application.Server log
+INFO: SENT MESSAGE (ID = 118)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:30 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 119 SEARCHALLSONGS  tester1 only a l 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:30 PM application.Server log
+INFO: SENT MESSAGE (ID = 119)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 120 SEARCHALLSONGS  tester1 only a  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: SENT MESSAGE (ID = 120)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 121 SEARCHALLSONGS  tester1 only a 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: SENT MESSAGE (ID = 121)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 122 SEARCHALLSONGS  tester1 only  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: SENT MESSAGE (ID = 122)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 123 SEARCHALLSONGS  tester1 only 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: SENT MESSAGE (ID = 123)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 124 SEARCHALLSONGS  tester1 onl 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: SENT MESSAGE (ID = 124)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 125 SEARCHALLSONGS  tester1 on 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:31 PM application.Server log
+INFO: SENT MESSAGE (ID = 125)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 126 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 126)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:34:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 127 SEARCHALLSONGS  tester1  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 127) 
+
+
+Dec 10, 2018 12:34:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 128 SEARCHALLSONGS  tester1  1 /10.13.10.6
+
+
+Dec 10, 2018 12:34:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 128) 
+
+
+Dec 10, 2018 12:35:14 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  tester1 p 1 /10.13.10.6
+
+
+Dec 10, 2018 12:35:14 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Dec 10, 2018 12:35:20 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:35:20 PM application.Server log
+INFO: SENT MESSAGE (ID = 0)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:35:24 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  tester1 on 1 /10.13.10.6
+
+
+Dec 10, 2018 12:35:24 PM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:38:43 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  tester1 p 1 /10.13.10.6
+
+
+Dec 10, 2018 12:38:43 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Dec 10, 2018 12:38:50 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:38:50 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:38:51 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:38:51 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:38:52 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:40:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 LOGIN  tester1 p 1 /10.13.10.6
+
+
+Dec 10, 2018 12:40:29 PM application.Server log
+INFO: SENT MESSAGE: VERIFIED
+
+
+Dec 10, 2018 12:40:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 0 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:40:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 0)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:40:35 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 1 SEARCHALLSONGS  tester1 on 1 /10.13.10.6
+
+
+Dec 10, 2018 12:40:35 PM application.Server log
+INFO: SENT MESSAGE (ID = 1)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:41:28 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 2 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:41:28 PM application.Server log
+INFO: SENT MESSAGE (ID = 2)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:41:29 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 3 SEARCHALLSONGS  tester1  1 /10.13.10.6
+
+
+Dec 10, 2018 12:41:29 PM application.Server log
+INFO: SENT MESSAGE (ID = 3) 
+
+
+Dec 10, 2018 12:41:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 4 SEARCHALLSONGS  tester1 o 1 /10.13.10.6
+
+
+Dec 10, 2018 12:41:31 PM application.Server log
+INFO: SENT MESSAGE (ID = 4)  Only A Lad; Oingo Boingo; Only A Lad; Controller; Oingo Boing; Only A Lad; Imposter; Oingo Boingo; Only A Lad; Nasty Habits; Oingo Boingo; Only A Lad; What You See; Oingo Boingo; Only A Lad; You Really Got Me; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:41:31 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 5 SEARCHALLSONGS  tester1 on 1 /10.13.10.6
+
+
+Dec 10, 2018 12:41:31 PM application.Server log
+INFO: SENT MESSAGE (ID = 5)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
+Dec 10, 2018 12:41:32 PM application.Server log
+INFO: RECEIVED MESSAGE: 1 6 SEARCHALLSONGS  tester1 onl 1 /10.13.10.6
+
+
+Dec 10, 2018 12:41:32 PM application.Server log
+INFO: SENT MESSAGE (ID = 6)  Only A Lad; Oingo Boingo; Only A Lad;
+
+
