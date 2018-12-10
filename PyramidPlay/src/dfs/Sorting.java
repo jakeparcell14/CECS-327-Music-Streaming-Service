@@ -3,88 +3,103 @@ package dfs;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import java.util.Iterator;
-
 import java.util.Collections;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-
 import com.google.gson.Gson;
-
-
 import application.Album;
 import application.Artist;
-
 import application.Song;
 import p2p.PeerToPeer;
 
 public class Sorting {
-	
+
 	private ArrayList<String> songs = new ArrayList<String>(Arrays.asList("", "", ""));
 	private ArrayList<String> albums = new ArrayList<String>(Arrays.asList("", "", ""));
 	private ArrayList<String> artists = new ArrayList<String>(Arrays.asList("", "", ""));
 
-	
+
 	public File mapReduce (File file) {
+		File newFile = new File(file.getFileName());
+		System.out.println("FILE NAME: " + file.getFileName());
+		map(file);
+		reduce(file);
+
+		System.out.println("<<<<<MAP REDUCE DONE>>>>>");
+		System.out.println("songs: ");
+		for (String i : songs) {
+			System.out.println(i);
+		}
+
+		System.out.println("albums: ");
+		for (String i : albums) {
+			System.out.println(i);
+		}
+
+		System.out.println("artists: ");
+
+		for (String i : artists) {
+			System.out.println(i);
+		}
+
+
+		for (int i = 0; i < file.getChunkGuids().length; i++) {
+
+			file.removeChunk(file.getChunkGuids()[i]);
+
+		}
+
+
+		try {
+			if (file.getFileName().equals("songs_inverted_index.json")) {
+				for (int i = 0; i < songs.size(); i++) { 
+					if (!songs.get(i).isEmpty())
+						newFile.append(songs.get(i).getBytes());
+				}
+			} else if (file.getFileName().equals("albums_inverted_index.json")) {
+				for (int i = 0; i < albums.size(); i++) { 
+					if (!albums.get(i).isEmpty())
+						newFile.append(albums.get(i).getBytes());
+				}
+			} else if (file.getFileName().equals("artists_inverted_index.json")) {
+				for (int i = 0; i < artists.size(); i++) {
+					if (!artists.get(i).replace("\n", "").isEmpty())
+						newFile.append(artists.get(i).getBytes());
+				}				}	
+		} catch (IOException e) {
+
+		}
+
+
+		return newFile;
+	}
+
+
+
+	private void map(File file) {
 		ArrayList<Thread> threads = new ArrayList<Thread>(3);
-		
+
 		for (int i = 0; i<file.getNumberOfChunks(); i++) {
 			MapThread thread = new MapThread(file.getFileName(), file.getChunk(i));
 			threads.add(thread);
 		}
-		
+
 		for (Thread t : threads) {
 			t.start();
 		}
-		
+
 		for (Thread t : threads) {
 			try {
 				t.join();
-				t.interrupt();
 			} catch (InterruptedException e) {
-				
+
 			}
 		}
-		System.out.println("Songs:" + songs.size());
-		for (String s : songs) {
-			System.out.println(s);
-		}
-		System.out.println("Albums:");
-
-		for (String s : albums) {
-			System.out.println(s);
-		}
-		System.out.println("Artists:");
-
-		for (String s : artists) {
-			System.out.println(s);
-		}
-		System.out.println("<<<<<DONE>>>>>");
-		
-		reduce(file);
-		
-		for (String s : songs) {
-			System.out.println(s);
-		}
-		System.out.println("Albums:");
-
-		for (String s : albums) {
-			System.out.println(s);
-		}
-		System.out.println("Artists:");
-
-		for (String s : artists) {
-			System.out.println(s);
-		}
-		
-		return null;
 	}
-	
 
 	private class MapThread extends Thread {
 		private String fileName;
@@ -99,11 +114,6 @@ public class Sorting {
 			map(fileName, chunk);
 		}
 	}
-
-	private File map(File file) {
-		return null;
-	}
-	
 
 	private class Handler extends Thread
 	{
@@ -122,7 +132,7 @@ public class Sorting {
 		{
 			ArrayList<String> arr = new ArrayList<String>(Arrays.asList(content.split("\n")));
 			Collections.sort(arr);
-			
+
 			for (int i = 0; i < arr.size(); i++) {
 				while (i+1 < arr.size()) {
 					if (arr.get(i).equals(arr.get(i+1))) {
@@ -133,32 +143,32 @@ public class Sorting {
 					}
 				}
 			}
-			
+
 			String sorted = "";
 			for (int i = 0; i < arr.size(); i++) {
 				sorted += arr.get(i) + "\n";
 			}
-			
+
 			//turn back into string and give back to arraylist
 			switch (file.getFileName()) {
-				case "songs_inverted_index.json":
-					songs.set(id, sorted);
-					break;
-				case "albums_inverted_index.json":
-					albums.set(id, sorted);
-					break;
-				case "artists_inverted_index.json":
-					artists.set(id, sorted);
+			case "songs_inverted_index.json":
+				songs.set(id, sorted);
+				break;
+			case "albums_inverted_index.json":
+				albums.set(id, sorted);
+				break;
+			case "artists_inverted_index.json":
+				artists.set(id, sorted);
 			}
 		}
 	}
-	
+
 	private File reduce(File file) {
 		//get chunks from file, get file data, add to treemap to remove duplicates, sort map, overwrite onto peer
 		String fileName = file.getFileName();
 		File updatedFile = new File(fileName);
 		Gson gson = new Gson();
-		
+
 		ArrayList<Handler> threads = new ArrayList<Handler>();
 
 		//reduce each chunk in its own thread
@@ -168,7 +178,7 @@ public class Sorting {
 				Handler h = new Handler(updatedFile, songs.get(i), i);
 
 				threads.add(h);
-				
+
 				h.start();
 			}
 		}
@@ -178,7 +188,7 @@ public class Sorting {
 				Handler h = new Handler(updatedFile, albums.get(i), i);
 
 				threads.add(h);
-				
+
 				h.start();
 			}
 		}
@@ -188,11 +198,11 @@ public class Sorting {
 				Handler h = new Handler(updatedFile, artists.get(i), i);
 
 				threads.add(h);
-				
+
 				h.start();
 			}
 		}
-		
+
 		//join threads to put back into updated file
 		for(Handler thread : threads)
 		{
@@ -209,10 +219,10 @@ public class Sorting {
 
 	}
 
-	
+
 	private void map(String fileName, Chunk chunk) {
 		ArrayList<Object> objs = (ArrayList<Object>) createObjects(new String (chunk.getData()), fileName);
-		
+
 		if (fileName.equals("songs_inverted_index.json")) {
 			ArrayList<Song> songs = (ArrayList<Song>) objs.stream().map(e -> (Song) e).collect(Collectors.toList());
 			emitSong(createSongMap(fileName, songs));
@@ -224,10 +234,10 @@ public class Sorting {
 			emitArtist(createArtistMap(fileName, artists));
 		}
 	}
-	
+
 	private List<Object> createObjects(String json, String fileName) {
 		Gson gson = new Gson();
-		
+
 		ArrayList<String> strs = new ArrayList<String>(Arrays.asList(json.split("\\r?\\n")));
 
 		if (fileName.equals("songs_inverted_index.json")) {
@@ -237,14 +247,14 @@ public class Sorting {
 		} else if (fileName.equals("artists_inverted_index.json")) {
 			return strs.stream().map(d -> gson.fromJson(d, Artist.class)).collect(Collectors.toList());
 		}
-		
+
 		return null;
 	}
-	
+
 
 	private TreeMap<String, List<Song>> createSongMap(String fileName, ArrayList<Song> obj) {
 		TreeMap<String, List<Song>> map = new TreeMap<String, List<Song>>();
-		
+
 		for (Song song : obj) {
 			if (map.containsKey(song.getTitle())) {
 				map.get(song.getTitle()).add(song);
@@ -252,13 +262,13 @@ public class Sorting {
 				map.put(song.getTitle(), new ArrayList<Song>(Arrays.asList(song)));
 			}
 		}
-		
+
 		return map;
 	}
-	
+
 	private TreeMap<String, List<Album>> createAlbumMap(String fileName, ArrayList<Album> obj) {
 		TreeMap<String, List<Album>> map = new TreeMap<String, List<Album>>();
-		
+
 		for (Album album : obj) {
 			if (map.containsKey(album.getName())) {
 				map.get(album.getName()).add(album);
@@ -266,13 +276,13 @@ public class Sorting {
 				map.put(album.getName(), new ArrayList<Album>(Arrays.asList(album)));
 			}
 		}
-		
+
 		return map;
 	}
-	
+
 	private TreeMap<String, List<Artist>> createArtistMap(String fileName, ArrayList<Artist> obj) {
 		TreeMap<String, List<Artist>> map = new TreeMap<String, List<Artist>>();
-		
+
 		for (Artist artist : obj) {
 			if (map.containsKey(artist.getName())) {
 				map.get(artist.getName()).add(artist);
@@ -280,12 +290,12 @@ public class Sorting {
 				map.put(artist.getName(), new ArrayList<Artist>(Arrays.asList(artist)));
 			}
 		}
-		
+
 		return map;
 	}
-	
-	
-	
+
+
+
 	private void emitSong(TreeMap<String, List<Song>> map) {
 		Iterator<Entry<String, List<Song>>> iter = map.entrySet().iterator();
 		Gson gson = new Gson();
@@ -294,7 +304,7 @@ public class Sorting {
 			String value = pair.getKey();
 			for (Song song : pair.getValue()) {
 				if (value.compareTo("A") >= 0 && value.compareTo("L") <= 0) {
-					
+
 					String temp = songs.get(0);
 					temp += gson.toJson(song, Song.class) + "\n";
 					songs.set(0, temp);
@@ -310,7 +320,7 @@ public class Sorting {
 			}
 		}	
 	}
-	
+
 	private void emitAlbum(TreeMap<String, List<Album>> map) {
 		Iterator<Entry<String, List<Album>>> iter = map.entrySet().iterator();
 		Gson gson = new Gson();
@@ -334,7 +344,7 @@ public class Sorting {
 			}
 		}	
 	}
-	
+
 	private void emitArtist(TreeMap<String, List<Artist>> map) {
 		Iterator<Entry<String, List<Artist>>> iter = map.entrySet().iterator();
 		Gson gson = new Gson();

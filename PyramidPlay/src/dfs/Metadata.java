@@ -50,8 +50,8 @@ public class Metadata {
 		
 	}
 	
-	public void RemoveFile(String fileName) {
-		files.removeIf(file -> file.getFileName().equals(fileName));
+	public void RemoveAllFiles() {
+		files.clear();
 	}
 	
 	public void AddFile(File file) {

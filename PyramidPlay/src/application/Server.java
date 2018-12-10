@@ -61,17 +61,17 @@ public class Server {
 			//get metadata and sorting object
 			Metadata md = Metadata.GetMetadata();
 			Sorting sort = new Sorting();
+			ArrayList<File> files = new ArrayList<File>();
 			
 			//iterate through files in metadata
 			for (int i = 0; i < md.ls().size(); i++) {
 				//map reduce to create new file
-				File newFile = sort.mapReduce(md.ls().get(i));
-				
-				//remove file from metadata
-				md.RemoveFile(md.ls().get(i).getFileName());
-				
-				//add file to metadata
-				md.AddFile(newFile);
+				files.add(sort.mapReduce(md.ls().get(i)));
+			}
+			md.RemoveAllFiles();
+			
+			for (int i = 0; i< files.size(); i++) {
+				md.AddFile(files.get(i));
 			}
 			
 			//write new metadata
@@ -225,10 +225,13 @@ public class Server {
 			ArrayList<Song>songsThatMatch=meta.getAlbum(query);
 			if(songsThatMatch!=null) {
 				// removes possible null values from the albums
+				System.out.println(songsThatMatch.size());
+
 				songsThatMatch.removeAll(Collections.singleton(null));
 			}
 			//if null, return an empty song arraylist
 			else {
+				System.out.println("null");
 				songsThatMatch=new ArrayList<Song>();
 			}
 			//gets songs from an artist that matches the query, if applicable
@@ -248,7 +251,10 @@ public class Server {
 			// if there is any songs that matched the query, add them to the valid songs playlist
 			if(songsThatMatch!=null) {
 				for(int i=0;i<songsThatMatch.size();i++) {
-					validSongs.addSong(songsThatMatch.get(i));
+					//ensure no repeats
+					if(!validSongs.getSongs().contains(songsThatMatch.get(i))) {
+						validSongs.addSong(songsThatMatch.get(i));
+					}
 				}
 			}
 		}
