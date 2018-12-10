@@ -50,6 +50,14 @@ public class Metadata {
 		
 	}
 	
+	public void RemoveFile(String fileName) {
+		files.removeIf(file -> file.getFileName().equals(fileName));
+	}
+	
+	public void AddFile(File file) {
+		files.add(file);
+	}
+	
 	/**
 	 * Private helper method that gets a file of a specific name.
 	 * 

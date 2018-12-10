@@ -19,7 +19,9 @@ import java.util.logging.SimpleFormatter;
 import com.google.gson.Gson;
 import java.util.Collections;
 
+import dfs.File;
 import dfs.Metadata;
+import dfs.Sorting;
 import p2p.PeerToPeer;
 
 
@@ -56,6 +58,25 @@ public class Server {
 			//instantiate a cache map
 			cache = new TreeMap<Integer, CachedSong>();
 
+			//get metadata and sorting object
+			Metadata md = Metadata.GetMetadata();
+			Sorting sort = new Sorting();
+			
+			//iterate through files in metadata
+			for (int i = 0; i < md.ls().size(); i++) {
+				//map reduce to create new file
+				File newFile = sort.mapReduce(md.ls().get(i));
+				
+				//remove file from metadata
+				md.RemoveFile(md.ls().get(i).getFileName());
+				
+				//add file to metadata
+				md.AddFile(newFile);
+			}
+			
+			//write new metadata
+			md.writeMetadata();
+			
 			while(true) {
 				Request req = getRequest();
         
@@ -106,15 +127,15 @@ public class Server {
 			Message msg = gson.fromJson(new String(req.data).trim(), Message.class);
 
 			switch(msg.getProtocolID()) {
-			case 0:
-				break;
-			case 1:
-				try {
-					RequestReplyProtocol(msg, req);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				case 0:
+					break;
+				case 1:
+					try {
+						RequestReplyProtocol(msg, req);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 
 			}
 
