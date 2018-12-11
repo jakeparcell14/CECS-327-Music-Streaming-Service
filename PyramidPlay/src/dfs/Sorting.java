@@ -22,6 +22,7 @@ import p2p.PeerToPeer;
  *
  */
 public class Sorting {
+	static private Object lock = new Object();
 	/**
 	 * list that determines which songs will be stored ini which peer
 	 */
@@ -151,7 +152,9 @@ public class Sorting {
 		}
 		@Override
 		public void run() {
-			map(fileName, chunk);
+			synchronized (lock) {
+				map(fileName, chunk);
+			}
 		}
 	}
 	
@@ -386,6 +389,10 @@ public class Sorting {
 			Map.Entry<String, List<Song>> pair = (Map.Entry<String, List<Song>>) iter.next();
 			String value = pair.getKey();
 			for (Song song : pair.getValue()) {
+				System.out.println(pair.getKey() + " " + pair.getValue());
+				System.out.println(value.compareTo("A") >= 0 && value.compareTo("L") <= 0);
+				System.out.println(value.compareTo("M") >= 0 && value.compareTo("X") <=0);
+				System.out.println();
 				if (value.compareTo("A") >= 0 && value.compareTo("L") <= 0) {
 
 					String temp = songs.get(0);
@@ -401,7 +408,9 @@ public class Sorting {
 					songs.set(2, temp);
 				}
 			}
-		}	
+		}
+		
+		System.out.println(songs);
 	}
 
 	/**
