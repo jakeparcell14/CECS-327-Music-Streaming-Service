@@ -16,13 +16,30 @@ import application.Artist;
 import application.Song;
 import p2p.PeerToPeer;
 
+/**
+ * 
+ * abstraction that contains the map and reduce methods for the distributed hash table
+ *
+ */
 public class Sorting {
-
+	/**
+	 * list that determines which songs will be stored ini which peer
+	 */
 	private ArrayList<String> songs = new ArrayList<String>(Arrays.asList("", "", ""));
+	/**
+	 * list that determines which albums will be stored in which peer
+	 */
 	private ArrayList<String> albums = new ArrayList<String>(Arrays.asList("", "", ""));
+	/**
+	 * list that determines which artists will be stored in which peer
+	 */
 	private ArrayList<String> artists = new ArrayList<String>(Arrays.asList("", "", ""));
 
-
+	/**
+	 * ties together the map and reduce functions and creates the new inverted index
+	 * @param file the file to map and reduce
+	 * @return the new file that has been mapped and 0reduced
+	 */
 	public File mapReduce (File file) {
 		File newFile = new File(file.getFileName());
 		System.out.println("FILE NAME: " + file.getFileName());
@@ -79,7 +96,10 @@ public class Sorting {
 	}
 
 
-
+	/**
+	 * map function for the distributed hash table. implements multithreading to send chunks to the correct peers
+	 * @param file the file chosen to map
+	 */
 	private void map(File file) {
 		ArrayList<Thread> threads = new ArrayList<Thread>(3);
 
@@ -100,7 +120,9 @@ public class Sorting {
 			}
 		}
 	}
-
+	/**
+	 * thread to map the files
+	 */
 	private class MapThread extends Thread {
 		private String fileName;
 		private Chunk chunk;
@@ -114,7 +136,11 @@ public class Sorting {
 			map(fileName, chunk);
 		}
 	}
-
+	
+	/**
+	 * 
+	 *
+	 */
 	private class Handler extends Thread
 	{
 		private File file;
