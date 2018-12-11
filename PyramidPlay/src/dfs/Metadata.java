@@ -109,6 +109,7 @@ public class Metadata {
 				//if the search criteria is smaller than the title, let's just compare the first n letters of the title with the length n search
 				if (first.getTitle().length() > search.length() && last.getTitle().length() > search.length()) {
 					if (first.getTitle().substring(0, search.length()).toLowerCase().compareTo(search) <= 0 && last.getTitle().substring(0, search.length()).toLowerCase().compareTo(search) >= 0) {
+						
 						return chunk.getData();
 					}
 				//otherwise, we can't compare substrings, so let's just compare alphabetically now
@@ -133,7 +134,7 @@ public class Metadata {
 				
 				//if the search criteria is smaller than the title, let's just compare the first n letters of the title with the length n search
 				if (first.getName().length() > search.length() && last.getName().length() > search.length()) {
-					if (first.getName().substring(0, search.length()).toLowerCase().compareTo(search) <= 0 && last.getName().substring(0, search.length()).toLowerCase().compareTo(search) >= 0) {
+					if (first.getName().substring(0, search.length()).toLowerCase().compareTo(search.toLowerCase()) <= 0 && last.getName().substring(0, search.length()).toLowerCase().compareTo(search.toLowerCase()) >= 0) {
 						return chunk.getData();
 					}
 				//otherwise, we can't compare substrings, so let's just compare alphabetically now
