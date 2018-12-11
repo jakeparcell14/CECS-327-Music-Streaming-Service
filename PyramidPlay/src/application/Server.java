@@ -76,7 +76,7 @@ public class Server {
 			
 			//write new metadata
 			md.writeMetadata();
-			
+			System.out.println("done");
 			while(true) {
 				Request req = getRequest();
         

@@ -45,24 +45,6 @@ public class Sorting {
 		File newFile = new File(file.getFileName());
 		System.out.println("FILE NAME: " + file.getFileName());
 		map(file);
-		
-		System.out.println("<<<<<MAP DONE>>>>>");
-		System.out.println("songs: ");
-		for (String i : songs) {
-			System.out.println(i);
-		}
-
-		System.out.println("albums: ");
-		for (String i : albums) {
-			System.out.println(i);
-		}
-
-		System.out.println("artists: ");
-
-		for (String i : artists) {
-			System.out.println(i);
-		}
-		
 		reduce(file);
 
 		System.out.println("<<<<<MAP REDUCE DONE>>>>>");
@@ -389,10 +371,6 @@ public class Sorting {
 			Map.Entry<String, List<Song>> pair = (Map.Entry<String, List<Song>>) iter.next();
 			String value = pair.getKey();
 			for (Song song : pair.getValue()) {
-				System.out.println(pair.getKey() + " " + pair.getValue());
-				System.out.println(value.compareTo("A") >= 0 && value.compareTo("L") <= 0);
-				System.out.println(value.compareTo("M") >= 0 && value.compareTo("X") <=0);
-				System.out.println();
 				if (value.compareTo("A") >= 0 && value.compareTo("L") <= 0) {
 
 					String temp = songs.get(0);
