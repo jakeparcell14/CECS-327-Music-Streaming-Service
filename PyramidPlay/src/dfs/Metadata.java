@@ -50,10 +50,17 @@ public class Metadata {
 		
 	}
 	
+	/**
+	 * Empties the ArrayList containing files
+	 */
 	public void RemoveAllFiles() {
 		files.clear();
 	}
 	
+	/**
+	 * Adds a file to the ArrayList
+	 * @param file		File to be added
+	 */
 	public void AddFile(File file) {
 		files.add(file);
 	}
