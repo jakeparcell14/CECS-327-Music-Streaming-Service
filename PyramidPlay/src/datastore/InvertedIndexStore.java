@@ -19,9 +19,19 @@ public class InvertedIndexStore {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//writeSongs();
+		//Metadata md = new Metadata();
+		//Metadata md = Metadata.GetMetadata();
+		//Song song = md.getSong("Never");
+		//System.out.println(song);
+		writeSongs();
 		Metadata md = Metadata.GetMetadata();
-		Song song = md.getSong("Never");
-		System.out.println(song);
+		writeArtists(md);
+		md = Metadata.GetMetadata();
+		writeAlbums(md);
+		
+		//Song song = md.getSong("Nasty");
+		//System.out.println(song);
+		/*
 		System.out.println();
 		ArrayList<Song> songs = md.getAlbum("Only");
 		for (int i = 0; i < songs.size(); i++) {
@@ -35,6 +45,7 @@ public class InvertedIndexStore {
 		for (int i = 0; i < artistsongs.size(); i++) {
 			System.out.println(artistsongs.get(i));
 		}
+		*/
 		PeerToPeer.getInstance().close();
 	}
 	

@@ -44,6 +44,24 @@ public class Sorting {
 		File newFile = new File(file.getFileName());
 		System.out.println("FILE NAME: " + file.getFileName());
 		map(file);
+		
+		System.out.println("<<<<<MAP DONE>>>>>");
+		System.out.println("songs: ");
+		for (String i : songs) {
+			System.out.println(i);
+		}
+
+		System.out.println("albums: ");
+		for (String i : albums) {
+			System.out.println(i);
+		}
+
+		System.out.println("artists: ");
+
+		for (String i : artists) {
+			System.out.println(i);
+		}
+		
 		reduce(file);
 
 		System.out.println("<<<<<MAP REDUCE DONE>>>>>");
@@ -264,6 +282,7 @@ public class Sorting {
 	 * @param chunk to be mapped
 	 */
 	private void map(String fileName, Chunk chunk) {
+		System.out.println(new String(chunk.getData()));
 		ArrayList<Object> objs = (ArrayList<Object>) createObjects(new String (chunk.getData()), fileName);
 
 		if (fileName.equals("songs_inverted_index.json")) {
