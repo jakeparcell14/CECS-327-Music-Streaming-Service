@@ -138,8 +138,7 @@ public class Sorting {
 	}
 	
 	/**
-	 * 
-	 *
+	 * handler to sort file
 	 */
 	private class Handler extends Thread
 	{
@@ -147,13 +146,22 @@ public class Sorting {
 		private String content;
 		private int id;
 
+		/**
+		 * constructor that sets the file, content and id
+		 * @param givenFile the file needed to sort
+		 * @param content the conte
+		 * @param id
+		 */
 		public Handler(File givenFile, String content, int id)
 		{
 			this.file = givenFile;
 			this.content = content;
 			this.id = id;
 		}
-
+		
+		/**
+		 * 
+		 */
 		public void run()
 		{
 			ArrayList<String> arr = new ArrayList<String>(Arrays.asList(content.split("\n")));
@@ -188,7 +196,12 @@ public class Sorting {
 			}
 		}
 	}
-
+	
+	/**
+	 * implements multithreading to remove duplicates in a file
+	 * @param file the file to reduce
+	 * @return
+	 */
 	private File reduce(File file) {
 		//get chunks from file, get file data, add to treemap to remove duplicates, sort map, overwrite onto peer
 		String fileName = file.getFileName();
@@ -245,22 +258,32 @@ public class Sorting {
 
 	}
 
-
+	/**
+	 * maps the chunk in a file
+	 * @param fileName file to map the chunk to
+	 * @param chunk to be mapped
+	 */
 	private void map(String fileName, Chunk chunk) {
 		ArrayList<Object> objs = (ArrayList<Object>) createObjects(new String (chunk.getData()), fileName);
 
 		if (fileName.equals("songs_inverted_index.json")) {
 			ArrayList<Song> songs = (ArrayList<Song>) objs.stream().map(e -> (Song) e).collect(Collectors.toList());
-			emitSong(createSongMap(fileName, songs));
+			emitSong(createSongMap(songs));
 		} else if (fileName.equals("albums_inverted_index.json")) {
 			ArrayList<Album> albums = (ArrayList<Album>) objs.stream().map(e -> (Album) e).collect(Collectors.toList());
-			emitAlbum(createAlbumMap(fileName, albums));
+			emitAlbum(createAlbumMap(albums));
 		} else if (fileName.equals("artists_inverted_index.json")) {
 			ArrayList<Artist> artists = (ArrayList<Artist>)objs.stream().map(e -> (Artist) e).collect(Collectors.toList());
-			emitArtist(createArtistMap(fileName, artists));
+			emitArtist(createArtistMap(artists));
 		}
 	}
 
+	/**
+	 * transforms json string to an object. Based on the file, determines what type the object is
+	 * @param json string to transform to an object
+	 * @param fileName file for type decision
+	 * @return list of objects from json string
+	 */
 	private List<Object> createObjects(String json, String fileName) {
 		Gson gson = new Gson();
 
@@ -277,8 +300,12 @@ public class Sorting {
 		return null;
 	}
 
-
-	private TreeMap<String, List<Song>> createSongMap(String fileName, ArrayList<Song> obj) {
+	/**
+	 * creates a treemap of song lists
+	 * @param obj arraylist of songs
+	 * @return treemap of songs from the arraylist
+	 */
+	private TreeMap<String, List<Song>> createSongMap(ArrayList<Song> obj) {
 		TreeMap<String, List<Song>> map = new TreeMap<String, List<Song>>();
 
 		for (Song song : obj) {
@@ -288,11 +315,15 @@ public class Sorting {
 				map.put(song.getTitle(), new ArrayList<Song>(Arrays.asList(song)));
 			}
 		}
-
 		return map;
 	}
 
-	private TreeMap<String, List<Album>> createAlbumMap(String fileName, ArrayList<Album> obj) {
+	/**
+	 * creates a treemap of Album lists
+	 * @param obj arraylist of Albums
+	 * @return treemap of Albums from the arraylist
+	 */
+	private TreeMap<String, List<Album>> createAlbumMap(ArrayList<Album> obj) {
 		TreeMap<String, List<Album>> map = new TreeMap<String, List<Album>>();
 
 		for (Album album : obj) {
@@ -306,7 +337,12 @@ public class Sorting {
 		return map;
 	}
 
-	private TreeMap<String, List<Artist>> createArtistMap(String fileName, ArrayList<Artist> obj) {
+	/**
+	 * creates a treemap of artist lists
+	 * @param obj arraylist of artists
+	 * @return treemap of artists from the arraylist
+	 */
+	private TreeMap<String, List<Artist>> createArtistMap(ArrayList<Artist> obj) {
 		TreeMap<String, List<Artist>> map = new TreeMap<String, List<Artist>>();
 
 		for (Artist artist : obj) {
@@ -320,8 +356,10 @@ public class Sorting {
 		return map;
 	}
 
-
-
+	/**
+	 * determines which peer each element in a song map is sent to
+	 * @param map tree map with list of songs 
+	 */
 	private void emitSong(TreeMap<String, List<Song>> map) {
 		Iterator<Entry<String, List<Song>>> iter = map.entrySet().iterator();
 		Gson gson = new Gson();
@@ -347,6 +385,10 @@ public class Sorting {
 		}	
 	}
 
+	/**
+	 * determines which peer each element in a album map is sent to
+	 * @param map tree map with list of albums 
+	 */
 	private void emitAlbum(TreeMap<String, List<Album>> map) {
 		Iterator<Entry<String, List<Album>>> iter = map.entrySet().iterator();
 		Gson gson = new Gson();
@@ -371,6 +413,10 @@ public class Sorting {
 		}	
 	}
 
+	/**
+	 * determines which field each item in the artist map is sent to
+	 * @param map
+	 */
 	private void emitArtist(TreeMap<String, List<Artist>> map) {
 		Iterator<Entry<String, List<Artist>>> iter = map.entrySet().iterator();
 		Gson gson = new Gson();
