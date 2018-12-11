@@ -249,7 +249,7 @@ public class Metadata {
 				
 				//if this artist starts with the search criteria...
 				//YOU CAN CHANGE THIS LOGIC
-				if (artist.getName().toLowerCase().startsWith(name)) {
+				if (artist.getName().toLowerCase().startsWith(name.toLowerCase())) {
 					
 					ArrayList<Album> albums = artist.getSongs();
 					
@@ -286,7 +286,7 @@ public class Metadata {
 				
 				//if this album name starts with the search criteria...
 				//YOU CAN CHANGE THIS LOGIC
-				if (album.getName().toLowerCase().startsWith(title)) {
+				if (album.getName().toLowerCase().startsWith(title.toLowerCase())) {
 					
 					//return all the songs from this album
 					return album.getSongs();
@@ -316,7 +316,7 @@ public class Metadata {
 				
 				//if this song name starts with the search criteria...
 				//YOU CAN CHANGE THIS LOGIC
-				if (thisSong.getTitle().toLowerCase().startsWith(title)) {
+				if (thisSong.getTitle().toLowerCase().startsWith(title.toLowerCase())) {
 					return thisSong;
 				}
 			}
